@@ -89,7 +89,7 @@
             // 
             ServerSelectionComboBox.FormattingEnabled = true;
             ServerSelectionComboBox.Items.AddRange(new object[] { "1", "2", "3", "4" });
-            ServerSelectionComboBox.Location = new Point(415, 81);
+            ServerSelectionComboBox.Location = new Point(415, 77);
             ServerSelectionComboBox.Name = "ServerSelectionComboBox";
             ServerSelectionComboBox.Size = new Size(31, 23);
             ServerSelectionComboBox.TabIndex = 0;
@@ -100,7 +100,7 @@
             // 
             ServerSelectionLabel.AutoSize = true;
             ServerSelectionLabel.ForeColor = SystemColors.ButtonHighlight;
-            ServerSelectionLabel.Location = new Point(334, 84);
+            ServerSelectionLabel.Location = new Point(334, 80);
             ServerSelectionLabel.Name = "ServerSelectionLabel";
             ServerSelectionLabel.Size = new Size(76, 15);
             ServerSelectionLabel.TabIndex = 1;
@@ -109,7 +109,7 @@
             // InstallSteamCMD_Button
             // 
             InstallSteamCMD_Button.ForeColor = SystemColors.ActiveCaptionText;
-            InstallSteamCMD_Button.Location = new Point(33, 61);
+            InstallSteamCMD_Button.Location = new Point(33, 57);
             InstallSteamCMD_Button.Name = "InstallSteamCMD_Button";
             InstallSteamCMD_Button.Size = new Size(127, 23);
             InstallSteamCMD_Button.TabIndex = 2;
@@ -120,7 +120,7 @@
             // InstallUpdateServer_Button
             // 
             InstallUpdateServer_Button.ForeColor = SystemColors.ActiveCaptionText;
-            InstallUpdateServer_Button.Location = new Point(33, 169);
+            InstallUpdateServer_Button.Location = new Point(33, 165);
             InstallUpdateServer_Button.Name = "InstallUpdateServer_Button";
             InstallUpdateServer_Button.Size = new Size(127, 23);
             InstallUpdateServer_Button.TabIndex = 3;
@@ -131,28 +131,28 @@
             // 
             // ServerName_TextBox
             // 
-            ServerName_TextBox.Location = new Point(314, 125);
+            ServerName_TextBox.Location = new Point(314, 121);
             ServerName_TextBox.Name = "ServerName_TextBox";
             ServerName_TextBox.Size = new Size(170, 23);
             ServerName_TextBox.TabIndex = 4;
             // 
             // ServerPassword_TextBox
             // 
-            ServerPassword_TextBox.Location = new Point(314, 154);
+            ServerPassword_TextBox.Location = new Point(314, 150);
             ServerPassword_TextBox.Name = "ServerPassword_TextBox";
             ServerPassword_TextBox.Size = new Size(170, 23);
             ServerPassword_TextBox.TabIndex = 5;
             // 
             // IP_TextBox
             // 
-            IP_TextBox.Location = new Point(314, 183);
+            IP_TextBox.Location = new Point(314, 179);
             IP_TextBox.Name = "IP_TextBox";
             IP_TextBox.Size = new Size(134, 23);
             IP_TextBox.TabIndex = 6;
             // 
             // GamePort_input
             // 
-            GamePort_input.Location = new Point(314, 213);
+            GamePort_input.Location = new Point(314, 209);
             GamePort_input.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             GamePort_input.Name = "GamePort_input";
             GamePort_input.Size = new Size(62, 23);
@@ -160,7 +160,7 @@
             // 
             // QueryPort_input
             // 
-            QueryPort_input.Location = new Point(314, 242);
+            QueryPort_input.Location = new Point(314, 238);
             QueryPort_input.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             QueryPort_input.Name = "QueryPort_input";
             QueryPort_input.Size = new Size(62, 23);
@@ -168,7 +168,7 @@
             // 
             // SlotCount_input
             // 
-            SlotCount_input.Location = new Point(314, 271);
+            SlotCount_input.Location = new Point(314, 267);
             SlotCount_input.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
             SlotCount_input.Name = "SlotCount_input";
             SlotCount_input.Size = new Size(35, 23);
@@ -178,7 +178,7 @@
             // 
             Servername_Label.AutoSize = true;
             Servername_Label.ForeColor = SystemColors.ButtonHighlight;
-            Servername_Label.Location = new Point(243, 128);
+            Servername_Label.Location = new Point(243, 124);
             Servername_Label.Name = "Servername_Label";
             Servername_Label.Size = new Size(69, 15);
             Servername_Label.TabIndex = 10;
@@ -188,7 +188,7 @@
             // 
             Password_Label.AutoSize = true;
             Password_Label.ForeColor = SystemColors.ButtonHighlight;
-            Password_Label.Location = new Point(255, 157);
+            Password_Label.Location = new Point(255, 153);
             Password_Label.Name = "Password_Label";
             Password_Label.Size = new Size(57, 15);
             Password_Label.TabIndex = 11;
@@ -198,7 +198,7 @@
             // 
             IpAddress_Label.AutoSize = true;
             IpAddress_Label.ForeColor = SystemColors.ButtonHighlight;
-            IpAddress_Label.Location = new Point(250, 186);
+            IpAddress_Label.Location = new Point(250, 182);
             IpAddress_Label.Name = "IpAddress_Label";
             IpAddress_Label.Size = new Size(62, 15);
             IpAddress_Label.TabIndex = 12;
@@ -208,7 +208,7 @@
             // 
             GamePort_label.AutoSize = true;
             GamePort_label.ForeColor = SystemColors.ButtonHighlight;
-            GamePort_label.Location = new Point(252, 215);
+            GamePort_label.Location = new Point(252, 211);
             GamePort_label.Name = "GamePort_label";
             GamePort_label.Size = new Size(60, 15);
             GamePort_label.TabIndex = 13;
@@ -218,7 +218,7 @@
             // 
             QueryPort_Label.AutoSize = true;
             QueryPort_Label.ForeColor = SystemColors.ButtonHighlight;
-            QueryPort_Label.Location = new Point(251, 244);
+            QueryPort_Label.Location = new Point(251, 240);
             QueryPort_Label.Name = "QueryPort_Label";
             QueryPort_Label.Size = new Size(61, 15);
             QueryPort_Label.TabIndex = 14;
@@ -227,7 +227,7 @@
             // MaxPlayers_Label
             // 
             MaxPlayers_Label.AutoSize = true;
-            MaxPlayers_Label.Location = new Point(245, 273);
+            MaxPlayers_Label.Location = new Point(245, 269);
             MaxPlayers_Label.Name = "MaxPlayers_Label";
             MaxPlayers_Label.Size = new Size(67, 15);
             MaxPlayers_Label.TabIndex = 15;
@@ -236,7 +236,7 @@
             // SaveSettings_Button
             // 
             SaveSettings_Button.ForeColor = SystemColors.ActiveCaptionText;
-            SaveSettings_Button.Location = new Point(318, 319);
+            SaveSettings_Button.Location = new Point(318, 315);
             SaveSettings_Button.Name = "SaveSettings_Button";
             SaveSettings_Button.Size = new Size(124, 23);
             SaveSettings_Button.TabIndex = 17;
@@ -247,7 +247,7 @@
             // StartServer_Button
             // 
             StartServer_Button.ForeColor = SystemColors.ActiveCaptionText;
-            StartServer_Button.Location = new Point(33, 198);
+            StartServer_Button.Location = new Point(33, 194);
             StartServer_Button.Name = "StartServer_Button";
             StartServer_Button.Size = new Size(127, 23);
             StartServer_Button.TabIndex = 18;
@@ -262,7 +262,7 @@
             pictureBox2.Dock = DockStyle.Left;
             pictureBox2.Location = new Point(10, 40);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(171, 373);
+            pictureBox2.Size = new Size(171, 369);
             pictureBox2.TabIndex = 21;
             pictureBox2.TabStop = false;
             // 
@@ -282,7 +282,7 @@
             AdminPanelLabel.BackColor = SystemColors.ControlDarkDark;
             AdminPanelLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             AdminPanelLabel.ForeColor = SystemColors.ControlDark;
-            AdminPanelLabel.Location = new Point(11, 379);
+            AdminPanelLabel.Location = new Point(11, 375);
             AdminPanelLabel.Name = "AdminPanelLabel";
             AdminPanelLabel.Size = new Size(153, 32);
             AdminPanelLabel.TabIndex = 23;
@@ -294,11 +294,11 @@
             TitleLabel.BackColor = SystemColors.ControlDark;
             TitleLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             TitleLabel.ForeColor = SystemColors.ControlDarkDark;
-            TitleLabel.Location = new Point(9, 5);
+            TitleLabel.Location = new Point(6, 5);
             TitleLabel.Name = "TitleLabel";
-            TitleLabel.Size = new Size(338, 32);
+            TitleLabel.Size = new Size(414, 32);
             TitleLabel.TabIndex = 24;
-            TitleLabel.Text = "Enshrouded Server Manager";
+            TitleLabel.Text = "ESM - Enshrouded Server Manager";
             // 
             // ServerSettingsLabel
             // 
@@ -306,7 +306,7 @@
             ServerSettingsLabel.BackColor = SystemColors.ControlDarkDark;
             ServerSettingsLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             ServerSettingsLabel.ForeColor = SystemColors.ControlDark;
-            ServerSettingsLabel.Location = new Point(193, 378);
+            ServerSettingsLabel.Location = new Point(193, 374);
             ServerSettingsLabel.Name = "ServerSettingsLabel";
             ServerSettingsLabel.Size = new Size(186, 32);
             ServerSettingsLabel.TabIndex = 25;
@@ -315,7 +315,7 @@
             // pictureBox4
             // 
             pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(568, 55);
+            pictureBox4.Location = new Point(568, 51);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(213, 99);
             pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
@@ -354,7 +354,7 @@
             pictureBox5.Dock = DockStyle.Left;
             pictureBox5.Location = new Point(0, 40);
             pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(10, 373);
+            pictureBox5.Size = new Size(10, 369);
             pictureBox5.TabIndex = 29;
             pictureBox5.TabStop = false;
             // 
@@ -364,7 +364,7 @@
             NewsLabel.BackColor = SystemColors.ControlDarkDark;
             NewsLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             NewsLabel.ForeColor = SystemColors.ControlDark;
-            NewsLabel.Location = new Point(562, 378);
+            NewsLabel.Location = new Point(562, 374);
             NewsLabel.Name = "NewsLabel";
             NewsLabel.Size = new Size(76, 32);
             NewsLabel.TabIndex = 30;
@@ -374,7 +374,7 @@
             // 
             pictureBox7.BackColor = SystemColors.ControlDark;
             pictureBox7.Dock = DockStyle.Bottom;
-            pictureBox7.Location = new Point(0, 413);
+            pictureBox7.Location = new Point(0, 409);
             pictureBox7.Name = "pictureBox7";
             pictureBox7.Size = new Size(790, 21);
             pictureBox7.TabIndex = 33;
@@ -386,7 +386,7 @@
             pictureBox6.Dock = DockStyle.Right;
             pictureBox6.Location = new Point(790, 40);
             pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(10, 394);
+            pictureBox6.Size = new Size(10, 390);
             pictureBox6.TabIndex = 34;
             pictureBox6.TabStop = false;
             // 
@@ -396,7 +396,7 @@
             pictureBox1.Dock = DockStyle.Right;
             pictureBox1.Location = new Point(560, 40);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(230, 373);
+            pictureBox1.Size = new Size(230, 369);
             pictureBox1.TabIndex = 35;
             pictureBox1.TabStop = false;
             // 
@@ -406,7 +406,7 @@
             pictureBox8.Dock = DockStyle.Right;
             pictureBox8.Location = new Point(550, 40);
             pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(10, 373);
+            pictureBox8.Size = new Size(10, 369);
             pictureBox8.TabIndex = 36;
             pictureBox8.TabStop = false;
             // 
@@ -416,14 +416,14 @@
             pictureBox9.Dock = DockStyle.Left;
             pictureBox9.Location = new Point(181, 40);
             pictureBox9.Name = "pictureBox9";
-            pictureBox9.Size = new Size(10, 373);
+            pictureBox9.Size = new Size(10, 369);
             pictureBox9.TabIndex = 37;
             pictureBox9.TabStop = false;
             // 
             // SaveBackup_Button
             // 
             SaveBackup_Button.ForeColor = SystemColors.ActiveCaptionText;
-            SaveBackup_Button.Location = new Point(33, 246);
+            SaveBackup_Button.Location = new Point(33, 242);
             SaveBackup_Button.Name = "SaveBackup_Button";
             SaveBackup_Button.Size = new Size(127, 23);
             SaveBackup_Button.TabIndex = 38;
@@ -434,7 +434,7 @@
             // OpenBackupFolder_Button
             // 
             OpenBackupFolder_Button.ForeColor = SystemColors.ActiveCaptionText;
-            OpenBackupFolder_Button.Location = new Point(33, 275);
+            OpenBackupFolder_Button.Location = new Point(33, 271);
             OpenBackupFolder_Button.Name = "OpenBackupFolder_Button";
             OpenBackupFolder_Button.Size = new Size(127, 23);
             OpenBackupFolder_Button.TabIndex = 39;
@@ -445,7 +445,7 @@
             // WindowsFirewall_Button
             // 
             WindowsFirewall_Button.ForeColor = SystemColors.ActiveCaptionText;
-            WindowsFirewall_Button.Location = new Point(33, 88);
+            WindowsFirewall_Button.Location = new Point(33, 84);
             WindowsFirewall_Button.Name = "WindowsFirewall_Button";
             WindowsFirewall_Button.Size = new Size(127, 23);
             WindowsFirewall_Button.TabIndex = 40;
@@ -456,7 +456,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(577, 172);
+            label7.Location = new Point(577, 168);
             label7.Name = "label7";
             label7.Size = new Size(164, 45);
             label7.TabIndex = 41;
@@ -465,7 +465,7 @@
             // ServerProfileSpecific
             // 
             ServerProfileSpecific.AutoSize = true;
-            ServerProfileSpecific.Location = new Point(30, 142);
+            ServerProfileSpecific.Location = new Point(30, 138);
             ServerProfileSpecific.Name = "ServerProfileSpecific";
             ServerProfileSpecific.Size = new Size(129, 15);
             ServerProfileSpecific.TabIndex = 42;
@@ -474,7 +474,7 @@
             // pictureBox10
             // 
             pictureBox10.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox10.Location = new Point(26, 163);
+            pictureBox10.Location = new Point(26, 159);
             pictureBox10.Name = "pictureBox10";
             pictureBox10.Size = new Size(140, 203);
             pictureBox10.TabIndex = 43;
@@ -483,7 +483,7 @@
             // OpenSavegameFolder_Button
             // 
             OpenSavegameFolder_Button.ForeColor = SystemColors.ActiveCaptionText;
-            OpenSavegameFolder_Button.Location = new Point(33, 304);
+            OpenSavegameFolder_Button.Location = new Point(33, 300);
             OpenSavegameFolder_Button.Name = "OpenSavegameFolder_Button";
             OpenSavegameFolder_Button.Size = new Size(126, 23);
             OpenSavegameFolder_Button.TabIndex = 44;
@@ -494,7 +494,7 @@
             // OpenLogFolder_Button
             // 
             OpenLogFolder_Button.ForeColor = SystemColors.ActiveCaptionText;
-            OpenLogFolder_Button.Location = new Point(33, 333);
+            OpenLogFolder_Button.Location = new Point(33, 329);
             OpenLogFolder_Button.Name = "OpenLogFolder_Button";
             OpenLogFolder_Button.Size = new Size(127, 23);
             OpenLogFolder_Button.TabIndex = 45;
@@ -507,7 +507,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
-            ClientSize = new Size(800, 434);
+            ClientSize = new Size(800, 430);
             Controls.Add(OpenLogFolder_Button);
             Controls.Add(OpenSavegameFolder_Button);
             Controls.Add(OpenBackupFolder_Button);
