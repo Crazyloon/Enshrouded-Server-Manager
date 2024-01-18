@@ -299,6 +299,7 @@
             TitleLabel.Size = new Size(414, 32);
             TitleLabel.TabIndex = 24;
             TitleLabel.Text = "ESM - Enshrouded Server Manager";
+            TitleLabel.MouseDown += pictureBox3_MouseDown;
             // 
             // ServerSettingsLabel
             // 
