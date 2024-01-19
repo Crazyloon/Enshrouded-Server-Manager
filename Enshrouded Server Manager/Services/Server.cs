@@ -20,11 +20,11 @@ namespace Enshrouded_Server_Manager.Services
             {
                 Process p = Process.Start(pathServerExe);
                 Thread.Sleep(500); 
-                SetWindowText(p.MainWindowHandle, "Install/Update Server" + ServerSelectText);
+                SetWindowText(p.MainWindowHandle, $"Install/Update Server{ServerSelectText}");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Following error occured while starting the server: " + ex.Message.ToString(),
+                MessageBox.Show($"Following error occured while starting the server: {ex.Message.ToString()}",
                     "Error while starting", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -38,14 +38,11 @@ namespace Enshrouded_Server_Manager.Services
 
             try
             {
-                Process p = Process.Start(_pathSteamCmdExe, "+force_install_dir " + Serverpath + " +login anonymous +app_update " + SteamAppId + " validate +quit");
-                //namechange does not work
-                //Thread.Sleep(100); 
-                //SetWindowText(p.MainWindowHandle, "Install/Update Server" + ServerSelectText);
+                Process p = Process.Start(_pathSteamCmdExe, $"+force_install_dir {Serverpath} +login anonymous +app_update {SteamAppId} validate +quit");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Following error occured while updating the server: " + ex.Message.ToString(),
+                MessageBox.Show($"Following error occured while updating the server: {ex.Message.ToString()}",
                     "Error while updating", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }

@@ -40,7 +40,7 @@ namespace Enshrouded_Server_Manager.Services
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Following error appeared while extracting: " + ex.Message.ToString(),
+                MessageBox.Show($"Following error appeared while extracting: {ex.Message.ToString()}",
                     "Error while extracting", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
