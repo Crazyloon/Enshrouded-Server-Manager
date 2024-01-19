@@ -70,6 +70,11 @@ namespace Enshrouded_Server_Manager
                 UpdateServer_Button.Visible = false;
                 StartServer_Button.Visible = false;
             }
+            if (!File.Exists(_steamCmdExe))
+            {
+                InstallServer_Button.Visible = false;
+            }
+
 
 
             if (!File.Exists($"{_defaultJsonPath}Server{ServerSelectText}.json"))
@@ -135,7 +140,6 @@ namespace Enshrouded_Server_Manager
             if (File.Exists(_steamCmdExe))
             {
                 InstallServer_Button.Visible = true;
-                StartServer_Button.Visible = true;
             }
         }
 
@@ -144,6 +148,10 @@ namespace Enshrouded_Server_Manager
             string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
 
             _server.InstallUpdate(_steamAppId, $"{_serverPathInstall}{ServerSelectText}");
+
+            InstallServer_Button.Visible = false;
+            UpdateServer_Button.Visible = true;
+            StartServer_Button.Visible = true;
 
         }
 

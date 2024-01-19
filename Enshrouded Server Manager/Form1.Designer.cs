@@ -507,7 +507,7 @@
             // UpdateServer_Button
             // 
             UpdateServer_Button.ForeColor = SystemColors.ActiveCaptionText;
-            UpdateServer_Button.Location = new Point(33, 165);
+            UpdateServer_Button.Location = new Point(32, 165);
             UpdateServer_Button.Name = "UpdateServer_Button";
             UpdateServer_Button.Size = new Size(127, 23);
             UpdateServer_Button.TabIndex = 46;
