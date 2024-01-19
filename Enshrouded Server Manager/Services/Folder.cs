@@ -1,4 +1,5 @@
-using Microsoft.VisualBasic.FileIO;
+
+
 
 namespace Enshrouded_Server_Manager.Services
 {
@@ -12,7 +13,7 @@ namespace Enshrouded_Server_Manager.Services
         {
             if (!Directory.Exists(Foldername))
             {
-                FileSystem.CreateDirectory(Foldername);
+                Directory.CreateDirectory(Foldername);
             }
 
         }

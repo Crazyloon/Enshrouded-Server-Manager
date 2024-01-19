@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Enshrouded_Server_Manager.Services
+namespace Enshrouded_Server_Manager.Model
 {
     public class Json
     {

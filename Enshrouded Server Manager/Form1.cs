@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using Newtonsoft.Json.Linq;
 using System.Runtime.InteropServices;
+using Enshrouded_Server_Manager.Model;
 
 namespace Enshrouded_Server_Manager
 {
@@ -11,7 +12,6 @@ namespace Enshrouded_Server_Manager
         private SteamCMD _steamCMD;
         private Server _server;
         private Backup _backup;
-        private Json _json;
         private Folder _folder;
 
         // Server Tool SteamId
@@ -43,7 +43,6 @@ namespace Enshrouded_Server_Manager
             _steamCMD = new SteamCMD();
             _server = new Server();
             _backup = new Backup();
-            _json = new Json();
             _folder = new Folder();
 
         }
