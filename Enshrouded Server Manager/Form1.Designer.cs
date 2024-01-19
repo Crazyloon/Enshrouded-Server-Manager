@@ -32,7 +32,7 @@
             ServerSelectionComboBox = new ComboBox();
             ServerSelectionLabel = new Label();
             InstallSteamCMD_Button = new Button();
-            InstallUpdateServer_Button = new Button();
+            InstallServer_Button = new Button();
             ServerName_TextBox = new TextBox();
             ServerPassword_TextBox = new TextBox();
             IP_TextBox = new TextBox();
@@ -70,6 +70,7 @@
             pictureBox10 = new PictureBox();
             OpenSavegameFolder_Button = new Button();
             OpenLogFolder_Button = new Button();
+            UpdateServer_Button = new Button();
             ((System.ComponentModel.ISupportInitialize)GamePort_input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)QueryPort_input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)SlotCount_input).BeginInit();
@@ -117,17 +118,17 @@
             InstallSteamCMD_Button.UseVisualStyleBackColor = true;
             InstallSteamCMD_Button.Click += InstallSteamCMD_Button_Click;
             // 
-            // InstallUpdateServer_Button
+            // InstallServer_Button
             // 
-            InstallUpdateServer_Button.ForeColor = SystemColors.ActiveCaptionText;
-            InstallUpdateServer_Button.Location = new Point(33, 165);
-            InstallUpdateServer_Button.Name = "InstallUpdateServer_Button";
-            InstallUpdateServer_Button.Size = new Size(127, 23);
-            InstallUpdateServer_Button.TabIndex = 3;
-            InstallUpdateServer_Button.Text = "Install/Update Server";
-            InstallUpdateServer_Button.UseVisualStyleBackColor = true;
-            InstallUpdateServer_Button.Visible = false;
-            InstallUpdateServer_Button.Click += InstallUpdateServer_Button_Click;
+            InstallServer_Button.ForeColor = SystemColors.ActiveCaptionText;
+            InstallServer_Button.Location = new Point(33, 165);
+            InstallServer_Button.Name = "InstallServer_Button";
+            InstallServer_Button.Size = new Size(127, 23);
+            InstallServer_Button.TabIndex = 3;
+            InstallServer_Button.Text = "Install Server";
+            InstallServer_Button.UseVisualStyleBackColor = true;
+            InstallServer_Button.Visible = false;
+            InstallServer_Button.Click += InstallServer_Button_Click;
             // 
             // ServerName_TextBox
             // 
@@ -503,18 +504,31 @@
             OpenLogFolder_Button.UseVisualStyleBackColor = true;
             OpenLogFolder_Button.Click += OpenLogFolder_Button_Click;
             // 
+            // UpdateServer_Button
+            // 
+            UpdateServer_Button.ForeColor = SystemColors.ActiveCaptionText;
+            UpdateServer_Button.Location = new Point(33, 165);
+            UpdateServer_Button.Name = "UpdateServer_Button";
+            UpdateServer_Button.Size = new Size(127, 23);
+            UpdateServer_Button.TabIndex = 46;
+            UpdateServer_Button.Text = "Update Server";
+            UpdateServer_Button.UseVisualStyleBackColor = true;
+            UpdateServer_Button.Visible = false;
+            UpdateServer_Button.Click += UpdateServer_Button_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(800, 430);
+            Controls.Add(UpdateServer_Button);
             Controls.Add(OpenLogFolder_Button);
             Controls.Add(OpenSavegameFolder_Button);
             Controls.Add(OpenBackupFolder_Button);
             Controls.Add(SaveBackup_Button);
             Controls.Add(StartServer_Button);
-            Controls.Add(InstallUpdateServer_Button);
+            Controls.Add(InstallServer_Button);
             Controls.Add(ServerProfileSpecific);
             Controls.Add(pictureBox10);
             Controls.Add(label7);
@@ -578,7 +592,7 @@
         private ComboBox ServerSelectionComboBox;
         private Label ServerSelectionLabel;
         private Button InstallSteamCMD_Button;
-        private Button InstallUpdateServer_Button;
+        private Button InstallServer_Button;
         private TextBox ServerName_TextBox;
         private TextBox ServerPassword_TextBox;
         private TextBox IP_TextBox;
@@ -616,5 +630,6 @@
         private PictureBox pictureBox10;
         private Button OpenSavegameFolder_Button;
         private Button OpenLogFolder_Button;
+        private Button UpdateServer_Button;
     }
 }
