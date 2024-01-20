@@ -460,9 +460,9 @@
             label7.AutoSize = true;
             label7.Location = new Point(577, 168);
             label7.Name = "label7";
-            label7.Size = new Size(164, 45);
+            label7.Size = new Size(165, 60);
             label7.TabIndex = 41;
-            label7.Text = "Version 0.0.1:\r\n\r\n- first version of this Launcher\r\n";
+            label7.Text = "Version 0.0.2:\r\n\r\n- added server window title:\r\n   ESM - Server X - Servername\r\n";
             // 
             // ServerProfileSpecific
             // 

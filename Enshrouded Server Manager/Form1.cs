@@ -233,7 +233,7 @@ namespace Enshrouded_Server_Manager
             File.WriteAllText($"{_defaultJsonPath}Server{ServerSelectText}.json", output);
             File.WriteAllText($"{_serverPath}{ServerSelectText}/{_gameServerConfig}", output);
 
-            _server.Start($"{_serverPath}{ServerSelectText}/{_gameServerExe}", ServerSelectText);
+            _server.Start($"{_serverPath}{ServerSelectText}/{_gameServerExe}", ServerSelectText, ServerName_TextBox.Text);
         }
 
         private void SaveBackup_Button_Click(object sender, EventArgs e)
