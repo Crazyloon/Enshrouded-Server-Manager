@@ -4,5 +4,3 @@ use at own risk!
 
 
 Enshrouded is a registered product of Keen Games GmbH
-
-Picture used is from the Steamsite of the Game
