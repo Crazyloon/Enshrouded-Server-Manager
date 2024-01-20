@@ -19,8 +19,8 @@ namespace Enshrouded_Server_Manager.Services
             try
             {
                 Process p = Process.Start(pathServerExe);
-                Thread.Sleep(500); 
-                SetWindowText(p.MainWindowHandle, $"Server{ServerSelectText}");
+                Thread.Sleep(5000); 
+                SetWindowText(p.MainWindowHandle, $"ESM Server{ServerSelectText}");
             }
             catch (Exception ex)
             {

@@ -16,19 +16,16 @@ namespace Enshrouded_Server_Manager
 
         // Server Tool SteamId
         private string _steamAppId = "2278520";
-        // Game Server Folder Name
-        private string _gameServerFolderName = @"/EnshroudedServer/";
         // Game Server exe Name
-        private string _gameServerExe = "enshrouded_server.exe";
+        private string _gameServerExe = @"/enshrouded_server.exe";
         // Game Server config Name
         private string _gameServerConfig = "enshrouded_server.json";
         // Savegame folder name after Server folder
-        private string _gameServerSaveFolder = "savegame";
+        private string _gameServerSaveFolder = @"./savegame";
         // Logs folder name after Server folder
-        private string _gameServerLogsFolder = "logs";
+        private string _gameServerLogsFolder = @"./logs";
 
         private string _steamCmdExe = @"./SteamCMD/steamcmd.exe";
-        private string _steamappsCommon = @"./steamapps/common";
         private string _serverPathInstall = @"../Servers/Server";
         private string _serverPath = @"./Servers/Server";
         private string _defaultJsonPath = @"./ServerConfigs/";
@@ -66,12 +63,12 @@ namespace Enshrouded_Server_Manager
                 InstallServer_Button.Visible = true;
                 StartServer_Button.Visible = true;
             }
-            if (File.Exists($"{_serverPath}{ServerSelectText}{_steamappsCommon}{_gameServerFolderName}{_gameServerExe}"))
+            if (File.Exists($"{_serverPath}{ServerSelectText}/{_gameServerExe}"))
             {
                 InstallServer_Button.Visible = false;
                 UpdateServer_Button.Visible = true;
             }
-            if (!File.Exists($"{_serverPath}{ServerSelectText}{_steamappsCommon}{_gameServerFolderName}{_gameServerExe}"))
+            if (!File.Exists($"{_serverPath}{ServerSelectText}/{_gameServerExe}"))
             {
                 InstallServer_Button.Visible = true;
                 UpdateServer_Button.Visible = false;
@@ -173,7 +170,7 @@ namespace Enshrouded_Server_Manager
         {
             string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
 
-            _folder.create($"{_serverPath}{ServerSelectText}{_steamappsCommon}{_gameServerFolderName}");
+            _folder.create($"{_serverPath}{ServerSelectText}");
 
 
             int Gameport;
@@ -199,7 +196,7 @@ namespace Enshrouded_Server_Manager
 
             var output = JsonConvert.SerializeObject(json);
             File.WriteAllText($"{_defaultJsonPath}Server{ServerSelectText}.json", output);
-            File.WriteAllText($"{_serverPath}{ServerSelectText}{_steamappsCommon}{_gameServerFolderName}{_gameServerConfig}", output);                                           //needs to be the server tool .json
+            File.WriteAllText($"{_serverPath}{ServerSelectText}/{_gameServerConfig}", output);                                           //needs to be the server tool .json
 
             MessageBox.Show("Server Settings saved!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -208,7 +205,7 @@ namespace Enshrouded_Server_Manager
         {
             string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
 
-            _folder.create($"{_serverPath}{ServerSelectText}{_steamappsCommon}{_gameServerFolderName}");
+            _folder.create($"{_serverPath}{ServerSelectText}");
 
 
             int Gameport;
@@ -234,16 +231,16 @@ namespace Enshrouded_Server_Manager
 
             var output = JsonConvert.SerializeObject(json);
             File.WriteAllText($"{_defaultJsonPath}Server{ServerSelectText}.json", output);
-            File.WriteAllText($"{_serverPath}{ServerSelectText}{_steamappsCommon}{_gameServerFolderName}{_gameServerConfig}", output);
+            File.WriteAllText($"{_serverPath}{ServerSelectText}/{_gameServerConfig}", output);
 
-            _server.Start($"{_serverPath}{ServerSelectText}{_steamappsCommon}{_gameServerFolderName}{_gameServerExe}", ServerSelectText);
+            _server.Start($"{_serverPath}{ServerSelectText}/{_gameServerExe}", ServerSelectText);
         }
 
         private void SaveBackup_Button_Click(object sender, EventArgs e)
         {
             string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
 
-            _backup.Save($"{_serverPath}{ServerSelectText}{_steamappsCommon}{_gameServerFolderName}{_gameServerSaveFolder}", ServerSelectText);
+            _backup.Save($"{_serverPath}{ServerSelectText}/{_gameServerSaveFolder}", ServerSelectText);
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -274,7 +271,7 @@ namespace Enshrouded_Server_Manager
         private void OpenSavegameFolder_Button_Click(object sender, EventArgs e)
         {
             string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
-            string savegamefolder = $"{_serverPath}{ServerSelectText}{_steamappsCommon}{_gameServerFolderName}{_gameServerSaveFolder}";
+            string savegamefolder = $"{_serverPath}{ServerSelectText}/{_gameServerSaveFolder}";
 
             _folder.create(savegamefolder);
 
@@ -284,7 +281,7 @@ namespace Enshrouded_Server_Manager
         private void OpenLogFolder_Button_Click(object sender, EventArgs e)
         {
             string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
-            string logfolder = $"{_serverPath}{ServerSelectText}{_steamappsCommon}{_gameServerFolderName}{_gameServerLogsFolder}";
+            string logfolder = $"{_serverPath}{ServerSelectText}/{_gameServerLogsFolder}";
 
             _folder.create(logfolder);
 
