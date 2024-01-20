@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             ServerSelectionComboBox = new ComboBox();
             ServerSelectionLabel = new Label();
             InstallSteamCMD_Button = new Button();
@@ -52,7 +51,6 @@
             AdminPanelLabel = new Label();
             TitleLabel = new Label();
             ServerSettingsLabel = new Label();
-            pictureBox4 = new PictureBox();
             CloseLabel = new Label();
             MinimizeTrayLabel = new Label();
             pictureBox5 = new PictureBox();
@@ -71,12 +69,12 @@
             OpenSavegameFolder_Button = new Button();
             OpenLogFolder_Button = new Button();
             UpdateServer_Button = new Button();
+            logo = new Label();
             ((System.ComponentModel.ISupportInitialize)GamePort_input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)QueryPort_input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)SlotCount_input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
@@ -314,16 +312,6 @@
             ServerSettingsLabel.TabIndex = 25;
             ServerSettingsLabel.Text = "Server Settings";
             // 
-            // pictureBox4
-            // 
-            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(568, 51);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(213, 99);
-            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox4.TabIndex = 26;
-            pictureBox4.TabStop = false;
-            // 
             // CloseLabel
             // 
             CloseLabel.AutoSize = true;
@@ -516,12 +504,25 @@
             UpdateServer_Button.Visible = false;
             UpdateServer_Button.Click += UpdateServer_Button_Click;
             // 
+            // logo
+            // 
+            logo.AutoSize = true;
+            logo.BackColor = SystemColors.ControlDark;
+            logo.Font = new Font("Malgun Gothic", 60F, FontStyle.Bold, GraphicsUnit.Point);
+            logo.ForeColor = SystemColors.ControlDarkDark;
+            logo.Location = new Point(570, 50);
+            logo.Name = "logo";
+            logo.Size = new Size(210, 106);
+            logo.TabIndex = 47;
+            logo.Text = "ESM";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(800, 430);
+            Controls.Add(logo);
             Controls.Add(UpdateServer_Button);
             Controls.Add(OpenLogFolder_Button);
             Controls.Add(OpenSavegameFolder_Button);
@@ -537,7 +538,6 @@
             Controls.Add(AdminPanelLabel);
             Controls.Add(pictureBox9);
             Controls.Add(NewsLabel);
-            Controls.Add(pictureBox4);
             Controls.Add(pictureBox8);
             Controls.Add(pictureBox1);
             Controls.Add(MinimizeTrayLabel);
@@ -575,7 +575,6 @@
             ((System.ComponentModel.ISupportInitialize)SlotCount_input).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
@@ -612,7 +611,6 @@
         private Label AdminPanelLabel;
         private Label TitleLabel;
         private Label ServerSettingsLabel;
-        private PictureBox pictureBox4;
         private Label CloseLabel;
         private Label MinimizeTrayLabel;
         private PictureBox pictureBox5;
@@ -631,5 +629,6 @@
         private Button OpenSavegameFolder_Button;
         private Button OpenLogFolder_Button;
         private Button UpdateServer_Button;
+        private Label logo;
     }
 }
