@@ -59,22 +59,22 @@ namespace Enshrouded_Server_Manager
             if (File.Exists(_steamCmdExe))
             {
                 InstallServer_Button.Visible = true;
+                StartServer_Button.Visible = true;
             }
             if (File.Exists($"{_serverPath}{ServerSelectText}/steamapps/common{_gameServerFolderName}{_gameServerExe}"))
             {
                 InstallServer_Button.Visible = false;
                 UpdateServer_Button.Visible = true;
-                StartServer_Button.Visible = true;
             }
             if (!File.Exists($"{_serverPath}{ServerSelectText}/steamapps/common{_gameServerFolderName}{_gameServerExe}"))
             {
                 InstallServer_Button.Visible = true;
                 UpdateServer_Button.Visible = false;
-                StartServer_Button.Visible = false;
             }
             if (!File.Exists(_steamCmdExe))
             {
                 InstallServer_Button.Visible = false;
+                StartServer_Button.Visible = false;
             }
 
 
@@ -141,7 +141,8 @@ namespace Enshrouded_Server_Manager
 
             if (File.Exists(_steamCmdExe))
             {
-                InstallServer_Button.Visible = true;
+                InstallServer_Button.Visible = true; 
+                StartServer_Button.Visible = true;
             }
         }
 
@@ -153,7 +154,6 @@ namespace Enshrouded_Server_Manager
 
             InstallServer_Button.Visible = false;
             UpdateServer_Button.Visible = true;
-            StartServer_Button.Visible = true;
 
         }
 

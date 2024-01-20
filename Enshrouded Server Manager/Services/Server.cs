@@ -20,7 +20,7 @@ namespace Enshrouded_Server_Manager.Services
             {
                 Process p = Process.Start(pathServerExe);
                 Thread.Sleep(500); 
-                SetWindowText(p.MainWindowHandle, $"Install/Update Server{ServerSelectText}");
+                SetWindowText(p.MainWindowHandle, $"Server{ServerSelectText}");
             }
             catch (Exception ex)
             {
