@@ -16,12 +16,14 @@ namespace Enshrouded_Server_Manager
 
         // Server Tool SteamId
         private string _steamAppId = "2278520";
-        // SteamCMD Location
-        private string _steamCmdExe = @"./SteamCMD/steamcmd.exe";
+
         // Game Server Folder Name
         private string _gameServerFolderName = @"/EnshroudedServer/";
 
+        // Game Server exe Name
+        private string _gameServerExe = "enshrouded_server.exe";
 
+        private string _steamCmdExe = @"./SteamCMD/steamcmd.exe";
         private string _serverPathInstall = @"../Servers/Server";
         private string _serverPath = @"./Servers/Server";
         private string _defaultJsonPath = @"./ServerConfigs/";
@@ -58,13 +60,13 @@ namespace Enshrouded_Server_Manager
             {
                 InstallServer_Button.Visible = true;
             }
-            if (File.Exists($"{_serverPath}{ServerSelectText}/steamapps/common{_gameServerFolderName}enshrouded_server.exe"))
+            if (File.Exists($"{_serverPath}{ServerSelectText}/steamapps/common{_gameServerFolderName}{_gameServerExe}"))
             {
                 InstallServer_Button.Visible = false;
                 UpdateServer_Button.Visible = true;
                 StartServer_Button.Visible = true;
             }
-            if (!File.Exists($"{_serverPath}{ServerSelectText}/steamapps/common{_gameServerFolderName}enshrouded_server.exe"))
+            if (!File.Exists($"{_serverPath}{ServerSelectText}/steamapps/common{_gameServerFolderName}{_gameServerExe}"))
             {
                 InstallServer_Button.Visible = true;
                 UpdateServer_Button.Visible = false;
@@ -229,7 +231,7 @@ namespace Enshrouded_Server_Manager
             File.WriteAllText($"{_defaultJsonPath}Server{ServerSelectText}.json", output);
             File.WriteAllText($"{_serverPath}{ServerSelectText}/steamapps/common{_gameServerFolderName}enshrouded_server.json", output);
 
-            _server.Start($"{_serverPath}{ServerSelectText}/steamapps/common{_gameServerFolderName}enshrouded_server.exe", ServerSelectText);
+            _server.Start($"{_serverPath}{ServerSelectText}/steamapps/common{_gameServerFolderName}{_gameServerExe}", ServerSelectText);
         }
 
         private void SaveBackup_Button_Click(object sender, EventArgs e)
