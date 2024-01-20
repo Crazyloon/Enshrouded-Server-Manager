@@ -19,7 +19,16 @@ namespace Enshrouded_Server_Manager.Services
 
             if (File.Exists(_dlZipFile))
             {
-                File.Delete(_dlZipFile);
+                try
+                {
+                    File.Delete(_dlZipFile);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Following error appeared while extracting: {ex.Message.ToString()}",
+                    "Error while extracting", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
 
             //Download of SteamCMD Client
@@ -30,7 +39,16 @@ namespace Enshrouded_Server_Manager.Services
 
             if (File.Exists(_steamCmdExe))
             {
-                File.Delete(_steamCmdExe);
+                try
+                {
+                    File.Delete(_steamCmdExe);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Following error appeared while extracting: {ex.Message.ToString()}",
+                    "Error while extracting", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
             }
 
             try
