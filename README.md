@@ -3,7 +3,7 @@ This little tool is an experimental enshrouded server manager.
 Every Server Profile has its own install directory and configuration.
 You are able to make backups (.zip) of your worldsave files for each server.
 
-Windownames of the server apllications should be named as follow:
+Windownames of the server applications should be named as follow:
 ESM Server "ServerProfileNr." "Servername"
 
 
