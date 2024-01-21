@@ -17,9 +17,9 @@ namespace Enshrouded_Server_Manager
         // Server Tool SteamId
         private string _steamAppId = "2278520";
         // Game Server exe Name
-        private string _gameServerExe = @"/enshrouded_server.exe";
+        private string _gameServerExe = @"./enshrouded_server.exe";
         // Game Server config Name
-        private string _gameServerConfig = "enshrouded_server.json";
+        private string _gameServerConfig = @"./enshrouded_server.json";
         // Savegame folder name after Server folder
         private string _gameServerSaveFolder = @"./savegame";
         // Logs folder name after Server folder
@@ -51,6 +51,8 @@ namespace Enshrouded_Server_Manager
             _server = new Server();
             _backup = new Backup();
             _folder = new Folder();
+
+            ServerSelectionComboBox.SelectedIndex = 0;
 
         }
 
@@ -185,7 +187,7 @@ namespace Enshrouded_Server_Manager
 
             var output = JsonConvert.SerializeObject(json);
             File.WriteAllText($"{_defaultJsonPath}Server{ServerSelectText}.json", output);
-            File.WriteAllText($"{_serverPath}{ServerSelectText}/{_gameServerConfig}", output);                                           //needs to be the server tool .json
+            File.WriteAllText($"{_serverPath}{ServerSelectText}/{_gameServerConfig}", output);
 
             MessageBox.Show("Server Settings saved!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

@@ -86,20 +86,20 @@
             // 
             // ServerSelectionComboBox
             // 
+            ServerSelectionComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             ServerSelectionComboBox.FormattingEnabled = true;
-            ServerSelectionComboBox.Items.AddRange(new object[] { "1", "2", "3", "4" });
-            ServerSelectionComboBox.Location = new Point(415, 77);
+            ServerSelectionComboBox.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" });
+            ServerSelectionComboBox.Location = new Point(398, 77);
             ServerSelectionComboBox.Name = "ServerSelectionComboBox";
-            ServerSelectionComboBox.Size = new Size(31, 23);
+            ServerSelectionComboBox.Size = new Size(37, 23);
             ServerSelectionComboBox.TabIndex = 0;
-            ServerSelectionComboBox.Text = "1";
             ServerSelectionComboBox.SelectedIndexChanged += Form1_Load;
             // 
             // ServerSelectionLabel
             // 
             ServerSelectionLabel.AutoSize = true;
             ServerSelectionLabel.ForeColor = SystemColors.ButtonHighlight;
-            ServerSelectionLabel.Location = new Point(334, 80);
+            ServerSelectionLabel.Location = new Point(318, 80);
             ServerSelectionLabel.Name = "ServerSelectionLabel";
             ServerSelectionLabel.Size = new Size(76, 15);
             ServerSelectionLabel.TabIndex = 1;
