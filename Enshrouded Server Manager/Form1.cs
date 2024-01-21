@@ -107,19 +107,13 @@ namespace Enshrouded_Server_Manager
             Json deserializedSettings = JsonConvert.DeserializeObject<Json>(input);
             dynamic data = JObject.Parse(input);
 
-            var Name = data.Name;
-            ServerName_TextBox.Text = Name;
-            var Password = data.Password;
-            ServerPassword_TextBox.Text = Password;
-            var IpAddress = data.IpAddress;
-            IP_TextBox.Text = IpAddress;
+            ServerName_TextBox.Text = data.Name;
+            ServerPassword_TextBox.Text = data.Password;
+            IP_TextBox.Text = data.IpAddress;
 
-            var GamePort = data.GamePort;
-            GamePort_input.Text = GamePort;
-            var QueryPort = data.QueryPort;
-            QueryPort_input.Text = QueryPort;
-            var SlotCount = data.SlotCount;
-            SlotCount_input.Text = SlotCount;
+            GamePort_input.Text = data.GamePort;
+            QueryPort_input.Text = data.QueryPort;
+            SlotCount_input.Text = data.SlotCount;
 
         }
 
@@ -173,14 +167,9 @@ namespace Enshrouded_Server_Manager
             _folder.create($"{_serverPath}{ServerSelectText}");
 
 
-            int Gameport;
-            Gameport = Convert.ToInt32(GamePort_input.Text);
-
-            int QueryPort;
-            QueryPort = Convert.ToInt32(QueryPort_input.Text);
-
-            int SlotCount;
-            SlotCount = Convert.ToInt32(SlotCount_input.Text);
+            int Gameport = Convert.ToInt32(GamePort_input.Text);
+            int QueryPort = Convert.ToInt32(QueryPort_input.Text);
+            int SlotCount = Convert.ToInt32(SlotCount_input.Text);
 
             Json json = new Json()
             {
@@ -207,15 +196,9 @@ namespace Enshrouded_Server_Manager
 
             _folder.create($"{_serverPath}{ServerSelectText}");
 
-
-            int Gameport;
-            Gameport = Convert.ToInt32(GamePort_input.Text);
-
-            int QueryPort;
-            QueryPort = Convert.ToInt32(QueryPort_input.Text);
-
-            int SlotCount;
-            SlotCount = Convert.ToInt32(SlotCount_input.Text);
+            int Gameport = Convert.ToInt32(GamePort_input.Text);
+            int QueryPort = Convert.ToInt32(QueryPort_input.Text);
+            int SlotCount = Convert.ToInt32(SlotCount_input.Text);
 
             Json json = new Json()
             {

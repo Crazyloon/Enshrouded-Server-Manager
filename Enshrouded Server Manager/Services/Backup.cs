@@ -15,7 +15,7 @@ namespace Enshrouded_Server_Manager.Services
             _folder = new Folder();
 
             //Format DateTime Now
-            string datetimeString = DateTime.Now.ToString().Replace(":", "-");
+            string datetimeString = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
             
             _folder.create($"{_sourcezipfolder}Server{ServerNumber}");
 
