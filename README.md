@@ -1,4 +1,4 @@
-this is only a test for a multi server launcher for enshrouded.
+this is only a test for a multi server manager for enshrouded.
 
 use at own risk!
 
