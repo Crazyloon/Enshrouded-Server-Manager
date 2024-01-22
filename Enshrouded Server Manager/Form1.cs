@@ -3,6 +3,7 @@ using Enshrouded_Server_Manager.Services;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 namespace Enshrouded_Server_Manager;
 
@@ -170,7 +171,18 @@ public partial class Form1 : Form
         var output = JsonConvert.SerializeObject(json);
         File.WriteAllText($"{_serverPath}{ServerSelectText}/{_gameServerConfig}", output); //needs to be the server tool .json
 
-        MessageBox.Show("Server Settings saved!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        SaveSettings_Button.Text = "Saved!";
+        SaveSettings_Button.Enabled = false;
+
+        Task.Factory.StartNew(() =>
+        {
+            Thread.Sleep(3000);
+            SaveSettings_Button.Invoke(new Action(() =>
+            {
+                SaveSettings_Button.Text = "Save Settings";
+                SaveSettings_Button.Enabled = true;
+            }));
+        });
     }
 
     private void StartServer_Button_Click(object sender, EventArgs e)
@@ -306,10 +318,11 @@ public partial class Form1 : Form
 
         string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
 
-        // test if profileName contains any of the characters in invalid
-        if (profileName.IndexOfAny(invalid.ToCharArray()) != -1)
+        // regex that tests a string only contains letters, numbers, underscore, and dash
+        Regex regex = new Regex(@"^[a-zA-Z0-9_-]*$");
+        if (!regex.Match(profileName).Success)
         {
-            MessageBox.Show($"Profile name contains one or more invalid characters from this set: {invalid}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Profile name may only contain alphanumeric characters, underscore, and dash", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return false;
         }
 
@@ -318,15 +331,18 @@ public partial class Form1 : Form
 
     private void SaveProfileName_Button_Click(object sender, EventArgs e)
     {
-        // Validate new profile name
-        string editProfileName = EditProfileName_TextBox.Text;
-        if (editProfileName == null || !isProfileNameValid(editProfileName))
+        if (ServerProfilesListBox.SelectedItem is null)
         {
             return;
         }
 
         // Validate Windows File Name Does not have Special Characters
-        string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+        string editProfileName = EditProfileName_TextBox.Text;
+        if (editProfileName == null || !isProfileNameValid(editProfileName))
+        {
+
+            return;
+        }
 
         // Load Server Profiles
         List<ServerProfile> profiledata = LoadServerProfiles();
@@ -349,6 +365,19 @@ public partial class Form1 : Form
             // ClearProfileName_TextBox
             EditProfileName_TextBox.Text = "";
 
+            SaveProfileName_Button.Text = "Saved!";
+            SaveProfileName_Button.Enabled = false;
+
+            Task.Factory.StartNew(() =>
+            {
+                Thread.Sleep(2000);
+                SaveProfileName_Button.Invoke(new Action(() =>
+                {
+                    SaveProfileName_Button.Text = "Save Changes";
+                    SaveProfileName_Button.Enabled = true;
+                }));
+            });
+
             // reload form1
             Form1_Load(sender, e);
         }
@@ -356,6 +385,9 @@ public partial class Form1 : Form
 
     private void DeleteProfile_Button_Click(object sender, EventArgs e)
     {
+        MessageBox.Show(Text, "Are you sure you want to delete this profile?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+
         // Load Server Profiles
         List<ServerProfile> profiledata = LoadServerProfiles();
 

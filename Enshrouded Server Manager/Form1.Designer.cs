@@ -73,10 +73,12 @@
             ServerTabs = new TabControl();
             ServerSettings_Tab = new TabPage();
             ProfileManager_Tab = new TabPage();
-            panel1 = new Panel();
+            lblProfileManager = new Label();
+            pnlProfileNameUpdate = new Panel();
+            lblProfileNameInfo = new Label();
             SaveProfileName_Button = new Button();
             EditProfileName_TextBox = new TextBox();
-            label1 = new Label();
+            lblProfileNameInputHeading = new Label();
             DeleteProfile_Button = new Button();
             AddNewProfile_Button = new Button();
             ServerProfilesListBox = new ListBox();
@@ -95,7 +97,7 @@
             ServerTabs.SuspendLayout();
             ServerSettings_Tab.SuspendLayout();
             ProfileManager_Tab.SuspendLayout();
-            panel1.SuspendLayout();
+            pnlProfileNameUpdate.SuspendLayout();
             SuspendLayout();
             // 
             // ServerSelectionComboBox
@@ -569,7 +571,8 @@
             // ProfileManager_Tab
             // 
             ProfileManager_Tab.BackColor = SystemColors.ControlDarkDark;
-            ProfileManager_Tab.Controls.Add(panel1);
+            ProfileManager_Tab.Controls.Add(lblProfileManager);
+            ProfileManager_Tab.Controls.Add(pnlProfileNameUpdate);
             ProfileManager_Tab.Controls.Add(DeleteProfile_Button);
             ProfileManager_Tab.Controls.Add(AddNewProfile_Button);
             ProfileManager_Tab.Controls.Add(ServerProfilesListBox);
@@ -580,20 +583,44 @@
             ProfileManager_Tab.TabIndex = 1;
             ProfileManager_Tab.Text = "Manage Profiles";
             // 
-            // panel1
+            // lblProfileManager
             // 
-            panel1.Controls.Add(SaveProfileName_Button);
-            panel1.Controls.Add(EditProfileName_TextBox);
-            panel1.Controls.Add(label1);
-            panel1.Location = new Point(187, 62);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(159, 159);
-            panel1.TabIndex = 3;
+            lblProfileManager.AutoSize = true;
+            lblProfileManager.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            lblProfileManager.ForeColor = SystemColors.ControlDark;
+            lblProfileManager.Location = new Point(16, 305);
+            lblProfileManager.Name = "lblProfileManager";
+            lblProfileManager.Size = new Size(198, 32);
+            lblProfileManager.TabIndex = 4;
+            lblProfileManager.Text = "Profile Manager";
+            // 
+            // pnlProfileNameUpdate
+            // 
+            pnlProfileNameUpdate.BorderStyle = BorderStyle.Fixed3D;
+            pnlProfileNameUpdate.Controls.Add(lblProfileNameInfo);
+            pnlProfileNameUpdate.Controls.Add(SaveProfileName_Button);
+            pnlProfileNameUpdate.Controls.Add(EditProfileName_TextBox);
+            pnlProfileNameUpdate.Controls.Add(lblProfileNameInputHeading);
+            pnlProfileNameUpdate.Location = new Point(187, 62);
+            pnlProfileNameUpdate.Name = "pnlProfileNameUpdate";
+            pnlProfileNameUpdate.Size = new Size(159, 159);
+            pnlProfileNameUpdate.TabIndex = 3;
+            // 
+            // lblProfileNameInfo
+            // 
+            lblProfileNameInfo.AutoSize = true;
+            lblProfileNameInfo.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lblProfileNameInfo.ForeColor = SystemColors.Info;
+            lblProfileNameInfo.Location = new Point(7, 98);
+            lblProfileNameInfo.Name = "lblProfileNameInfo";
+            lblProfileNameInfo.Size = new Size(140, 51);
+            lblProfileNameInfo.TabIndex = 5;
+            lblProfileNameInfo.Text = "Only alphanumeric\r\nunderscore and dash\r\ncharacters are allowed";
             // 
             // SaveProfileName_Button
             // 
             SaveProfileName_Button.ForeColor = SystemColors.ActiveCaptionText;
-            SaveProfileName_Button.Location = new Point(17, 68);
+            SaveProfileName_Button.Location = new Point(14, 55);
             SaveProfileName_Button.Name = "SaveProfileName_Button";
             SaveProfileName_Button.Size = new Size(127, 23);
             SaveProfileName_Button.TabIndex = 4;
@@ -603,19 +630,19 @@
             // 
             // EditProfileName_TextBox
             // 
-            EditProfileName_TextBox.Location = new Point(6, 26);
+            EditProfileName_TextBox.Location = new Point(3, 26);
             EditProfileName_TextBox.Name = "EditProfileName_TextBox";
             EditProfileName_TextBox.Size = new Size(147, 23);
             EditProfileName_TextBox.TabIndex = 1;
             // 
-            // label1
+            // lblProfileNameInputHeading
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(6, 8);
-            label1.Name = "label1";
-            label1.Size = new Size(76, 15);
-            label1.TabIndex = 0;
-            label1.Text = "Profile Name";
+            lblProfileNameInputHeading.AutoSize = true;
+            lblProfileNameInputHeading.Location = new Point(3, 8);
+            lblProfileNameInputHeading.Name = "lblProfileNameInputHeading";
+            lblProfileNameInputHeading.Size = new Size(76, 15);
+            lblProfileNameInputHeading.TabIndex = 0;
+            lblProfileNameInputHeading.Text = "Profile Name";
             // 
             // DeleteProfile_Button
             // 
@@ -706,8 +733,9 @@
             ServerSettings_Tab.ResumeLayout(false);
             ServerSettings_Tab.PerformLayout();
             ProfileManager_Tab.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            ProfileManager_Tab.PerformLayout();
+            pnlProfileNameUpdate.ResumeLayout(false);
+            pnlProfileNameUpdate.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -762,9 +790,11 @@
         private Button AddNewProfile_Button;
         private ListBox ServerProfilesListBox;
         private Button DeleteProfile_Button;
-        private Panel panel1;
-        private Label label1;
-        private TextBox EditProfileName_TextBox;
+        private Label lblProfileManager;
+        private Panel pnlProfileNameUpdate;
         private Button SaveProfileName_Button;
+        private TextBox EditProfileName_TextBox;
+        private Label lblProfileNameInputHeading;
+        private Label lblProfileNameInfo;
     }
 }
