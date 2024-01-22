@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             ServerSelectionComboBox = new ComboBox();
             ServerSelectionLabel = new Label();
             InstallSteamCMD_Button = new Button();
@@ -70,6 +71,7 @@
             OpenLogFolder_Button = new Button();
             UpdateServer_Button = new Button();
             logo = new Label();
+            ServerFolderLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)GamePort_input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)QueryPort_input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)SlotCount_input).BeginInit();
@@ -88,10 +90,10 @@
             // 
             ServerSelectionComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             ServerSelectionComboBox.FormattingEnabled = true;
-            ServerSelectionComboBox.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" });
-            ServerSelectionComboBox.Location = new Point(398, 77);
+            ServerSelectionComboBox.Items.AddRange(new object[] { "Default", "New Profile 2", "New Profile 3", "New Profile 4", "New Profile 5", "New Profile 6" });
+            ServerSelectionComboBox.Location = new Point(314, 77);
             ServerSelectionComboBox.Name = "ServerSelectionComboBox";
-            ServerSelectionComboBox.Size = new Size(37, 23);
+            ServerSelectionComboBox.Size = new Size(170, 23);
             ServerSelectionComboBox.TabIndex = 0;
             ServerSelectionComboBox.SelectedIndexChanged += Form1_Load;
             // 
@@ -99,7 +101,7 @@
             // 
             ServerSelectionLabel.AutoSize = true;
             ServerSelectionLabel.ForeColor = SystemColors.ButtonHighlight;
-            ServerSelectionLabel.Location = new Point(318, 80);
+            ServerSelectionLabel.Location = new Point(236, 80);
             ServerSelectionLabel.Name = "ServerSelectionLabel";
             ServerSelectionLabel.Size = new Size(76, 15);
             ServerSelectionLabel.TabIndex = 1;
@@ -448,9 +450,9 @@
             label7.AutoSize = true;
             label7.Location = new Point(577, 168);
             label7.Name = "label7";
-            label7.Size = new Size(165, 60);
+            label7.Size = new Size(195, 165);
             label7.TabIndex = 41;
-            label7.Text = "Version 0.0.2:\r\n\r\n- added server window title:\r\n   ESM - Server X - Servername\r\n";
+            label7.Text = resources.GetString("label7.Text");
             // 
             // ServerProfileSpecific
             // 
@@ -516,12 +518,22 @@
             logo.TabIndex = 47;
             logo.Text = "ESM";
             // 
+            // ServerFolderLabel
+            // 
+            ServerFolderLabel.AutoSize = true;
+            ServerFolderLabel.Location = new Point(490, 80);
+            ServerFolderLabel.Name = "ServerFolderLabel";
+            ServerFolderLabel.Size = new Size(38, 15);
+            ServerFolderLabel.TabIndex = 48;
+            ServerFolderLabel.Text = "label1";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(800, 430);
+            Controls.Add(ServerFolderLabel);
             Controls.Add(logo);
             Controls.Add(UpdateServer_Button);
             Controls.Add(OpenLogFolder_Button);
@@ -630,5 +642,6 @@
         private Button OpenLogFolder_Button;
         private Button UpdateServer_Button;
         private Label logo;
+        private Label ServerFolderLabel;
     }
 }

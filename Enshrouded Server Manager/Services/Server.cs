@@ -13,14 +13,14 @@ namespace Enshrouded_Server_Manager.Services
         /// <summary>
         /// Start Gameserver
         /// </summary>
-        public void Start(String pathServerExe, String ServerSelectText, String ServerName)
+        public void Start(String pathServerExe, String ServerName)
         {
 
             try
             {
                 Process p = Process.Start(pathServerExe);
                 Thread.Sleep(5000);
-                SetWindowText(p.MainWindowHandle, $"ESM Server {ServerSelectText} - {ServerName}");
+                SetWindowText(p.MainWindowHandle, $"ESM Server - {ServerName}");
             }
             catch (Exception ex)
             {

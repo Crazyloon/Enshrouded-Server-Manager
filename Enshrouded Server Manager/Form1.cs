@@ -54,11 +54,51 @@ namespace Enshrouded_Server_Manager
 
             ServerSelectionComboBox.SelectedIndex = 0;
 
+            if (File.Exists($"{_defaultJsonPath}Server0.json"))
+            {
+                var input0 = File.ReadAllText($"{_defaultJsonPath}Server0.json");
+                dynamic data0 = JObject.Parse(input0);
+                ServerSelectionComboBox.Items[0] = data0.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server1.json"))
+            {
+                var input1 = File.ReadAllText($"{_defaultJsonPath}Server1.json");
+                dynamic data1 = JObject.Parse(input1);
+                ServerSelectionComboBox.Items[1] = data1.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server2.json"))
+            {
+                var input2 = File.ReadAllText($"{_defaultJsonPath}Server2.json");
+                dynamic data2 = JObject.Parse(input2);
+                ServerSelectionComboBox.Items[2] = data2.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server3.json"))
+            {
+                var input3 = File.ReadAllText($"{_defaultJsonPath}Server3.json");
+                dynamic data3 = JObject.Parse(input3);
+                ServerSelectionComboBox.Items[3] = data3.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server4.json"))
+            {
+                var input4 = File.ReadAllText($"{_defaultJsonPath}Server4.json");
+                dynamic data4 = JObject.Parse(input4);
+                ServerSelectionComboBox.Items[4] = data4.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server5.json"))
+            {
+                var input5 = File.ReadAllText($"{_defaultJsonPath}Server5.json");
+                dynamic data5 = JObject.Parse(input5);
+                ServerSelectionComboBox.Items[5] = data5.Name;
+            }
+
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
+
+            string ServerSelectText = ServerSelectionComboBox.SelectedIndex.ToString();
 
             if (File.Exists(_steamCmdExe))
             {
@@ -117,6 +157,7 @@ namespace Enshrouded_Server_Manager
             QueryPort_input.Text = data.QueryPort;
             SlotCount_input.Text = data.SlotCount;
 
+            ServerFolderLabel.Text = $"(server{ServerSelectText})";
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -139,14 +180,14 @@ namespace Enshrouded_Server_Manager
 
             if (File.Exists(_steamCmdExe))
             {
-                InstallServer_Button.Visible = true; 
+                InstallServer_Button.Visible = true;
                 StartServer_Button.Visible = true;
             }
         }
 
         private void InstallServer_Button_Click(object sender, EventArgs e)
         {
-            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
+            string ServerSelectText = ServerSelectionComboBox.SelectedIndex.ToString();
 
             _server.InstallUpdate(_steamAppId, $"{_serverPathInstall}{ServerSelectText}");
 
@@ -157,14 +198,14 @@ namespace Enshrouded_Server_Manager
 
         private void UpdateServer_Button_Click(object sender, EventArgs e)
         {
-            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
+            string ServerSelectText = ServerSelectionComboBox.SelectedIndex.ToString();
 
             _server.InstallUpdate(_steamAppId, $"{_serverPathInstall}{ServerSelectText}");
         }
 
         private void SaveSettings_Button_Click(object sender, EventArgs e)
         {
-            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
+            string ServerSelectText = ServerSelectionComboBox.SelectedIndex.ToString();
 
             _folder.create($"{_serverPath}{ServerSelectText}");
 
@@ -188,13 +229,51 @@ namespace Enshrouded_Server_Manager
             var output = JsonConvert.SerializeObject(json);
             File.WriteAllText($"{_defaultJsonPath}Server{ServerSelectText}.json", output);
             File.WriteAllText($"{_serverPath}{ServerSelectText}/{_gameServerConfig}", output);
+
+            if (File.Exists($"{_defaultJsonPath}Server0.json"))
+            {
+                var input0 = File.ReadAllText($"{_defaultJsonPath}Server0.json");
+                dynamic data0 = JObject.Parse(input0);
+                ServerSelectionComboBox.Items[0] = data0.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server1.json"))
+            {
+                var input1 = File.ReadAllText($"{_defaultJsonPath}Server1.json");
+                dynamic data1 = JObject.Parse(input1);
+                ServerSelectionComboBox.Items[1] = data1.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server2.json"))
+            {
+                var input2 = File.ReadAllText($"{_defaultJsonPath}Server2.json");
+                dynamic data2 = JObject.Parse(input2);
+                ServerSelectionComboBox.Items[2] = data2.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server3.json"))
+            {
+                var input3 = File.ReadAllText($"{_defaultJsonPath}Server3.json");
+                dynamic data3 = JObject.Parse(input3);
+                ServerSelectionComboBox.Items[3] = data3.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server4.json"))
+            {
+                var input4 = File.ReadAllText($"{_defaultJsonPath}Server4.json");
+                dynamic data4 = JObject.Parse(input4);
+                ServerSelectionComboBox.Items[4] = data4.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server5.json"))
+            {
+                var input5 = File.ReadAllText($"{_defaultJsonPath}Server5.json");
+                dynamic data5 = JObject.Parse(input5);
+                ServerSelectionComboBox.Items[5] = data5.Name;
+            }
+
 
             MessageBox.Show("Server Settings saved!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void StartServer_Button_Click(object sender, EventArgs e)
         {
-            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
+            string ServerSelectText = ServerSelectionComboBox.SelectedIndex.ToString();
 
             _folder.create($"{_serverPath}{ServerSelectText}");
 
@@ -218,12 +297,49 @@ namespace Enshrouded_Server_Manager
             File.WriteAllText($"{_defaultJsonPath}Server{ServerSelectText}.json", output);
             File.WriteAllText($"{_serverPath}{ServerSelectText}/{_gameServerConfig}", output);
 
-            _server.Start($"{_serverPath}{ServerSelectText}/{_gameServerExe}", ServerSelectText, ServerName_TextBox.Text);
+            if (File.Exists($"{_defaultJsonPath}Server0.json"))
+            {
+                var input0 = File.ReadAllText($"{_defaultJsonPath}Server0.json");
+                dynamic data0 = JObject.Parse(input0);
+                ServerSelectionComboBox.Items[0] = data0.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server1.json"))
+            {
+                var input1 = File.ReadAllText($"{_defaultJsonPath}Server1.json");
+                dynamic data1 = JObject.Parse(input1);
+                ServerSelectionComboBox.Items[1] = data1.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server2.json"))
+            {
+                var input2 = File.ReadAllText($"{_defaultJsonPath}Server2.json");
+                dynamic data2 = JObject.Parse(input2);
+                ServerSelectionComboBox.Items[2] = data2.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server3.json"))
+            {
+                var input3 = File.ReadAllText($"{_defaultJsonPath}Server3.json");
+                dynamic data3 = JObject.Parse(input3);
+                ServerSelectionComboBox.Items[3] = data3.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server4.json"))
+            {
+                var input4 = File.ReadAllText($"{_defaultJsonPath}Server4.json");
+                dynamic data4 = JObject.Parse(input4);
+                ServerSelectionComboBox.Items[4] = data4.Name;
+            }
+            if (File.Exists($"{_defaultJsonPath}Server5.json"))
+            {
+                var input5 = File.ReadAllText($"{_defaultJsonPath}Server5.json");
+                dynamic data5 = JObject.Parse(input5);
+                ServerSelectionComboBox.Items[5] = data5.Name;
+            }
+
+            _server.Start($"{_serverPath}{ServerSelectText}/{_gameServerExe}", ServerName_TextBox.Text);
         }
 
         private void SaveBackup_Button_Click(object sender, EventArgs e)
         {
-            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
+            string ServerSelectText = ServerSelectionComboBox.SelectedIndex.ToString();
 
             _backup.Save($"{_serverPath}{ServerSelectText}/{_gameServerSaveFolder}", ServerSelectText);
         }
@@ -240,7 +356,7 @@ namespace Enshrouded_Server_Manager
 
         private void OpenBackupFolder_Button_Click(object sender, EventArgs e)
         {
-            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
+            string ServerSelectText = ServerSelectionComboBox.SelectedIndex.ToString();
             string backupserverfolder = $"{_backupPath}Server{ServerSelectText}";
 
             _folder.create(backupserverfolder);
@@ -255,7 +371,7 @@ namespace Enshrouded_Server_Manager
 
         private void OpenSavegameFolder_Button_Click(object sender, EventArgs e)
         {
-            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
+            string ServerSelectText = ServerSelectionComboBox.SelectedIndex.ToString();
             string savegamefolder = $"{_serverPath}{ServerSelectText}/{_gameServerSaveFolder}";
 
             _folder.create(savegamefolder);
@@ -265,7 +381,7 @@ namespace Enshrouded_Server_Manager
 
         private void OpenLogFolder_Button_Click(object sender, EventArgs e)
         {
-            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
+            string ServerSelectText = ServerSelectionComboBox.SelectedIndex.ToString();
             string logfolder = $"{_serverPath}{ServerSelectText}/{_gameServerLogsFolder}";
 
             _folder.create(logfolder);
