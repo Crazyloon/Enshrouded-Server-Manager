@@ -4,8 +4,7 @@ Every Server Profile has its own install directory and configuration.
 You are able to make backups (.zip) of your worldsave files for each server.
 
 Windownames of the server applications should be named as follow:
-ESM Server "ServerProfileNr." "Servername"
-
+ESM Server - "Servername"
 
 Cant give any support because of time issues.
 
