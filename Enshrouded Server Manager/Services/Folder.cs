@@ -1,24 +1,26 @@
+namespace Enshrouded_Server_Manager.Services;
 
-
-
-namespace Enshrouded_Server_Manager.Services
+public class Folder
 {
-    public class Folder
+    /// <summary>
+    /// look if folder exists if not create
+    /// </summary>
+    public void Create(String Foldername)
     {
-
-        /// <summary>
-        /// look if folder exists if not create
-        /// </summary>
-        public void create(String Foldername)
+        if (!Directory.Exists(Foldername))
         {
-            if (!Directory.Exists(Foldername))
-            {
-                Directory.CreateDirectory(Foldername);
-            }
-
+            Directory.CreateDirectory(Foldername);
         }
-
-
     }
 
+    /// <summary>
+    /// Check for an existing folder and delete it
+    /// </summary>
+    public void Delete(String Foldername)
+    {
+        if (Directory.Exists(Foldername))
+        {
+            Directory.Delete(Foldername, true);
+        }
+    }
 }
