@@ -82,6 +82,11 @@
             DeleteProfile_Button = new Button();
             AddNewProfile_Button = new Button();
             ServerProfilesListBox = new ListBox();
+            pictureBox4 = new PictureBox();
+            pictureBox11 = new PictureBox();
+            pictureBox12 = new PictureBox();
+            pictureBox13 = new PictureBox();
+            NewsText = new Label();
             ((System.ComponentModel.ISupportInitialize)GamePort_input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)QueryPort_input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)SlotCount_input).BeginInit();
@@ -98,6 +103,10 @@
             ServerSettings_Tab.SuspendLayout();
             ProfileManager_Tab.SuspendLayout();
             pnlProfileNameUpdate.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox12).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
             SuspendLayout();
             // 
             // ServerSelectionComboBox
@@ -296,7 +305,7 @@
             AdminPanelLabel.BackColor = SystemColors.ControlDarkDark;
             AdminPanelLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             AdminPanelLabel.ForeColor = SystemColors.ControlDark;
-            AdminPanelLabel.Location = new Point(11, 375);
+            AdminPanelLabel.Location = new Point(16, 369);
             AdminPanelLabel.Name = "AdminPanelLabel";
             AdminPanelLabel.Size = new Size(153, 32);
             AdminPanelLabel.TabIndex = 23;
@@ -321,7 +330,7 @@
             ServerSettingsLabel.BackColor = SystemColors.ControlDarkDark;
             ServerSettingsLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             ServerSettingsLabel.ForeColor = SystemColors.ControlDark;
-            ServerSettingsLabel.Location = new Point(16, 305);
+            ServerSettingsLabel.Location = new Point(6, 305);
             ServerSettingsLabel.Name = "ServerSettingsLabel";
             ServerSettingsLabel.Size = new Size(186, 32);
             ServerSettingsLabel.TabIndex = 25;
@@ -369,7 +378,7 @@
             NewsLabel.BackColor = SystemColors.ControlDarkDark;
             NewsLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             NewsLabel.ForeColor = SystemColors.ControlDark;
-            NewsLabel.Location = new Point(562, 374);
+            NewsLabel.Location = new Point(572, 369);
             NewsLabel.Name = "NewsLabel";
             NewsLabel.Size = new Size(76, 32);
             NewsLabel.TabIndex = 30;
@@ -478,7 +487,7 @@
             // pictureBox10
             // 
             pictureBox10.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox10.Location = new Point(26, 159);
+            pictureBox10.Location = new Point(27, 156);
             pictureBox10.Name = "pictureBox10";
             pictureBox10.Size = new Size(140, 203);
             pictureBox10.TabIndex = 43;
@@ -524,7 +533,7 @@
             logo.BackColor = SystemColors.ControlDark;
             logo.Font = new Font("Malgun Gothic", 60F, FontStyle.Bold, GraphicsUnit.Point);
             logo.ForeColor = SystemColors.ControlDarkDark;
-            logo.Location = new Point(570, 50);
+            logo.Location = new Point(570, 49);
             logo.Name = "logo";
             logo.Size = new Size(210, 106);
             logo.TabIndex = 47;
@@ -586,7 +595,7 @@
             lblProfileManager.AutoSize = true;
             lblProfileManager.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             lblProfileManager.ForeColor = SystemColors.ControlDark;
-            lblProfileManager.Location = new Point(16, 305);
+            lblProfileManager.Location = new Point(6, 305);
             lblProfileManager.Name = "lblProfileManager";
             lblProfileManager.Size = new Size(198, 32);
             lblProfileManager.TabIndex = 4;
@@ -676,29 +685,83 @@
             ServerProfilesListBox.TabIndex = 0;
             ServerProfilesListBox.SelectedIndexChanged += ServerProfilesListBox_IndexChanged;
             // 
+            // pictureBox4
+            // 
+            pictureBox4.BackColor = Color.White;
+            pictureBox4.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox4.Location = new Point(6, 40);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(177, 369);
+            pictureBox4.TabIndex = 26;
+            pictureBox4.TabStop = false;
+            // 
+            // pictureBox11
+            // 
+            pictureBox11.BackColor = SystemColors.ControlDarkDark;
+            pictureBox11.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox11.Location = new Point(11, 45);
+            pictureBox11.Name = "pictureBox11";
+            pictureBox11.Size = new Size(167, 359);
+            pictureBox11.TabIndex = 50;
+            pictureBox11.TabStop = false;
+            // 
+            // pictureBox12
+            // 
+            pictureBox12.BackColor = Color.White;
+            pictureBox12.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox12.Location = new Point(560, 40);
+            pictureBox12.Name = "pictureBox12";
+            pictureBox12.Size = new Size(229, 369);
+            pictureBox12.TabIndex = 51;
+            pictureBox12.TabStop = false;
+            // 
+            // pictureBox13
+            // 
+            pictureBox13.BackColor = SystemColors.ControlDarkDark;
+            pictureBox13.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox13.Location = new Point(565, 45);
+            pictureBox13.Name = "pictureBox13";
+            pictureBox13.Size = new Size(219, 359);
+            pictureBox13.TabIndex = 52;
+            pictureBox13.TabStop = false;
+            // 
+            // NewsText
+            // 
+            NewsText.AutoSize = true;
+            NewsText.Location = new Point(584, 181);
+            NewsText.Name = "NewsText";
+            NewsText.Size = new Size(170, 45);
+            NewsText.TabIndex = 53;
+            NewsText.Text = "Version 0.0.4:\r\n- added an option to create, \r\n   edit and delete server profiles";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(800, 430);
-            Controls.Add(ServerTabs);
+            Controls.Add(NewsText);
+            Controls.Add(NewsLabel);
             Controls.Add(logo);
-            Controls.Add(UpdateServer_Button);
+            Controls.Add(pictureBox13);
+            Controls.Add(pictureBox12);
+            Controls.Add(AdminPanelLabel);
             Controls.Add(OpenLogFolder_Button);
             Controls.Add(OpenSavegameFolder_Button);
             Controls.Add(OpenBackupFolder_Button);
             Controls.Add(SaveBackup_Button);
             Controls.Add(StartServer_Button);
-            Controls.Add(InstallServer_Button);
-            Controls.Add(ServerProfileSpecific);
+            Controls.Add(UpdateServer_Button);
             Controls.Add(pictureBox10);
-            Controls.Add(label7);
+            Controls.Add(ServerProfileSpecific);
             Controls.Add(WindowsFirewall_Button);
             Controls.Add(InstallSteamCMD_Button);
-            Controls.Add(AdminPanelLabel);
+            Controls.Add(pictureBox11);
+            Controls.Add(pictureBox4);
+            Controls.Add(ServerTabs);
+            Controls.Add(InstallServer_Button);
+            Controls.Add(label7);
             Controls.Add(pictureBox9);
-            Controls.Add(NewsLabel);
             Controls.Add(pictureBox8);
             Controls.Add(pictureBox1);
             Controls.Add(MinimizeTrayLabel);
@@ -734,6 +797,10 @@
             ProfileManager_Tab.PerformLayout();
             pnlProfileNameUpdate.ResumeLayout(false);
             pnlProfileNameUpdate.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox11).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox12).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox13).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -794,5 +861,10 @@
         private Label lblProfileNameInputHeading;
         private Label lblProfileNameInfo;
         private Label logo;
+        private PictureBox pictureBox4;
+        private PictureBox pictureBox11;
+        private PictureBox pictureBox12;
+        private PictureBox pictureBox13;
+        private Label NewsText;
     }
 }
