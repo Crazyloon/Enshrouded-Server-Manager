@@ -405,7 +405,7 @@ public partial class Form1 : Form
     {
         if (ServerProfilesListBox.SelectedItem is not null)
         {
-            var result = MessageBox.Show("Are you sure you want to delete this profile?", "Delete Profile?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            var result = MessageBox.Show("Are you sure you want to delete this profile and all server files related to it?", "Delete Profile?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (result != DialogResult.Yes)
             {
