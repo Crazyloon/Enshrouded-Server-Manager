@@ -599,7 +599,7 @@
             pnlProfileNameUpdate.Controls.Add(SaveProfileName_Button);
             pnlProfileNameUpdate.Controls.Add(EditProfileName_TextBox);
             pnlProfileNameUpdate.Controls.Add(lblProfileNameInputHeading);
-            pnlProfileNameUpdate.Location = new Point(187, 62);
+            pnlProfileNameUpdate.Location = new Point(187, 74);
             pnlProfileNameUpdate.Name = "pnlProfileNameUpdate";
             pnlProfileNameUpdate.Size = new Size(159, 159);
             pnlProfileNameUpdate.TabIndex = 3;
@@ -618,7 +618,7 @@
             // SaveProfileName_Button
             // 
             SaveProfileName_Button.ForeColor = SystemColors.ActiveCaptionText;
-            SaveProfileName_Button.Location = new Point(14, 55);
+            SaveProfileName_Button.Location = new Point(14, 67);
             SaveProfileName_Button.Name = "SaveProfileName_Button";
             SaveProfileName_Button.Size = new Size(127, 23);
             SaveProfileName_Button.TabIndex = 4;
@@ -628,7 +628,7 @@
             // 
             // EditProfileName_TextBox
             // 
-            EditProfileName_TextBox.Location = new Point(3, 26);
+            EditProfileName_TextBox.Location = new Point(3, 38);
             EditProfileName_TextBox.Name = "EditProfileName_TextBox";
             EditProfileName_TextBox.Size = new Size(147, 23);
             EditProfileName_TextBox.TabIndex = 1;
@@ -647,7 +647,7 @@
             DeleteProfile_Button.BackColor = Color.Red;
             DeleteProfile_Button.FlatAppearance.BorderColor = Color.Red;
             DeleteProfile_Button.ForeColor = SystemColors.ControlLightLight;
-            DeleteProfile_Button.Location = new Point(204, 249);
+            DeleteProfile_Button.Location = new Point(204, 261);
             DeleteProfile_Button.Name = "DeleteProfile_Button";
             DeleteProfile_Button.Size = new Size(127, 31);
             DeleteProfile_Button.TabIndex = 2;
@@ -658,7 +658,7 @@
             // AddNewProfile_Button
             // 
             AddNewProfile_Button.ForeColor = SystemColors.ActiveCaptionText;
-            AddNewProfile_Button.Location = new Point(204, 20);
+            AddNewProfile_Button.Location = new Point(204, 32);
             AddNewProfile_Button.Name = "AddNewProfile_Button";
             AddNewProfile_Button.Size = new Size(127, 23);
             AddNewProfile_Button.TabIndex = 1;
@@ -670,7 +670,7 @@
             // 
             ServerProfilesListBox.FormattingEnabled = true;
             ServerProfilesListBox.ItemHeight = 15;
-            ServerProfilesListBox.Location = new Point(6, 6);
+            ServerProfilesListBox.Location = new Point(6, 18);
             ServerProfilesListBox.Name = "ServerProfilesListBox";
             ServerProfilesListBox.Size = new Size(166, 274);
             ServerProfilesListBox.TabIndex = 0;
