@@ -7,7 +7,7 @@ Windowname of the server applications should be named as follow:
 ESM Server - "Servername"
 
 Important: 
-If you delete a profile, it is your own responsibility to save the backups and/or worldsave before (for example on the desktop), as these will be lost when you delete a profile.
+If you delete a profile, it is your own responsibility to save worldsave before (for example on the desktop), as these will be lost when you delete a profile.
 
 Cant give any support because of time issues.
 
