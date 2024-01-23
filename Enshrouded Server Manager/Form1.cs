@@ -484,9 +484,9 @@ public partial class Form1 : Form
         ServerName_TextBox.Text = deserializedSettings.Name;
         ServerPassword_TextBox.Text = deserializedSettings.Password;
         IP_TextBox.Text = deserializedSettings.IpAddress;
-        GamePort_input.Text = deserializedSettings.GamePort;
-        QueryPort_input.Text = deserializedSettings.QueryPort;
-        SlotCount_input.Text = deserializedSettings.SlotCount;
+        GamePort_input.Text = deserializedSettings.GamePort.ToString();
+        QueryPort_input.Text = deserializedSettings.QueryPort.ToString();
+        SlotCount_input.Text = deserializedSettings.SlotCount.ToString();
     }
 
     private void WriteDefaultServerSettings(string serverName)

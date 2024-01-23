@@ -105,7 +105,7 @@
             ServerSelectionComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             ServerSelectionComboBox.FlatStyle = FlatStyle.System;
             ServerSelectionComboBox.FormattingEnabled = true;
-            ServerSelectionComboBox.Location = new Point(137, 8);
+            ServerSelectionComboBox.Location = new Point(137, 34);
             ServerSelectionComboBox.Name = "ServerSelectionComboBox";
             ServerSelectionComboBox.Size = new Size(170, 23);
             ServerSelectionComboBox.TabIndex = 0;
@@ -114,7 +114,7 @@
             // ServerSelectionLabel
             // 
             ServerSelectionLabel.AutoSize = true;
-            ServerSelectionLabel.Location = new Point(59, 11);
+            ServerSelectionLabel.Location = new Point(59, 37);
             ServerSelectionLabel.Name = "ServerSelectionLabel";
             ServerSelectionLabel.Size = new Size(76, 15);
             ServerSelectionLabel.TabIndex = 1;
@@ -145,28 +145,28 @@
             // 
             // ServerName_TextBox
             // 
-            ServerName_TextBox.Location = new Point(137, 52);
+            ServerName_TextBox.Location = new Point(137, 78);
             ServerName_TextBox.Name = "ServerName_TextBox";
             ServerName_TextBox.Size = new Size(170, 23);
             ServerName_TextBox.TabIndex = 4;
             // 
             // ServerPassword_TextBox
             // 
-            ServerPassword_TextBox.Location = new Point(137, 81);
+            ServerPassword_TextBox.Location = new Point(137, 107);
             ServerPassword_TextBox.Name = "ServerPassword_TextBox";
             ServerPassword_TextBox.Size = new Size(170, 23);
             ServerPassword_TextBox.TabIndex = 5;
             // 
             // IP_TextBox
             // 
-            IP_TextBox.Location = new Point(137, 110);
+            IP_TextBox.Location = new Point(137, 136);
             IP_TextBox.Name = "IP_TextBox";
             IP_TextBox.Size = new Size(134, 23);
             IP_TextBox.TabIndex = 6;
             // 
             // GamePort_input
             // 
-            GamePort_input.Location = new Point(137, 140);
+            GamePort_input.Location = new Point(137, 166);
             GamePort_input.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             GamePort_input.Name = "GamePort_input";
             GamePort_input.Size = new Size(62, 23);
@@ -174,7 +174,7 @@
             // 
             // QueryPort_input
             // 
-            QueryPort_input.Location = new Point(137, 169);
+            QueryPort_input.Location = new Point(137, 195);
             QueryPort_input.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             QueryPort_input.Name = "QueryPort_input";
             QueryPort_input.Size = new Size(62, 23);
@@ -182,7 +182,7 @@
             // 
             // SlotCount_input
             // 
-            SlotCount_input.Location = new Point(137, 198);
+            SlotCount_input.Location = new Point(137, 224);
             SlotCount_input.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
             SlotCount_input.Name = "SlotCount_input";
             SlotCount_input.Size = new Size(35, 23);
@@ -192,7 +192,7 @@
             // 
             Servername_Label.AutoSize = true;
             Servername_Label.ForeColor = SystemColors.ButtonHighlight;
-            Servername_Label.Location = new Point(66, 55);
+            Servername_Label.Location = new Point(66, 81);
             Servername_Label.Name = "Servername_Label";
             Servername_Label.Size = new Size(69, 15);
             Servername_Label.TabIndex = 10;
@@ -202,7 +202,7 @@
             // 
             Password_Label.AutoSize = true;
             Password_Label.ForeColor = SystemColors.ButtonHighlight;
-            Password_Label.Location = new Point(78, 84);
+            Password_Label.Location = new Point(78, 110);
             Password_Label.Name = "Password_Label";
             Password_Label.Size = new Size(57, 15);
             Password_Label.TabIndex = 11;
@@ -212,7 +212,7 @@
             // 
             IpAddress_Label.AutoSize = true;
             IpAddress_Label.ForeColor = SystemColors.ButtonHighlight;
-            IpAddress_Label.Location = new Point(73, 113);
+            IpAddress_Label.Location = new Point(73, 139);
             IpAddress_Label.Name = "IpAddress_Label";
             IpAddress_Label.Size = new Size(62, 15);
             IpAddress_Label.TabIndex = 12;
@@ -222,7 +222,7 @@
             // 
             GamePort_label.AutoSize = true;
             GamePort_label.ForeColor = SystemColors.ButtonHighlight;
-            GamePort_label.Location = new Point(75, 142);
+            GamePort_label.Location = new Point(75, 168);
             GamePort_label.Name = "GamePort_label";
             GamePort_label.Size = new Size(60, 15);
             GamePort_label.TabIndex = 13;
@@ -232,7 +232,7 @@
             // 
             QueryPort_Label.AutoSize = true;
             QueryPort_Label.ForeColor = SystemColors.ButtonHighlight;
-            QueryPort_Label.Location = new Point(74, 171);
+            QueryPort_Label.Location = new Point(74, 197);
             QueryPort_Label.Name = "QueryPort_Label";
             QueryPort_Label.Size = new Size(61, 15);
             QueryPort_Label.TabIndex = 14;
@@ -241,7 +241,7 @@
             // MaxPlayers_Label
             // 
             MaxPlayers_Label.AutoSize = true;
-            MaxPlayers_Label.Location = new Point(68, 200);
+            MaxPlayers_Label.Location = new Point(68, 226);
             MaxPlayers_Label.Name = "MaxPlayers_Label";
             MaxPlayers_Label.Size = new Size(67, 15);
             MaxPlayers_Label.TabIndex = 15;
@@ -250,7 +250,7 @@
             // SaveSettings_Button
             // 
             SaveSettings_Button.ForeColor = SystemColors.ActiveCaptionText;
-            SaveSettings_Button.Location = new Point(141, 246);
+            SaveSettings_Button.Location = new Point(137, 265);
             SaveSettings_Button.Name = "SaveSettings_Button";
             SaveSettings_Button.Size = new Size(124, 23);
             SaveSettings_Button.TabIndex = 17;
