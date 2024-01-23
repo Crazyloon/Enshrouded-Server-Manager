@@ -87,6 +87,7 @@
             pictureBox12 = new PictureBox();
             pictureBox13 = new PictureBox();
             NewsText = new Label();
+            CreditsLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)GamePort_input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)QueryPort_input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)SlotCount_input).BeginInit();
@@ -734,12 +735,25 @@
             NewsText.TabIndex = 53;
             NewsText.Text = "Version 0.0.4:\r\n- added an option to create, \r\n   edit and delete server profiles";
             // 
+            // CreditsLabel
+            // 
+            CreditsLabel.AutoSize = true;
+            CreditsLabel.BackColor = SystemColors.ControlDark;
+            CreditsLabel.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
+            CreditsLabel.ForeColor = SystemColors.ActiveCaptionText;
+            CreditsLabel.Location = new Point(572, 412);
+            CreditsLabel.Name = "CreditsLabel";
+            CreditsLabel.Size = new Size(211, 13);
+            CreditsLabel.TabIndex = 54;
+            CreditsLabel.Text = "Credits to Strew / Evorin and Crazyloon";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(800, 430);
+            Controls.Add(CreditsLabel);
             Controls.Add(NewsText);
             Controls.Add(NewsLabel);
             Controls.Add(logo);
@@ -866,5 +880,6 @@
         private PictureBox pictureBox12;
         private PictureBox pictureBox13;
         private Label NewsText;
+        private Label CreditsLabel;
     }
 }
