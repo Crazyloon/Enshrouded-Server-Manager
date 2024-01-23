@@ -72,29 +72,33 @@ public partial class Form1 : Form
             ServerSelectionComboBox.SelectedIndex = 0;
 
             string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString()!;
-
-            if (File.Exists(STEAM_CMD_EXE))
-            {
-                InstallServer_Button.Visible = true;
-                StartServer_Button.Visible = true;
-            }
-            if (File.Exists($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_EXE}"))
-            {
-                InstallServer_Button.Visible = false;
-                UpdateServer_Button.Visible = true;
-            }
-            if (!File.Exists($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_EXE}"))
-            {
-                InstallServer_Button.Visible = true;
-                UpdateServer_Button.Visible = false;
-            }
-            if (!File.Exists(STEAM_CMD_EXE))
-            {
-                InstallServer_Button.Visible = false;
-                StartServer_Button.Visible = false;
-            }
+            RefreshServerButtonsState(ServerSelectText);
 
             LoadServerSettings(ServerSelectText);
+        }
+    }
+
+    private void RefreshServerButtonsState(string ServerSelectText)
+    {
+        if (File.Exists(STEAM_CMD_EXE))
+        {
+            InstallServer_Button.Visible = true;
+            StartServer_Button.Visible = true;
+        }
+        if (File.Exists($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_EXE}"))
+        {
+            InstallServer_Button.Visible = false;
+            UpdateServer_Button.Visible = true;
+        }
+        if (!File.Exists($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_EXE}"))
+        {
+            InstallServer_Button.Visible = true;
+            UpdateServer_Button.Visible = false;
+        }
+        if (!File.Exists(STEAM_CMD_EXE))
+        {
+            InstallServer_Button.Visible = false;
+            StartServer_Button.Visible = false;
         }
     }
 
@@ -125,96 +129,110 @@ public partial class Form1 : Form
 
     private void InstallServer_Button_Click(object sender, EventArgs e)
     {
-        string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString()!;
+        if (ServerSelectionComboBox.SelectedItem is not null)
+        {
+            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
 
-        _server.InstallUpdate(STEAM_APP_ID, $"{SERVER_PATH}{ServerSelectText}");
+            _server.InstallUpdate(STEAM_APP_ID, $"{SERVER_PATH}{ServerSelectText}");
 
-        InstallServer_Button.Visible = false;
-        UpdateServer_Button.Visible = true;
-
+            InstallServer_Button.Visible = false;
+            UpdateServer_Button.Visible = true;
+        }
     }
 
     private void UpdateServer_Button_Click(object sender, EventArgs e)
     {
-        string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString()!;
+        if (ServerSelectionComboBox.SelectedItem is not null)
+        {
+            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
 
-        _server.InstallUpdate(STEAM_APP_ID, $"{SERVER_PATH}{ServerSelectText}");
+            _server.InstallUpdate(STEAM_APP_ID, $"{SERVER_PATH}{ServerSelectText}");
+        }
     }
 
     private void SaveSettings_Button_Click(object sender, EventArgs e)
     {
-        string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString()!;
-
-        _folder.Create($"{SERVER_PATH}{ServerSelectText}");
-
-        int Gameport = Convert.ToInt32(GamePort_input.Text);
-        int QueryPort = Convert.ToInt32(QueryPort_input.Text);
-        int SlotCount = Convert.ToInt32(SlotCount_input.Text);
-
-        ServerSettings json = new ServerSettings()
+        if (ServerSelectionComboBox.SelectedItem is not null)
         {
-            Name = ServerName_TextBox.Text,
-            Password = ServerPassword_TextBox.Text,
-            SaveDirectory = "./savegame",
-            LogDirectory = "./logs",
-            IpAddress = IP_TextBox.Text,
-            GamePort = Gameport,
-            QueryPort = QueryPort,
-            SlotCount = SlotCount
-        };
+            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
 
-        var output = JsonConvert.SerializeObject(json);
-        File.WriteAllText($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_CONFIG}", output); //needs to be the server tool .json
+            _folder.Create($"{SERVER_PATH}{ServerSelectText}");
 
-        SaveSettings_Button.Text = "Saved!";
-        SaveSettings_Button.Enabled = false;
+            int Gameport = Convert.ToInt32(GamePort_input.Text);
+            int QueryPort = Convert.ToInt32(QueryPort_input.Text);
+            int SlotCount = Convert.ToInt32(SlotCount_input.Text);
 
-        Task.Factory.StartNew(() =>
-        {
-            Thread.Sleep(3000);
-            SaveSettings_Button.Invoke(new Action(() =>
+            ServerSettings json = new ServerSettings()
             {
-                SaveSettings_Button.Text = "Save Settings";
-                SaveSettings_Button.Enabled = true;
-            }));
-        });
+                Name = ServerName_TextBox.Text,
+                Password = ServerPassword_TextBox.Text,
+                SaveDirectory = "./savegame",
+                LogDirectory = "./logs",
+                IpAddress = IP_TextBox.Text,
+                GamePort = Gameport,
+                QueryPort = QueryPort,
+                SlotCount = SlotCount
+            };
+
+            var output = JsonConvert.SerializeObject(json);
+            File.WriteAllText($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_CONFIG}", output); //needs to be the server tool .json
+
+            SaveSettings_Button.Text = "Saved!";
+            SaveSettings_Button.Enabled = false;
+
+            Task.Factory.StartNew(() =>
+            {
+                Thread.Sleep(3000);
+                SaveSettings_Button.Invoke(new Action(() =>
+                {
+                    SaveSettings_Button.Text = "Save Settings";
+                    SaveSettings_Button.Enabled = true;
+                }));
+            });
+        }
     }
 
     private void StartServer_Button_Click(object sender, EventArgs e)
     {
-        string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString()!;
-
-        _folder.Create($"{SERVER_PATH}{ServerSelectText}");
-
-        int Gameport = Convert.ToInt32(GamePort_input.Text);
-        int QueryPort = Convert.ToInt32(QueryPort_input.Text);
-        int SlotCount = Convert.ToInt32(SlotCount_input.Text);
-
-        ServerSettings json = new ServerSettings()
+        if (ServerSelectionComboBox.SelectedItem is not null)
         {
-            Name = ServerName_TextBox.Text,
-            Password = ServerPassword_TextBox.Text,
-            SaveDirectory = "./savegame",
-            LogDirectory = "./logs",
-            IpAddress = IP_TextBox.Text,
-            GamePort = Gameport,
-            QueryPort = QueryPort,
-            SlotCount = SlotCount
-        };
+            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
 
-        var output = JsonConvert.SerializeObject(json);
-        File.WriteAllText($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_CONFIG}", output);
+            _folder.Create($"{SERVER_PATH}{ServerSelectText}");
 
-        _server.Start($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_EXE}", ServerSelectText);
+            int Gameport = Convert.ToInt32(GamePort_input.Text);
+            int QueryPort = Convert.ToInt32(QueryPort_input.Text);
+            int SlotCount = Convert.ToInt32(SlotCount_input.Text);
+
+            ServerSettings json = new ServerSettings()
+            {
+                Name = ServerName_TextBox.Text,
+                Password = ServerPassword_TextBox.Text,
+                SaveDirectory = "./savegame",
+                LogDirectory = "./logs",
+                IpAddress = IP_TextBox.Text,
+                GamePort = Gameport,
+                QueryPort = QueryPort,
+                SlotCount = SlotCount
+            };
+
+            var output = JsonConvert.SerializeObject(json);
+            File.WriteAllText($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_CONFIG}", output);
+
+            _server.Start($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_EXE}", ServerSelectText);
+        }
     }
 
     private void SaveBackup_Button_Click(object sender, EventArgs e)
     {
-        string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString()!;
+        if (ServerSelectionComboBox.SelectedItem is not null)
+        {
+            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
 
-        _backup.Save($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText, GAME_SERVER_CONFIG, $"{SERVER_PATH}{ServerSelectText}");
+            _backup.Save($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText, GAME_SERVER_CONFIG, $"{SERVER_PATH}{ServerSelectText}");
+        }
+
     }
-
     private void label4_Click(object sender, EventArgs e)
     {
         this.Close();
@@ -242,28 +260,37 @@ public partial class Form1 : Form
 
     private void OpenSavegameFolder_Button_Click(object sender, EventArgs e)
     {
-        string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString()!;
-        string savegamefolder = $"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}";
+        if (ServerSelectionComboBox.SelectedItem is not null)
+        {
+            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
+            string savegamefolder = $"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}";
 
-        _folder.Create(savegamefolder);
+            _folder.Create(savegamefolder);
 
-        Process.Start("explorer.exe", savegamefolder.Replace("/", @"\"));
+            Process.Start("explorer.exe", savegamefolder.Replace("/", @"\"));
+        }
     }
 
     private void OpenLogFolder_Button_Click(object sender, EventArgs e)
     {
-        string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString()!;
-        string logfolder = $"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_LOGS_FOLDER}";
+        if (ServerSelectionComboBox.SelectedItem is not null)
+        {
+            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
+            string logfolder = $"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_LOGS_FOLDER}";
 
-        _folder.Create(logfolder);
+            _folder.Create(logfolder);
 
-        Process.Start("explorer.exe", logfolder.Replace("/", @"\"));
+            Process.Start("explorer.exe", logfolder.Replace("/", @"\"));
+        }
     }
 
     private void ServerProfilesListBox_IndexChanged(object sender, EventArgs e)
     {
-        string ServerSelectText = ServerProfilesListBox.SelectedItem!.ToString()!;
-        EditProfileName_TextBox.Text = ServerSelectText;
+        if (ServerProfilesListBox.SelectedItem is not null)
+        {
+            string ServerSelectText = ServerProfilesListBox.SelectedItem.ToString()!;
+            EditProfileName_TextBox.Text = ServerSelectText;
+        }
     }
 
     private void AddNewProfile_Button_Click(object sender, EventArgs e)
@@ -374,33 +401,43 @@ public partial class Form1 : Form
 
     private void DeleteProfile_Button_Click(object sender, EventArgs e)
     {
-        MessageBox.Show(Text, "Profile, Server software and SAVEDATA of this server will be deleted! Are you sure you want to delete this profile?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-
-        // Load Server Profiles
-        List<ServerProfile> profiledata = LoadServerProfiles();
-
-        // get the selected profile
-        string selectedServerProfile = ServerProfilesListBox.SelectedItem.ToString()!;
-        var serverProfile = profiledata.FirstOrDefault(x => x.Name == selectedServerProfile);
-
-        if (serverProfile != null)
+        if (ServerProfilesListBox.SelectedItem is not null)
         {
-            // remove the profile
-            profiledata.Remove(serverProfile);
+            var result = MessageBox.Show("Are you sure you want to delete this profile?", "Delete Profile?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            // write the new profile to the json file
-            var output = JsonConvert.SerializeObject(profiledata);
-            File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
 
-            // ClearProfileName_TextBox
-            EditProfileName_TextBox.Text = "";
+            // Load Server Profiles
+            List<ServerProfile> profiledata = LoadServerProfiles();
 
-            // Delete the server folder
-            _folder.Delete($"{SERVER_PATH}{selectedServerProfile}");
+            // get the selected profile
+            string selectedServerProfile = ServerProfilesListBox.SelectedItem.ToString()!;
+            var serverProfile = profiledata.FirstOrDefault(x => x.Name == selectedServerProfile);
 
-            // reload form1
-            Form1_Load(sender, e);
+            if (serverProfile != null)
+            {
+                // remove the profile
+                profiledata.Remove(serverProfile);
+
+                // write the new profile to the json file
+                var output = JsonConvert.SerializeObject(profiledata);
+                File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
+
+                // Delete the server folder
+                _folder.Delete($"{SERVER_PATH}{selectedServerProfile}");
+
+                // Clear UI Elements
+                EditProfileName_TextBox.Text = "";
+                ServerProfilesListBox.Items.Remove(selectedServerProfile);
+                ServerSelectionComboBox.Items.Remove(selectedServerProfile);
+                RefreshServerButtonsState(selectedServerProfile);
+
+                // reload form1
+                Form1_Load(sender, e);
+            }
         }
     }
 
@@ -412,24 +449,15 @@ public partial class Form1 : Form
                      .Select(s => s[random.Next(s.Length)]).ToArray());
     }
 
-    private List<ServerProfile> LoadServerProfiles(bool firstCheck = false)
+    private List<ServerProfile>? LoadServerProfiles(bool firstCheck = false)
     {
         if (!File.Exists($"{DEFAULT_PROFILES_PATH}server_profiles.json"))
         {
+            _folder.Create(DEFAULT_PROFILES_PATH);
+
             if (firstCheck)
             {
-                _folder.Create(DEFAULT_PROFILES_PATH);
-
-                var json = new List<ServerProfile>
-                {
-                    new ServerProfile()
-                    {
-                        Name = $"Server{GenerateRandomString(6)}"
-                    }
-                };
-
-                var output = JsonConvert.SerializeObject(json);
-                File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
+                WriteDefaultProfile();
             }
             else
             {
@@ -437,10 +465,31 @@ public partial class Form1 : Form
             }
         }
 
-        var profiles = File.ReadAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json");
-        List<ServerProfile> profiledata = JsonConvert.DeserializeObject<List<ServerProfile>>(profiles)!;
+        var profilesJson = File.ReadAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json");
+        List<ServerProfile>? serverProfiles = JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson);
 
-        return profiledata;
+        if (serverProfiles is not null && serverProfiles.Count() <= 0)
+        {
+            WriteDefaultProfile();
+            profilesJson = File.ReadAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json");
+            return JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson);
+        }
+
+        return serverProfiles;
+    }
+
+    private void WriteDefaultProfile()
+    {
+        var json = new List<ServerProfile>
+        {
+            new ServerProfile()
+            {
+                Name = $"Server{GenerateRandomString(6)}"
+            }
+        };
+
+        var output = JsonConvert.SerializeObject(json);
+        File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
     }
 
     private void RenameServerSettings(string oldServerName, string newServerName)
@@ -466,7 +515,10 @@ public partial class Form1 : Form
 
     private void ServerProfileComboBox_IndexChanged(object sender, EventArgs e)
     {
-        LoadServerSettings(ServerSelectionComboBox.SelectedItem.ToString()!);
+        if (ServerSelectionComboBox.SelectedItem is not null)
+        {
+            LoadServerSettings(ServerSelectionComboBox.SelectedItem.ToString());
+        }
     }
 
     private void LoadServerSettings(string ServerSelectText)
