@@ -147,14 +147,9 @@ public partial class Form1 : Form
 
         _folder.Create($"{SERVER_PATH}{ServerSelectText}");
 
-        int Gameport;
-        Gameport = Convert.ToInt32(GamePort_input.Text);
-
-        int QueryPort;
-        QueryPort = Convert.ToInt32(QueryPort_input.Text);
-
-        int SlotCount;
-        SlotCount = Convert.ToInt32(SlotCount_input.Text);
+        int Gameport = Convert.ToInt32(GamePort_input.Text);
+        int QueryPort = Convert.ToInt32(QueryPort_input.Text);
+        int SlotCount = Convert.ToInt32(SlotCount_input.Text);
 
         ServerSettings json = new ServerSettings()
         {
@@ -191,15 +186,9 @@ public partial class Form1 : Form
 
         _folder.Create($"{SERVER_PATH}{ServerSelectText}");
 
-
-        int Gameport;
-        Gameport = Convert.ToInt32(GamePort_input.Text);
-
-        int QueryPort;
-        QueryPort = Convert.ToInt32(QueryPort_input.Text);
-
-        int SlotCount;
-        SlotCount = Convert.ToInt32(SlotCount_input.Text);
+        int Gameport = Convert.ToInt32(GamePort_input.Text);
+        int QueryPort = Convert.ToInt32(QueryPort_input.Text);
+        int SlotCount = Convert.ToInt32(SlotCount_input.Text);
 
         ServerSettings json = new ServerSettings()
         {
@@ -492,18 +481,12 @@ public partial class Form1 : Form
 
         ServerSettings deserializedSettings = JsonConvert.DeserializeObject<ServerSettings>(input);
 
-        var Name = deserializedSettings.Name;
-        ServerName_TextBox.Text = Name;
-        var Password = deserializedSettings.Password;
-        ServerPassword_TextBox.Text = Password;
-        var IpAddress = deserializedSettings.IpAddress;
-        IP_TextBox.Text = IpAddress;
-        var GamePort = deserializedSettings.GamePort;
-        GamePort_input.Text = GamePort.ToString();
-        var QueryPort = deserializedSettings.QueryPort;
-        QueryPort_input.Text = QueryPort.ToString();
-        var SlotCount = deserializedSettings.SlotCount;
-        SlotCount_input.Text = SlotCount.ToString();
+        ServerName_TextBox.Text = deserializedSettings.Name;
+        ServerPassword_TextBox.Text = deserializedSettings.Password;
+        IP_TextBox.Text = deserializedSettings.IpAddress;
+        GamePort_input.Text = deserializedSettings.GamePort;
+        QueryPort_input.Text = deserializedSettings.QueryPort;
+        SlotCount_input.Text = deserializedSettings.SlotCount;
     }
 
     private void WriteDefaultServerSettings(string serverName)
