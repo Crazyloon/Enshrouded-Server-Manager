@@ -155,8 +155,8 @@ public partial class Form1 : Form
         {
             Name = ServerName_TextBox.Text,
             Password = ServerPassword_TextBox.Text,
-            SaveDirectory = $"{SERVER_PATH}{ServerSelectText}{SAVE_GAME_FOLDER}",
-            LogDirectory = $"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_LOGS_FOLDER}",
+            SaveDirectory = "./savegame",
+            LogDirectory = "./logs",
             IpAddress = IP_TextBox.Text,
             GamePort = Gameport,
             QueryPort = QueryPort,
@@ -194,8 +194,8 @@ public partial class Form1 : Form
         {
             Name = ServerName_TextBox.Text,
             Password = ServerPassword_TextBox.Text,
-            SaveDirectory = $"{SERVER_PATH}{ServerSelectText}{SAVE_GAME_FOLDER}",
-            LogDirectory = $"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_LOGS_FOLDER}",
+            SaveDirectory = "./savegame",
+            LogDirectory = "./logs",
             IpAddress = IP_TextBox.Text,
             GamePort = Gameport,
             QueryPort = QueryPort,
@@ -495,8 +495,8 @@ public partial class Form1 : Form
         {
             Name = "Enshrouded Server",
             Password = "",
-            SaveDirectory = $"{SERVER_PATH}{serverName}{SAVE_GAME_FOLDER}",
-            LogDirectory = $"{SERVER_PATH}{serverName}{GAME_SERVER_LOGS_FOLDER}",
+            SaveDirectory = "./savegame",
+            LogDirectory = "./logs",
             IpAddress = "0.0.0.0",
             GamePort = 15636,
             QueryPort = 15637,
