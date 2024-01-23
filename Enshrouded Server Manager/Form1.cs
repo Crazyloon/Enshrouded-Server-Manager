@@ -356,7 +356,6 @@ public partial class Form1 : Form
         string editProfileName = EditProfileName_TextBox.Text;
         if (editProfileName == null || !isProfileNameValid(editProfileName))
         {
-
             return;
         }
 
@@ -364,8 +363,8 @@ public partial class Form1 : Form
         List<ServerProfile> profiledata = LoadServerProfiles();
 
         // get the selected profile
-        string ServerSelectText = ServerProfilesListBox.SelectedItem.ToString()!;
-        var selectedProfile = profiledata.FirstOrDefault(x => x.Name == ServerSelectText);
+        string selectedServerName = ServerProfilesListBox.SelectedItem.ToString()!;
+        var selectedProfile = profiledata.FirstOrDefault(x => x.Name == selectedServerName);
         if (selectedProfile != null)
         {
             // update the name
@@ -376,7 +375,10 @@ public partial class Form1 : Form
             File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
 
             // rename the server settings file
-            RenameServerSettings(ServerSelectText, editProfileName);
+            RenameServerSettings(selectedServerName, editProfileName);
+
+            // rename backup folder
+            RenameBackupFolder(selectedServerName, editProfileName);
 
             // ClearProfileName_TextBox
             EditProfileName_TextBox.Text = "";
@@ -511,6 +513,21 @@ public partial class Form1 : Form
 
         // Delete the old settings file
         _folder.Delete($"{SERVER_PATH}{oldServerName}");
+    }
+
+    private void RenameBackupFolder(string oldBackupFolderName, string newBackupFolderName)
+    {
+        // If old backup folder does not exist, create it
+        if (!Directory.Exists($"{BACKUPS_FOLDER}/{oldBackupFolderName}"))
+        {
+            _folder.Create($"{BACKUPS_FOLDER}/{newBackupFolderName}");
+            return;
+        }
+        else
+        {
+            // Rename the existing Backup folder
+            Directory.Move($"{BACKUPS_FOLDER}/{oldBackupFolderName}", $"{BACKUPS_FOLDER}/{newBackupFolderName}");
+        }
     }
 
     private void ServerProfileComboBox_IndexChanged(object sender, EventArgs e)
