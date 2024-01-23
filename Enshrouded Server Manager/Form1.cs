@@ -374,7 +374,7 @@ public partial class Form1 : Form
 
     private void DeleteProfile_Button_Click(object sender, EventArgs e)
     {
-        MessageBox.Show(Text, "Are you sure you want to delete this profile? Server software, SAVEDATA and BACKUPS of this server will be deleted too!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        MessageBox.Show(Text, "Profile, Server software, SAVEDATA and BACKUPS of this server will be deleted! Are you sure you want to delete this profile?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
 
         // Load Server Profiles
