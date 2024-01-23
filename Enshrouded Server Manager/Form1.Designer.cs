@@ -283,6 +283,7 @@
             SaveSettings_Button.Text = "Save Settings";
             SaveSettings_Button.UseCompatibleTextRendering = true;
             SaveSettings_Button.UseVisualStyleBackColor = true;
+            SaveSettings_Button.EnabledChanged += SaveSettings_Button_EnabledChanged;
             SaveSettings_Button.Click += SaveSettings_Button_Click;
             // 
             // StartServer_Button
@@ -504,8 +505,8 @@
             // 
             // pictureBox10
             // 
-            pictureBox10.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox10.Location = new Point(26, 163);
+            pictureBox10.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox10.Location = new Point(27, 163);
             pictureBox10.Name = "pictureBox10";
             pictureBox10.Size = new Size(140, 203);
             pictureBox10.TabIndex = 43;
@@ -632,14 +633,14 @@
             // 
             // pnlProfileNameUpdate
             // 
-            pnlProfileNameUpdate.BorderStyle = BorderStyle.Fixed3D;
+            pnlProfileNameUpdate.BorderStyle = BorderStyle.FixedSingle;
             pnlProfileNameUpdate.Controls.Add(lblProfileNameInfo);
             pnlProfileNameUpdate.Controls.Add(SaveProfileName_Button);
             pnlProfileNameUpdate.Controls.Add(EditProfileName_TextBox);
             pnlProfileNameUpdate.Controls.Add(lblProfileNameInputHeading);
             pnlProfileNameUpdate.Location = new Point(187, 74);
             pnlProfileNameUpdate.Name = "pnlProfileNameUpdate";
-            pnlProfileNameUpdate.Size = new Size(159, 159);
+            pnlProfileNameUpdate.Size = new Size(160, 160);
             pnlProfileNameUpdate.TabIndex = 3;
             // 
             // lblProfileNameInfo
@@ -647,7 +648,7 @@
             lblProfileNameInfo.AutoSize = true;
             lblProfileNameInfo.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             lblProfileNameInfo.ForeColor = SystemColors.Info;
-            lblProfileNameInfo.Location = new Point(7, 98);
+            lblProfileNameInfo.Location = new Point(9, 98);
             lblProfileNameInfo.Name = "lblProfileNameInfo";
             lblProfileNameInfo.Size = new Size(140, 51);
             lblProfileNameInfo.TabIndex = 5;
@@ -661,13 +662,14 @@
             SaveProfileName_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             SaveProfileName_Button.FlatStyle = FlatStyle.Flat;
             SaveProfileName_Button.ForeColor = Color.FromArgb(0, 255, 185);
-            SaveProfileName_Button.Location = new Point(14, 62);
+            SaveProfileName_Button.Location = new Point(16, 62);
             SaveProfileName_Button.Name = "SaveProfileName_Button";
-            SaveProfileName_Button.Size = new Size(127, 30);
+            SaveProfileName_Button.Size = new Size(128, 30);
             SaveProfileName_Button.TabIndex = 4;
             SaveProfileName_Button.Text = "Save Changes";
             SaveProfileName_Button.UseCompatibleTextRendering = true;
             SaveProfileName_Button.UseVisualStyleBackColor = true;
+            SaveProfileName_Button.EnabledChanged += SaveSettings_Button_EnabledChanged;
             SaveProfileName_Button.Click += SaveProfileName_Button_Click;
             // 
             // EditProfileName_TextBox
@@ -675,15 +677,15 @@
             EditProfileName_TextBox.BackColor = Color.FromArgb(6, 6, 48);
             EditProfileName_TextBox.BorderStyle = BorderStyle.FixedSingle;
             EditProfileName_TextBox.ForeColor = SystemColors.Window;
-            EditProfileName_TextBox.Location = new Point(4, 28);
+            EditProfileName_TextBox.Location = new Point(6, 28);
             EditProfileName_TextBox.Name = "EditProfileName_TextBox";
-            EditProfileName_TextBox.Size = new Size(147, 23);
+            EditProfileName_TextBox.Size = new Size(146, 23);
             EditProfileName_TextBox.TabIndex = 1;
             // 
             // lblProfileNameInputHeading
             // 
             lblProfileNameInputHeading.AutoSize = true;
-            lblProfileNameInputHeading.Location = new Point(3, 8);
+            lblProfileNameInputHeading.Location = new Point(6, 10);
             lblProfileNameInputHeading.Name = "lblProfileNameInputHeading";
             lblProfileNameInputHeading.Size = new Size(76, 15);
             lblProfileNameInputHeading.TabIndex = 0;
@@ -709,6 +711,8 @@
             AddNewProfile_Button.BackgroundImageLayout = ImageLayout.None;
             AddNewProfile_Button.Cursor = Cursors.Hand;
             AddNewProfile_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            AddNewProfile_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            AddNewProfile_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             AddNewProfile_Button.FlatStyle = FlatStyle.Flat;
             AddNewProfile_Button.Font = new Font("Consolas", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             AddNewProfile_Button.ForeColor = Color.FromArgb(0, 255, 185);

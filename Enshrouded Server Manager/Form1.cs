@@ -182,7 +182,7 @@ public partial class Form1 : Form
 
             Task.Factory.StartNew(() =>
             {
-                Thread.Sleep(3000);
+                Thread.Sleep(2000);
                 SaveSettings_Button.Invoke(new Action(() =>
                 {
                     SaveSettings_Button.Text = "Save Settings";
@@ -578,5 +578,24 @@ public partial class Form1 : Form
 
         var output = JsonConvert.SerializeObject(json);
         File.WriteAllText($"{SERVER_PATH}{serverName}{GAME_SERVER_CONFIG}", output);
+    }
+
+    private void SaveSettings_Button_EnabledChanged(object sender, EventArgs e)
+    {
+        var Sender = ((Button)sender);
+        Sender.BackColor = Sender.Enabled ? Color.FromArgb(255, 0, 0, 40) : Color.FromArgb(255, 115, 115, 137);
+        Sender.FlatAppearance.BorderColor = Sender.Enabled ? Color.FromArgb(255, 115, 115, 137) : Color.FromArgb(255, 0, 0, 40);
+    }
+
+    private void tabControl_DrawItem(object sender, DrawItemEventArgs e)
+    {
+
+        TabPage page = ServerTabs.TabPages[e.Index];
+        e.Graphics.FillRectangle(new SolidBrush(page.BackColor), e.Bounds);
+
+        Rectangle paddedBounds = e.Bounds;
+        int yOffset = (e.State == DrawItemState.Selected) ? -2 : 1;
+        paddedBounds.Offset(1, yOffset);
+        TextRenderer.DrawText(e.Graphics, page.Text, e.Font, paddedBounds, page.ForeColor);
     }
 }
