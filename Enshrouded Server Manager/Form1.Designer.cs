@@ -73,6 +73,7 @@
             ServerTabs = new TabControl();
             ServerSettings_Tab = new TabPage();
             ProfileManager_Tab = new TabPage();
+            lblAddNewProfile = new Label();
             lblProfileManager = new Label();
             pnlProfileNameUpdate = new Panel();
             lblProfileNameInfo = new Label();
@@ -82,10 +83,6 @@
             DeleteProfile_Button = new Button();
             AddNewProfile_Button = new Button();
             ServerProfilesListBox = new ListBox();
-            pictureBox4 = new PictureBox();
-            pictureBox11 = new PictureBox();
-            pictureBox12 = new PictureBox();
-            pictureBox13 = new PictureBox();
             NewsText = new Label();
             CreditsLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)GamePort_input).BeginInit();
@@ -104,10 +101,6 @@
             ServerSettings_Tab.SuspendLayout();
             ProfileManager_Tab.SuspendLayout();
             pnlProfileNameUpdate.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox12).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
             SuspendLayout();
             // 
             // ServerSelectionComboBox
@@ -155,6 +148,9 @@
             // 
             // ServerName_TextBox
             // 
+            ServerName_TextBox.BackColor = Color.FromArgb(6, 6, 48);
+            ServerName_TextBox.BorderStyle = BorderStyle.FixedSingle;
+            ServerName_TextBox.ForeColor = SystemColors.Window;
             ServerName_TextBox.Location = new Point(137, 78);
             ServerName_TextBox.Name = "ServerName_TextBox";
             ServerName_TextBox.Size = new Size(170, 23);
@@ -162,6 +158,9 @@
             // 
             // ServerPassword_TextBox
             // 
+            ServerPassword_TextBox.BackColor = Color.FromArgb(6, 6, 48);
+            ServerPassword_TextBox.BorderStyle = BorderStyle.FixedSingle;
+            ServerPassword_TextBox.ForeColor = SystemColors.Window;
             ServerPassword_TextBox.Location = new Point(137, 107);
             ServerPassword_TextBox.Name = "ServerPassword_TextBox";
             ServerPassword_TextBox.Size = new Size(170, 23);
@@ -169,6 +168,9 @@
             // 
             // IP_TextBox
             // 
+            IP_TextBox.BackColor = Color.FromArgb(6, 6, 48);
+            IP_TextBox.BorderStyle = BorderStyle.FixedSingle;
+            IP_TextBox.ForeColor = SystemColors.Window;
             IP_TextBox.Location = new Point(137, 136);
             IP_TextBox.Name = "IP_TextBox";
             IP_TextBox.Size = new Size(134, 23);
@@ -176,6 +178,9 @@
             // 
             // GamePort_input
             // 
+            GamePort_input.BackColor = Color.FromArgb(6, 6, 48);
+            GamePort_input.BorderStyle = BorderStyle.FixedSingle;
+            GamePort_input.ForeColor = SystemColors.Window;
             GamePort_input.Location = new Point(137, 166);
             GamePort_input.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             GamePort_input.Name = "GamePort_input";
@@ -184,6 +189,9 @@
             // 
             // QueryPort_input
             // 
+            QueryPort_input.BackColor = Color.FromArgb(6, 6, 48);
+            QueryPort_input.BorderStyle = BorderStyle.FixedSingle;
+            QueryPort_input.ForeColor = SystemColors.Window;
             QueryPort_input.Location = new Point(137, 195);
             QueryPort_input.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             QueryPort_input.Name = "QueryPort_input";
@@ -192,6 +200,9 @@
             // 
             // SlotCount_input
             // 
+            SlotCount_input.BackColor = Color.FromArgb(6, 6, 48);
+            SlotCount_input.BorderStyle = BorderStyle.FixedSingle;
+            SlotCount_input.ForeColor = SystemColors.Window;
             SlotCount_input.Location = new Point(137, 224);
             SlotCount_input.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
             SlotCount_input.Name = "SlotCount_input";
@@ -259,12 +270,18 @@
             // 
             // SaveSettings_Button
             // 
-            SaveSettings_Button.ForeColor = SystemColors.ActiveCaptionText;
-            SaveSettings_Button.Location = new Point(137, 265);
+            SaveSettings_Button.Cursor = Cursors.Hand;
+            SaveSettings_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            SaveSettings_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            SaveSettings_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            SaveSettings_Button.FlatStyle = FlatStyle.Flat;
+            SaveSettings_Button.ForeColor = Color.FromArgb(0, 255, 185);
+            SaveSettings_Button.Location = new Point(137, 267);
             SaveSettings_Button.Name = "SaveSettings_Button";
-            SaveSettings_Button.Size = new Size(124, 23);
+            SaveSettings_Button.Size = new Size(124, 30);
             SaveSettings_Button.TabIndex = 17;
             SaveSettings_Button.Text = "Save Settings";
+            SaveSettings_Button.UseCompatibleTextRendering = true;
             SaveSettings_Button.UseVisualStyleBackColor = true;
             SaveSettings_Button.Click += SaveSettings_Button_Click;
             // 
@@ -282,17 +299,17 @@
             // 
             // pictureBox2
             // 
-            pictureBox2.BackColor = SystemColors.ControlDarkDark;
+            pictureBox2.BackColor = Color.FromArgb(0, 0, 18);
             pictureBox2.Dock = DockStyle.Left;
             pictureBox2.Location = new Point(10, 40);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(171, 369);
+            pictureBox2.Size = new Size(171, 390);
             pictureBox2.TabIndex = 21;
             pictureBox2.TabStop = false;
             // 
             // pictureBox3
             // 
-            pictureBox3.BackColor = SystemColors.ControlDark;
+            pictureBox3.BackColor = Color.FromArgb(64, 64, 64);
             pictureBox3.Dock = DockStyle.Top;
             pictureBox3.Location = new Point(0, 0);
             pictureBox3.Name = "pictureBox3";
@@ -303,9 +320,9 @@
             // 
             // AdminPanelLabel
             // 
-            AdminPanelLabel.BackColor = SystemColors.ControlDarkDark;
+            AdminPanelLabel.BackColor = Color.Transparent;
             AdminPanelLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            AdminPanelLabel.ForeColor = SystemColors.ControlDark;
+            AdminPanelLabel.ForeColor = SystemColors.Control;
             AdminPanelLabel.Location = new Point(16, 369);
             AdminPanelLabel.Name = "AdminPanelLabel";
             AdminPanelLabel.Size = new Size(153, 32);
@@ -315,9 +332,9 @@
             // TitleLabel
             // 
             TitleLabel.AutoSize = true;
-            TitleLabel.BackColor = SystemColors.ControlDark;
+            TitleLabel.BackColor = Color.FromArgb(64, 64, 64);
             TitleLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            TitleLabel.ForeColor = SystemColors.ControlDarkDark;
+            TitleLabel.ForeColor = SystemColors.Control;
             TitleLabel.Location = new Point(6, 5);
             TitleLabel.Name = "TitleLabel";
             TitleLabel.Size = new Size(414, 32);
@@ -328,9 +345,9 @@
             // ServerSettingsLabel
             // 
             ServerSettingsLabel.AutoSize = true;
-            ServerSettingsLabel.BackColor = SystemColors.ControlDarkDark;
+            ServerSettingsLabel.BackColor = Color.Transparent;
             ServerSettingsLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            ServerSettingsLabel.ForeColor = SystemColors.ControlDark;
+            ServerSettingsLabel.ForeColor = SystemColors.Control;
             ServerSettingsLabel.Location = new Point(6, 305);
             ServerSettingsLabel.Name = "ServerSettingsLabel";
             ServerSettingsLabel.Size = new Size(186, 32);
@@ -340,9 +357,9 @@
             // CloseLabel
             // 
             CloseLabel.AutoSize = true;
-            CloseLabel.BackColor = SystemColors.ControlDark;
+            CloseLabel.BackColor = Color.FromArgb(64, 64, 64);
             CloseLabel.Font = new Font("Malgun Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            CloseLabel.ForeColor = SystemColors.ActiveCaptionText;
+            CloseLabel.ForeColor = Color.FromArgb(0, 255, 185);
             CloseLabel.Location = new Point(771, 9);
             CloseLabel.Name = "CloseLabel";
             CloseLabel.Size = new Size(18, 19);
@@ -353,9 +370,9 @@
             // MinimizeTrayLabel
             // 
             MinimizeTrayLabel.AutoSize = true;
-            MinimizeTrayLabel.BackColor = SystemColors.ControlDark;
+            MinimizeTrayLabel.BackColor = Color.FromArgb(64, 64, 64);
             MinimizeTrayLabel.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            MinimizeTrayLabel.ForeColor = SystemColors.ActiveCaptionText;
+            MinimizeTrayLabel.ForeColor = Color.FromArgb(0, 255, 185);
             MinimizeTrayLabel.Location = new Point(741, 6);
             MinimizeTrayLabel.Name = "MinimizeTrayLabel";
             MinimizeTrayLabel.Size = new Size(17, 21);
@@ -365,20 +382,20 @@
             // 
             // pictureBox5
             // 
-            pictureBox5.BackColor = SystemColors.ControlDark;
+            pictureBox5.BackColor = Color.FromArgb(64, 64, 64);
             pictureBox5.Dock = DockStyle.Left;
             pictureBox5.Location = new Point(0, 40);
             pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(10, 369);
+            pictureBox5.Size = new Size(10, 390);
             pictureBox5.TabIndex = 29;
             pictureBox5.TabStop = false;
             // 
             // NewsLabel
             // 
             NewsLabel.AutoSize = true;
-            NewsLabel.BackColor = SystemColors.ControlDarkDark;
+            NewsLabel.BackColor = Color.Transparent;
             NewsLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            NewsLabel.ForeColor = SystemColors.ControlDark;
+            NewsLabel.ForeColor = SystemColors.Control;
             NewsLabel.Location = new Point(572, 369);
             NewsLabel.Name = "NewsLabel";
             NewsLabel.Size = new Size(76, 32);
@@ -387,9 +404,9 @@
             // 
             // pictureBox7
             // 
-            pictureBox7.BackColor = SystemColors.ControlDark;
-            pictureBox7.Dock = DockStyle.Bottom;
-            pictureBox7.Location = new Point(0, 409);
+            pictureBox7.Anchor = AnchorStyles.Bottom;
+            pictureBox7.BackColor = Color.FromArgb(64, 64, 64);
+            pictureBox7.Location = new Point(6, 409);
             pictureBox7.Name = "pictureBox7";
             pictureBox7.Size = new Size(790, 21);
             pictureBox7.TabIndex = 33;
@@ -397,7 +414,7 @@
             // 
             // pictureBox6
             // 
-            pictureBox6.BackColor = SystemColors.ControlDark;
+            pictureBox6.BackColor = Color.FromArgb(64, 64, 64);
             pictureBox6.Dock = DockStyle.Right;
             pictureBox6.Location = new Point(790, 40);
             pictureBox6.Name = "pictureBox6";
@@ -407,31 +424,31 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = SystemColors.ControlDarkDark;
+            pictureBox1.BackColor = Color.FromArgb(0, 0, 18);
             pictureBox1.Dock = DockStyle.Right;
             pictureBox1.Location = new Point(560, 40);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(230, 369);
+            pictureBox1.Size = new Size(230, 390);
             pictureBox1.TabIndex = 35;
             pictureBox1.TabStop = false;
             // 
             // pictureBox8
             // 
-            pictureBox8.BackColor = SystemColors.ControlDark;
+            pictureBox8.BackColor = Color.FromArgb(64, 64, 64);
             pictureBox8.Dock = DockStyle.Right;
             pictureBox8.Location = new Point(550, 40);
             pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(10, 369);
+            pictureBox8.Size = new Size(10, 390);
             pictureBox8.TabIndex = 36;
             pictureBox8.TabStop = false;
             // 
             // pictureBox9
             // 
-            pictureBox9.BackColor = SystemColors.ControlDark;
+            pictureBox9.BackColor = Color.FromArgb(64, 64, 64);
             pictureBox9.Dock = DockStyle.Left;
             pictureBox9.Location = new Point(181, 40);
             pictureBox9.Name = "pictureBox9";
-            pictureBox9.Size = new Size(10, 369);
+            pictureBox9.Size = new Size(10, 390);
             pictureBox9.TabIndex = 37;
             pictureBox9.TabStop = false;
             // 
@@ -531,10 +548,10 @@
             // logo
             // 
             logo.AutoSize = true;
-            logo.BackColor = SystemColors.ControlDark;
+            logo.BackColor = Color.Transparent;
             logo.Font = new Font("Malgun Gothic", 60F, FontStyle.Bold, GraphicsUnit.Point);
-            logo.ForeColor = SystemColors.ControlDarkDark;
-            logo.Location = new Point(570, 49);
+            logo.ForeColor = Color.FromArgb(0, 204, 204);
+            logo.Location = new Point(574, 49);
             logo.Name = "logo";
             logo.Size = new Size(210, 106);
             logo.TabIndex = 47;
@@ -544,15 +561,15 @@
             // 
             ServerTabs.Controls.Add(ServerSettings_Tab);
             ServerTabs.Controls.Add(ProfileManager_Tab);
-            ServerTabs.Location = new Point(189, 40);
+            ServerTabs.Location = new Point(187, 40);
             ServerTabs.Name = "ServerTabs";
             ServerTabs.SelectedIndex = 0;
-            ServerTabs.Size = new Size(367, 369);
+            ServerTabs.Size = new Size(367, 374);
             ServerTabs.TabIndex = 48;
             // 
             // ServerSettings_Tab
             // 
-            ServerSettings_Tab.BackColor = SystemColors.ControlDarkDark;
+            ServerSettings_Tab.BackColor = Color.FromArgb(0, 0, 18);
             ServerSettings_Tab.Controls.Add(IP_TextBox);
             ServerSettings_Tab.Controls.Add(ServerSelectionComboBox);
             ServerSettings_Tab.Controls.Add(ServerSelectionLabel);
@@ -572,13 +589,14 @@
             ServerSettings_Tab.Location = new Point(4, 24);
             ServerSettings_Tab.Name = "ServerSettings_Tab";
             ServerSettings_Tab.Padding = new Padding(3);
-            ServerSettings_Tab.Size = new Size(359, 341);
+            ServerSettings_Tab.Size = new Size(359, 346);
             ServerSettings_Tab.TabIndex = 0;
             ServerSettings_Tab.Text = "Server Settings";
             // 
             // ProfileManager_Tab
             // 
-            ProfileManager_Tab.BackColor = SystemColors.ControlDarkDark;
+            ProfileManager_Tab.BackColor = Color.FromArgb(0, 0, 18);
+            ProfileManager_Tab.Controls.Add(lblAddNewProfile);
             ProfileManager_Tab.Controls.Add(lblProfileManager);
             ProfileManager_Tab.Controls.Add(pnlProfileNameUpdate);
             ProfileManager_Tab.Controls.Add(DeleteProfile_Button);
@@ -587,15 +605,25 @@
             ProfileManager_Tab.Location = new Point(4, 24);
             ProfileManager_Tab.Name = "ProfileManager_Tab";
             ProfileManager_Tab.Padding = new Padding(3);
-            ProfileManager_Tab.Size = new Size(359, 341);
+            ProfileManager_Tab.Size = new Size(359, 346);
             ProfileManager_Tab.TabIndex = 1;
             ProfileManager_Tab.Text = "Manage Profiles";
+            // 
+            // lblAddNewProfile
+            // 
+            lblAddNewProfile.AutoSize = true;
+            lblAddNewProfile.Location = new Point(225, 19);
+            lblAddNewProfile.Name = "lblAddNewProfile";
+            lblAddNewProfile.Size = new Size(93, 15);
+            lblAddNewProfile.TabIndex = 5;
+            lblAddNewProfile.Text = "Add New Profile";
             // 
             // lblProfileManager
             // 
             lblProfileManager.AutoSize = true;
+            lblProfileManager.BackColor = Color.Transparent;
             lblProfileManager.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            lblProfileManager.ForeColor = SystemColors.ControlDark;
+            lblProfileManager.ForeColor = SystemColors.Control;
             lblProfileManager.Location = new Point(6, 305);
             lblProfileManager.Name = "lblProfileManager";
             lblProfileManager.Size = new Size(198, 32);
@@ -627,18 +655,27 @@
             // 
             // SaveProfileName_Button
             // 
-            SaveProfileName_Button.ForeColor = SystemColors.ActiveCaptionText;
-            SaveProfileName_Button.Location = new Point(14, 67);
+            SaveProfileName_Button.Cursor = Cursors.Hand;
+            SaveProfileName_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            SaveProfileName_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            SaveProfileName_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            SaveProfileName_Button.FlatStyle = FlatStyle.Flat;
+            SaveProfileName_Button.ForeColor = Color.FromArgb(0, 255, 185);
+            SaveProfileName_Button.Location = new Point(14, 62);
             SaveProfileName_Button.Name = "SaveProfileName_Button";
-            SaveProfileName_Button.Size = new Size(127, 23);
+            SaveProfileName_Button.Size = new Size(127, 30);
             SaveProfileName_Button.TabIndex = 4;
             SaveProfileName_Button.Text = "Save Changes";
+            SaveProfileName_Button.UseCompatibleTextRendering = true;
             SaveProfileName_Button.UseVisualStyleBackColor = true;
             SaveProfileName_Button.Click += SaveProfileName_Button_Click;
             // 
             // EditProfileName_TextBox
             // 
-            EditProfileName_TextBox.Location = new Point(3, 38);
+            EditProfileName_TextBox.BackColor = Color.FromArgb(6, 6, 48);
+            EditProfileName_TextBox.BorderStyle = BorderStyle.FixedSingle;
+            EditProfileName_TextBox.ForeColor = SystemColors.Window;
+            EditProfileName_TextBox.Location = new Point(4, 28);
             EditProfileName_TextBox.Name = "EditProfileName_TextBox";
             EditProfileName_TextBox.Size = new Size(147, 23);
             EditProfileName_TextBox.TabIndex = 1;
@@ -656,8 +693,9 @@
             // 
             DeleteProfile_Button.BackColor = Color.Red;
             DeleteProfile_Button.FlatAppearance.BorderColor = Color.Red;
+            DeleteProfile_Button.FlatStyle = FlatStyle.Popup;
             DeleteProfile_Button.ForeColor = SystemColors.ControlLightLight;
-            DeleteProfile_Button.Location = new Point(204, 261);
+            DeleteProfile_Button.Location = new Point(204, 252);
             DeleteProfile_Button.Name = "DeleteProfile_Button";
             DeleteProfile_Button.Size = new Size(127, 31);
             DeleteProfile_Button.TabIndex = 2;
@@ -667,64 +705,36 @@
             // 
             // AddNewProfile_Button
             // 
-            AddNewProfile_Button.ForeColor = SystemColors.ActiveCaptionText;
-            AddNewProfile_Button.Location = new Point(204, 32);
+            AddNewProfile_Button.Anchor = AnchorStyles.None;
+            AddNewProfile_Button.BackgroundImageLayout = ImageLayout.None;
+            AddNewProfile_Button.Cursor = Cursors.Hand;
+            AddNewProfile_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            AddNewProfile_Button.FlatStyle = FlatStyle.Flat;
+            AddNewProfile_Button.Font = new Font("Consolas", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            AddNewProfile_Button.ForeColor = Color.FromArgb(0, 255, 185);
+            AddNewProfile_Button.Location = new Point(187, 10);
+            AddNewProfile_Button.Margin = new Padding(0);
             AddNewProfile_Button.Name = "AddNewProfile_Button";
-            AddNewProfile_Button.Size = new Size(127, 23);
+            AddNewProfile_Button.Padding = new Padding(0, 2, 0, 0);
+            AddNewProfile_Button.Size = new Size(30, 30);
             AddNewProfile_Button.TabIndex = 1;
-            AddNewProfile_Button.Text = "Add New Profile";
+            AddNewProfile_Button.Text = "+";
+            AddNewProfile_Button.UseCompatibleTextRendering = true;
             AddNewProfile_Button.UseVisualStyleBackColor = true;
             AddNewProfile_Button.Click += AddNewProfile_Button_Click;
             // 
             // ServerProfilesListBox
             // 
+            ServerProfilesListBox.BackColor = Color.FromArgb(0, 0, 28);
+            ServerProfilesListBox.BorderStyle = BorderStyle.FixedSingle;
+            ServerProfilesListBox.ForeColor = SystemColors.Window;
             ServerProfilesListBox.FormattingEnabled = true;
             ServerProfilesListBox.ItemHeight = 15;
-            ServerProfilesListBox.Location = new Point(6, 18);
+            ServerProfilesListBox.Location = new Point(10, 10);
             ServerProfilesListBox.Name = "ServerProfilesListBox";
-            ServerProfilesListBox.Size = new Size(166, 274);
+            ServerProfilesListBox.Size = new Size(166, 272);
             ServerProfilesListBox.TabIndex = 0;
             ServerProfilesListBox.SelectedIndexChanged += ServerProfilesListBox_IndexChanged;
-            // 
-            // pictureBox4
-            // 
-            pictureBox4.BackColor = Color.White;
-            pictureBox4.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox4.Location = new Point(4, 40);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(177, 369);
-            pictureBox4.TabIndex = 26;
-            pictureBox4.TabStop = false;
-            // 
-            // pictureBox11
-            // 
-            pictureBox11.BackColor = SystemColors.ControlDarkDark;
-            pictureBox11.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox11.Location = new Point(9, 45);
-            pictureBox11.Name = "pictureBox11";
-            pictureBox11.Size = new Size(167, 359);
-            pictureBox11.TabIndex = 50;
-            pictureBox11.TabStop = false;
-            // 
-            // pictureBox12
-            // 
-            pictureBox12.BackColor = Color.White;
-            pictureBox12.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox12.Location = new Point(560, 40);
-            pictureBox12.Name = "pictureBox12";
-            pictureBox12.Size = new Size(229, 369);
-            pictureBox12.TabIndex = 51;
-            pictureBox12.TabStop = false;
-            // 
-            // pictureBox13
-            // 
-            pictureBox13.BackColor = SystemColors.ControlDarkDark;
-            pictureBox13.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox13.Location = new Point(565, 45);
-            pictureBox13.Name = "pictureBox13";
-            pictureBox13.Size = new Size(219, 359);
-            pictureBox13.TabIndex = 52;
-            pictureBox13.TabStop = false;
             // 
             // NewsText
             // 
@@ -738,10 +748,10 @@
             // CreditsLabel
             // 
             CreditsLabel.AutoSize = true;
-            CreditsLabel.BackColor = SystemColors.ControlDark;
+            CreditsLabel.BackColor = Color.FromArgb(64, 64, 64);
             CreditsLabel.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
-            CreditsLabel.ForeColor = SystemColors.ActiveCaptionText;
-            CreditsLabel.Location = new Point(572, 412);
+            CreditsLabel.ForeColor = Color.FromArgb(0, 204, 204);
+            CreditsLabel.Location = new Point(570, 413);
             CreditsLabel.Name = "CreditsLabel";
             CreditsLabel.Size = new Size(211, 13);
             CreditsLabel.TabIndex = 54;
@@ -751,8 +761,12 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ControlDarkDark;
+            BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
+            Controls.Add(CreditsLabel);
+            Controls.Add(pictureBox7);
+            Controls.Add(pictureBox9);
+            Controls.Add(pictureBox8);
             Controls.Add(OpenLogFolder_Button);
             Controls.Add(OpenSavegameFolder_Button);
             Controls.Add(OpenBackupFolder_Button);
@@ -765,25 +779,17 @@
             Controls.Add(ServerProfileSpecific);
             Controls.Add(WindowsFirewall_Button);
             Controls.Add(InstallSteamCMD_Button);
-            Controls.Add(CreditsLabel);
             Controls.Add(NewsText);
             Controls.Add(NewsLabel);
             Controls.Add(logo);
-            Controls.Add(pictureBox11);
-            Controls.Add(pictureBox13);
-            Controls.Add(pictureBox4);
-            Controls.Add(pictureBox12);
             Controls.Add(ServerTabs);
             Controls.Add(label7);
-            Controls.Add(pictureBox9);
-            Controls.Add(pictureBox8);
             Controls.Add(pictureBox1);
             Controls.Add(MinimizeTrayLabel);
             Controls.Add(CloseLabel);
             Controls.Add(TitleLabel);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox5);
-            Controls.Add(pictureBox7);
             Controls.Add(pictureBox6);
             Controls.Add(pictureBox3);
             ForeColor = SystemColors.ButtonHighlight;
@@ -811,10 +817,6 @@
             ProfileManager_Tab.PerformLayout();
             pnlProfileNameUpdate.ResumeLayout(false);
             pnlProfileNameUpdate.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox11).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox12).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox13).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -875,11 +877,8 @@
         private Label lblProfileNameInputHeading;
         private Label lblProfileNameInfo;
         private Label logo;
-        private PictureBox pictureBox4;
-        private PictureBox pictureBox11;
-        private PictureBox pictureBox12;
-        private PictureBox pictureBox13;
         private Label NewsText;
         private Label CreditsLabel;
+        private Label lblAddNewProfile;
     }
 }

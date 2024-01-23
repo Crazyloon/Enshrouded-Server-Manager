@@ -71,7 +71,7 @@ public partial class Form1 : Form
 
             ServerSelectionComboBox.SelectedIndex = 0;
 
-            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString()!;
+            string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
             RefreshServerButtonsState(ServerSelectText);
 
             LoadServerSettings(ServerSelectText);
@@ -245,7 +245,7 @@ public partial class Form1 : Form
 
     private void OpenBackupFolder_Button_Click(object sender, EventArgs e)
     {
-        string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString()!;
+        string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
         string backupserverfolder = $"{BACKUPS_FOLDER}/{ServerSelectText}";
 
         _folder.Create(backupserverfolder);
@@ -288,7 +288,7 @@ public partial class Form1 : Form
     {
         if (ServerProfilesListBox.SelectedItem is not null)
         {
-            string ServerSelectText = ServerProfilesListBox.SelectedItem.ToString()!;
+            string ServerSelectText = ServerProfilesListBox.SelectedItem.ToString();
             EditProfileName_TextBox.Text = ServerSelectText;
         }
     }
@@ -354,16 +354,20 @@ public partial class Form1 : Form
 
         // Validate Windows File Name Does not have Special Characters
         string editProfileName = EditProfileName_TextBox.Text;
-        if (editProfileName == null || !isProfileNameValid(editProfileName))
+        if (editProfileName == null || !isProfileNameValid(editProfileName) || ServerProfilesListBox.SelectedItem.ToString() == editProfileName)
         {
             return;
         }
 
         // Load Server Profiles
-        List<ServerProfile> profiledata = LoadServerProfiles();
+        List<ServerProfile>? profiledata = LoadServerProfiles();
+        if (profiledata is null)
+        {
+            return;
+        }
 
         // get the selected profile
-        string selectedServerName = ServerProfilesListBox.SelectedItem.ToString()!;
+        string selectedServerName = ServerProfilesListBox.SelectedItem.ToString();
         var selectedProfile = profiledata.FirstOrDefault(x => x.Name == selectedServerName);
         if (selectedProfile != null)
         {
@@ -416,7 +420,7 @@ public partial class Form1 : Form
             List<ServerProfile> profiledata = LoadServerProfiles();
 
             // get the selected profile
-            string selectedServerProfile = ServerProfilesListBox.SelectedItem.ToString()!;
+            string selectedServerProfile = ServerProfilesListBox.SelectedItem.ToString();
             var serverProfile = profiledata.FirstOrDefault(x => x.Name == selectedServerProfile);
 
             if (serverProfile != null)
