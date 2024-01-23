@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             ServerSelectionComboBox = new ComboBox();
             ServerSelectionLabel = new Label();
             InstallSteamCMD_Button = new Button();
@@ -71,7 +70,23 @@
             OpenLogFolder_Button = new Button();
             UpdateServer_Button = new Button();
             logo = new Label();
-            ServerFolderLabel = new Label();
+            ServerTabs = new TabControl();
+            ServerSettings_Tab = new TabPage();
+            ProfileManager_Tab = new TabPage();
+            lblProfileManager = new Label();
+            pnlProfileNameUpdate = new Panel();
+            lblProfileNameInfo = new Label();
+            SaveProfileName_Button = new Button();
+            EditProfileName_TextBox = new TextBox();
+            lblProfileNameInputHeading = new Label();
+            DeleteProfile_Button = new Button();
+            AddNewProfile_Button = new Button();
+            ServerProfilesListBox = new ListBox();
+            pictureBox4 = new PictureBox();
+            pictureBox11 = new PictureBox();
+            pictureBox12 = new PictureBox();
+            pictureBox13 = new PictureBox();
+            NewsText = new Label();
             ((System.ComponentModel.ISupportInitialize)GamePort_input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)QueryPort_input).BeginInit();
             ((System.ComponentModel.ISupportInitialize)SlotCount_input).BeginInit();
@@ -84,24 +99,31 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
+            ServerTabs.SuspendLayout();
+            ServerSettings_Tab.SuspendLayout();
+            ProfileManager_Tab.SuspendLayout();
+            pnlProfileNameUpdate.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox11).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox12).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox13).BeginInit();
             SuspendLayout();
             // 
             // ServerSelectionComboBox
             // 
             ServerSelectionComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            ServerSelectionComboBox.FlatStyle = FlatStyle.System;
             ServerSelectionComboBox.FormattingEnabled = true;
-            ServerSelectionComboBox.Items.AddRange(new object[] { "Default", "New Profile 2", "New Profile 3", "New Profile 4", "New Profile 5", "New Profile 6" });
-            ServerSelectionComboBox.Location = new Point(314, 77);
+            ServerSelectionComboBox.Location = new Point(137, 34);
             ServerSelectionComboBox.Name = "ServerSelectionComboBox";
             ServerSelectionComboBox.Size = new Size(170, 23);
             ServerSelectionComboBox.TabIndex = 0;
-            ServerSelectionComboBox.SelectedIndexChanged += Form1_Load;
+            ServerSelectionComboBox.SelectedIndexChanged += ServerProfileComboBox_IndexChanged;
             // 
             // ServerSelectionLabel
             // 
             ServerSelectionLabel.AutoSize = true;
-            ServerSelectionLabel.ForeColor = SystemColors.ButtonHighlight;
-            ServerSelectionLabel.Location = new Point(236, 80);
+            ServerSelectionLabel.Location = new Point(59, 37);
             ServerSelectionLabel.Name = "ServerSelectionLabel";
             ServerSelectionLabel.Size = new Size(76, 15);
             ServerSelectionLabel.TabIndex = 1;
@@ -132,28 +154,28 @@
             // 
             // ServerName_TextBox
             // 
-            ServerName_TextBox.Location = new Point(314, 121);
+            ServerName_TextBox.Location = new Point(137, 78);
             ServerName_TextBox.Name = "ServerName_TextBox";
             ServerName_TextBox.Size = new Size(170, 23);
             ServerName_TextBox.TabIndex = 4;
             // 
             // ServerPassword_TextBox
             // 
-            ServerPassword_TextBox.Location = new Point(314, 150);
+            ServerPassword_TextBox.Location = new Point(137, 107);
             ServerPassword_TextBox.Name = "ServerPassword_TextBox";
             ServerPassword_TextBox.Size = new Size(170, 23);
             ServerPassword_TextBox.TabIndex = 5;
             // 
             // IP_TextBox
             // 
-            IP_TextBox.Location = new Point(314, 179);
+            IP_TextBox.Location = new Point(137, 136);
             IP_TextBox.Name = "IP_TextBox";
             IP_TextBox.Size = new Size(134, 23);
             IP_TextBox.TabIndex = 6;
             // 
             // GamePort_input
             // 
-            GamePort_input.Location = new Point(314, 209);
+            GamePort_input.Location = new Point(137, 166);
             GamePort_input.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             GamePort_input.Name = "GamePort_input";
             GamePort_input.Size = new Size(62, 23);
@@ -161,7 +183,7 @@
             // 
             // QueryPort_input
             // 
-            QueryPort_input.Location = new Point(314, 238);
+            QueryPort_input.Location = new Point(137, 195);
             QueryPort_input.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             QueryPort_input.Name = "QueryPort_input";
             QueryPort_input.Size = new Size(62, 23);
@@ -169,7 +191,7 @@
             // 
             // SlotCount_input
             // 
-            SlotCount_input.Location = new Point(314, 267);
+            SlotCount_input.Location = new Point(137, 224);
             SlotCount_input.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
             SlotCount_input.Name = "SlotCount_input";
             SlotCount_input.Size = new Size(35, 23);
@@ -179,7 +201,7 @@
             // 
             Servername_Label.AutoSize = true;
             Servername_Label.ForeColor = SystemColors.ButtonHighlight;
-            Servername_Label.Location = new Point(243, 124);
+            Servername_Label.Location = new Point(66, 81);
             Servername_Label.Name = "Servername_Label";
             Servername_Label.Size = new Size(69, 15);
             Servername_Label.TabIndex = 10;
@@ -189,7 +211,7 @@
             // 
             Password_Label.AutoSize = true;
             Password_Label.ForeColor = SystemColors.ButtonHighlight;
-            Password_Label.Location = new Point(255, 153);
+            Password_Label.Location = new Point(78, 110);
             Password_Label.Name = "Password_Label";
             Password_Label.Size = new Size(57, 15);
             Password_Label.TabIndex = 11;
@@ -199,7 +221,7 @@
             // 
             IpAddress_Label.AutoSize = true;
             IpAddress_Label.ForeColor = SystemColors.ButtonHighlight;
-            IpAddress_Label.Location = new Point(250, 182);
+            IpAddress_Label.Location = new Point(73, 139);
             IpAddress_Label.Name = "IpAddress_Label";
             IpAddress_Label.Size = new Size(62, 15);
             IpAddress_Label.TabIndex = 12;
@@ -209,7 +231,7 @@
             // 
             GamePort_label.AutoSize = true;
             GamePort_label.ForeColor = SystemColors.ButtonHighlight;
-            GamePort_label.Location = new Point(252, 211);
+            GamePort_label.Location = new Point(75, 168);
             GamePort_label.Name = "GamePort_label";
             GamePort_label.Size = new Size(60, 15);
             GamePort_label.TabIndex = 13;
@@ -219,7 +241,7 @@
             // 
             QueryPort_Label.AutoSize = true;
             QueryPort_Label.ForeColor = SystemColors.ButtonHighlight;
-            QueryPort_Label.Location = new Point(251, 240);
+            QueryPort_Label.Location = new Point(74, 197);
             QueryPort_Label.Name = "QueryPort_Label";
             QueryPort_Label.Size = new Size(61, 15);
             QueryPort_Label.TabIndex = 14;
@@ -228,7 +250,7 @@
             // MaxPlayers_Label
             // 
             MaxPlayers_Label.AutoSize = true;
-            MaxPlayers_Label.Location = new Point(245, 269);
+            MaxPlayers_Label.Location = new Point(68, 226);
             MaxPlayers_Label.Name = "MaxPlayers_Label";
             MaxPlayers_Label.Size = new Size(67, 15);
             MaxPlayers_Label.TabIndex = 15;
@@ -237,7 +259,7 @@
             // SaveSettings_Button
             // 
             SaveSettings_Button.ForeColor = SystemColors.ActiveCaptionText;
-            SaveSettings_Button.Location = new Point(318, 315);
+            SaveSettings_Button.Location = new Point(137, 265);
             SaveSettings_Button.Name = "SaveSettings_Button";
             SaveSettings_Button.Size = new Size(124, 23);
             SaveSettings_Button.TabIndex = 17;
@@ -283,7 +305,7 @@
             AdminPanelLabel.BackColor = SystemColors.ControlDarkDark;
             AdminPanelLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             AdminPanelLabel.ForeColor = SystemColors.ControlDark;
-            AdminPanelLabel.Location = new Point(11, 375);
+            AdminPanelLabel.Location = new Point(16, 369);
             AdminPanelLabel.Name = "AdminPanelLabel";
             AdminPanelLabel.Size = new Size(153, 32);
             AdminPanelLabel.TabIndex = 23;
@@ -308,7 +330,7 @@
             ServerSettingsLabel.BackColor = SystemColors.ControlDarkDark;
             ServerSettingsLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             ServerSettingsLabel.ForeColor = SystemColors.ControlDark;
-            ServerSettingsLabel.Location = new Point(193, 374);
+            ServerSettingsLabel.Location = new Point(6, 305);
             ServerSettingsLabel.Name = "ServerSettingsLabel";
             ServerSettingsLabel.Size = new Size(186, 32);
             ServerSettingsLabel.TabIndex = 25;
@@ -356,7 +378,7 @@
             NewsLabel.BackColor = SystemColors.ControlDarkDark;
             NewsLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
             NewsLabel.ForeColor = SystemColors.ControlDark;
-            NewsLabel.Location = new Point(562, 374);
+            NewsLabel.Location = new Point(572, 369);
             NewsLabel.Name = "NewsLabel";
             NewsLabel.Size = new Size(76, 32);
             NewsLabel.TabIndex = 30;
@@ -450,9 +472,8 @@
             label7.AutoSize = true;
             label7.Location = new Point(577, 168);
             label7.Name = "label7";
-            label7.Size = new Size(195, 165);
-            label7.TabIndex = 41;
-            label7.Text = resources.GetString("label7.Text");
+            label7.Size = new Size(0, 15);
+            label7.TabIndex = 49;
             // 
             // ServerProfileSpecific
             // 
@@ -466,7 +487,7 @@
             // pictureBox10
             // 
             pictureBox10.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox10.Location = new Point(26, 159);
+            pictureBox10.Location = new Point(27, 156);
             pictureBox10.Name = "pictureBox10";
             pictureBox10.Size = new Size(140, 203);
             pictureBox10.TabIndex = 43;
@@ -512,20 +533,206 @@
             logo.BackColor = SystemColors.ControlDark;
             logo.Font = new Font("Malgun Gothic", 60F, FontStyle.Bold, GraphicsUnit.Point);
             logo.ForeColor = SystemColors.ControlDarkDark;
-            logo.Location = new Point(570, 50);
+            logo.Location = new Point(570, 49);
             logo.Name = "logo";
             logo.Size = new Size(210, 106);
             logo.TabIndex = 47;
             logo.Text = "ESM";
             // 
-            // ServerFolderLabel
+            // ServerTabs
             // 
-            ServerFolderLabel.AutoSize = true;
-            ServerFolderLabel.Location = new Point(490, 80);
-            ServerFolderLabel.Name = "ServerFolderLabel";
-            ServerFolderLabel.Size = new Size(38, 15);
-            ServerFolderLabel.TabIndex = 48;
-            ServerFolderLabel.Text = "label1";
+            ServerTabs.Controls.Add(ServerSettings_Tab);
+            ServerTabs.Controls.Add(ProfileManager_Tab);
+            ServerTabs.Location = new Point(189, 40);
+            ServerTabs.Name = "ServerTabs";
+            ServerTabs.SelectedIndex = 0;
+            ServerTabs.Size = new Size(367, 369);
+            ServerTabs.TabIndex = 48;
+            // 
+            // ServerSettings_Tab
+            // 
+            ServerSettings_Tab.BackColor = SystemColors.ControlDarkDark;
+            ServerSettings_Tab.Controls.Add(IP_TextBox);
+            ServerSettings_Tab.Controls.Add(ServerSelectionComboBox);
+            ServerSettings_Tab.Controls.Add(ServerSelectionLabel);
+            ServerSettings_Tab.Controls.Add(ServerName_TextBox);
+            ServerSettings_Tab.Controls.Add(ServerPassword_TextBox);
+            ServerSettings_Tab.Controls.Add(GamePort_input);
+            ServerSettings_Tab.Controls.Add(QueryPort_input);
+            ServerSettings_Tab.Controls.Add(SlotCount_input);
+            ServerSettings_Tab.Controls.Add(Servername_Label);
+            ServerSettings_Tab.Controls.Add(Password_Label);
+            ServerSettings_Tab.Controls.Add(IpAddress_Label);
+            ServerSettings_Tab.Controls.Add(GamePort_label);
+            ServerSettings_Tab.Controls.Add(QueryPort_Label);
+            ServerSettings_Tab.Controls.Add(MaxPlayers_Label);
+            ServerSettings_Tab.Controls.Add(SaveSettings_Button);
+            ServerSettings_Tab.Controls.Add(ServerSettingsLabel);
+            ServerSettings_Tab.Location = new Point(4, 24);
+            ServerSettings_Tab.Name = "ServerSettings_Tab";
+            ServerSettings_Tab.Padding = new Padding(3);
+            ServerSettings_Tab.Size = new Size(359, 341);
+            ServerSettings_Tab.TabIndex = 0;
+            ServerSettings_Tab.Text = "Server Settings";
+            // 
+            // ProfileManager_Tab
+            // 
+            ProfileManager_Tab.BackColor = SystemColors.ControlDarkDark;
+            ProfileManager_Tab.Controls.Add(lblProfileManager);
+            ProfileManager_Tab.Controls.Add(pnlProfileNameUpdate);
+            ProfileManager_Tab.Controls.Add(DeleteProfile_Button);
+            ProfileManager_Tab.Controls.Add(AddNewProfile_Button);
+            ProfileManager_Tab.Controls.Add(ServerProfilesListBox);
+            ProfileManager_Tab.Location = new Point(4, 24);
+            ProfileManager_Tab.Name = "ProfileManager_Tab";
+            ProfileManager_Tab.Padding = new Padding(3);
+            ProfileManager_Tab.Size = new Size(359, 341);
+            ProfileManager_Tab.TabIndex = 1;
+            ProfileManager_Tab.Text = "Manage Profiles";
+            // 
+            // lblProfileManager
+            // 
+            lblProfileManager.AutoSize = true;
+            lblProfileManager.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            lblProfileManager.ForeColor = SystemColors.ControlDark;
+            lblProfileManager.Location = new Point(6, 305);
+            lblProfileManager.Name = "lblProfileManager";
+            lblProfileManager.Size = new Size(198, 32);
+            lblProfileManager.TabIndex = 4;
+            lblProfileManager.Text = "Profile Manager";
+            // 
+            // pnlProfileNameUpdate
+            // 
+            pnlProfileNameUpdate.BorderStyle = BorderStyle.Fixed3D;
+            pnlProfileNameUpdate.Controls.Add(lblProfileNameInfo);
+            pnlProfileNameUpdate.Controls.Add(SaveProfileName_Button);
+            pnlProfileNameUpdate.Controls.Add(EditProfileName_TextBox);
+            pnlProfileNameUpdate.Controls.Add(lblProfileNameInputHeading);
+            pnlProfileNameUpdate.Location = new Point(187, 74);
+            pnlProfileNameUpdate.Name = "pnlProfileNameUpdate";
+            pnlProfileNameUpdate.Size = new Size(159, 159);
+            pnlProfileNameUpdate.TabIndex = 3;
+            // 
+            // lblProfileNameInfo
+            // 
+            lblProfileNameInfo.AutoSize = true;
+            lblProfileNameInfo.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lblProfileNameInfo.ForeColor = SystemColors.Info;
+            lblProfileNameInfo.Location = new Point(7, 98);
+            lblProfileNameInfo.Name = "lblProfileNameInfo";
+            lblProfileNameInfo.Size = new Size(140, 51);
+            lblProfileNameInfo.TabIndex = 5;
+            lblProfileNameInfo.Text = "Only alphanumeric\r\nunderscore and dash\r\ncharacters are allowed";
+            // 
+            // SaveProfileName_Button
+            // 
+            SaveProfileName_Button.ForeColor = SystemColors.ActiveCaptionText;
+            SaveProfileName_Button.Location = new Point(14, 67);
+            SaveProfileName_Button.Name = "SaveProfileName_Button";
+            SaveProfileName_Button.Size = new Size(127, 23);
+            SaveProfileName_Button.TabIndex = 4;
+            SaveProfileName_Button.Text = "Save Changes";
+            SaveProfileName_Button.UseVisualStyleBackColor = true;
+            SaveProfileName_Button.Click += SaveProfileName_Button_Click;
+            // 
+            // EditProfileName_TextBox
+            // 
+            EditProfileName_TextBox.Location = new Point(3, 38);
+            EditProfileName_TextBox.Name = "EditProfileName_TextBox";
+            EditProfileName_TextBox.Size = new Size(147, 23);
+            EditProfileName_TextBox.TabIndex = 1;
+            // 
+            // lblProfileNameInputHeading
+            // 
+            lblProfileNameInputHeading.AutoSize = true;
+            lblProfileNameInputHeading.Location = new Point(3, 8);
+            lblProfileNameInputHeading.Name = "lblProfileNameInputHeading";
+            lblProfileNameInputHeading.Size = new Size(76, 15);
+            lblProfileNameInputHeading.TabIndex = 0;
+            lblProfileNameInputHeading.Text = "Profile Name";
+            // 
+            // DeleteProfile_Button
+            // 
+            DeleteProfile_Button.BackColor = Color.Red;
+            DeleteProfile_Button.FlatAppearance.BorderColor = Color.Red;
+            DeleteProfile_Button.ForeColor = SystemColors.ControlLightLight;
+            DeleteProfile_Button.Location = new Point(204, 261);
+            DeleteProfile_Button.Name = "DeleteProfile_Button";
+            DeleteProfile_Button.Size = new Size(127, 31);
+            DeleteProfile_Button.TabIndex = 2;
+            DeleteProfile_Button.Text = "Delete Selected";
+            DeleteProfile_Button.UseVisualStyleBackColor = false;
+            DeleteProfile_Button.Click += DeleteProfile_Button_Click;
+            // 
+            // AddNewProfile_Button
+            // 
+            AddNewProfile_Button.ForeColor = SystemColors.ActiveCaptionText;
+            AddNewProfile_Button.Location = new Point(204, 32);
+            AddNewProfile_Button.Name = "AddNewProfile_Button";
+            AddNewProfile_Button.Size = new Size(127, 23);
+            AddNewProfile_Button.TabIndex = 1;
+            AddNewProfile_Button.Text = "Add New Profile";
+            AddNewProfile_Button.UseVisualStyleBackColor = true;
+            AddNewProfile_Button.Click += AddNewProfile_Button_Click;
+            // 
+            // ServerProfilesListBox
+            // 
+            ServerProfilesListBox.FormattingEnabled = true;
+            ServerProfilesListBox.ItemHeight = 15;
+            ServerProfilesListBox.Location = new Point(6, 18);
+            ServerProfilesListBox.Name = "ServerProfilesListBox";
+            ServerProfilesListBox.Size = new Size(166, 274);
+            ServerProfilesListBox.TabIndex = 0;
+            ServerProfilesListBox.SelectedIndexChanged += ServerProfilesListBox_IndexChanged;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.BackColor = Color.White;
+            pictureBox4.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox4.Location = new Point(6, 40);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(177, 369);
+            pictureBox4.TabIndex = 26;
+            pictureBox4.TabStop = false;
+            // 
+            // pictureBox11
+            // 
+            pictureBox11.BackColor = SystemColors.ControlDarkDark;
+            pictureBox11.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox11.Location = new Point(11, 45);
+            pictureBox11.Name = "pictureBox11";
+            pictureBox11.Size = new Size(167, 359);
+            pictureBox11.TabIndex = 50;
+            pictureBox11.TabStop = false;
+            // 
+            // pictureBox12
+            // 
+            pictureBox12.BackColor = Color.White;
+            pictureBox12.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox12.Location = new Point(560, 40);
+            pictureBox12.Name = "pictureBox12";
+            pictureBox12.Size = new Size(229, 369);
+            pictureBox12.TabIndex = 51;
+            pictureBox12.TabStop = false;
+            // 
+            // pictureBox13
+            // 
+            pictureBox13.BackColor = SystemColors.ControlDarkDark;
+            pictureBox13.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox13.Location = new Point(565, 45);
+            pictureBox13.Name = "pictureBox13";
+            pictureBox13.Size = new Size(219, 359);
+            pictureBox13.TabIndex = 52;
+            pictureBox13.TabStop = false;
+            // 
+            // NewsText
+            // 
+            NewsText.AutoSize = true;
+            NewsText.Location = new Point(584, 181);
+            NewsText.Name = "NewsText";
+            NewsText.Size = new Size(170, 45);
+            NewsText.TabIndex = 53;
+            NewsText.Text = "Version 0.0.4:\r\n- added an option to create, \r\n   edit and delete server profiles";
             // 
             // Form1
             // 
@@ -533,45 +740,34 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(800, 430);
-            Controls.Add(ServerFolderLabel);
+            Controls.Add(NewsText);
+            Controls.Add(NewsLabel);
             Controls.Add(logo);
-            Controls.Add(UpdateServer_Button);
+            Controls.Add(pictureBox13);
+            Controls.Add(pictureBox12);
+            Controls.Add(AdminPanelLabel);
             Controls.Add(OpenLogFolder_Button);
             Controls.Add(OpenSavegameFolder_Button);
             Controls.Add(OpenBackupFolder_Button);
             Controls.Add(SaveBackup_Button);
             Controls.Add(StartServer_Button);
-            Controls.Add(InstallServer_Button);
-            Controls.Add(ServerProfileSpecific);
+            Controls.Add(UpdateServer_Button);
             Controls.Add(pictureBox10);
-            Controls.Add(label7);
+            Controls.Add(ServerProfileSpecific);
             Controls.Add(WindowsFirewall_Button);
             Controls.Add(InstallSteamCMD_Button);
-            Controls.Add(AdminPanelLabel);
+            Controls.Add(pictureBox11);
+            Controls.Add(pictureBox4);
+            Controls.Add(ServerTabs);
+            Controls.Add(InstallServer_Button);
+            Controls.Add(label7);
             Controls.Add(pictureBox9);
-            Controls.Add(NewsLabel);
             Controls.Add(pictureBox8);
             Controls.Add(pictureBox1);
             Controls.Add(MinimizeTrayLabel);
             Controls.Add(CloseLabel);
-            Controls.Add(ServerSettingsLabel);
             Controls.Add(TitleLabel);
             Controls.Add(pictureBox2);
-            Controls.Add(SaveSettings_Button);
-            Controls.Add(MaxPlayers_Label);
-            Controls.Add(QueryPort_Label);
-            Controls.Add(GamePort_label);
-            Controls.Add(IpAddress_Label);
-            Controls.Add(Password_Label);
-            Controls.Add(Servername_Label);
-            Controls.Add(SlotCount_input);
-            Controls.Add(QueryPort_input);
-            Controls.Add(GamePort_input);
-            Controls.Add(IP_TextBox);
-            Controls.Add(ServerPassword_TextBox);
-            Controls.Add(ServerName_TextBox);
-            Controls.Add(ServerSelectionLabel);
-            Controls.Add(ServerSelectionComboBox);
             Controls.Add(pictureBox5);
             Controls.Add(pictureBox7);
             Controls.Add(pictureBox6);
@@ -594,6 +790,17 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
+            ServerTabs.ResumeLayout(false);
+            ServerSettings_Tab.ResumeLayout(false);
+            ServerSettings_Tab.PerformLayout();
+            ProfileManager_Tab.ResumeLayout(false);
+            ProfileManager_Tab.PerformLayout();
+            pnlProfileNameUpdate.ResumeLayout(false);
+            pnlProfileNameUpdate.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox11).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox12).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox13).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -641,7 +848,23 @@
         private Button OpenSavegameFolder_Button;
         private Button OpenLogFolder_Button;
         private Button UpdateServer_Button;
+        private TabControl ServerTabs;
+        private TabPage ServerSettings_Tab;
+        private TabPage ProfileManager_Tab;
+        private Button AddNewProfile_Button;
+        private ListBox ServerProfilesListBox;
+        private Button DeleteProfile_Button;
+        private Label lblProfileManager;
+        private Panel pnlProfileNameUpdate;
+        private Button SaveProfileName_Button;
+        private TextBox EditProfileName_TextBox;
+        private Label lblProfileNameInputHeading;
+        private Label lblProfileNameInfo;
         private Label logo;
-        private Label ServerFolderLabel;
+        private PictureBox pictureBox4;
+        private PictureBox pictureBox11;
+        private PictureBox pictureBox12;
+        private PictureBox pictureBox13;
+        private Label NewsText;
     }
 }
