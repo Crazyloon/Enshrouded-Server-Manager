@@ -144,7 +144,7 @@
             // InstallServer_Button
             // 
             InstallServer_Button.ForeColor = SystemColors.ActiveCaptionText;
-            InstallServer_Button.Location = new Point(33, 165);
+            InstallServer_Button.Location = new Point(33, 199);
             InstallServer_Button.Name = "InstallServer_Button";
             InstallServer_Button.Size = new Size(127, 23);
             InstallServer_Button.TabIndex = 3;
@@ -271,7 +271,7 @@
             // StartServer_Button
             // 
             StartServer_Button.ForeColor = SystemColors.ActiveCaptionText;
-            StartServer_Button.Location = new Point(33, 194);
+            StartServer_Button.Location = new Point(33, 171);
             StartServer_Button.Name = "StartServer_Button";
             StartServer_Button.Size = new Size(127, 23);
             StartServer_Button.TabIndex = 18;
@@ -488,7 +488,7 @@
             // pictureBox10
             // 
             pictureBox10.BorderStyle = BorderStyle.Fixed3D;
-            pictureBox10.Location = new Point(27, 156);
+            pictureBox10.Location = new Point(26, 163);
             pictureBox10.Name = "pictureBox10";
             pictureBox10.Size = new Size(140, 203);
             pictureBox10.TabIndex = 43;
@@ -519,7 +519,7 @@
             // UpdateServer_Button
             // 
             UpdateServer_Button.ForeColor = SystemColors.ActiveCaptionText;
-            UpdateServer_Button.Location = new Point(32, 165);
+            UpdateServer_Button.Location = new Point(33, 199);
             UpdateServer_Button.Name = "UpdateServer_Button";
             UpdateServer_Button.Size = new Size(127, 23);
             UpdateServer_Button.TabIndex = 46;
@@ -690,7 +690,7 @@
             // 
             pictureBox4.BackColor = Color.White;
             pictureBox4.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox4.Location = new Point(6, 40);
+            pictureBox4.Location = new Point(4, 40);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(177, 369);
             pictureBox4.TabIndex = 26;
@@ -700,7 +700,7 @@
             // 
             pictureBox11.BackColor = SystemColors.ControlDarkDark;
             pictureBox11.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox11.Location = new Point(11, 45);
+            pictureBox11.Location = new Point(9, 45);
             pictureBox11.Name = "pictureBox11";
             pictureBox11.Size = new Size(167, 359);
             pictureBox11.TabIndex = 50;
@@ -753,27 +753,27 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(800, 430);
+            Controls.Add(OpenLogFolder_Button);
+            Controls.Add(OpenSavegameFolder_Button);
+            Controls.Add(OpenBackupFolder_Button);
+            Controls.Add(UpdateServer_Button);
+            Controls.Add(InstallServer_Button);
+            Controls.Add(SaveBackup_Button);
+            Controls.Add(StartServer_Button);
+            Controls.Add(pictureBox10);
+            Controls.Add(AdminPanelLabel);
+            Controls.Add(ServerProfileSpecific);
+            Controls.Add(WindowsFirewall_Button);
+            Controls.Add(InstallSteamCMD_Button);
             Controls.Add(CreditsLabel);
             Controls.Add(NewsText);
             Controls.Add(NewsLabel);
             Controls.Add(logo);
-            Controls.Add(pictureBox13);
-            Controls.Add(pictureBox12);
-            Controls.Add(AdminPanelLabel);
-            Controls.Add(OpenLogFolder_Button);
-            Controls.Add(OpenSavegameFolder_Button);
-            Controls.Add(OpenBackupFolder_Button);
-            Controls.Add(SaveBackup_Button);
-            Controls.Add(StartServer_Button);
-            Controls.Add(UpdateServer_Button);
-            Controls.Add(pictureBox10);
-            Controls.Add(ServerProfileSpecific);
-            Controls.Add(WindowsFirewall_Button);
-            Controls.Add(InstallSteamCMD_Button);
             Controls.Add(pictureBox11);
+            Controls.Add(pictureBox13);
             Controls.Add(pictureBox4);
+            Controls.Add(pictureBox12);
             Controls.Add(ServerTabs);
-            Controls.Add(InstallServer_Button);
             Controls.Add(label7);
             Controls.Add(pictureBox9);
             Controls.Add(pictureBox8);
