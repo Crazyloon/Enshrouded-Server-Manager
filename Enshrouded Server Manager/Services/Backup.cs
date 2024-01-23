@@ -23,8 +23,8 @@ public class Backup
 
         try
         {
-            ZipFile.CreateFromDirectory(serverSaveFolder, $"{SERVER_PATH}{serverName}{BACKUPS_FOLDER}/backup-{datetimeString}.zip");
-            MessageBox.Show(@$"Backup saved at: ""{SERVER_PATH}{serverName}{BACKUPS_FOLDER}/backup-{datetimeString}.zip""",
+            ZipFile.CreateFromDirectory(serverSaveFolder, $"{SERVER_PATH}{serverName}{BACKUPS_FOLDER}/backup-{serverName}-{datetimeString}.zip");
+            MessageBox.Show(@$"Backup saved at: ""{SERVER_PATH}{serverName}{BACKUPS_FOLDER}/backup-{serverName}-{datetimeString}.zip""",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         catch (Exception ex)
