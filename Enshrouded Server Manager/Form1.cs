@@ -29,7 +29,7 @@ public partial class Form1 : Form
     private const string SERVER_PATH = @"./Servers/";
     private const string DEFAULT_PROFILES_PATH = @"./ServerProfiles/";
     private const string FIREWALL_PATH = @"c:\windows\system32\wf.msc";
-    private const string BACKUPS_FOLDER = "/Backups";
+    private const string BACKUPS_FOLDER = "./Backups";
     private const string SAVE_GAME_FOLDER = "/Savegame";
 
     public const int BUTTON_DOWN = 0xA1;
@@ -212,7 +212,7 @@ public partial class Form1 : Form
     {
         string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString()!;
 
-        _backup.Save($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText);
+        _backup.Save($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText, GAME_SERVER_CONFIG, $"{SERVER_PATH}{ServerSelectText}");
     }
 
     private void label4_Click(object sender, EventArgs e)
@@ -228,7 +228,7 @@ public partial class Form1 : Form
     private void OpenBackupFolder_Button_Click(object sender, EventArgs e)
     {
         string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString()!;
-        string backupserverfolder = $"{SERVER_PATH}{ServerSelectText}{BACKUPS_FOLDER}";
+        string backupserverfolder = $"{BACKUPS_FOLDER}/{ServerSelectText}";
 
         _folder.Create(backupserverfolder);
 
@@ -374,7 +374,7 @@ public partial class Form1 : Form
 
     private void DeleteProfile_Button_Click(object sender, EventArgs e)
     {
-        MessageBox.Show(Text, "Profile, Server software, SAVEDATA and BACKUPS of this server will be deleted! Are you sure you want to delete this profile?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        MessageBox.Show(Text, "Profile, Server software and SAVEDATA of this server will be deleted! Are you sure you want to delete this profile?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
 
         // Load Server Profiles

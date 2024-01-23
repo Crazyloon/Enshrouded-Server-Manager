@@ -5,13 +5,12 @@ namespace Enshrouded_Server_Manager.Services;
 public class Backup
 {
     private Folder? _folder;
-    private const string SERVER_PATH = @"./Servers/";
-    private const string BACKUPS_FOLDER = "/Backups";
+    private const string BACKUPS_FOLDER = "./Backups";
 
     /// <summary>
     /// Save a zip file of the location you set in "sourcefolder"
     /// </summary>
-    public void Save(String serverSaveFolder, String serverName)
+    public void Save(String serverSaveFolder, String serverName, String fileToCopy, String locationOfFileToCopy)
     {
         _folder = new Folder();
 
@@ -19,12 +18,23 @@ public class Backup
         string datetimeString = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
 
         _folder.Create(serverSaveFolder);
-        _folder.Create($"{SERVER_PATH}{serverName}{BACKUPS_FOLDER}");
+        _folder.Create($"{BACKUPS_FOLDER}/{serverName}");
+
+        if (File.Exists($"{serverSaveFolder}/{fileToCopy}"))
+        {
+            File.Delete($"{serverSaveFolder}/{fileToCopy}");
+        }
+
+        if (File.Exists($"{locationOfFileToCopy}/{fileToCopy}"))
+        {
+            File.Copy($"{locationOfFileToCopy}/{fileToCopy}", $"{serverSaveFolder}/{fileToCopy}");
+        }
+
 
         try
         {
-            ZipFile.CreateFromDirectory(serverSaveFolder, $"{SERVER_PATH}{serverName}{BACKUPS_FOLDER}/backup-{serverName}-{datetimeString}.zip");
-            MessageBox.Show(@$"Backup saved at: ""{SERVER_PATH}{serverName}{BACKUPS_FOLDER}/backup-{serverName}-{datetimeString}.zip""",
+            ZipFile.CreateFromDirectory(serverSaveFolder, $"{BACKUPS_FOLDER}/{serverName}/backup-{serverName}-{datetimeString}.zip");
+            MessageBox.Show(@$"Backup saved at: ""{BACKUPS_FOLDER}/{serverName}/backup-{serverName}-{datetimeString}.zip""",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         catch (Exception ex)
@@ -32,6 +42,11 @@ public class Backup
             MessageBox.Show(@$"An error occured while creating the zip file: {ex.Message.ToString()}",
                 "Error while zipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return;
+        }
+
+        if (File.Exists($"{serverSaveFolder}/{fileToCopy}"))
+        {
+            File.Delete($"{serverSaveFolder}/{fileToCopy}");
         }
 
     }
