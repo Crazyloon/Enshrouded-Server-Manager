@@ -1,6 +1,7 @@
 using Enshrouded_Server_Manager.Model;
 using Enshrouded_Server_Manager.Services;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -13,6 +14,7 @@ public partial class Form1 : Form
     private Server _server;
     private Backup _backup;
     private Folder _folder;
+    private JsonSerializerSettings _jsonSerializerSettings;
 
     // Server Tool SteamId
     private const string STEAM_APP_ID = "2278520";
@@ -56,6 +58,15 @@ public partial class Form1 : Form
 
     private void Form1_Load(object sender, EventArgs e)
     {
+        _jsonSerializerSettings = new JsonSerializerSettings()
+        {
+            ContractResolver = new DefaultContractResolver()
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            },
+            Formatting = Formatting.Indented
+        };
+
         // Load Server Profiles
         List<ServerProfile> profiledata = LoadServerProfiles(firstCheck: true);
 
@@ -168,13 +179,13 @@ public partial class Form1 : Form
                 Password = txtServerPassword.Text,
                 SaveDirectory = "./savegame",
                 LogDirectory = "./logs",
-                IpAddress = txtIpAddress.Text,
+                Ip = txtIpAddress.Text,
                 GamePort = Gameport,
                 QueryPort = QueryPort,
                 SlotCount = SlotCount
             };
 
-            var output = JsonConvert.SerializeObject(json);
+            var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
             File.WriteAllText($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_CONFIG}", output); //needs to be the server tool .json
 
             btnSaveSettings.Text = "Saved!";
@@ -210,13 +221,13 @@ public partial class Form1 : Form
                 Password = txtServerPassword.Text,
                 SaveDirectory = "./savegame",
                 LogDirectory = "./logs",
-                IpAddress = txtIpAddress.Text,
+                Ip = txtIpAddress.Text,
                 GamePort = Gameport,
                 QueryPort = QueryPort,
                 SlotCount = SlotCount
             };
 
-            var output = JsonConvert.SerializeObject(json);
+            var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
             File.WriteAllText($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_CONFIG}", output);
 
             _server.Start($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_EXE}", ServerSelectText);
@@ -311,7 +322,7 @@ public partial class Form1 : Form
         });
 
         // write the new profile to the json file
-        var output = JsonConvert.SerializeObject(profiledata);
+        var output = JsonConvert.SerializeObject(profiledata, _jsonSerializerSettings);
         File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
 
         // Create a folder with for the configuration
@@ -375,7 +386,7 @@ public partial class Form1 : Form
             selectedProfile.Name = editProfileName;
 
             // write the new profile to the json file
-            var output = JsonConvert.SerializeObject(profiledata);
+            var output = JsonConvert.SerializeObject(profiledata, _jsonSerializerSettings);
             File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
 
             // rename the server settings file
@@ -429,7 +440,7 @@ public partial class Form1 : Form
                 profiledata.Remove(serverProfile);
 
                 // write the new profile to the json file
-                var output = JsonConvert.SerializeObject(profiledata);
+                var output = JsonConvert.SerializeObject(profiledata, _jsonSerializerSettings);
                 File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
 
                 // Delete the server folder
@@ -472,13 +483,13 @@ public partial class Form1 : Form
         }
 
         var profilesJson = File.ReadAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json");
-        List<ServerProfile>? serverProfiles = JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson);
+        List<ServerProfile>? serverProfiles = JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson, _jsonSerializerSettings);
 
         if (serverProfiles is not null && serverProfiles.Count() <= 0)
         {
             WriteDefaultProfile();
             profilesJson = File.ReadAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json");
-            return JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson);
+            return JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson, _jsonSerializerSettings);
         }
 
         return serverProfiles;
@@ -494,7 +505,7 @@ public partial class Form1 : Form
             }
         };
 
-        var output = JsonConvert.SerializeObject(json);
+        var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
         File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
     }
 
@@ -554,11 +565,11 @@ public partial class Form1 : Form
 
         var input = File.ReadAllText($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_CONFIG}");
 
-        ServerSettings deserializedSettings = JsonConvert.DeserializeObject<ServerSettings>(input);
+        ServerSettings deserializedSettings = JsonConvert.DeserializeObject<ServerSettings>(input, _jsonSerializerSettings);
 
         txtServerName.Text = deserializedSettings.Name;
         txtServerPassword.Text = deserializedSettings.Password;
-        txtIpAddress.Text = deserializedSettings.IpAddress;
+        txtIpAddress.Text = deserializedSettings.Ip;
         nudGamePort.Text = deserializedSettings.GamePort.ToString();
         nudQueryPort.Text = deserializedSettings.QueryPort.ToString();
         nudSlotCount.Text = deserializedSettings.SlotCount.ToString();
@@ -572,13 +583,13 @@ public partial class Form1 : Form
             Password = "",
             SaveDirectory = "./savegame",
             LogDirectory = "./logs",
-            IpAddress = "0.0.0.0",
+            Ip = "0.0.0.0",
             GamePort = 15636,
             QueryPort = 15637,
             SlotCount = 16
         };
 
-        var output = JsonConvert.SerializeObject(json);
+        var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
         File.WriteAllText($"{SERVER_PATH}{serverName}{GAME_SERVER_CONFIG}", output);
     }
 

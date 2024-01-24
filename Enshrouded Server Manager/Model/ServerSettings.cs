@@ -17,7 +17,7 @@ public class ServerSettings
     public string LogDirectory { get; set; }
 
     [JsonPropertyName("ip")]
-    public string IpAddress { get; set; }
+    public string Ip { get; set; }
 
     [JsonPropertyName("gamePort")]
     public int GamePort { get; set; }
