@@ -72,13 +72,13 @@ public partial class Form1 : Form
             ServerSelectionComboBox.SelectedIndex = 0;
 
             string ServerSelectText = ServerSelectionComboBox.SelectedItem.ToString();
-            RefreshServerButtonsState(ServerSelectText);
+            RefreshServerButtonsVisibility(ServerSelectText);
 
             LoadServerSettings(ServerSelectText);
         }
     }
 
-    private void RefreshServerButtonsState(string ServerSelectText)
+    private void RefreshServerButtonsVisibility(string ServerSelectText)
     {
         if (File.Exists(STEAM_CMD_EXE))
         {
@@ -439,7 +439,7 @@ public partial class Form1 : Form
                 EditProfileName_TextBox.Text = "";
                 ServerProfilesListBox.Items.Remove(selectedServerProfile);
                 ServerSelectionComboBox.Items.Remove(selectedServerProfile);
-                RefreshServerButtonsState(selectedServerProfile);
+                RefreshServerButtonsVisibility(selectedServerProfile);
 
                 // reload form1
                 Form1_Load(sender, e);
@@ -539,7 +539,7 @@ public partial class Form1 : Form
         if (ServerSelectionComboBox.SelectedItem is not null)
         {
             var serverSelectedText = ServerSelectionComboBox.SelectedItem.ToString();
-            RefreshServerButtonsState(serverSelectedText);
+            RefreshServerButtonsVisibility(serverSelectedText);
             LoadServerSettings(serverSelectedText);
         }
     }
