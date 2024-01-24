@@ -28,66 +28,66 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ServerSelectionComboBox = new ComboBox();
-            ServerSelectionLabel = new Label();
-            InstallSteamCMD_Button = new Button();
-            InstallServer_Button = new Button();
-            ServerName_TextBox = new TextBox();
-            ServerPassword_TextBox = new TextBox();
-            IP_TextBox = new TextBox();
-            GamePort_input = new NumericUpDown();
-            QueryPort_input = new NumericUpDown();
-            SlotCount_input = new NumericUpDown();
-            Servername_Label = new Label();
-            Password_Label = new Label();
-            IpAddress_Label = new Label();
-            GamePort_label = new Label();
-            QueryPort_Label = new Label();
-            MaxPlayers_Label = new Label();
-            SaveSettings_Button = new Button();
-            StartServer_Button = new Button();
+            cbxProfileSelectionComboBox = new ComboBox();
+            lblProfileSelectionLabel = new Label();
+            btnInstallSteamCMD = new Button();
+            btnInstallServer = new Button();
+            txtServerName = new TextBox();
+            txtServerPassword = new TextBox();
+            txtIpAddress = new TextBox();
+            nudGamePort = new NumericUpDown();
+            nudQueryPort = new NumericUpDown();
+            nudSlotCount = new NumericUpDown();
+            lblServername = new Label();
+            lblPassword = new Label();
+            lblIpAddress = new Label();
+            lblGamePort = new Label();
+            lblQueryPort = new Label();
+            lblMaxPlayers = new Label();
+            btnSaveSettings = new Button();
+            btnStartServer = new Button();
             pictureBox2 = new PictureBox();
             pictureBox3 = new PictureBox();
-            AdminPanelLabel = new Label();
-            TitleLabel = new Label();
-            ServerSettingsLabel = new Label();
-            CloseLabel = new Label();
-            MinimizeTrayLabel = new Label();
+            lblAdminPanel = new Label();
+            lblTitle = new Label();
+            lblServerSettings = new Label();
+            lblCloseButton = new Label();
+            lblMinimizeTrayButton = new Label();
             pictureBox5 = new PictureBox();
-            NewsLabel = new Label();
+            lblNews = new Label();
             pictureBox7 = new PictureBox();
             pictureBox6 = new PictureBox();
             pictureBox1 = new PictureBox();
             pictureBox8 = new PictureBox();
             pictureBox9 = new PictureBox();
-            SaveBackup_Button = new Button();
-            OpenBackupFolder_Button = new Button();
-            WindowsFirewall_Button = new Button();
+            btnSaveBackup = new Button();
+            btnOpenBackupFolder = new Button();
+            btnWindowsFirewall = new Button();
             label7 = new Label();
-            ServerProfileSpecific = new Label();
+            lblServerProfileSpecific = new Label();
             pictureBox10 = new PictureBox();
-            OpenSavegameFolder_Button = new Button();
-            OpenLogFolder_Button = new Button();
-            UpdateServer_Button = new Button();
-            logo = new Label();
-            ServerTabs = new TabControl();
-            ServerSettings_Tab = new TabPage();
-            ProfileManager_Tab = new TabPage();
+            btnOpenSavegameFolder = new Button();
+            btnOpenLogFolder = new Button();
+            btnUpdateServer = new Button();
+            lblLogo = new Label();
+            tabServerTabs = new TabControl();
+            tabServerSettings = new TabPage();
+            tabProfileManager = new TabPage();
             lblAddNewProfile = new Label();
             lblProfileManager = new Label();
             pnlProfileNameUpdate = new Panel();
             lblProfileNameInfo = new Label();
-            SaveProfileName_Button = new Button();
-            EditProfileName_TextBox = new TextBox();
+            btnSaveProfileName = new Button();
+            txtEditProfileName = new TextBox();
             lblProfileNameInputHeading = new Label();
-            DeleteProfile_Button = new Button();
-            AddNewProfile_Button = new Button();
-            ServerProfilesListBox = new ListBox();
-            NewsText = new Label();
-            CreditsLabel = new Label();
-            ((System.ComponentModel.ISupportInitialize)GamePort_input).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)QueryPort_input).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)SlotCount_input).BeginInit();
+            btnDeleteProfile = new Button();
+            btnAddNewProfile = new Button();
+            lbxServerProfiles = new ListBox();
+            lblNewsText = new Label();
+            lblCredits = new Label();
+            ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
@@ -97,222 +97,223 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
-            ServerTabs.SuspendLayout();
-            ServerSettings_Tab.SuspendLayout();
-            ProfileManager_Tab.SuspendLayout();
+            tabServerTabs.SuspendLayout();
+            tabServerSettings.SuspendLayout();
+            tabProfileManager.SuspendLayout();
             pnlProfileNameUpdate.SuspendLayout();
             SuspendLayout();
             // 
-            // ServerSelectionComboBox
+            // cbxProfileSelectionComboBox
             // 
-            ServerSelectionComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            ServerSelectionComboBox.FlatStyle = FlatStyle.System;
-            ServerSelectionComboBox.FormattingEnabled = true;
-            ServerSelectionComboBox.Location = new Point(137, 34);
-            ServerSelectionComboBox.Name = "ServerSelectionComboBox";
-            ServerSelectionComboBox.Size = new Size(170, 23);
-            ServerSelectionComboBox.TabIndex = 0;
-            ServerSelectionComboBox.SelectedIndexChanged += ServerProfileComboBox_IndexChanged;
+            cbxProfileSelectionComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxProfileSelectionComboBox.FlatStyle = FlatStyle.System;
+            cbxProfileSelectionComboBox.FormattingEnabled = true;
+            cbxProfileSelectionComboBox.Location = new Point(137, 34);
+            cbxProfileSelectionComboBox.Name = "cbxProfileSelectionComboBox";
+            cbxProfileSelectionComboBox.Size = new Size(170, 23);
+            cbxProfileSelectionComboBox.TabIndex = 0;
+            cbxProfileSelectionComboBox.SelectedIndexChanged += ServerProfileComboBox_IndexChanged;
             // 
-            // ServerSelectionLabel
+            // lblProfileSelectionLabel
             // 
-            ServerSelectionLabel.AutoSize = true;
-            ServerSelectionLabel.Location = new Point(59, 37);
-            ServerSelectionLabel.Name = "ServerSelectionLabel";
-            ServerSelectionLabel.Size = new Size(76, 15);
-            ServerSelectionLabel.TabIndex = 1;
-            ServerSelectionLabel.Text = "Server Profile";
+            lblProfileSelectionLabel.AutoSize = true;
+            lblProfileSelectionLabel.Location = new Point(59, 37);
+            lblProfileSelectionLabel.Name = "lblProfileSelectionLabel";
+            lblProfileSelectionLabel.Size = new Size(76, 15);
+            lblProfileSelectionLabel.TabIndex = 1;
+            lblProfileSelectionLabel.Text = "Server Profile";
             // 
-            // InstallSteamCMD_Button
+            // btnInstallSteamCMD
             // 
-            InstallSteamCMD_Button.Cursor = Cursors.Hand;
-            InstallSteamCMD_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
-            InstallSteamCMD_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
-            InstallSteamCMD_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
-            InstallSteamCMD_Button.FlatStyle = FlatStyle.Flat;
-            InstallSteamCMD_Button.ForeColor = SystemColors.Control;
-            InstallSteamCMD_Button.Location = new Point(33, 57);
-            InstallSteamCMD_Button.Name = "InstallSteamCMD_Button";
-            InstallSteamCMD_Button.Size = new Size(127, 23);
-            InstallSteamCMD_Button.TabIndex = 2;
-            InstallSteamCMD_Button.Text = "Install SteamCMD";
-            InstallSteamCMD_Button.UseVisualStyleBackColor = true;
-            InstallSteamCMD_Button.Click += InstallSteamCMD_Button_Click;
+            btnInstallSteamCMD.Cursor = Cursors.Hand;
+            btnInstallSteamCMD.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnInstallSteamCMD.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnInstallSteamCMD.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnInstallSteamCMD.FlatStyle = FlatStyle.Flat;
+            btnInstallSteamCMD.ForeColor = SystemColors.Control;
+            btnInstallSteamCMD.Location = new Point(33, 57);
+            btnInstallSteamCMD.Name = "btnInstallSteamCMD";
+            btnInstallSteamCMD.Size = new Size(127, 23);
+            btnInstallSteamCMD.TabIndex = 2;
+            btnInstallSteamCMD.TabStop = false;
+            btnInstallSteamCMD.Text = "Install SteamCMD";
+            btnInstallSteamCMD.UseVisualStyleBackColor = true;
+            btnInstallSteamCMD.Click += InstallSteamCMD_Button_Click;
             // 
-            // InstallServer_Button
+            // btnInstallServer
             // 
-            InstallServer_Button.Cursor = Cursors.Hand;
-            InstallServer_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
-            InstallServer_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
-            InstallServer_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
-            InstallServer_Button.FlatStyle = FlatStyle.Flat;
-            InstallServer_Button.ForeColor = SystemColors.Control;
-            InstallServer_Button.Location = new Point(33, 196);
-            InstallServer_Button.Name = "InstallServer_Button";
-            InstallServer_Button.Size = new Size(127, 25);
-            InstallServer_Button.TabIndex = 3;
-            InstallServer_Button.Text = "Install Server";
-            InstallServer_Button.UseVisualStyleBackColor = true;
-            InstallServer_Button.Visible = false;
-            InstallServer_Button.Click += InstallServer_Button_Click;
+            btnInstallServer.Cursor = Cursors.Hand;
+            btnInstallServer.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnInstallServer.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnInstallServer.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnInstallServer.FlatStyle = FlatStyle.Flat;
+            btnInstallServer.ForeColor = SystemColors.Control;
+            btnInstallServer.Location = new Point(34, 196);
+            btnInstallServer.Name = "btnInstallServer";
+            btnInstallServer.Size = new Size(127, 25);
+            btnInstallServer.TabIndex = 3;
+            btnInstallServer.Text = "Install Server";
+            btnInstallServer.UseVisualStyleBackColor = true;
+            btnInstallServer.Visible = false;
+            btnInstallServer.Click += InstallServer_Button_Click;
             // 
-            // ServerName_TextBox
+            // txtServerName
             // 
-            ServerName_TextBox.BackColor = Color.FromArgb(6, 6, 48);
-            ServerName_TextBox.BorderStyle = BorderStyle.FixedSingle;
-            ServerName_TextBox.ForeColor = SystemColors.Window;
-            ServerName_TextBox.Location = new Point(137, 78);
-            ServerName_TextBox.Name = "ServerName_TextBox";
-            ServerName_TextBox.Size = new Size(170, 23);
-            ServerName_TextBox.TabIndex = 4;
+            txtServerName.BackColor = Color.FromArgb(6, 6, 48);
+            txtServerName.BorderStyle = BorderStyle.FixedSingle;
+            txtServerName.ForeColor = SystemColors.Window;
+            txtServerName.Location = new Point(137, 78);
+            txtServerName.Name = "txtServerName";
+            txtServerName.Size = new Size(170, 23);
+            txtServerName.TabIndex = 4;
             // 
-            // ServerPassword_TextBox
+            // txtServerPassword
             // 
-            ServerPassword_TextBox.BackColor = Color.FromArgb(6, 6, 48);
-            ServerPassword_TextBox.BorderStyle = BorderStyle.FixedSingle;
-            ServerPassword_TextBox.ForeColor = SystemColors.Window;
-            ServerPassword_TextBox.Location = new Point(137, 107);
-            ServerPassword_TextBox.Name = "ServerPassword_TextBox";
-            ServerPassword_TextBox.Size = new Size(170, 23);
-            ServerPassword_TextBox.TabIndex = 5;
+            txtServerPassword.BackColor = Color.FromArgb(6, 6, 48);
+            txtServerPassword.BorderStyle = BorderStyle.FixedSingle;
+            txtServerPassword.ForeColor = SystemColors.Window;
+            txtServerPassword.Location = new Point(137, 107);
+            txtServerPassword.Name = "txtServerPassword";
+            txtServerPassword.Size = new Size(170, 23);
+            txtServerPassword.TabIndex = 5;
             // 
-            // IP_TextBox
+            // txtIpAddress
             // 
-            IP_TextBox.BackColor = Color.FromArgb(6, 6, 48);
-            IP_TextBox.BorderStyle = BorderStyle.FixedSingle;
-            IP_TextBox.ForeColor = SystemColors.Window;
-            IP_TextBox.Location = new Point(137, 136);
-            IP_TextBox.Name = "IP_TextBox";
-            IP_TextBox.Size = new Size(134, 23);
-            IP_TextBox.TabIndex = 6;
+            txtIpAddress.BackColor = Color.FromArgb(6, 6, 48);
+            txtIpAddress.BorderStyle = BorderStyle.FixedSingle;
+            txtIpAddress.ForeColor = SystemColors.Window;
+            txtIpAddress.Location = new Point(137, 136);
+            txtIpAddress.Name = "txtIpAddress";
+            txtIpAddress.Size = new Size(134, 23);
+            txtIpAddress.TabIndex = 6;
             // 
-            // GamePort_input
+            // nudGamePort
             // 
-            GamePort_input.BackColor = Color.FromArgb(6, 6, 48);
-            GamePort_input.BorderStyle = BorderStyle.FixedSingle;
-            GamePort_input.ForeColor = SystemColors.Window;
-            GamePort_input.Location = new Point(137, 166);
-            GamePort_input.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
-            GamePort_input.Name = "GamePort_input";
-            GamePort_input.Size = new Size(62, 23);
-            GamePort_input.TabIndex = 7;
+            nudGamePort.BackColor = Color.FromArgb(6, 6, 48);
+            nudGamePort.BorderStyle = BorderStyle.FixedSingle;
+            nudGamePort.ForeColor = SystemColors.Window;
+            nudGamePort.Location = new Point(137, 166);
+            nudGamePort.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
+            nudGamePort.Name = "nudGamePort";
+            nudGamePort.Size = new Size(62, 23);
+            nudGamePort.TabIndex = 7;
             // 
-            // QueryPort_input
+            // nudQueryPort
             // 
-            QueryPort_input.BackColor = Color.FromArgb(6, 6, 48);
-            QueryPort_input.BorderStyle = BorderStyle.FixedSingle;
-            QueryPort_input.ForeColor = SystemColors.Window;
-            QueryPort_input.Location = new Point(137, 195);
-            QueryPort_input.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
-            QueryPort_input.Name = "QueryPort_input";
-            QueryPort_input.Size = new Size(62, 23);
-            QueryPort_input.TabIndex = 8;
+            nudQueryPort.BackColor = Color.FromArgb(6, 6, 48);
+            nudQueryPort.BorderStyle = BorderStyle.FixedSingle;
+            nudQueryPort.ForeColor = SystemColors.Window;
+            nudQueryPort.Location = new Point(137, 195);
+            nudQueryPort.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
+            nudQueryPort.Name = "nudQueryPort";
+            nudQueryPort.Size = new Size(62, 23);
+            nudQueryPort.TabIndex = 8;
             // 
-            // SlotCount_input
+            // nudSlotCount
             // 
-            SlotCount_input.BackColor = Color.FromArgb(6, 6, 48);
-            SlotCount_input.BorderStyle = BorderStyle.FixedSingle;
-            SlotCount_input.ForeColor = SystemColors.Window;
-            SlotCount_input.Location = new Point(137, 224);
-            SlotCount_input.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
-            SlotCount_input.Name = "SlotCount_input";
-            SlotCount_input.Size = new Size(35, 23);
-            SlotCount_input.TabIndex = 9;
+            nudSlotCount.BackColor = Color.FromArgb(6, 6, 48);
+            nudSlotCount.BorderStyle = BorderStyle.FixedSingle;
+            nudSlotCount.ForeColor = SystemColors.Window;
+            nudSlotCount.Location = new Point(137, 224);
+            nudSlotCount.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
+            nudSlotCount.Name = "nudSlotCount";
+            nudSlotCount.Size = new Size(35, 23);
+            nudSlotCount.TabIndex = 9;
             // 
-            // Servername_Label
+            // lblServername
             // 
-            Servername_Label.AutoSize = true;
-            Servername_Label.ForeColor = SystemColors.ButtonHighlight;
-            Servername_Label.Location = new Point(66, 81);
-            Servername_Label.Name = "Servername_Label";
-            Servername_Label.Size = new Size(69, 15);
-            Servername_Label.TabIndex = 10;
-            Servername_Label.Text = "Servername";
+            lblServername.AutoSize = true;
+            lblServername.ForeColor = SystemColors.ButtonHighlight;
+            lblServername.Location = new Point(66, 81);
+            lblServername.Name = "lblServername";
+            lblServername.Size = new Size(69, 15);
+            lblServername.TabIndex = 10;
+            lblServername.Text = "Servername";
             // 
-            // Password_Label
+            // lblPassword
             // 
-            Password_Label.AutoSize = true;
-            Password_Label.ForeColor = SystemColors.ButtonHighlight;
-            Password_Label.Location = new Point(78, 110);
-            Password_Label.Name = "Password_Label";
-            Password_Label.Size = new Size(57, 15);
-            Password_Label.TabIndex = 11;
-            Password_Label.Text = "Password";
+            lblPassword.AutoSize = true;
+            lblPassword.ForeColor = SystemColors.ButtonHighlight;
+            lblPassword.Location = new Point(78, 110);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(57, 15);
+            lblPassword.TabIndex = 11;
+            lblPassword.Text = "Password";
             // 
-            // IpAddress_Label
+            // lblIpAddress
             // 
-            IpAddress_Label.AutoSize = true;
-            IpAddress_Label.ForeColor = SystemColors.ButtonHighlight;
-            IpAddress_Label.Location = new Point(73, 139);
-            IpAddress_Label.Name = "IpAddress_Label";
-            IpAddress_Label.Size = new Size(62, 15);
-            IpAddress_Label.TabIndex = 12;
-            IpAddress_Label.Text = "Ip Address";
+            lblIpAddress.AutoSize = true;
+            lblIpAddress.ForeColor = SystemColors.ButtonHighlight;
+            lblIpAddress.Location = new Point(73, 139);
+            lblIpAddress.Name = "lblIpAddress";
+            lblIpAddress.Size = new Size(62, 15);
+            lblIpAddress.TabIndex = 12;
+            lblIpAddress.Text = "Ip Address";
             // 
-            // GamePort_label
+            // lblGamePort
             // 
-            GamePort_label.AutoSize = true;
-            GamePort_label.ForeColor = SystemColors.ButtonHighlight;
-            GamePort_label.Location = new Point(75, 168);
-            GamePort_label.Name = "GamePort_label";
-            GamePort_label.Size = new Size(60, 15);
-            GamePort_label.TabIndex = 13;
-            GamePort_label.Text = "GamePort";
+            lblGamePort.AutoSize = true;
+            lblGamePort.ForeColor = SystemColors.ButtonHighlight;
+            lblGamePort.Location = new Point(75, 168);
+            lblGamePort.Name = "lblGamePort";
+            lblGamePort.Size = new Size(60, 15);
+            lblGamePort.TabIndex = 13;
+            lblGamePort.Text = "GamePort";
             // 
-            // QueryPort_Label
+            // lblQueryPort
             // 
-            QueryPort_Label.AutoSize = true;
-            QueryPort_Label.ForeColor = SystemColors.ButtonHighlight;
-            QueryPort_Label.Location = new Point(74, 197);
-            QueryPort_Label.Name = "QueryPort_Label";
-            QueryPort_Label.Size = new Size(61, 15);
-            QueryPort_Label.TabIndex = 14;
-            QueryPort_Label.Text = "QueryPort";
+            lblQueryPort.AutoSize = true;
+            lblQueryPort.ForeColor = SystemColors.ButtonHighlight;
+            lblQueryPort.Location = new Point(74, 197);
+            lblQueryPort.Name = "lblQueryPort";
+            lblQueryPort.Size = new Size(61, 15);
+            lblQueryPort.TabIndex = 14;
+            lblQueryPort.Text = "QueryPort";
             // 
-            // MaxPlayers_Label
+            // lblMaxPlayers
             // 
-            MaxPlayers_Label.AutoSize = true;
-            MaxPlayers_Label.Location = new Point(68, 226);
-            MaxPlayers_Label.Name = "MaxPlayers_Label";
-            MaxPlayers_Label.Size = new Size(67, 15);
-            MaxPlayers_Label.TabIndex = 15;
-            MaxPlayers_Label.Text = "MaxPlayers";
+            lblMaxPlayers.AutoSize = true;
+            lblMaxPlayers.Location = new Point(68, 226);
+            lblMaxPlayers.Name = "lblMaxPlayers";
+            lblMaxPlayers.Size = new Size(67, 15);
+            lblMaxPlayers.TabIndex = 15;
+            lblMaxPlayers.Text = "MaxPlayers";
             // 
-            // SaveSettings_Button
+            // btnSaveSettings
             // 
-            SaveSettings_Button.Cursor = Cursors.Hand;
-            SaveSettings_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
-            SaveSettings_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
-            SaveSettings_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
-            SaveSettings_Button.FlatStyle = FlatStyle.Flat;
-            SaveSettings_Button.ForeColor = Color.FromArgb(0, 255, 185);
-            SaveSettings_Button.Location = new Point(137, 267);
-            SaveSettings_Button.Name = "SaveSettings_Button";
-            SaveSettings_Button.Size = new Size(124, 30);
-            SaveSettings_Button.TabIndex = 17;
-            SaveSettings_Button.Text = "Save Settings";
-            SaveSettings_Button.UseCompatibleTextRendering = true;
-            SaveSettings_Button.UseVisualStyleBackColor = true;
-            SaveSettings_Button.EnabledChanged += SaveSettings_Button_EnabledChanged;
-            SaveSettings_Button.Click += SaveSettings_Button_Click;
+            btnSaveSettings.Cursor = Cursors.Hand;
+            btnSaveSettings.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnSaveSettings.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnSaveSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnSaveSettings.FlatStyle = FlatStyle.Flat;
+            btnSaveSettings.ForeColor = Color.FromArgb(0, 255, 185);
+            btnSaveSettings.Location = new Point(137, 267);
+            btnSaveSettings.Name = "btnSaveSettings";
+            btnSaveSettings.Size = new Size(124, 30);
+            btnSaveSettings.TabIndex = 17;
+            btnSaveSettings.Text = "Save Settings";
+            btnSaveSettings.UseCompatibleTextRendering = true;
+            btnSaveSettings.UseVisualStyleBackColor = true;
+            btnSaveSettings.EnabledChanged += SaveSettings_Button_EnabledChanged;
+            btnSaveSettings.Click += SaveSettings_Button_Click;
             // 
-            // StartServer_Button
+            // btnStartServer
             // 
-            StartServer_Button.Cursor = Cursors.Hand;
-            StartServer_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
-            StartServer_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
-            StartServer_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
-            StartServer_Button.FlatStyle = FlatStyle.Flat;
-            StartServer_Button.ForeColor = SystemColors.Control;
-            StartServer_Button.Location = new Point(33, 165);
-            StartServer_Button.Name = "StartServer_Button";
-            StartServer_Button.Size = new Size(127, 25);
-            StartServer_Button.TabIndex = 18;
-            StartServer_Button.Text = "Start Server";
-            StartServer_Button.UseCompatibleTextRendering = true;
-            StartServer_Button.UseVisualStyleBackColor = true;
-            StartServer_Button.Visible = false;
-            StartServer_Button.Click += StartServer_Button_Click;
+            btnStartServer.Cursor = Cursors.Hand;
+            btnStartServer.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnStartServer.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnStartServer.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnStartServer.FlatStyle = FlatStyle.Flat;
+            btnStartServer.ForeColor = SystemColors.Control;
+            btnStartServer.Location = new Point(33, 165);
+            btnStartServer.Name = "btnStartServer";
+            btnStartServer.Size = new Size(127, 25);
+            btnStartServer.TabIndex = 1;
+            btnStartServer.Text = "Start Server";
+            btnStartServer.UseCompatibleTextRendering = true;
+            btnStartServer.UseVisualStyleBackColor = true;
+            btnStartServer.Visible = false;
+            btnStartServer.Click += StartServer_Button_Click;
             // 
             // pictureBox2
             // 
@@ -335,67 +336,67 @@
             pictureBox3.TabStop = false;
             pictureBox3.MouseDown += pictureBox3_MouseDown;
             // 
-            // AdminPanelLabel
+            // lblAdminPanel
             // 
-            AdminPanelLabel.BackColor = Color.Transparent;
-            AdminPanelLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            AdminPanelLabel.ForeColor = SystemColors.Control;
-            AdminPanelLabel.Location = new Point(16, 369);
-            AdminPanelLabel.Name = "AdminPanelLabel";
-            AdminPanelLabel.Size = new Size(153, 32);
-            AdminPanelLabel.TabIndex = 23;
-            AdminPanelLabel.Text = "AdminPanel";
+            lblAdminPanel.BackColor = Color.Transparent;
+            lblAdminPanel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            lblAdminPanel.ForeColor = SystemColors.Control;
+            lblAdminPanel.Location = new Point(16, 369);
+            lblAdminPanel.Name = "lblAdminPanel";
+            lblAdminPanel.Size = new Size(153, 32);
+            lblAdminPanel.TabIndex = 23;
+            lblAdminPanel.Text = "AdminPanel";
             // 
-            // TitleLabel
+            // lblTitle
             // 
-            TitleLabel.AutoSize = true;
-            TitleLabel.BackColor = Color.FromArgb(64, 64, 64);
-            TitleLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            TitleLabel.ForeColor = SystemColors.Control;
-            TitleLabel.Location = new Point(6, 5);
-            TitleLabel.Name = "TitleLabel";
-            TitleLabel.Size = new Size(414, 32);
-            TitleLabel.TabIndex = 24;
-            TitleLabel.Text = "ESM - Enshrouded Server Manager";
-            TitleLabel.MouseDown += pictureBox3_MouseDown;
+            lblTitle.AutoSize = true;
+            lblTitle.BackColor = Color.FromArgb(64, 64, 64);
+            lblTitle.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTitle.ForeColor = SystemColors.Control;
+            lblTitle.Location = new Point(6, 5);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(414, 32);
+            lblTitle.TabIndex = 24;
+            lblTitle.Text = "ESM - Enshrouded Server Manager";
+            lblTitle.MouseDown += pictureBox3_MouseDown;
             // 
-            // ServerSettingsLabel
+            // lblServerSettings
             // 
-            ServerSettingsLabel.AutoSize = true;
-            ServerSettingsLabel.BackColor = Color.Transparent;
-            ServerSettingsLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            ServerSettingsLabel.ForeColor = SystemColors.Control;
-            ServerSettingsLabel.Location = new Point(6, 305);
-            ServerSettingsLabel.Name = "ServerSettingsLabel";
-            ServerSettingsLabel.Size = new Size(186, 32);
-            ServerSettingsLabel.TabIndex = 25;
-            ServerSettingsLabel.Text = "Server Settings";
+            lblServerSettings.AutoSize = true;
+            lblServerSettings.BackColor = Color.Transparent;
+            lblServerSettings.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            lblServerSettings.ForeColor = SystemColors.Control;
+            lblServerSettings.Location = new Point(6, 305);
+            lblServerSettings.Name = "lblServerSettings";
+            lblServerSettings.Size = new Size(186, 32);
+            lblServerSettings.TabIndex = 25;
+            lblServerSettings.Text = "Server Settings";
             // 
-            // CloseLabel
+            // lblCloseButton
             // 
-            CloseLabel.AutoSize = true;
-            CloseLabel.BackColor = Color.FromArgb(64, 64, 64);
-            CloseLabel.Font = new Font("Malgun Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            CloseLabel.ForeColor = Color.FromArgb(0, 255, 185);
-            CloseLabel.Location = new Point(771, 9);
-            CloseLabel.Name = "CloseLabel";
-            CloseLabel.Size = new Size(18, 19);
-            CloseLabel.TabIndex = 27;
-            CloseLabel.Text = "X";
-            CloseLabel.Click += label4_Click;
+            lblCloseButton.AutoSize = true;
+            lblCloseButton.BackColor = Color.FromArgb(64, 64, 64);
+            lblCloseButton.Font = new Font("Malgun Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            lblCloseButton.ForeColor = Color.FromArgb(0, 255, 185);
+            lblCloseButton.Location = new Point(771, 9);
+            lblCloseButton.Name = "lblCloseButton";
+            lblCloseButton.Size = new Size(18, 19);
+            lblCloseButton.TabIndex = 27;
+            lblCloseButton.Text = "X";
+            lblCloseButton.Click += label4_Click;
             // 
-            // MinimizeTrayLabel
+            // lblMinimizeTrayButton
             // 
-            MinimizeTrayLabel.AutoSize = true;
-            MinimizeTrayLabel.BackColor = Color.FromArgb(64, 64, 64);
-            MinimizeTrayLabel.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            MinimizeTrayLabel.ForeColor = Color.FromArgb(0, 255, 185);
-            MinimizeTrayLabel.Location = new Point(741, 6);
-            MinimizeTrayLabel.Name = "MinimizeTrayLabel";
-            MinimizeTrayLabel.Size = new Size(17, 21);
-            MinimizeTrayLabel.TabIndex = 28;
-            MinimizeTrayLabel.Text = "_";
-            MinimizeTrayLabel.Click += label5_Click;
+            lblMinimizeTrayButton.AutoSize = true;
+            lblMinimizeTrayButton.BackColor = Color.FromArgb(64, 64, 64);
+            lblMinimizeTrayButton.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblMinimizeTrayButton.ForeColor = Color.FromArgb(0, 255, 185);
+            lblMinimizeTrayButton.Location = new Point(741, 6);
+            lblMinimizeTrayButton.Name = "lblMinimizeTrayButton";
+            lblMinimizeTrayButton.Size = new Size(17, 21);
+            lblMinimizeTrayButton.TabIndex = 28;
+            lblMinimizeTrayButton.Text = "_";
+            lblMinimizeTrayButton.Click += label5_Click;
             // 
             // pictureBox5
             // 
@@ -407,17 +408,17 @@
             pictureBox5.TabIndex = 29;
             pictureBox5.TabStop = false;
             // 
-            // NewsLabel
+            // lblNews
             // 
-            NewsLabel.AutoSize = true;
-            NewsLabel.BackColor = Color.Transparent;
-            NewsLabel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
-            NewsLabel.ForeColor = SystemColors.Control;
-            NewsLabel.Location = new Point(572, 369);
-            NewsLabel.Name = "NewsLabel";
-            NewsLabel.Size = new Size(76, 32);
-            NewsLabel.TabIndex = 30;
-            NewsLabel.Text = "News";
+            lblNews.AutoSize = true;
+            lblNews.BackColor = Color.Transparent;
+            lblNews.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            lblNews.ForeColor = SystemColors.Control;
+            lblNews.Location = new Point(572, 369);
+            lblNews.Name = "lblNews";
+            lblNews.Size = new Size(76, 32);
+            lblNews.TabIndex = 30;
+            lblNews.Text = "News";
             // 
             // pictureBox7
             // 
@@ -469,55 +470,56 @@
             pictureBox9.TabIndex = 37;
             pictureBox9.TabStop = false;
             // 
-            // SaveBackup_Button
+            // btnSaveBackup
             // 
-            SaveBackup_Button.Cursor = Cursors.Hand;
-            SaveBackup_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
-            SaveBackup_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
-            SaveBackup_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
-            SaveBackup_Button.FlatStyle = FlatStyle.Flat;
-            SaveBackup_Button.ForeColor = SystemColors.Control;
-            SaveBackup_Button.Location = new Point(33, 237);
-            SaveBackup_Button.Name = "SaveBackup_Button";
-            SaveBackup_Button.Size = new Size(127, 25);
-            SaveBackup_Button.TabIndex = 38;
-            SaveBackup_Button.Text = "Save Backup";
-            SaveBackup_Button.UseCompatibleTextRendering = true;
-            SaveBackup_Button.UseVisualStyleBackColor = true;
-            SaveBackup_Button.Click += SaveBackup_Button_Click;
+            btnSaveBackup.Cursor = Cursors.Hand;
+            btnSaveBackup.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnSaveBackup.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnSaveBackup.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnSaveBackup.FlatStyle = FlatStyle.Flat;
+            btnSaveBackup.ForeColor = SystemColors.Control;
+            btnSaveBackup.Location = new Point(33, 237);
+            btnSaveBackup.Name = "btnSaveBackup";
+            btnSaveBackup.Size = new Size(127, 25);
+            btnSaveBackup.TabIndex = 4;
+            btnSaveBackup.Text = "Save Backup";
+            btnSaveBackup.UseCompatibleTextRendering = true;
+            btnSaveBackup.UseVisualStyleBackColor = true;
+            btnSaveBackup.Click += SaveBackup_Button_Click;
             // 
-            // OpenBackupFolder_Button
+            // btnOpenBackupFolder
             // 
-            OpenBackupFolder_Button.Cursor = Cursors.Hand;
-            OpenBackupFolder_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
-            OpenBackupFolder_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
-            OpenBackupFolder_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
-            OpenBackupFolder_Button.FlatStyle = FlatStyle.Flat;
-            OpenBackupFolder_Button.ForeColor = SystemColors.Control;
-            OpenBackupFolder_Button.Location = new Point(33, 268);
-            OpenBackupFolder_Button.Name = "OpenBackupFolder_Button";
-            OpenBackupFolder_Button.Size = new Size(127, 25);
-            OpenBackupFolder_Button.TabIndex = 39;
-            OpenBackupFolder_Button.Text = "Backup Folder";
-            OpenBackupFolder_Button.UseCompatibleTextRendering = true;
-            OpenBackupFolder_Button.UseVisualStyleBackColor = true;
-            OpenBackupFolder_Button.Click += OpenBackupFolder_Button_Click;
+            btnOpenBackupFolder.Cursor = Cursors.Hand;
+            btnOpenBackupFolder.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnOpenBackupFolder.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnOpenBackupFolder.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnOpenBackupFolder.FlatStyle = FlatStyle.Flat;
+            btnOpenBackupFolder.ForeColor = SystemColors.Control;
+            btnOpenBackupFolder.Location = new Point(33, 268);
+            btnOpenBackupFolder.Name = "btnOpenBackupFolder";
+            btnOpenBackupFolder.Size = new Size(127, 25);
+            btnOpenBackupFolder.TabIndex = 5;
+            btnOpenBackupFolder.Text = "Backup Folder";
+            btnOpenBackupFolder.UseCompatibleTextRendering = true;
+            btnOpenBackupFolder.UseVisualStyleBackColor = true;
+            btnOpenBackupFolder.Click += OpenBackupFolder_Button_Click;
             // 
-            // WindowsFirewall_Button
+            // btnWindowsFirewall
             // 
-            WindowsFirewall_Button.Cursor = Cursors.Hand;
-            WindowsFirewall_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
-            WindowsFirewall_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
-            WindowsFirewall_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
-            WindowsFirewall_Button.FlatStyle = FlatStyle.Flat;
-            WindowsFirewall_Button.ForeColor = SystemColors.Control;
-            WindowsFirewall_Button.Location = new Point(33, 84);
-            WindowsFirewall_Button.Name = "WindowsFirewall_Button";
-            WindowsFirewall_Button.Size = new Size(127, 24);
-            WindowsFirewall_Button.TabIndex = 40;
-            WindowsFirewall_Button.Text = "Windows Firewall";
-            WindowsFirewall_Button.UseVisualStyleBackColor = true;
-            WindowsFirewall_Button.Click += WindowsFirewall_Button_Click;
+            btnWindowsFirewall.Cursor = Cursors.Hand;
+            btnWindowsFirewall.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnWindowsFirewall.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnWindowsFirewall.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnWindowsFirewall.FlatStyle = FlatStyle.Flat;
+            btnWindowsFirewall.ForeColor = SystemColors.Control;
+            btnWindowsFirewall.Location = new Point(33, 84);
+            btnWindowsFirewall.Name = "btnWindowsFirewall";
+            btnWindowsFirewall.Size = new Size(127, 24);
+            btnWindowsFirewall.TabIndex = 40;
+            btnWindowsFirewall.TabStop = false;
+            btnWindowsFirewall.Text = "Windows Firewall";
+            btnWindowsFirewall.UseVisualStyleBackColor = true;
+            btnWindowsFirewall.Click += WindowsFirewall_Button_Click;
             // 
             // label7
             // 
@@ -527,14 +529,14 @@
             label7.Size = new Size(0, 15);
             label7.TabIndex = 49;
             // 
-            // ServerProfileSpecific
+            // lblServerProfileSpecific
             // 
-            ServerProfileSpecific.AutoSize = true;
-            ServerProfileSpecific.Location = new Point(30, 133);
-            ServerProfileSpecific.Name = "ServerProfileSpecific";
-            ServerProfileSpecific.Size = new Size(129, 15);
-            ServerProfileSpecific.TabIndex = 42;
-            ServerProfileSpecific.Text = "\"Server Profile\" specific";
+            lblServerProfileSpecific.AutoSize = true;
+            lblServerProfileSpecific.Location = new Point(30, 133);
+            lblServerProfileSpecific.Name = "lblServerProfileSpecific";
+            lblServerProfileSpecific.Size = new Size(129, 15);
+            lblServerProfileSpecific.TabIndex = 42;
+            lblServerProfileSpecific.Text = "\"Server Profile\" specific";
             // 
             // pictureBox10
             // 
@@ -545,121 +547,121 @@
             pictureBox10.TabIndex = 43;
             pictureBox10.TabStop = false;
             // 
-            // OpenSavegameFolder_Button
+            // btnOpenSavegameFolder
             // 
-            OpenSavegameFolder_Button.Cursor = Cursors.Hand;
-            OpenSavegameFolder_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
-            OpenSavegameFolder_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
-            OpenSavegameFolder_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
-            OpenSavegameFolder_Button.FlatStyle = FlatStyle.Flat;
-            OpenSavegameFolder_Button.ForeColor = SystemColors.Control;
-            OpenSavegameFolder_Button.Location = new Point(33, 299);
-            OpenSavegameFolder_Button.Name = "OpenSavegameFolder_Button";
-            OpenSavegameFolder_Button.Size = new Size(127, 25);
-            OpenSavegameFolder_Button.TabIndex = 44;
-            OpenSavegameFolder_Button.Text = "Savegame Folder";
-            OpenSavegameFolder_Button.UseCompatibleTextRendering = true;
-            OpenSavegameFolder_Button.UseVisualStyleBackColor = true;
-            OpenSavegameFolder_Button.Click += OpenSavegameFolder_Button_Click;
+            btnOpenSavegameFolder.Cursor = Cursors.Hand;
+            btnOpenSavegameFolder.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnOpenSavegameFolder.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnOpenSavegameFolder.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnOpenSavegameFolder.FlatStyle = FlatStyle.Flat;
+            btnOpenSavegameFolder.ForeColor = SystemColors.Control;
+            btnOpenSavegameFolder.Location = new Point(33, 299);
+            btnOpenSavegameFolder.Name = "btnOpenSavegameFolder";
+            btnOpenSavegameFolder.Size = new Size(127, 25);
+            btnOpenSavegameFolder.TabIndex = 6;
+            btnOpenSavegameFolder.Text = "Savegame Folder";
+            btnOpenSavegameFolder.UseCompatibleTextRendering = true;
+            btnOpenSavegameFolder.UseVisualStyleBackColor = true;
+            btnOpenSavegameFolder.Click += OpenSavegameFolder_Button_Click;
             // 
-            // OpenLogFolder_Button
+            // btnOpenLogFolder
             // 
-            OpenLogFolder_Button.Cursor = Cursors.Hand;
-            OpenLogFolder_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
-            OpenLogFolder_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
-            OpenLogFolder_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
-            OpenLogFolder_Button.FlatStyle = FlatStyle.Flat;
-            OpenLogFolder_Button.ForeColor = SystemColors.Control;
-            OpenLogFolder_Button.Location = new Point(33, 330);
-            OpenLogFolder_Button.Name = "OpenLogFolder_Button";
-            OpenLogFolder_Button.Size = new Size(127, 25);
-            OpenLogFolder_Button.TabIndex = 45;
-            OpenLogFolder_Button.Text = "Log Folder";
-            OpenLogFolder_Button.UseCompatibleTextRendering = true;
-            OpenLogFolder_Button.UseVisualStyleBackColor = true;
-            OpenLogFolder_Button.Click += OpenLogFolder_Button_Click;
+            btnOpenLogFolder.Cursor = Cursors.Hand;
+            btnOpenLogFolder.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnOpenLogFolder.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnOpenLogFolder.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnOpenLogFolder.FlatStyle = FlatStyle.Flat;
+            btnOpenLogFolder.ForeColor = SystemColors.Control;
+            btnOpenLogFolder.Location = new Point(33, 330);
+            btnOpenLogFolder.Name = "btnOpenLogFolder";
+            btnOpenLogFolder.Size = new Size(127, 25);
+            btnOpenLogFolder.TabIndex = 7;
+            btnOpenLogFolder.Text = "Log Folder";
+            btnOpenLogFolder.UseCompatibleTextRendering = true;
+            btnOpenLogFolder.UseVisualStyleBackColor = true;
+            btnOpenLogFolder.Click += OpenLogFolder_Button_Click;
             // 
-            // UpdateServer_Button
+            // btnUpdateServer
             // 
-            UpdateServer_Button.Cursor = Cursors.Hand;
-            UpdateServer_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
-            UpdateServer_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
-            UpdateServer_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
-            UpdateServer_Button.FlatStyle = FlatStyle.Flat;
-            UpdateServer_Button.ForeColor = SystemColors.Control;
-            UpdateServer_Button.Location = new Point(34, 196);
-            UpdateServer_Button.Name = "UpdateServer_Button";
-            UpdateServer_Button.Size = new Size(127, 25);
-            UpdateServer_Button.TabIndex = 46;
-            UpdateServer_Button.Text = "Update Server";
-            UpdateServer_Button.UseCompatibleTextRendering = true;
-            UpdateServer_Button.UseVisualStyleBackColor = true;
-            UpdateServer_Button.Visible = false;
-            UpdateServer_Button.Click += UpdateServer_Button_Click;
+            btnUpdateServer.Cursor = Cursors.Hand;
+            btnUpdateServer.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnUpdateServer.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnUpdateServer.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnUpdateServer.FlatStyle = FlatStyle.Flat;
+            btnUpdateServer.ForeColor = SystemColors.Control;
+            btnUpdateServer.Location = new Point(34, 196);
+            btnUpdateServer.Name = "btnUpdateServer";
+            btnUpdateServer.Size = new Size(127, 25);
+            btnUpdateServer.TabIndex = 2;
+            btnUpdateServer.Text = "Update Server";
+            btnUpdateServer.UseCompatibleTextRendering = true;
+            btnUpdateServer.UseVisualStyleBackColor = true;
+            btnUpdateServer.Visible = false;
+            btnUpdateServer.Click += UpdateServer_Button_Click;
             // 
-            // logo
+            // lblLogo
             // 
-            logo.AutoSize = true;
-            logo.BackColor = Color.Transparent;
-            logo.Font = new Font("Malgun Gothic", 60F, FontStyle.Bold, GraphicsUnit.Point);
-            logo.ForeColor = Color.FromArgb(0, 204, 204);
-            logo.Location = new Point(574, 49);
-            logo.Name = "logo";
-            logo.Size = new Size(210, 106);
-            logo.TabIndex = 47;
-            logo.Text = "ESM";
+            lblLogo.AutoSize = true;
+            lblLogo.BackColor = Color.Transparent;
+            lblLogo.Font = new Font("Malgun Gothic", 60F, FontStyle.Bold, GraphicsUnit.Point);
+            lblLogo.ForeColor = Color.FromArgb(0, 204, 204);
+            lblLogo.Location = new Point(574, 49);
+            lblLogo.Name = "lblLogo";
+            lblLogo.Size = new Size(210, 106);
+            lblLogo.TabIndex = 47;
+            lblLogo.Text = "ESM";
             // 
-            // ServerTabs
+            // tabServerTabs
             // 
-            ServerTabs.Controls.Add(ServerSettings_Tab);
-            ServerTabs.Controls.Add(ProfileManager_Tab);
-            ServerTabs.Location = new Point(187, 40);
-            ServerTabs.Name = "ServerTabs";
-            ServerTabs.SelectedIndex = 0;
-            ServerTabs.Size = new Size(367, 374);
-            ServerTabs.TabIndex = 48;
+            tabServerTabs.Controls.Add(tabServerSettings);
+            tabServerTabs.Controls.Add(tabProfileManager);
+            tabServerTabs.Location = new Point(187, 40);
+            tabServerTabs.Name = "tabServerTabs";
+            tabServerTabs.SelectedIndex = 0;
+            tabServerTabs.Size = new Size(367, 374);
+            tabServerTabs.TabIndex = 48;
             // 
-            // ServerSettings_Tab
+            // tabServerSettings
             // 
-            ServerSettings_Tab.BackColor = Color.FromArgb(0, 0, 18);
-            ServerSettings_Tab.Controls.Add(IP_TextBox);
-            ServerSettings_Tab.Controls.Add(ServerSelectionComboBox);
-            ServerSettings_Tab.Controls.Add(ServerSelectionLabel);
-            ServerSettings_Tab.Controls.Add(ServerName_TextBox);
-            ServerSettings_Tab.Controls.Add(ServerPassword_TextBox);
-            ServerSettings_Tab.Controls.Add(GamePort_input);
-            ServerSettings_Tab.Controls.Add(QueryPort_input);
-            ServerSettings_Tab.Controls.Add(SlotCount_input);
-            ServerSettings_Tab.Controls.Add(Servername_Label);
-            ServerSettings_Tab.Controls.Add(Password_Label);
-            ServerSettings_Tab.Controls.Add(IpAddress_Label);
-            ServerSettings_Tab.Controls.Add(GamePort_label);
-            ServerSettings_Tab.Controls.Add(QueryPort_Label);
-            ServerSettings_Tab.Controls.Add(MaxPlayers_Label);
-            ServerSettings_Tab.Controls.Add(SaveSettings_Button);
-            ServerSettings_Tab.Controls.Add(ServerSettingsLabel);
-            ServerSettings_Tab.Location = new Point(4, 24);
-            ServerSettings_Tab.Name = "ServerSettings_Tab";
-            ServerSettings_Tab.Padding = new Padding(3);
-            ServerSettings_Tab.Size = new Size(359, 346);
-            ServerSettings_Tab.TabIndex = 0;
-            ServerSettings_Tab.Text = "Server Settings";
+            tabServerSettings.BackColor = Color.FromArgb(0, 0, 18);
+            tabServerSettings.Controls.Add(txtIpAddress);
+            tabServerSettings.Controls.Add(cbxProfileSelectionComboBox);
+            tabServerSettings.Controls.Add(lblProfileSelectionLabel);
+            tabServerSettings.Controls.Add(txtServerName);
+            tabServerSettings.Controls.Add(txtServerPassword);
+            tabServerSettings.Controls.Add(nudGamePort);
+            tabServerSettings.Controls.Add(nudQueryPort);
+            tabServerSettings.Controls.Add(nudSlotCount);
+            tabServerSettings.Controls.Add(lblServername);
+            tabServerSettings.Controls.Add(lblPassword);
+            tabServerSettings.Controls.Add(lblIpAddress);
+            tabServerSettings.Controls.Add(lblGamePort);
+            tabServerSettings.Controls.Add(lblQueryPort);
+            tabServerSettings.Controls.Add(lblMaxPlayers);
+            tabServerSettings.Controls.Add(btnSaveSettings);
+            tabServerSettings.Controls.Add(lblServerSettings);
+            tabServerSettings.Location = new Point(4, 24);
+            tabServerSettings.Name = "tabServerSettings";
+            tabServerSettings.Padding = new Padding(3);
+            tabServerSettings.Size = new Size(359, 346);
+            tabServerSettings.TabIndex = 0;
+            tabServerSettings.Text = "Server Settings";
             // 
-            // ProfileManager_Tab
+            // tabProfileManager
             // 
-            ProfileManager_Tab.BackColor = Color.FromArgb(0, 0, 18);
-            ProfileManager_Tab.Controls.Add(lblAddNewProfile);
-            ProfileManager_Tab.Controls.Add(lblProfileManager);
-            ProfileManager_Tab.Controls.Add(pnlProfileNameUpdate);
-            ProfileManager_Tab.Controls.Add(DeleteProfile_Button);
-            ProfileManager_Tab.Controls.Add(AddNewProfile_Button);
-            ProfileManager_Tab.Controls.Add(ServerProfilesListBox);
-            ProfileManager_Tab.Location = new Point(4, 24);
-            ProfileManager_Tab.Name = "ProfileManager_Tab";
-            ProfileManager_Tab.Padding = new Padding(3);
-            ProfileManager_Tab.Size = new Size(359, 346);
-            ProfileManager_Tab.TabIndex = 1;
-            ProfileManager_Tab.Text = "Manage Profiles";
+            tabProfileManager.BackColor = Color.FromArgb(0, 0, 18);
+            tabProfileManager.Controls.Add(lblAddNewProfile);
+            tabProfileManager.Controls.Add(lblProfileManager);
+            tabProfileManager.Controls.Add(pnlProfileNameUpdate);
+            tabProfileManager.Controls.Add(btnDeleteProfile);
+            tabProfileManager.Controls.Add(btnAddNewProfile);
+            tabProfileManager.Controls.Add(lbxServerProfiles);
+            tabProfileManager.Location = new Point(4, 24);
+            tabProfileManager.Name = "tabProfileManager";
+            tabProfileManager.Padding = new Padding(3);
+            tabProfileManager.Size = new Size(359, 346);
+            tabProfileManager.TabIndex = 1;
+            tabProfileManager.Text = "Manage Profiles";
             // 
             // lblAddNewProfile
             // 
@@ -686,8 +688,8 @@
             // 
             pnlProfileNameUpdate.BorderStyle = BorderStyle.FixedSingle;
             pnlProfileNameUpdate.Controls.Add(lblProfileNameInfo);
-            pnlProfileNameUpdate.Controls.Add(SaveProfileName_Button);
-            pnlProfileNameUpdate.Controls.Add(EditProfileName_TextBox);
+            pnlProfileNameUpdate.Controls.Add(btnSaveProfileName);
+            pnlProfileNameUpdate.Controls.Add(txtEditProfileName);
             pnlProfileNameUpdate.Controls.Add(lblProfileNameInputHeading);
             pnlProfileNameUpdate.Location = new Point(187, 74);
             pnlProfileNameUpdate.Name = "pnlProfileNameUpdate";
@@ -705,33 +707,33 @@
             lblProfileNameInfo.TabIndex = 5;
             lblProfileNameInfo.Text = "Only alphanumeric\r\nunderscore and dash\r\ncharacters are allowed";
             // 
-            // SaveProfileName_Button
+            // btnSaveProfileName
             // 
-            SaveProfileName_Button.Cursor = Cursors.Hand;
-            SaveProfileName_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
-            SaveProfileName_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
-            SaveProfileName_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
-            SaveProfileName_Button.FlatStyle = FlatStyle.Flat;
-            SaveProfileName_Button.ForeColor = Color.FromArgb(0, 255, 185);
-            SaveProfileName_Button.Location = new Point(16, 62);
-            SaveProfileName_Button.Name = "SaveProfileName_Button";
-            SaveProfileName_Button.Size = new Size(128, 30);
-            SaveProfileName_Button.TabIndex = 4;
-            SaveProfileName_Button.Text = "Save Changes";
-            SaveProfileName_Button.UseCompatibleTextRendering = true;
-            SaveProfileName_Button.UseVisualStyleBackColor = true;
-            SaveProfileName_Button.EnabledChanged += SaveSettings_Button_EnabledChanged;
-            SaveProfileName_Button.Click += SaveProfileName_Button_Click;
+            btnSaveProfileName.Cursor = Cursors.Hand;
+            btnSaveProfileName.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnSaveProfileName.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnSaveProfileName.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnSaveProfileName.FlatStyle = FlatStyle.Flat;
+            btnSaveProfileName.ForeColor = Color.FromArgb(0, 255, 185);
+            btnSaveProfileName.Location = new Point(16, 62);
+            btnSaveProfileName.Name = "btnSaveProfileName";
+            btnSaveProfileName.Size = new Size(128, 30);
+            btnSaveProfileName.TabIndex = 3;
+            btnSaveProfileName.Text = "Save Changes";
+            btnSaveProfileName.UseCompatibleTextRendering = true;
+            btnSaveProfileName.UseVisualStyleBackColor = true;
+            btnSaveProfileName.EnabledChanged += SaveSettings_Button_EnabledChanged;
+            btnSaveProfileName.Click += SaveProfileName_Button_Click;
             // 
-            // EditProfileName_TextBox
+            // txtEditProfileName
             // 
-            EditProfileName_TextBox.BackColor = Color.FromArgb(6, 6, 48);
-            EditProfileName_TextBox.BorderStyle = BorderStyle.FixedSingle;
-            EditProfileName_TextBox.ForeColor = SystemColors.Window;
-            EditProfileName_TextBox.Location = new Point(6, 28);
-            EditProfileName_TextBox.Name = "EditProfileName_TextBox";
-            EditProfileName_TextBox.Size = new Size(146, 23);
-            EditProfileName_TextBox.TabIndex = 1;
+            txtEditProfileName.BackColor = Color.FromArgb(6, 6, 48);
+            txtEditProfileName.BorderStyle = BorderStyle.FixedSingle;
+            txtEditProfileName.ForeColor = SystemColors.Window;
+            txtEditProfileName.Location = new Point(6, 28);
+            txtEditProfileName.Name = "txtEditProfileName";
+            txtEditProfileName.Size = new Size(146, 23);
+            txtEditProfileName.TabIndex = 2;
             // 
             // lblProfileNameInputHeading
             // 
@@ -742,75 +744,75 @@
             lblProfileNameInputHeading.TabIndex = 0;
             lblProfileNameInputHeading.Text = "Profile Name";
             // 
-            // DeleteProfile_Button
+            // btnDeleteProfile
             // 
-            DeleteProfile_Button.BackColor = Color.Red;
-            DeleteProfile_Button.FlatAppearance.BorderColor = Color.Red;
-            DeleteProfile_Button.FlatStyle = FlatStyle.Popup;
-            DeleteProfile_Button.ForeColor = SystemColors.ControlLightLight;
-            DeleteProfile_Button.Location = new Point(204, 252);
-            DeleteProfile_Button.Name = "DeleteProfile_Button";
-            DeleteProfile_Button.Size = new Size(127, 31);
-            DeleteProfile_Button.TabIndex = 2;
-            DeleteProfile_Button.Text = "Delete Selected";
-            DeleteProfile_Button.UseVisualStyleBackColor = false;
-            DeleteProfile_Button.Click += DeleteProfile_Button_Click;
+            btnDeleteProfile.BackColor = Color.Red;
+            btnDeleteProfile.FlatAppearance.BorderColor = Color.Red;
+            btnDeleteProfile.FlatStyle = FlatStyle.Popup;
+            btnDeleteProfile.ForeColor = SystemColors.ControlLightLight;
+            btnDeleteProfile.Location = new Point(204, 252);
+            btnDeleteProfile.Name = "btnDeleteProfile";
+            btnDeleteProfile.Size = new Size(127, 31);
+            btnDeleteProfile.TabIndex = 4;
+            btnDeleteProfile.Text = "Delete Selected";
+            btnDeleteProfile.UseVisualStyleBackColor = false;
+            btnDeleteProfile.Click += DeleteProfile_Button_Click;
             // 
-            // AddNewProfile_Button
+            // btnAddNewProfile
             // 
-            AddNewProfile_Button.Anchor = AnchorStyles.None;
-            AddNewProfile_Button.BackgroundImageLayout = ImageLayout.None;
-            AddNewProfile_Button.Cursor = Cursors.Hand;
-            AddNewProfile_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
-            AddNewProfile_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
-            AddNewProfile_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
-            AddNewProfile_Button.FlatStyle = FlatStyle.Flat;
-            AddNewProfile_Button.Font = new Font("Consolas", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            AddNewProfile_Button.ForeColor = Color.FromArgb(0, 255, 185);
-            AddNewProfile_Button.Location = new Point(187, 10);
-            AddNewProfile_Button.Margin = new Padding(0);
-            AddNewProfile_Button.Name = "AddNewProfile_Button";
-            AddNewProfile_Button.Padding = new Padding(0, 2, 0, 0);
-            AddNewProfile_Button.Size = new Size(30, 30);
-            AddNewProfile_Button.TabIndex = 1;
-            AddNewProfile_Button.Text = "+";
-            AddNewProfile_Button.UseCompatibleTextRendering = true;
-            AddNewProfile_Button.UseVisualStyleBackColor = true;
-            AddNewProfile_Button.Click += AddNewProfile_Button_Click;
+            btnAddNewProfile.Anchor = AnchorStyles.None;
+            btnAddNewProfile.BackgroundImageLayout = ImageLayout.None;
+            btnAddNewProfile.Cursor = Cursors.Hand;
+            btnAddNewProfile.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnAddNewProfile.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnAddNewProfile.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnAddNewProfile.FlatStyle = FlatStyle.Flat;
+            btnAddNewProfile.Font = new Font("Consolas", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAddNewProfile.ForeColor = Color.FromArgb(0, 255, 185);
+            btnAddNewProfile.Location = new Point(187, 10);
+            btnAddNewProfile.Margin = new Padding(0);
+            btnAddNewProfile.Name = "btnAddNewProfile";
+            btnAddNewProfile.Padding = new Padding(0, 2, 0, 0);
+            btnAddNewProfile.Size = new Size(30, 30);
+            btnAddNewProfile.TabIndex = 1;
+            btnAddNewProfile.Text = "+";
+            btnAddNewProfile.UseCompatibleTextRendering = true;
+            btnAddNewProfile.UseVisualStyleBackColor = true;
+            btnAddNewProfile.Click += AddNewProfile_Button_Click;
             // 
-            // ServerProfilesListBox
+            // lbxServerProfiles
             // 
-            ServerProfilesListBox.BackColor = Color.FromArgb(0, 0, 28);
-            ServerProfilesListBox.BorderStyle = BorderStyle.FixedSingle;
-            ServerProfilesListBox.ForeColor = SystemColors.Window;
-            ServerProfilesListBox.FormattingEnabled = true;
-            ServerProfilesListBox.ItemHeight = 15;
-            ServerProfilesListBox.Location = new Point(10, 10);
-            ServerProfilesListBox.Name = "ServerProfilesListBox";
-            ServerProfilesListBox.Size = new Size(166, 272);
-            ServerProfilesListBox.TabIndex = 0;
-            ServerProfilesListBox.SelectedIndexChanged += ServerProfilesListBox_IndexChanged;
+            lbxServerProfiles.BackColor = Color.FromArgb(0, 0, 28);
+            lbxServerProfiles.BorderStyle = BorderStyle.FixedSingle;
+            lbxServerProfiles.ForeColor = SystemColors.Window;
+            lbxServerProfiles.FormattingEnabled = true;
+            lbxServerProfiles.ItemHeight = 15;
+            lbxServerProfiles.Location = new Point(10, 10);
+            lbxServerProfiles.Name = "lbxServerProfiles";
+            lbxServerProfiles.Size = new Size(166, 272);
+            lbxServerProfiles.TabIndex = 0;
+            lbxServerProfiles.SelectedIndexChanged += ServerProfilesListBox_IndexChanged;
             // 
-            // NewsText
+            // lblNewsText
             // 
-            NewsText.AutoSize = true;
-            NewsText.Location = new Point(584, 181);
-            NewsText.Name = "NewsText";
-            NewsText.Size = new Size(170, 45);
-            NewsText.TabIndex = 53;
-            NewsText.Text = "Version 0.0.4:\r\n- added an option to create, \r\n   edit and delete server profiles";
+            lblNewsText.AutoSize = true;
+            lblNewsText.Location = new Point(584, 181);
+            lblNewsText.Name = "lblNewsText";
+            lblNewsText.Size = new Size(170, 45);
+            lblNewsText.TabIndex = 53;
+            lblNewsText.Text = "Version 0.0.4:\r\n- added an option to create, \r\n   edit and delete server profiles";
             // 
-            // CreditsLabel
+            // lblCredits
             // 
-            CreditsLabel.AutoSize = true;
-            CreditsLabel.BackColor = Color.FromArgb(64, 64, 64);
-            CreditsLabel.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
-            CreditsLabel.ForeColor = Color.FromArgb(0, 204, 204);
-            CreditsLabel.Location = new Point(570, 413);
-            CreditsLabel.Name = "CreditsLabel";
-            CreditsLabel.Size = new Size(211, 13);
-            CreditsLabel.TabIndex = 54;
-            CreditsLabel.Text = "Credits to Strew / Evorin and Crazyloon";
+            lblCredits.AutoSize = true;
+            lblCredits.BackColor = Color.FromArgb(64, 64, 64);
+            lblCredits.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
+            lblCredits.ForeColor = Color.FromArgb(0, 204, 204);
+            lblCredits.Location = new Point(570, 413);
+            lblCredits.Name = "lblCredits";
+            lblCredits.Size = new Size(211, 13);
+            lblCredits.TabIndex = 54;
+            lblCredits.Text = "Credits to Strew / Evorin and Crazyloon";
             // 
             // Form1
             // 
@@ -818,31 +820,31 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
-            Controls.Add(CreditsLabel);
+            Controls.Add(lblCredits);
             Controls.Add(pictureBox7);
             Controls.Add(pictureBox9);
             Controls.Add(pictureBox8);
-            Controls.Add(OpenLogFolder_Button);
-            Controls.Add(OpenSavegameFolder_Button);
-            Controls.Add(OpenBackupFolder_Button);
-            Controls.Add(UpdateServer_Button);
-            Controls.Add(InstallServer_Button);
-            Controls.Add(SaveBackup_Button);
-            Controls.Add(StartServer_Button);
+            Controls.Add(btnOpenLogFolder);
+            Controls.Add(btnOpenSavegameFolder);
+            Controls.Add(btnOpenBackupFolder);
+            Controls.Add(btnUpdateServer);
+            Controls.Add(btnInstallServer);
+            Controls.Add(btnSaveBackup);
+            Controls.Add(btnStartServer);
             Controls.Add(pictureBox10);
-            Controls.Add(AdminPanelLabel);
-            Controls.Add(ServerProfileSpecific);
-            Controls.Add(WindowsFirewall_Button);
-            Controls.Add(InstallSteamCMD_Button);
-            Controls.Add(NewsText);
-            Controls.Add(NewsLabel);
-            Controls.Add(logo);
-            Controls.Add(ServerTabs);
+            Controls.Add(lblAdminPanel);
+            Controls.Add(lblServerProfileSpecific);
+            Controls.Add(btnWindowsFirewall);
+            Controls.Add(btnInstallSteamCMD);
+            Controls.Add(lblNewsText);
+            Controls.Add(lblNews);
+            Controls.Add(lblLogo);
+            Controls.Add(tabServerTabs);
             Controls.Add(label7);
             Controls.Add(pictureBox1);
-            Controls.Add(MinimizeTrayLabel);
-            Controls.Add(CloseLabel);
-            Controls.Add(TitleLabel);
+            Controls.Add(lblMinimizeTrayButton);
+            Controls.Add(lblCloseButton);
+            Controls.Add(lblTitle);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox5);
             Controls.Add(pictureBox6);
@@ -853,9 +855,9 @@
             Text = "Form1";
             FormClosed += Form1_FormClosed;
             Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)GamePort_input).EndInit();
-            ((System.ComponentModel.ISupportInitialize)QueryPort_input).EndInit();
-            ((System.ComponentModel.ISupportInitialize)SlotCount_input).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudGamePort).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudQueryPort).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudSlotCount).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
@@ -865,11 +867,11 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
-            ServerTabs.ResumeLayout(false);
-            ServerSettings_Tab.ResumeLayout(false);
-            ServerSettings_Tab.PerformLayout();
-            ProfileManager_Tab.ResumeLayout(false);
-            ProfileManager_Tab.PerformLayout();
+            tabServerTabs.ResumeLayout(false);
+            tabServerSettings.ResumeLayout(false);
+            tabServerSettings.PerformLayout();
+            tabProfileManager.ResumeLayout(false);
+            tabProfileManager.PerformLayout();
             pnlProfileNameUpdate.ResumeLayout(false);
             pnlProfileNameUpdate.PerformLayout();
             ResumeLayout(false);
@@ -878,62 +880,62 @@
 
         #endregion
 
-        private ComboBox ServerSelectionComboBox;
-        private Label ServerSelectionLabel;
-        private Button InstallSteamCMD_Button;
-        private Button InstallServer_Button;
-        private TextBox ServerName_TextBox;
-        private TextBox ServerPassword_TextBox;
-        private TextBox IP_TextBox;
-        private NumericUpDown GamePort_input;
-        private NumericUpDown QueryPort_input;
-        private NumericUpDown SlotCount_input;
-        private Label Servername_Label;
-        private Label Password_Label;
-        private Label IpAddress_Label;
-        private Label GamePort_label;
-        private Label QueryPort_Label;
-        private Label MaxPlayers_Label;
-        private Button SaveSettings_Button;
-        private Button StartServer_Button;
+        private ComboBox cbxProfileSelectionComboBox;
+        private Label lblProfileSelectionLabel;
+        private Button btnInstallSteamCMD;
+        private Button btnInstallServer;
+        private TextBox txtServerName;
+        private TextBox txtServerPassword;
+        private TextBox txtIpAddress;
+        private NumericUpDown nudGamePort;
+        private NumericUpDown nudQueryPort;
+        private NumericUpDown nudSlotCount;
+        private Label lblServername;
+        private Label lblPassword;
+        private Label lblIpAddress;
+        private Label lblGamePort;
+        private Label lblQueryPort;
+        private Label lblMaxPlayers;
+        private Button btnSaveSettings;
+        private Button btnStartServer;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
-        private Label AdminPanelLabel;
-        private Label TitleLabel;
-        private Label ServerSettingsLabel;
-        private Label CloseLabel;
-        private Label MinimizeTrayLabel;
+        private Label lblAdminPanel;
+        private Label lblTitle;
+        private Label lblServerSettings;
+        private Label lblCloseButton;
+        private Label lblMinimizeTrayButton;
         private PictureBox pictureBox5;
-        private Label NewsLabel;
+        private Label lblNews;
         private PictureBox pictureBox7;
         private PictureBox pictureBox6;
         private PictureBox pictureBox1;
         private PictureBox pictureBox8;
         private PictureBox pictureBox9;
-        private Button SaveBackup_Button;
-        private Button OpenBackupFolder_Button;
-        private Button WindowsFirewall_Button;
+        private Button btnSaveBackup;
+        private Button btnOpenBackupFolder;
+        private Button btnWindowsFirewall;
         private Label label7;
-        private Label ServerProfileSpecific;
+        private Label lblServerProfileSpecific;
         private PictureBox pictureBox10;
-        private Button OpenSavegameFolder_Button;
-        private Button OpenLogFolder_Button;
-        private Button UpdateServer_Button;
-        private TabControl ServerTabs;
-        private TabPage ServerSettings_Tab;
-        private TabPage ProfileManager_Tab;
-        private Button AddNewProfile_Button;
-        private ListBox ServerProfilesListBox;
-        private Button DeleteProfile_Button;
+        private Button btnOpenSavegameFolder;
+        private Button btnOpenLogFolder;
+        private Button btnUpdateServer;
+        private TabControl tabServerTabs;
+        private TabPage tabServerSettings;
+        private TabPage tabProfileManager;
+        private Button btnAddNewProfile;
+        private ListBox lbxServerProfiles;
+        private Button btnDeleteProfile;
         private Label lblProfileManager;
         private Panel pnlProfileNameUpdate;
-        private Button SaveProfileName_Button;
-        private TextBox EditProfileName_TextBox;
+        private Button btnSaveProfileName;
+        private TextBox txtEditProfileName;
         private Label lblProfileNameInputHeading;
         private Label lblProfileNameInfo;
-        private Label logo;
-        private Label NewsText;
-        private Label CreditsLabel;
+        private Label lblLogo;
+        private Label lblNewsText;
+        private Label lblCredits;
         private Label lblAddNewProfile;
     }
 }
