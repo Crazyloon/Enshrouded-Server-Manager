@@ -133,7 +133,7 @@ public partial class Form1 : Form
         {
             string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
 
-            _server.InstallUpdate(STEAM_APP_ID, $"{SERVER_PATH}{ServerSelectText}");
+            _server.InstallUpdate(STEAM_APP_ID, $".{SERVER_PATH}{ServerSelectText}");
 
             btnInstallServer.Visible = false;
             btnUpdateServer.Visible = true;
@@ -146,7 +146,7 @@ public partial class Form1 : Form
         {
             string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
 
-            _server.InstallUpdate(STEAM_APP_ID, $"{SERVER_PATH}{ServerSelectText}");
+            _server.InstallUpdate(STEAM_APP_ID, $".{SERVER_PATH}{ServerSelectText}");
         }
     }
 
