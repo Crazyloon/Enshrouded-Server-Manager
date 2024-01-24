@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             cbxProfileSelectionComboBox = new ComboBox();
             lblProfileSelectionLabel = new Label();
             btnInstallSteamCMD = new Button();
@@ -871,6 +872,7 @@
             Controls.Add(pictureBox3);
             ForeColor = SystemColors.ButtonHighlight;
             FormBorderStyle = FormBorderStyle.None;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "Form1";
             FormClosed += Form1_FormClosed;
