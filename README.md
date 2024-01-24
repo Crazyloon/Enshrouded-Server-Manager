@@ -17,13 +17,21 @@ The app starts and creates a default semi-random profile. You can edit the profi
 
 Use the Server Profile combo-box selector to switch profiles at any time. The currently selected profile will be referenced when you click any "Server Profile" specific buttons, like Start Server, Install Server, Save Backup, etc.
 
+### Launch a server
 To launch a server for the first time: 
 - Click Install SteamCMD.
 - Manage your Windows Firewall to open TCP/UPD ports for the GamePort and QueryPort.
 - Select the server profile you wish to use.
 - Click Install Server.
 - Once the server is installed, click Start Server.
-- This should launch a server for which will appear in the games list of Enshrouded.
+- This should launch a server which will appear in the games list of Enshrouded.
+
+### Manage your profiles
+Under the Manage Profiles tab, you can add, rename, and delete server profiles.
+To Add a Profile, click the + symbol next to Add New Profile. This will create a new server with a semi-random name, like ServerABC123.
+To Rename a Profile, click on the profile name you wish to modify. The name will appear in the Profile Name text box. Edit the server name here, and click Save Changes to rename your first server.
+To Delete a Profile, click on the profile name you wish to delete, then click the Delete Selected button. You must confirm you wish to delete by clicking yes in the window that appears.
+- Note: Deleting a profile will remove the profile and the underlying server files, but any backups you create will be retained. ONLY delete a profile if you are sure you have backed up the save files, or you are certain you don't want them anymore.
 
 ## Notes
 Every Server Profile has its own install directory and configuration.
