@@ -175,8 +175,8 @@
             txtServerPassword.ForeColor = SystemColors.Window;
             txtServerPassword.Location = new Point(112, 107);
             txtServerPassword.Name = "txtServerPassword";
-            txtServerPassword.Size = new Size(170, 23);
             txtServerPassword.PasswordChar = '*';
+            txtServerPassword.Size = new Size(170, 23);
             txtServerPassword.TabIndex = 5;
             // 
             // txtIpAddress
@@ -818,9 +818,9 @@
             lblNewsText.AutoSize = true;
             lblNewsText.Location = new Point(584, 181);
             lblNewsText.Name = "lblNewsText";
-            lblNewsText.Size = new Size(170, 45);
+            lblNewsText.Size = new Size(158, 45);
             lblNewsText.TabIndex = 53;
-            lblNewsText.Text = "Version 0.0.4:\r\n- added an option to create, \r\n   edit and delete server profiles";
+            lblNewsText.Text = "Version 0.0.5:\r\n- Updated UI color scheme\r\n- Added toggle for password";
             // 
             // lblCredits
             // 
