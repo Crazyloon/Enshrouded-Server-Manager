@@ -1,0 +1,28 @@
+name: publish
+
+on:
+  push:
+    branches: [ master ]
+
+env:
+  DOTNET_VERSION: '7.0.x' # The .NET SDK version to use
+
+jobs:
+  publish:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Install dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run:
+        dotnet build --configuration Release --no-restore
+        dotnet publish -r win-x64 --self-contained false
