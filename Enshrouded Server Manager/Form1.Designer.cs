@@ -125,7 +125,12 @@
             // 
             // InstallSteamCMD_Button
             // 
-            InstallSteamCMD_Button.ForeColor = SystemColors.ActiveCaptionText;
+            InstallSteamCMD_Button.Cursor = Cursors.Hand;
+            InstallSteamCMD_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            InstallSteamCMD_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            InstallSteamCMD_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            InstallSteamCMD_Button.FlatStyle = FlatStyle.Flat;
+            InstallSteamCMD_Button.ForeColor = SystemColors.Control;
             InstallSteamCMD_Button.Location = new Point(33, 57);
             InstallSteamCMD_Button.Name = "InstallSteamCMD_Button";
             InstallSteamCMD_Button.Size = new Size(127, 23);
@@ -136,10 +141,15 @@
             // 
             // InstallServer_Button
             // 
-            InstallServer_Button.ForeColor = SystemColors.ActiveCaptionText;
-            InstallServer_Button.Location = new Point(33, 199);
+            InstallServer_Button.Cursor = Cursors.Hand;
+            InstallServer_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            InstallServer_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            InstallServer_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            InstallServer_Button.FlatStyle = FlatStyle.Flat;
+            InstallServer_Button.ForeColor = SystemColors.Control;
+            InstallServer_Button.Location = new Point(33, 196);
             InstallServer_Button.Name = "InstallServer_Button";
-            InstallServer_Button.Size = new Size(127, 23);
+            InstallServer_Button.Size = new Size(127, 25);
             InstallServer_Button.TabIndex = 3;
             InstallServer_Button.Text = "Install Server";
             InstallServer_Button.UseVisualStyleBackColor = true;
@@ -288,12 +298,18 @@
             // 
             // StartServer_Button
             // 
-            StartServer_Button.ForeColor = SystemColors.ActiveCaptionText;
-            StartServer_Button.Location = new Point(33, 171);
+            StartServer_Button.Cursor = Cursors.Hand;
+            StartServer_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            StartServer_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            StartServer_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            StartServer_Button.FlatStyle = FlatStyle.Flat;
+            StartServer_Button.ForeColor = SystemColors.Control;
+            StartServer_Button.Location = new Point(33, 165);
             StartServer_Button.Name = "StartServer_Button";
-            StartServer_Button.Size = new Size(127, 23);
+            StartServer_Button.Size = new Size(127, 25);
             StartServer_Button.TabIndex = 18;
             StartServer_Button.Text = "Start Server";
+            StartServer_Button.UseCompatibleTextRendering = true;
             StartServer_Button.UseVisualStyleBackColor = true;
             StartServer_Button.Visible = false;
             StartServer_Button.Click += StartServer_Button_Click;
@@ -455,32 +471,49 @@
             // 
             // SaveBackup_Button
             // 
-            SaveBackup_Button.ForeColor = SystemColors.ActiveCaptionText;
-            SaveBackup_Button.Location = new Point(33, 242);
+            SaveBackup_Button.Cursor = Cursors.Hand;
+            SaveBackup_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            SaveBackup_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            SaveBackup_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            SaveBackup_Button.FlatStyle = FlatStyle.Flat;
+            SaveBackup_Button.ForeColor = SystemColors.Control;
+            SaveBackup_Button.Location = new Point(33, 237);
             SaveBackup_Button.Name = "SaveBackup_Button";
-            SaveBackup_Button.Size = new Size(127, 23);
+            SaveBackup_Button.Size = new Size(127, 25);
             SaveBackup_Button.TabIndex = 38;
             SaveBackup_Button.Text = "Save Backup";
+            SaveBackup_Button.UseCompatibleTextRendering = true;
             SaveBackup_Button.UseVisualStyleBackColor = true;
             SaveBackup_Button.Click += SaveBackup_Button_Click;
             // 
             // OpenBackupFolder_Button
             // 
-            OpenBackupFolder_Button.ForeColor = SystemColors.ActiveCaptionText;
-            OpenBackupFolder_Button.Location = new Point(33, 271);
+            OpenBackupFolder_Button.Cursor = Cursors.Hand;
+            OpenBackupFolder_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            OpenBackupFolder_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            OpenBackupFolder_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            OpenBackupFolder_Button.FlatStyle = FlatStyle.Flat;
+            OpenBackupFolder_Button.ForeColor = SystemColors.Control;
+            OpenBackupFolder_Button.Location = new Point(33, 268);
             OpenBackupFolder_Button.Name = "OpenBackupFolder_Button";
-            OpenBackupFolder_Button.Size = new Size(127, 23);
+            OpenBackupFolder_Button.Size = new Size(127, 25);
             OpenBackupFolder_Button.TabIndex = 39;
             OpenBackupFolder_Button.Text = "Backup Folder";
+            OpenBackupFolder_Button.UseCompatibleTextRendering = true;
             OpenBackupFolder_Button.UseVisualStyleBackColor = true;
             OpenBackupFolder_Button.Click += OpenBackupFolder_Button_Click;
             // 
             // WindowsFirewall_Button
             // 
-            WindowsFirewall_Button.ForeColor = SystemColors.ActiveCaptionText;
+            WindowsFirewall_Button.Cursor = Cursors.Hand;
+            WindowsFirewall_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            WindowsFirewall_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            WindowsFirewall_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            WindowsFirewall_Button.FlatStyle = FlatStyle.Flat;
+            WindowsFirewall_Button.ForeColor = SystemColors.Control;
             WindowsFirewall_Button.Location = new Point(33, 84);
             WindowsFirewall_Button.Name = "WindowsFirewall_Button";
-            WindowsFirewall_Button.Size = new Size(127, 23);
+            WindowsFirewall_Button.Size = new Size(127, 24);
             WindowsFirewall_Button.TabIndex = 40;
             WindowsFirewall_Button.Text = "Windows Firewall";
             WindowsFirewall_Button.UseVisualStyleBackColor = true;
@@ -497,7 +530,7 @@
             // ServerProfileSpecific
             // 
             ServerProfileSpecific.AutoSize = true;
-            ServerProfileSpecific.Location = new Point(30, 138);
+            ServerProfileSpecific.Location = new Point(30, 133);
             ServerProfileSpecific.Name = "ServerProfileSpecific";
             ServerProfileSpecific.Size = new Size(129, 15);
             ServerProfileSpecific.TabIndex = 42;
@@ -506,42 +539,60 @@
             // pictureBox10
             // 
             pictureBox10.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox10.Location = new Point(27, 163);
+            pictureBox10.Location = new Point(27, 158);
             pictureBox10.Name = "pictureBox10";
-            pictureBox10.Size = new Size(140, 203);
+            pictureBox10.Size = new Size(140, 205);
             pictureBox10.TabIndex = 43;
             pictureBox10.TabStop = false;
             // 
             // OpenSavegameFolder_Button
             // 
-            OpenSavegameFolder_Button.ForeColor = SystemColors.ActiveCaptionText;
-            OpenSavegameFolder_Button.Location = new Point(33, 300);
+            OpenSavegameFolder_Button.Cursor = Cursors.Hand;
+            OpenSavegameFolder_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            OpenSavegameFolder_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            OpenSavegameFolder_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            OpenSavegameFolder_Button.FlatStyle = FlatStyle.Flat;
+            OpenSavegameFolder_Button.ForeColor = SystemColors.Control;
+            OpenSavegameFolder_Button.Location = new Point(33, 299);
             OpenSavegameFolder_Button.Name = "OpenSavegameFolder_Button";
-            OpenSavegameFolder_Button.Size = new Size(126, 23);
+            OpenSavegameFolder_Button.Size = new Size(127, 25);
             OpenSavegameFolder_Button.TabIndex = 44;
             OpenSavegameFolder_Button.Text = "Savegame Folder";
+            OpenSavegameFolder_Button.UseCompatibleTextRendering = true;
             OpenSavegameFolder_Button.UseVisualStyleBackColor = true;
             OpenSavegameFolder_Button.Click += OpenSavegameFolder_Button_Click;
             // 
             // OpenLogFolder_Button
             // 
-            OpenLogFolder_Button.ForeColor = SystemColors.ActiveCaptionText;
-            OpenLogFolder_Button.Location = new Point(33, 329);
+            OpenLogFolder_Button.Cursor = Cursors.Hand;
+            OpenLogFolder_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            OpenLogFolder_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            OpenLogFolder_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            OpenLogFolder_Button.FlatStyle = FlatStyle.Flat;
+            OpenLogFolder_Button.ForeColor = SystemColors.Control;
+            OpenLogFolder_Button.Location = new Point(33, 330);
             OpenLogFolder_Button.Name = "OpenLogFolder_Button";
-            OpenLogFolder_Button.Size = new Size(127, 23);
+            OpenLogFolder_Button.Size = new Size(127, 25);
             OpenLogFolder_Button.TabIndex = 45;
             OpenLogFolder_Button.Text = "Log Folder";
+            OpenLogFolder_Button.UseCompatibleTextRendering = true;
             OpenLogFolder_Button.UseVisualStyleBackColor = true;
             OpenLogFolder_Button.Click += OpenLogFolder_Button_Click;
             // 
             // UpdateServer_Button
             // 
-            UpdateServer_Button.ForeColor = SystemColors.ActiveCaptionText;
-            UpdateServer_Button.Location = new Point(33, 199);
+            UpdateServer_Button.Cursor = Cursors.Hand;
+            UpdateServer_Button.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            UpdateServer_Button.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            UpdateServer_Button.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            UpdateServer_Button.FlatStyle = FlatStyle.Flat;
+            UpdateServer_Button.ForeColor = SystemColors.Control;
+            UpdateServer_Button.Location = new Point(34, 196);
             UpdateServer_Button.Name = "UpdateServer_Button";
-            UpdateServer_Button.Size = new Size(127, 23);
+            UpdateServer_Button.Size = new Size(127, 25);
             UpdateServer_Button.TabIndex = 46;
             UpdateServer_Button.Text = "Update Server";
+            UpdateServer_Button.UseCompatibleTextRendering = true;
             UpdateServer_Button.UseVisualStyleBackColor = true;
             UpdateServer_Button.Visible = false;
             UpdateServer_Button.Click += UpdateServer_Button_Click;
