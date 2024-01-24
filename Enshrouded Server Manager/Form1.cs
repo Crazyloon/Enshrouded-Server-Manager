@@ -588,4 +588,12 @@ public partial class Form1 : Form
         Sender.BackColor = Sender.Enabled ? Color.FromArgb(255, 0, 0, 40) : Color.FromArgb(255, 115, 115, 137);
         Sender.FlatAppearance.BorderColor = Sender.Enabled ? Color.FromArgb(255, 115, 115, 137) : Color.FromArgb(255, 0, 0, 40);
     }
+
+    private void btnShowPassword_Click(object sender, EventArgs e)
+    {
+        var text = btnShowPassword.Text;
+        txtServerPassword.PasswordChar = text == "Show" ? '\0' : '*';
+
+        btnShowPassword.Text = text == "Show" ? "Hide" : "Show";
+    }
 }

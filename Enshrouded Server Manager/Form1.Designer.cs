@@ -72,6 +72,7 @@
             lblLogo = new Label();
             tabServerTabs = new TabControl();
             tabServerSettings = new TabPage();
+            btnShowPassword = new Button();
             tabProfileManager = new TabPage();
             lblAddNewProfile = new Label();
             lblProfileManager = new Label();
@@ -108,7 +109,7 @@
             cbxProfileSelectionComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxProfileSelectionComboBox.FlatStyle = FlatStyle.System;
             cbxProfileSelectionComboBox.FormattingEnabled = true;
-            cbxProfileSelectionComboBox.Location = new Point(137, 34);
+            cbxProfileSelectionComboBox.Location = new Point(112, 34);
             cbxProfileSelectionComboBox.Name = "cbxProfileSelectionComboBox";
             cbxProfileSelectionComboBox.Size = new Size(170, 23);
             cbxProfileSelectionComboBox.TabIndex = 0;
@@ -117,7 +118,7 @@
             // lblProfileSelectionLabel
             // 
             lblProfileSelectionLabel.AutoSize = true;
-            lblProfileSelectionLabel.Location = new Point(59, 37);
+            lblProfileSelectionLabel.Location = new Point(34, 37);
             lblProfileSelectionLabel.Name = "lblProfileSelectionLabel";
             lblProfileSelectionLabel.Size = new Size(76, 15);
             lblProfileSelectionLabel.TabIndex = 1;
@@ -162,7 +163,7 @@
             txtServerName.BackColor = Color.FromArgb(6, 6, 48);
             txtServerName.BorderStyle = BorderStyle.FixedSingle;
             txtServerName.ForeColor = SystemColors.Window;
-            txtServerName.Location = new Point(137, 78);
+            txtServerName.Location = new Point(112, 78);
             txtServerName.Name = "txtServerName";
             txtServerName.Size = new Size(170, 23);
             txtServerName.TabIndex = 4;
@@ -172,9 +173,10 @@
             txtServerPassword.BackColor = Color.FromArgb(6, 6, 48);
             txtServerPassword.BorderStyle = BorderStyle.FixedSingle;
             txtServerPassword.ForeColor = SystemColors.Window;
-            txtServerPassword.Location = new Point(137, 107);
+            txtServerPassword.Location = new Point(112, 107);
             txtServerPassword.Name = "txtServerPassword";
             txtServerPassword.Size = new Size(170, 23);
+            txtServerPassword.PasswordChar = '*';
             txtServerPassword.TabIndex = 5;
             // 
             // txtIpAddress
@@ -182,7 +184,7 @@
             txtIpAddress.BackColor = Color.FromArgb(6, 6, 48);
             txtIpAddress.BorderStyle = BorderStyle.FixedSingle;
             txtIpAddress.ForeColor = SystemColors.Window;
-            txtIpAddress.Location = new Point(137, 136);
+            txtIpAddress.Location = new Point(112, 136);
             txtIpAddress.Name = "txtIpAddress";
             txtIpAddress.Size = new Size(134, 23);
             txtIpAddress.TabIndex = 6;
@@ -192,7 +194,7 @@
             nudGamePort.BackColor = Color.FromArgb(6, 6, 48);
             nudGamePort.BorderStyle = BorderStyle.FixedSingle;
             nudGamePort.ForeColor = SystemColors.Window;
-            nudGamePort.Location = new Point(137, 166);
+            nudGamePort.Location = new Point(112, 166);
             nudGamePort.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             nudGamePort.Name = "nudGamePort";
             nudGamePort.Size = new Size(62, 23);
@@ -203,7 +205,7 @@
             nudQueryPort.BackColor = Color.FromArgb(6, 6, 48);
             nudQueryPort.BorderStyle = BorderStyle.FixedSingle;
             nudQueryPort.ForeColor = SystemColors.Window;
-            nudQueryPort.Location = new Point(137, 195);
+            nudQueryPort.Location = new Point(112, 195);
             nudQueryPort.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             nudQueryPort.Name = "nudQueryPort";
             nudQueryPort.Size = new Size(62, 23);
@@ -214,7 +216,7 @@
             nudSlotCount.BackColor = Color.FromArgb(6, 6, 48);
             nudSlotCount.BorderStyle = BorderStyle.FixedSingle;
             nudSlotCount.ForeColor = SystemColors.Window;
-            nudSlotCount.Location = new Point(137, 224);
+            nudSlotCount.Location = new Point(112, 224);
             nudSlotCount.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
             nudSlotCount.Name = "nudSlotCount";
             nudSlotCount.Size = new Size(35, 23);
@@ -224,7 +226,7 @@
             // 
             lblServername.AutoSize = true;
             lblServername.ForeColor = SystemColors.ButtonHighlight;
-            lblServername.Location = new Point(66, 81);
+            lblServername.Location = new Point(41, 81);
             lblServername.Name = "lblServername";
             lblServername.Size = new Size(69, 15);
             lblServername.TabIndex = 10;
@@ -234,7 +236,7 @@
             // 
             lblPassword.AutoSize = true;
             lblPassword.ForeColor = SystemColors.ButtonHighlight;
-            lblPassword.Location = new Point(78, 110);
+            lblPassword.Location = new Point(53, 110);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(57, 15);
             lblPassword.TabIndex = 11;
@@ -244,7 +246,7 @@
             // 
             lblIpAddress.AutoSize = true;
             lblIpAddress.ForeColor = SystemColors.ButtonHighlight;
-            lblIpAddress.Location = new Point(73, 139);
+            lblIpAddress.Location = new Point(48, 139);
             lblIpAddress.Name = "lblIpAddress";
             lblIpAddress.Size = new Size(62, 15);
             lblIpAddress.TabIndex = 12;
@@ -254,7 +256,7 @@
             // 
             lblGamePort.AutoSize = true;
             lblGamePort.ForeColor = SystemColors.ButtonHighlight;
-            lblGamePort.Location = new Point(75, 168);
+            lblGamePort.Location = new Point(50, 168);
             lblGamePort.Name = "lblGamePort";
             lblGamePort.Size = new Size(60, 15);
             lblGamePort.TabIndex = 13;
@@ -264,7 +266,7 @@
             // 
             lblQueryPort.AutoSize = true;
             lblQueryPort.ForeColor = SystemColors.ButtonHighlight;
-            lblQueryPort.Location = new Point(74, 197);
+            lblQueryPort.Location = new Point(49, 197);
             lblQueryPort.Name = "lblQueryPort";
             lblQueryPort.Size = new Size(61, 15);
             lblQueryPort.TabIndex = 14;
@@ -273,7 +275,7 @@
             // lblMaxPlayers
             // 
             lblMaxPlayers.AutoSize = true;
-            lblMaxPlayers.Location = new Point(68, 226);
+            lblMaxPlayers.Location = new Point(43, 226);
             lblMaxPlayers.Name = "lblMaxPlayers";
             lblMaxPlayers.Size = new Size(67, 15);
             lblMaxPlayers.TabIndex = 15;
@@ -287,7 +289,7 @@
             btnSaveSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnSaveSettings.FlatStyle = FlatStyle.Flat;
             btnSaveSettings.ForeColor = Color.FromArgb(0, 255, 185);
-            btnSaveSettings.Location = new Point(137, 267);
+            btnSaveSettings.Location = new Point(127, 266);
             btnSaveSettings.Name = "btnSaveSettings";
             btnSaveSettings.Size = new Size(124, 30);
             btnSaveSettings.TabIndex = 17;
@@ -624,6 +626,7 @@
             // tabServerSettings
             // 
             tabServerSettings.BackColor = Color.FromArgb(0, 0, 18);
+            tabServerSettings.Controls.Add(btnShowPassword);
             tabServerSettings.Controls.Add(txtIpAddress);
             tabServerSettings.Controls.Add(cbxProfileSelectionComboBox);
             tabServerSettings.Controls.Add(lblProfileSelectionLabel);
@@ -646,6 +649,23 @@
             tabServerSettings.Size = new Size(359, 346);
             tabServerSettings.TabIndex = 0;
             tabServerSettings.Text = "Server Settings";
+            // 
+            // btnShowPassword
+            // 
+            btnShowPassword.Cursor = Cursors.Hand;
+            btnShowPassword.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnShowPassword.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnShowPassword.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnShowPassword.FlatStyle = FlatStyle.Flat;
+            btnShowPassword.ForeColor = SystemColors.Control;
+            btnShowPassword.Location = new Point(288, 107);
+            btnShowPassword.Name = "btnShowPassword";
+            btnShowPassword.Size = new Size(48, 23);
+            btnShowPassword.TabIndex = 26;
+            btnShowPassword.Text = "Show";
+            btnShowPassword.UseCompatibleTextRendering = true;
+            btnShowPassword.UseVisualStyleBackColor = true;
+            btnShowPassword.Click += btnShowPassword_Click;
             // 
             // tabProfileManager
             // 
@@ -937,5 +957,6 @@
         private Label lblNewsText;
         private Label lblCredits;
         private Label lblAddNewProfile;
+        private Button btnShowPassword;
     }
 }
