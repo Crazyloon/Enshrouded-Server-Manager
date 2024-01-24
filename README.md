@@ -1,3 +1,5 @@
+Current version: 0.0.5
+
 This little tool is an experimental enshrouded server manager.
 
 Every Server Profile has its own install directory and configuration.
