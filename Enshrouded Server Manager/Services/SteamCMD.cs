@@ -55,7 +55,6 @@ namespace Enshrouded_Server_Manager.Services
             try
             {
                 ZipFile.ExtractToDirectory(_dlZipFile, _targetFolder);
-                MessageBox.Show("SteamCMD installed");
             }
             catch (Exception ex)
             {
