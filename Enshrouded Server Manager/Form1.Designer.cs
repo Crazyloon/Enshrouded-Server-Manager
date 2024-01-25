@@ -822,9 +822,9 @@
             lblNewsText.AutoSize = true;
             lblNewsText.Location = new Point(584, 181);
             lblNewsText.Name = "lblNewsText";
-            lblNewsText.Size = new Size(175, 75);
+            lblNewsText.Size = new Size(177, 105);
             lblNewsText.TabIndex = 53;
-            lblNewsText.Text = "new Features:\r\n- Version Check of the Manager\r\n- Github-Link\r\n- SteamCMD.zip will be deleted \r\n   now after install\r\n";
+            lblNewsText.Text = "Changes:\r\n- Version Check of the Manager\r\n- Github-Link\r\n- SteamCMD.zip will be deleted \r\n   now after install\r\n- Update interval added\r\n- at SteamCMD install it updates";
             // 
             // lblCredits
             // 
@@ -848,7 +848,7 @@
             VersionLabel.Name = "VersionLabel";
             VersionLabel.Size = new Size(39, 13);
             VersionLabel.TabIndex = 55;
-            VersionLabel.Text = "v.0.1.0";
+            VersionLabel.Text = "v.0.1.1";
             // 
             // GithubLabel
             // 

@@ -89,39 +89,7 @@ public partial class Form1 : Form
             LoadServerSettings(ServerSelectText);
         }
 
-        // Manager Version Check
-
-        using (WebClient Client = new WebClient())
-        {
-            try
-            {
-                Client.DownloadFile("https://raw.githubusercontent.com/ISpaikI/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json", "./githubversion.json");
-            }
-            catch (Exception ex)
-            {
-                LauncherVersion json = new LauncherVersion()
-                {
-                    Version = VersionLabel.Text,
-                };
-
-                var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
-                File.WriteAllText($"./githubversion.json", output);
-            }
-
-        }
-
-        var input = File.ReadAllText($"./githubversion.json");
-
-        LauncherVersion deserializedSettings = JsonConvert.DeserializeObject<LauncherVersion>(input, _jsonSerializerSettings);
-
-        string githubversion = deserializedSettings.Version;
-
-        if (githubversion != VersionLabel.Text)
-        {
-            NewVersionLabel.Visible = true;
-        }
-
-        File.Delete("./githubversion.json");
+        ManagerUpdate();
     }
 
     private void RefreshServerButtonsVisibility(string ServerSelectText)
@@ -171,6 +139,8 @@ public partial class Form1 : Form
             btnInstallServer.Visible = true;
             btnStartServer.Visible = true;
         }
+
+        _steamCMD.Start();
     }
 
     private void InstallServer_Button_Click(object sender, EventArgs e)
@@ -646,5 +616,77 @@ public partial class Form1 : Form
     private void GithubLabel_Click(object sender, EventArgs e)
     {
         Process.Start("explorer.exe", "https://github.com/ISpaikI/Enshrouded-Server-Manager");
+    }
+
+    private async void ManagerUpdate()
+    {
+        using (WebClient Client = new WebClient())
+        {
+            try
+            {
+                Client.DownloadFile("https://raw.githubusercontent.com/ISpaikI/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json", "./githubversion.json");
+            }
+            catch (Exception ex)
+            {
+                LauncherVersion json = new LauncherVersion()
+                {
+                    Version = VersionLabel.Text,
+                };
+
+                var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
+                File.WriteAllText($"./githubversion.json", output);
+            }
+
+        }
+
+        var input = File.ReadAllText($"./githubversion.json");
+
+        LauncherVersion deserializedSettings = JsonConvert.DeserializeObject<LauncherVersion>(input, _jsonSerializerSettings);
+
+        string githubversion = deserializedSettings.Version;
+
+        if (githubversion != VersionLabel.Text)
+        {
+            NewVersionLabel.Visible = true;
+        }
+
+        File.Delete("./githubversion.json");
+
+        var timer = new PeriodicTimer(TimeSpan.FromMinutes(10));
+
+        while (await timer.WaitForNextTickAsync())
+        {
+            using (WebClient Client = new WebClient())
+            {
+                try
+                {
+                    Client.DownloadFile("https://raw.githubusercontent.com/ISpaikI/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json", "./githubversion.json");
+                }
+                catch (Exception ex)
+                {
+                    LauncherVersion json = new LauncherVersion()
+                    {
+                        Version = VersionLabel.Text,
+                    };
+
+                    var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
+                    File.WriteAllText($"./githubversion.json", output);
+                }
+
+            }
+
+            var input1 = File.ReadAllText($"./githubversion.json");
+
+            LauncherVersion deserializedSettings1 = JsonConvert.DeserializeObject<LauncherVersion>(input, _jsonSerializerSettings);
+
+            string githubversion1 = deserializedSettings1.Version;
+
+            if (githubversion != VersionLabel.Text)
+            {
+                NewVersionLabel.Visible = true;
+            }
+
+            File.Delete("./githubversion.json");
+        }
     }
 }

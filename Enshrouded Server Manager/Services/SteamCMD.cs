@@ -1,6 +1,7 @@
 using System.Net;
 using Microsoft.VisualBasic.FileIO;
 using System.IO.Compression;
+using System.Diagnostics;
 
 namespace Enshrouded_Server_Manager.Services
 {
@@ -77,7 +78,18 @@ namespace Enshrouded_Server_Manager.Services
                 }
             }
         }
-
+        public void Start()
+        {
+            try
+            {
+                Process p = Process.Start(_steamCmdExe, $"+quit");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Following error occured while installing SteamCMD: {ex.Message.ToString()}",
+                    "Error while installing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+        }
     }
-
 }
