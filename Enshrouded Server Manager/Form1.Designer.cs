@@ -87,6 +87,9 @@
             lbxServerProfiles = new ListBox();
             lblNewsText = new Label();
             lblCredits = new Label();
+            VersionLabel = new Label();
+            GithubLabel = new Label();
+            NewVersionLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
@@ -819,9 +822,9 @@
             lblNewsText.AutoSize = true;
             lblNewsText.Location = new Point(584, 181);
             lblNewsText.Name = "lblNewsText";
-            lblNewsText.Size = new Size(158, 45);
+            lblNewsText.Size = new Size(175, 75);
             lblNewsText.TabIndex = 53;
-            lblNewsText.Text = "Version 0.0.5:\r\n- Updated UI color scheme\r\n- Added toggle for password";
+            lblNewsText.Text = "new Features:\r\n- Version Check of the Manager\r\n- Github-Link\r\n- SteamCMD.zip will be deleted \r\n   now after install\r\n";
             // 
             // lblCredits
             // 
@@ -829,11 +832,45 @@
             lblCredits.BackColor = Color.FromArgb(64, 64, 64);
             lblCredits.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
             lblCredits.ForeColor = Color.FromArgb(0, 204, 204);
-            lblCredits.Location = new Point(570, 413);
+            lblCredits.Location = new Point(10, 413);
             lblCredits.Name = "lblCredits";
             lblCredits.Size = new Size(211, 13);
             lblCredits.TabIndex = 54;
             lblCredits.Text = "Credits to Strew / Evorin and Crazyloon";
+            // 
+            // VersionLabel
+            // 
+            VersionLabel.AutoSize = true;
+            VersionLabel.BackColor = Color.FromArgb(64, 64, 64);
+            VersionLabel.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
+            VersionLabel.ForeColor = Color.FromArgb(0, 204, 204);
+            VersionLabel.Location = new Point(751, 413);
+            VersionLabel.Name = "VersionLabel";
+            VersionLabel.Size = new Size(39, 13);
+            VersionLabel.TabIndex = 55;
+            VersionLabel.Text = "v.0.1.0";
+            // 
+            // GithubLabel
+            // 
+            GithubLabel.AutoSize = true;
+            GithubLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            GithubLabel.Location = new Point(741, 383);
+            GithubLabel.Name = "GithubLabel";
+            GithubLabel.Size = new Size(45, 15);
+            GithubLabel.TabIndex = 56;
+            GithubLabel.Text = "Github";
+            GithubLabel.Click += GithubLabel_Click;
+            // 
+            // NewVersionLabel
+            // 
+            NewVersionLabel.AutoSize = true;
+            NewVersionLabel.ForeColor = Color.FromArgb(0, 255, 185);
+            NewVersionLabel.Location = new Point(662, 368);
+            NewVersionLabel.Name = "NewVersionLabel";
+            NewVersionLabel.Size = new Size(124, 15);
+            NewVersionLabel.TabIndex = 57;
+            NewVersionLabel.Text = "New version available!";
+            NewVersionLabel.Visible = false;
             // 
             // Form1
             // 
@@ -841,6 +878,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
+            Controls.Add(NewVersionLabel);
+            Controls.Add(GithubLabel);
+            Controls.Add(VersionLabel);
             Controls.Add(lblCredits);
             Controls.Add(pictureBox7);
             Controls.Add(pictureBox9);
@@ -960,5 +1000,8 @@
         private Label lblCredits;
         private Label lblAddNewProfile;
         private Button btnShowPassword;
+        private Label VersionLabel;
+        private Label GithubLabel;
+        private Label NewVersionLabel;
     }
 }

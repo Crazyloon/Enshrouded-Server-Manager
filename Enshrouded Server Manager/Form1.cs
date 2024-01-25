@@ -3,6 +3,7 @@ using Enshrouded_Server_Manager.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Diagnostics;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
@@ -87,6 +88,40 @@ public partial class Form1 : Form
 
             LoadServerSettings(ServerSelectText);
         }
+
+        // Manager Version Check
+
+        using (WebClient Client = new WebClient())
+        {
+            try
+            {
+                Client.DownloadFile("https://github.com/ISpaikI/Enshrouded-Server-Manager/tree/master/Enshrouded%20Server%20Manager/Version/githubversion.json", "./githubversion.json");
+            }
+            catch (Exception ex)
+            {
+                LauncherVersion json = new LauncherVersion()
+                {
+                    Version = VersionLabel.Text,
+        };
+
+                var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
+                File.WriteAllText($"./githubversion.json", output);
+            }
+
+        }
+
+        var input = File.ReadAllText($"./githubversion.json");
+
+        LauncherVersion deserializedSettings = JsonConvert.DeserializeObject<LauncherVersion>(input, _jsonSerializerSettings);
+
+        string githubversion = deserializedSettings.Version;
+
+        if(githubversion != VersionLabel.Text) 
+        {
+            VersionLabel.Visible = true;
+        }
+
+        File.Delete("./githubversion.json");
     }
 
     private void RefreshServerButtonsVisibility(string ServerSelectText)
@@ -606,5 +641,10 @@ public partial class Form1 : Form
         txtServerPassword.PasswordChar = text == "Show" ? '\0' : '*';
 
         btnShowPassword.Text = text == "Show" ? "Hide" : "Show";
+    }
+
+    private void GithubLabel_Click(object sender, EventArgs e)
+    {
+        Process.Start("explorer.exe", "https://github.com/ISpaikI/Enshrouded-Server-Manager");
     }
 }

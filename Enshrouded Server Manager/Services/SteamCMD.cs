@@ -62,6 +62,20 @@ namespace Enshrouded_Server_Manager.Services
                     "Error while extracting", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            if (File.Exists(_dlZipFile))
+            {
+                try
+                {
+                    File.Delete(_dlZipFile);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Following error appeared while extracting: {ex.Message.ToString()}",
+                    "Error while extracting", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
         }
 
     }
