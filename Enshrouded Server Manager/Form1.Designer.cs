@@ -848,7 +848,7 @@
             VersionLabel.Name = "VersionLabel";
             VersionLabel.Size = new Size(39, 13);
             VersionLabel.TabIndex = 55;
-            VersionLabel.Text = "v.0.2.0";
+            VersionLabel.Text = "v.0.1.0";
             // 
             // GithubLabel
             // 
