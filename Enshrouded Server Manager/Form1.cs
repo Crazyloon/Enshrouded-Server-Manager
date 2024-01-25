@@ -118,7 +118,7 @@ public partial class Form1 : Form
 
         if(githubversion != VersionLabel.Text) 
         {
-            VersionLabel.Visible = true;
+            NewVersionLabel.Visible = true;
         }
 
         File.Delete("./githubversion.json");
