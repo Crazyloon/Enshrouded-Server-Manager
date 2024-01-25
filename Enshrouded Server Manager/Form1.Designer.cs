@@ -853,6 +853,7 @@
             // GithubLabel
             // 
             GithubLabel.AutoSize = true;
+            GithubLabel.Cursor = Cursors.Hand;
             GithubLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             GithubLabel.Location = new Point(741, 383);
             GithubLabel.Name = "GithubLabel";

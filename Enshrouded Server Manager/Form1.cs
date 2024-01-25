@@ -102,7 +102,7 @@ public partial class Form1 : Form
                 LauncherVersion json = new LauncherVersion()
                 {
                     Version = VersionLabel.Text,
-        };
+                };
 
                 var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
                 File.WriteAllText($"./githubversion.json", output);
@@ -116,7 +116,7 @@ public partial class Form1 : Form
 
         string githubversion = deserializedSettings.Version;
 
-        if(githubversion != VersionLabel.Text) 
+        if (githubversion != VersionLabel.Text)
         {
             NewVersionLabel.Visible = true;
         }
