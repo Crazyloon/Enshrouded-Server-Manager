@@ -915,7 +915,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
-            Text = "Form1";
+            Text = "ESM - Enshrouded Server Manager";
             FormClosed += Form1_FormClosed;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)nudGamePort).EndInit();
