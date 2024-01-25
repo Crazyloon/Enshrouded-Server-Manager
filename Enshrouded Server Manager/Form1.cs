@@ -95,7 +95,7 @@ public partial class Form1 : Form
         {
             try
             {
-                Client.DownloadFile("https://github.com/ISpaikI/Enshrouded-Server-Manager/tree/master/Enshrouded%20Server%20Manager/Version/githubversion.json", "./githubversion.json");
+                Client.DownloadFile("https://raw.githubusercontent.com/ISpaikI/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json", "./githubversion.json");
             }
             catch (Exception ex)
             {
