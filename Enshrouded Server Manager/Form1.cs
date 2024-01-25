@@ -5,7 +5,6 @@ using Newtonsoft.Json.Serialization;
 using System.Diagnostics;
 using System.Net;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 
 namespace Enshrouded_Server_Manager;
 
@@ -210,6 +209,9 @@ public partial class Form1 : Form
 
     private void StartServer_Button_Click(object sender, EventArgs e)
     {
+        // Display the Server Settings tab when they click Start Server
+        tabServerTabs.SelectTab(0);
+
         if (cbxProfileSelectionComboBox.SelectedItem is not null)
         {
             string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
@@ -350,11 +352,10 @@ public partial class Form1 : Form
 
         string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
 
-        // regex that tests a string only contains letters, numbers, underscore, and dash
-        Regex regex = new Regex(@"^[a-zA-Z0-9_-]*$");
-        if (!regex.Match(profileName).Success)
+        // Check that the profileName does not contain any invalid characters
+        if (profileName.IndexOfAny(invalid.ToCharArray()) != -1)
         {
-            MessageBox.Show($"Profile name may only contain alphanumeric characters, underscore, and dash", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show($"Profile name contains invalid characters. Use only those characters acceptable by the Windows File System", "Invalid Characters", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return false;
         }
 
@@ -687,6 +688,41 @@ public partial class Form1 : Form
             }
 
             File.Delete("./githubversion.json");
+        }
+    }
+
+    private void lbxProfileSelectorAutoBackup_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        _backup = new Backup();
+
+        // get selected item
+        var selectedProfile = lbxProfileSelectorAutoBackup.SelectedItem?.ToString();
+        if (selectedProfile != null)
+        {
+            // load profile
+            var profile = LoadServerProfiles().FirstOrDefault(x => x.Name == selectedProfile);
+            if (profile != null)
+            {
+                // load auto backup settings
+                if (profile.AutoBackup == null)
+                {
+                    // create new auto backup settings
+                    profile.AutoBackup = new AutoBackup()
+                    {
+                        Interval = 0,
+                        MaxiumBackups = 0
+                    };
+                }
+
+                // set values                
+                nudBackupInterval.Value = profile.AutoBackup.Interval;
+                nudBackupMaxCount.Value = profile.AutoBackup.MaxiumBackups;
+            }
+
+            var totalBackups = _backup.GetBackupCount(selectedProfile);
+            var diskConsumption = _backup.GetDiskConsumption(selectedProfile);
+            // convert bytes to KB
+            diskConsumption = diskConsumption / 1024;
         }
     }
 }
