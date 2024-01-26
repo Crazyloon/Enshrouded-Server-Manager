@@ -861,7 +861,7 @@
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(186, 100);
+            checkBox1.Location = new Point(191, 114);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(108, 19);
             checkBox1.TabIndex = 14;
@@ -872,7 +872,7 @@
             // 
             lblProfileBackupsStats.AutoSize = true;
             lblProfileBackupsStats.ForeColor = Color.FromArgb(0, 255, 185);
-            lblProfileBackupsStats.Location = new Point(182, 29);
+            lblProfileBackupsStats.Location = new Point(189, 47);
             lblProfileBackupsStats.Name = "lblProfileBackupsStats";
             lblProfileBackupsStats.Size = new Size(147, 30);
             lblProfileBackupsStats.TabIndex = 13;
@@ -882,7 +882,7 @@
             // 
             lblProfileBackupsInstruction.AutoSize = true;
             lblProfileBackupsInstruction.ForeColor = SystemColors.ButtonHighlight;
-            lblProfileBackupsInstruction.Location = new Point(182, 10);
+            lblProfileBackupsInstruction.Location = new Point(189, 28);
             lblProfileBackupsInstruction.Name = "lblProfileBackupsInstruction";
             lblProfileBackupsInstruction.Size = new Size(152, 15);
             lblProfileBackupsInstruction.TabIndex = 11;
@@ -893,7 +893,7 @@
             nudBackupMaxCount.BackColor = Color.FromArgb(6, 6, 48);
             nudBackupMaxCount.BorderStyle = BorderStyle.FixedSingle;
             nudBackupMaxCount.ForeColor = SystemColors.Window;
-            nudBackupMaxCount.Location = new Point(186, 222);
+            nudBackupMaxCount.Location = new Point(191, 236);
             nudBackupMaxCount.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             nudBackupMaxCount.Name = "nudBackupMaxCount";
             nudBackupMaxCount.Size = new Size(63, 23);
@@ -902,7 +902,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(182, 204);
+            label2.Location = new Point(187, 218);
             label2.Name = "label2";
             label2.Size = new Size(170, 15);
             label2.TabIndex = 9;
@@ -911,7 +911,7 @@
             // lblBackupFrequency
             // 
             lblBackupFrequency.AutoSize = true;
-            lblBackupFrequency.Location = new Point(182, 153);
+            lblBackupFrequency.Location = new Point(187, 167);
             lblBackupFrequency.Name = "lblBackupFrequency";
             lblBackupFrequency.Size = new Size(155, 15);
             lblBackupFrequency.TabIndex = 7;
@@ -922,7 +922,7 @@
             nudBackupInterval.BackColor = Color.FromArgb(6, 6, 48);
             nudBackupInterval.BorderStyle = BorderStyle.FixedSingle;
             nudBackupInterval.ForeColor = SystemColors.Window;
-            nudBackupInterval.Location = new Point(186, 171);
+            nudBackupInterval.Location = new Point(191, 185);
             nudBackupInterval.Maximum = new decimal(new int[] { 1080, 0, 0, 0 });
             nudBackupInterval.Name = "nudBackupInterval";
             nudBackupInterval.Size = new Size(63, 23);
@@ -1021,16 +1021,16 @@
             panel1.Controls.Add(label3);
             panel1.Controls.Add(pictureBox4);
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(533, 40);
+            panel1.Location = new Point(549, 40);
             panel1.Name = "panel1";
-            panel1.Size = new Size(257, 374);
+            panel1.Size = new Size(241, 374);
             panel1.TabIndex = 58;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(34, 32);
+            label3.Location = new Point(34, 50);
             label3.Name = "label3";
             label3.Size = new Size(166, 21);
             label3.TabIndex = 26;
@@ -1049,7 +1049,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.Info;
-            label1.Location = new Point(24, 83);
+            label1.Location = new Point(34, 95);
             label1.Name = "label1";
             label1.Size = new Size(185, 135);
             label1.TabIndex = 0;
