@@ -1,4 +1,4 @@
-# Current version: 0.0.5
+# Current version: 0.1.1
 
 This little tool is an experimental enshrouded server manager.
 
