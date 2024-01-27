@@ -93,6 +93,7 @@ public partial class Form1 : Form
 
     private void RefreshServerButtonsVisibility(string ServerSelectText)
     {
+        btnStopServer.Visible = false;
         if (File.Exists(STEAM_CMD_EXE))
         {
             btnInstallServer.Visible = true;
