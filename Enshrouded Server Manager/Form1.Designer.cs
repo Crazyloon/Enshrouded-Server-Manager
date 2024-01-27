@@ -100,7 +100,7 @@
             lblCredits = new Label();
             VersionLabel = new Label();
             GithubLabel = new Label();
-            NewVersionLabel = new Label();
+            NewVersionText = new Label();
             toolTip1 = new ToolTip(components);
             panel1 = new Panel();
             label3 = new Label();
@@ -959,9 +959,9 @@
             lblNewsText.AutoSize = true;
             lblNewsText.Location = new Point(584, 181);
             lblNewsText.Name = "lblNewsText";
-            lblNewsText.Size = new Size(177, 105);
+            lblNewsText.Size = new Size(132, 45);
             lblNewsText.TabIndex = 53;
-            lblNewsText.Text = "Changes:\r\n- Version Check of the Manager\r\n- Github-Link\r\n- SteamCMD.zip will be deleted \r\n   now after install\r\n- Update interval added\r\n- at SteamCMD install it updates";
+            lblNewsText.Text = "Changes:\r\n- added process control\r\n   Start/Stop Server";
             // 
             // lblCredits
             // 
@@ -985,7 +985,7 @@
             VersionLabel.Name = "VersionLabel";
             VersionLabel.Size = new Size(39, 13);
             VersionLabel.TabIndex = 55;
-            VersionLabel.Text = "v.0.1.1";
+            VersionLabel.Text = "v.0.2.0";
             // 
             // GithubLabel
             // 
@@ -999,16 +999,16 @@
             GithubLabel.Text = "Github";
             GithubLabel.Click += GithubLabel_Click;
             // 
-            // NewVersionLabel
+            // NewVersionText
             // 
-            NewVersionLabel.AutoSize = true;
-            NewVersionLabel.ForeColor = Color.FromArgb(0, 255, 185);
-            NewVersionLabel.Location = new Point(662, 368);
-            NewVersionLabel.Name = "NewVersionLabel";
-            NewVersionLabel.Size = new Size(124, 15);
-            NewVersionLabel.TabIndex = 57;
-            NewVersionLabel.Text = "New version available!";
-            NewVersionLabel.Visible = false;
+            NewVersionText.AutoSize = true;
+            NewVersionText.ForeColor = Color.FromArgb(0, 255, 185);
+            NewVersionText.Location = new Point(662, 368);
+            NewVersionText.Name = "NewVersionText";
+            NewVersionText.Size = new Size(124, 15);
+            NewVersionText.TabIndex = 57;
+            NewVersionText.Text = "New version available!";
+            NewVersionText.Visible = false;
             // 
             // toolTip1
             // 
@@ -1026,6 +1026,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(241, 374);
             panel1.TabIndex = 58;
+            panel1.Visible = false;
             // 
             // label3
             // 
@@ -1036,6 +1037,7 @@
             label3.Size = new Size(166, 21);
             label3.TabIndex = 26;
             label3.Text = "How Backups Work...";
+            label3.Visible = false;
             // 
             // pictureBox4
             // 
@@ -1055,6 +1057,7 @@
             label1.Size = new Size(185, 135);
             label1.TabIndex = 0;
             label1.Text = resources.GetString("label1.Text");
+            label1.Visible = false;
             // 
             // btnStopServer
             // 
@@ -1080,13 +1083,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
+            Controls.Add(lblCredits);
+            Controls.Add(VersionLabel);
             Controls.Add(btnStopServer);
             Controls.Add(pictureBox7);
             Controls.Add(panel1);
-            Controls.Add(NewVersionLabel);
+            Controls.Add(NewVersionText);
             Controls.Add(GithubLabel);
-            Controls.Add(VersionLabel);
-            Controls.Add(lblCredits);
             Controls.Add(pictureBox9);
             Controls.Add(pictureBox8);
             Controls.Add(btnOpenLogFolder);
@@ -1213,7 +1216,7 @@
         private Button btnShowPassword;
         private Label VersionLabel;
         private Label GithubLabel;
-        private Label NewVersionLabel;
+        private Label NewVersionText;
         private TabPage tabAutoBackup;
         private Label lblScheduleBackups;
         private ListBox lbxProfileSelectorAutoBackup;

@@ -3,8 +3,10 @@ using Enshrouded_Server_Manager.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Diagnostics;
+using System.Drawing.Text;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 
 namespace Enshrouded_Server_Manager;
 
@@ -33,6 +35,8 @@ public partial class Form1 : Form
     private const string FIREWALL_PATH = @"c:\windows\system32\wf.msc";
     private const string BACKUPS_FOLDER = "./Backups";
     private const string SAVE_GAME_FOLDER = "/Savegame";
+    private const string CACHE_PATH = @"./cache/";
+    private const string PID_CONFIG = $"pid.json";
 
     public const int BUTTON_DOWN = 0xA1;
     public const int CAPTION = 0x2;
@@ -425,6 +429,9 @@ public partial class Form1 : Form
             // rename backup folder
             RenameBackupFolder(selectedServerName, editProfileName);
 
+            // rename pid file
+            RenamePidFile(selectedServerName, editProfileName);
+
             // ClearProfileName_TextBox
             txtEditProfileName.Text = "";
 
@@ -484,6 +491,12 @@ public partial class Form1 : Form
 
                 // reload form1
                 Form1_Load(sender, e);
+
+                //clear cache pid file
+                if(File.Exists($"{CACHE_PATH}{selectedServerProfile}pid.json"))
+                {
+                    File.Delete($"{CACHE_PATH}{selectedServerProfile}pid.json");
+                }
             }
         }
     }
@@ -573,6 +586,32 @@ public partial class Form1 : Form
             // Rename the existing Backup folder
             Directory.Move($"{BACKUPS_FOLDER}/{oldBackupFolderName}", $"{BACKUPS_FOLDER}/{newBackupFolderName}");
         }
+    }
+
+    private void RenamePidFile(string oldServerName, string newServerName)
+    {
+        // If old pidfile do not exist
+        if (!File.Exists($"{CACHE_PATH}{oldServerName}{PID_CONFIG}"))
+        {
+            _folder.Create($"{CACHE_PATH}");
+            Pid json = new Pid()
+            {
+                Id = 1,
+                Profile = ""
+            };
+
+            var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
+            File.WriteAllText($"{CACHE_PATH}{oldServerName}pid.json", output);
+        }
+
+        // Read the existing pid file
+        var input = File.ReadAllText($"{CACHE_PATH}{oldServerName}{PID_CONFIG}");
+
+        // Write the new pid file
+        File.WriteAllText($"{CACHE_PATH}{newServerName}{PID_CONFIG}", input);
+
+        // Delete the old settings file
+        File.Delete($"{CACHE_PATH}{oldServerName}{PID_CONFIG}");
     }
 
     private void ServerProfileComboBox_IndexChanged(object sender, EventArgs e)
@@ -672,7 +711,7 @@ public partial class Form1 : Form
 
         if (githubversion != VersionLabel.Text)
         {
-            NewVersionLabel.Visible = true;
+            NewVersionText.Visible = true;
         }
 
         File.Delete("./githubversion.json");
@@ -708,7 +747,7 @@ public partial class Form1 : Form
 
             if (githubversion != VersionLabel.Text)
             {
-                NewVersionLabel.Visible = true;
+                NewVersionText.Visible = true;
             }
 
             File.Delete("./githubversion.json");
