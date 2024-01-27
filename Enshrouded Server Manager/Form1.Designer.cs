@@ -1064,13 +1064,14 @@
             btnStopServer.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnStopServer.FlatStyle = FlatStyle.Flat;
             btnStopServer.ForeColor = SystemColors.Control;
-            btnStopServer.Location = new Point(32, 114);
+            btnStopServer.Location = new Point(33, 165);
             btnStopServer.Name = "btnStopServer";
             btnStopServer.Size = new Size(127, 25);
             btnStopServer.TabIndex = 59;
-            btnStopServer.Text = "Stop Server test";
+            btnStopServer.Text = "Stop Server";
             btnStopServer.UseCompatibleTextRendering = true;
             btnStopServer.UseVisualStyleBackColor = true;
+            btnStopServer.Visible = false;
             btnStopServer.Click += btnStopServer_Click;
             // 
             // Form1

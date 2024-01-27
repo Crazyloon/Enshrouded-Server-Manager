@@ -30,12 +30,15 @@ namespace Enshrouded_Server_Manager.Services
                 _folder.Create($"./cache/");
                 Pid json = new Pid()
                 {
-                    Id = pid
+                    Id = pid,
+                    Profile = ServerName
                 };
 
                 var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
                 File.WriteAllText($"./cache/{ServerName}pid.json", output);
                 //
+                Thread.Sleep(1000);
+                SetWindowText(p.MainWindowHandle, ServerName);
             }
             catch (Exception ex)
             {
@@ -84,7 +87,7 @@ namespace Enshrouded_Server_Manager.Services
             {
                 return;
             }
-            
+
         }
 
     }

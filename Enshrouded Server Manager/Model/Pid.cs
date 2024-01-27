@@ -2,5 +2,6 @@
 public class Pid
 {
     public int Id { get; set; }
+    public string Profile { get; set; }
 
 }

@@ -113,6 +113,25 @@ public partial class Form1 : Form
             btnInstallServer.Visible = false;
             btnStartServer.Visible = false;
         }
+        try
+        {
+            var input = File.ReadAllText($"./cache/{ServerSelectText}pid.json");
+            Pid deserializedSettings = JsonConvert.DeserializeObject<Pid>(input, _jsonSerializerSettings);
+            int pid = deserializedSettings.Id;
+            string processName = deserializedSettings.Profile;
+
+            //Process.GetProcessById(pid);
+
+            //if(process == processName)
+            //{
+            //    btnStartServer.Visible = false;
+            //    btnStopServer.Visible = true;
+            //}
+        }
+        catch (Exception ex)
+        {
+
+        }
     }
 
     private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -238,6 +257,9 @@ public partial class Form1 : Form
             File.WriteAllText($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_CONFIG}", output);
 
             _server.Start($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_EXE}", ServerSelectText);
+
+            btnStartServer.Visible = false;
+            btnStopServer.Visible = true;
         }
     }
 
@@ -730,5 +752,7 @@ public partial class Form1 : Form
     {
         string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
         _server.Stop(ServerSelectText);
+        btnStartServer.Visible = true;
+        btnStopServer.Visible = false;
     }
 }
