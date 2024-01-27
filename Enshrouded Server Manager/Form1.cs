@@ -120,13 +120,14 @@ public partial class Form1 : Form
             int pid = deserializedSettings.Id;
             string processName = deserializedSettings.Profile;
 
-            //Process.GetProcessById(pid);
+            Process p = Process.GetProcessById(pid);
+            String process = p.MainWindowTitle;
 
-            //if(process == processName)
-            //{
-            //    btnStartServer.Visible = false;
-            //    btnStopServer.Visible = true;
-            //}
+            if (process == processName)
+            {
+                btnStartServer.Visible = false;
+                btnStopServer.Visible = true;
+            }
         }
         catch (Exception ex)
         {
