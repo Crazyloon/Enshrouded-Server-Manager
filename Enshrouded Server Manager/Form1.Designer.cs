@@ -106,6 +106,7 @@
             label3 = new Label();
             pictureBox4 = new PictureBox();
             label1 = new Label();
+            btnStopServer = new Button();
             ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
@@ -1055,12 +1056,30 @@
             label1.TabIndex = 0;
             label1.Text = resources.GetString("label1.Text");
             // 
+            // btnStopServer
+            // 
+            btnStopServer.Cursor = Cursors.Hand;
+            btnStopServer.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnStopServer.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnStopServer.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnStopServer.FlatStyle = FlatStyle.Flat;
+            btnStopServer.ForeColor = SystemColors.Control;
+            btnStopServer.Location = new Point(32, 114);
+            btnStopServer.Name = "btnStopServer";
+            btnStopServer.Size = new Size(127, 25);
+            btnStopServer.TabIndex = 59;
+            btnStopServer.Text = "Stop Server test";
+            btnStopServer.UseCompatibleTextRendering = true;
+            btnStopServer.UseVisualStyleBackColor = true;
+            btnStopServer.Click += btnStopServer_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
+            Controls.Add(btnStopServer);
             Controls.Add(pictureBox7);
             Controls.Add(panel1);
             Controls.Add(NewVersionLabel);
@@ -1210,5 +1229,6 @@
         private Label label1;
         private PictureBox pictureBox4;
         private Label label3;
+        private Button btnStopServer;
     }
 }

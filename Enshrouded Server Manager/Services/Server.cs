@@ -1,10 +1,15 @@
+using Enshrouded_Server_Manager.Model;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 
 namespace Enshrouded_Server_Manager.Services
 {
     public class Server
     {
+        private Folder _folder;
+        private JsonSerializerSettings _jsonSerializerSettings;
         private string _pathSteamCmdExe = @".\SteamCMD\steamcmd.exe";
 
         [DllImport("user32.dll")]
@@ -15,12 +20,22 @@ namespace Enshrouded_Server_Manager.Services
         /// </summary>
         public void Start(String pathServerExe, String ServerName)
         {
+            _folder = new Folder();
 
             try
             {
                 Process p = Process.Start(pathServerExe);
-                Thread.Sleep(5000);
-                SetWindowText(p.MainWindowHandle, $"ESM Server - {ServerName}");
+                // Pid
+                int pid = p.Id;
+                _folder.Create($"./cache/");
+                Pid json = new Pid()
+                {
+                    Id = pid
+                };
+
+                var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
+                File.WriteAllText($"./cache/{ServerName}pid.json", output);
+                //
             }
             catch (Exception ex)
             {
@@ -51,9 +66,25 @@ namespace Enshrouded_Server_Manager.Services
         /// <summary>
         /// Stop Gameserver
         /// </summary>
-        public void Stop()
+        public void Stop(String ServerName)
         {
+            // Load pid
+            var input = File.ReadAllText($"./cache/{ServerName}pid.json");
 
+            Pid deserializedSettings = JsonConvert.DeserializeObject<Pid>(input, _jsonSerializerSettings);
+
+            int pid = deserializedSettings.Id;
+
+            try
+            {
+                var pidKill = Process.GetProcessById(pid);
+                pidKill.Kill();
+            }
+            catch (ArgumentException)
+            {
+                return;
+            }
+            
         }
 
     }

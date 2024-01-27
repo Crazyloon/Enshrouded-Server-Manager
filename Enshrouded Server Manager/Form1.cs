@@ -725,4 +725,10 @@ public partial class Form1 : Form
             diskConsumption = diskConsumption / 1024;
         }
     }
+
+    private void btnStopServer_Click(object sender, EventArgs e)
+    {
+        string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
+        _server.Stop(ServerSelectText);
+    }
 }
