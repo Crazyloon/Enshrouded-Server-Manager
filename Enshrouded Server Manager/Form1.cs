@@ -123,12 +123,12 @@ public partial class Form1 : Form
             var input = File.ReadAllText($"./cache/{ServerSelectText}pid.json");
             Pid deserializedSettings = JsonConvert.DeserializeObject<Pid>(input, _jsonSerializerSettings);
             int pid = deserializedSettings.Id;
-            string processName = deserializedSettings.Profile;
+            //string processName = deserializedSettings.Profile;
 
             Process p = Process.GetProcessById(pid);
-            String process = p.MainWindowTitle;
+            String process = p.ProcessName;
 
-            if (process == processName)
+            if ("enshrouded_server" == process)
             {
                 btnStartServer.Visible = false;
                 btnStopServer.Visible = true;

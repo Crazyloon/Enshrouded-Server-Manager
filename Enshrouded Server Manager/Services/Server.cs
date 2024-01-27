@@ -2,7 +2,6 @@ using Enshrouded_Server_Manager.Model;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 
 namespace Enshrouded_Server_Manager.Services
 {
@@ -15,6 +14,34 @@ namespace Enshrouded_Server_Manager.Services
         [DllImport("user32.dll")]
         static extern int SetWindowText(IntPtr hWnd, string text);
 
+        [DllImport("kernel32.dll", SetLastError = true)]
+        static extern bool AttachConsole(uint dwProcessId);
+
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        static extern bool FreeConsole();
+
+        [DllImport("kernel32.dll")]
+        static extern bool SetConsoleCtrlHandler(ConsoleCtrlDelegate handler, bool add);
+
+        delegate Boolean ConsoleCtrlDelegate(CtrlTypes type);
+
+        enum CtrlTypes : uint
+        {
+            CTRL_C_EVENT = 0,
+            CTRL_BREAK_EVENT,
+            CTRL_CLOSE_EVENT,
+            CTRL_LOGOFF_EVENT = 5,
+            CTRL_SHUTDOWN_EVENT
+        }
+
+        [DllImport("kernel32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GenerateConsoleCtrlEvent(CtrlTypes dwCtrlEvent, uint dwProcessGroupId);
+
+
+
+
+
         /// <summary>
         /// Start Gameserver
         /// </summary>
@@ -25,7 +52,8 @@ namespace Enshrouded_Server_Manager.Services
             try
             {
                 Process p = Process.Start(pathServerExe);
-                // Pid
+                //Thread.Sleep(10000);
+                //SetWindowText(p.MainWindowHandle, ServerName);
                 int pid = p.Id;
                 _folder.Create($"./cache/");
                 Pid json = new Pid()
@@ -36,9 +64,6 @@ namespace Enshrouded_Server_Manager.Services
 
                 var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
                 File.WriteAllText($"./cache/{ServerName}pid.json", output);
-                //
-                Thread.Sleep(1000);
-                SetWindowText(p.MainWindowHandle, ServerName);
             }
             catch (Exception ex)
             {
@@ -77,11 +102,20 @@ namespace Enshrouded_Server_Manager.Services
             Pid deserializedSettings = JsonConvert.DeserializeObject<Pid>(input, _jsonSerializerSettings);
 
             int pid = deserializedSettings.Id;
+            string name = deserializedSettings.Profile;
 
             try
             {
-                var pidKill = Process.GetProcessById(pid);
-                pidKill.Kill();
+                Process p = Process.GetProcessById(pid);
+                FreeConsole();
+                if (AttachConsole((uint)pid))
+                {
+                SetConsoleCtrlHandler(null, true);
+                GenerateConsoleCtrlEvent(CtrlTypes.CTRL_C_EVENT, 0);
+                Thread.Sleep(2000);
+                FreeConsole();
+                SetConsoleCtrlHandler(null, false);
+                }
             }
             catch (ArgumentException)
             {
