@@ -133,14 +133,28 @@ public partial class Form1 : Form
                 btnStartServer.Visible = false;
                 btnStopServer.Visible = true;
             }
-            if ("enshrouded_server" != process)
+            else
             {
-                File.Delete($"{CACHE_PATH}{ServerSelectText}{PID_CONFIG}");
+                try
+                {
+                    File.Delete($"./cache/{ServerSelectText}pid.json");
+                }
+                catch 
+                { 
+
+                }
             }
         }
         catch (Exception ex)
         {
+            try
+            {
+                File.Delete($"./cache/{ServerSelectText}pid.json");
+            }
+            catch
+            {
 
+            }
         }
     }
 

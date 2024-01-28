@@ -121,7 +121,14 @@ namespace Enshrouded_Server_Manager.Services
             {
                 return;
             }
-            File.Delete($"./cache/{ServerName}pid.json");
+            try
+            {
+                File.Delete($"./cache/{ServerName}pid.json");
+            }
+            catch 
+            {
+                
+            }
 
         }
 
