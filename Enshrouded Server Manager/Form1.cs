@@ -1,12 +1,12 @@
+using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Model;
 using Enshrouded_Server_Manager.Services;
+using Enshrouded_Server_Manager.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Diagnostics;
-using System.Drawing.Text;
 using System.Net;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 
 namespace Enshrouded_Server_Manager;
 
@@ -17,6 +17,8 @@ public partial class Form1 : Form
     private Backup _backup;
     private Folder _folder;
     private JsonSerializerSettings _jsonSerializerSettings;
+    private CancellationToken _backupCancellationToken;
+
 
     // Server Tool SteamId
     private const string STEAM_APP_ID = "2278520";
@@ -34,7 +36,6 @@ public partial class Form1 : Form
     private const string DEFAULT_PROFILES_PATH = @"./ServerProfiles/";
     private const string FIREWALL_PATH = @"c:\windows\system32\wf.msc";
     private const string BACKUPS_FOLDER = "./Backups";
-    private const string SAVE_GAME_FOLDER = "/Savegame";
     private const string CACHE_PATH = @"./cache/";
     private const string PID_CONFIG = $"pid.json";
 
@@ -57,7 +58,9 @@ public partial class Form1 : Form
         _server = new Server();
         _backup = new Backup();
         _folder = new Folder();
+        _backupCancellationToken = new CancellationToken();
 
+        _backup.AutoBackupSuccess += Backup_AutoBackupSuccess;
     }
 
     private void Form1_Load(object sender, EventArgs e)
@@ -78,10 +81,12 @@ public partial class Form1 : Form
         {
             cbxProfileSelectionComboBox.Items.Clear();
             lbxServerProfiles.Items.Clear();
+            lbxProfileSelectorAutoBackup.Items.Clear();
             foreach (var profile in profiledata)
             {
                 cbxProfileSelectionComboBox.Items.Add(profile.Name);
                 lbxServerProfiles.Items.Add(profile.Name);
+                lbxProfileSelectorAutoBackup.Items.Add(profile.Name);
             }
 
             cbxProfileSelectionComboBox.SelectedIndex = 0;
@@ -118,42 +123,20 @@ public partial class Form1 : Form
             btnInstallServer.Visible = false;
             btnStartServer.Visible = false;
         }
+
         try
         {
-            var input = File.ReadAllText($"./cache/{ServerSelectText}pid.json");
-            Pid deserializedSettings = JsonConvert.DeserializeObject<Pid>(input, _jsonSerializerSettings);
-            int pid = deserializedSettings.Id;
-            //string processName = deserializedSettings.Profile;
-
-            Process p = Process.GetProcessById(pid);
-            String process = p.ProcessName;
-
-            if ("enshrouded_server" == process)
+            if (Server.IsRunning(ServerSelectText))
             {
                 btnStartServer.Visible = false;
                 btnStopServer.Visible = true;
             }
-            else
-            {
-                try
-                {
-                    File.Delete($"./cache/{ServerSelectText}pid.json");
-                }
-                catch 
-                { 
-
-                }
-            }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            try
+            if (File.Exists($"./cache/{ServerSelectText}pid.json"))
             {
                 File.Delete($"./cache/{ServerSelectText}pid.json");
-            }
-            catch
-            {
-
             }
         }
     }
@@ -235,18 +218,7 @@ public partial class Form1 : Form
             var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
             File.WriteAllText($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_CONFIG}", output); //needs to be the server tool .json
 
-            btnSaveSettings.Text = "Saved!";
-            btnSaveSettings.Enabled = false;
-
-            Task.Factory.StartNew(() =>
-            {
-                Thread.Sleep(2000);
-                btnSaveSettings.Invoke(new Action(() =>
-                {
-                    btnSaveSettings.Text = "Save Settings";
-                    btnSaveSettings.Enabled = true;
-                }));
-            });
+            Interactions.AnimateSaveChangesButton(btnSaveSettings, "Save Changes", "Saved!");
         }
     }
 
@@ -281,6 +253,24 @@ public partial class Form1 : Form
             File.WriteAllText($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_CONFIG}", output);
 
             _server.Start($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_EXE}", ServerSelectText);
+
+
+            // Begin AutoBackup after waiting 5 seconds to ensure the server process has started
+            Task.Factory.StartNew(async () =>
+            {
+                await Task.Delay(5000);
+
+                if (Server.IsRunning(ServerSelectText))
+                {
+                    var profiles = LoadServerProfiles();
+                    var profile = profiles?.FirstOrDefault(x => x.Name == ServerSelectText);
+                    if (profile != null && profile.AutoBackup != null && profile.AutoBackup.Enabled)
+                    {
+                        _backup.StartAutoBackup($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, _backupCancellationToken);
+                    }
+                }
+            });
+
 
             btnStartServer.Visible = false;
             btnStopServer.Visible = true;
@@ -453,18 +443,7 @@ public partial class Form1 : Form
             // ClearProfileName_TextBox
             txtEditProfileName.Text = "";
 
-            btnSaveProfileName.Text = "Saved!";
-            btnSaveProfileName.Enabled = false;
-
-            Task.Factory.StartNew(() =>
-            {
-                Thread.Sleep(2000);
-                btnSaveProfileName.Invoke(new Action(() =>
-                {
-                    btnSaveProfileName.Text = "Save Changes";
-                    btnSaveProfileName.Enabled = true;
-                }));
-            });
+            Interactions.AnimateSaveChangesButton(btnSaveProfileName, "Save Changes", "Saved!");
 
             // reload form1
             Form1_Load(sender, e);
@@ -511,7 +490,7 @@ public partial class Form1 : Form
                 Form1_Load(sender, e);
 
                 //clear cache pid file
-                if(File.Exists($"{CACHE_PATH}{selectedServerProfile}pid.json"))
+                if (File.Exists($"{CACHE_PATH}{selectedServerProfile}pid.json"))
                 {
                     File.Delete($"{CACHE_PATH}{selectedServerProfile}pid.json");
                 }
@@ -612,7 +591,7 @@ public partial class Form1 : Form
         if (!File.Exists($"{CACHE_PATH}{oldServerName}{PID_CONFIG}"))
         {
             _folder.Create($"{CACHE_PATH}");
-            Pid json = new Pid()
+            EnshroudedServerProcess json = new EnshroudedServerProcess()
             {
                 Id = 1,
                 Profile = ""
@@ -774,8 +753,6 @@ public partial class Form1 : Form
 
     private void lbxProfileSelectorAutoBackup_SelectedIndexChanged(object sender, EventArgs e)
     {
-        _backup = new Backup();
-
         // get selected item
         var selectedProfile = lbxProfileSelectorAutoBackup.SelectedItem?.ToString();
         if (selectedProfile != null)
@@ -791,19 +768,25 @@ public partial class Form1 : Form
                     profile.AutoBackup = new AutoBackup()
                     {
                         Interval = 0,
-                        MaxiumBackups = 0
+                        MaxiumBackups = 0,
+                        Enabled = false
                     };
                 }
 
                 // set values                
+                chkEnableBackups.Checked = profile.AutoBackup.Enabled;
                 nudBackupInterval.Value = profile.AutoBackup.Interval;
                 nudBackupMaxCount.Value = profile.AutoBackup.MaxiumBackups;
             }
 
             var totalBackups = _backup.GetBackupCount(selectedProfile);
             var diskConsumption = _backup.GetDiskConsumption(selectedProfile);
-            // convert bytes to KB
-            diskConsumption = diskConsumption / 1024;
+
+            Interactions.UpdateBackupInfo(lblProfileBackupsStats, totalBackups, diskConsumption);
+        }
+        else
+        {
+            lblProfileBackupsStats.Visible = false;
         }
     }
 
@@ -813,5 +796,61 @@ public partial class Form1 : Form
         _server.Stop(ServerSelectText);
         btnStartServer.Visible = true;
         btnStopServer.Visible = false;
+    }
+
+    private void tabServerTabs_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        var selectedtab = tabServerTabs.SelectedTab;
+        if (selectedtab == tabAutoBackup)
+        {
+            pnlBackupExplanation.Visible = true;
+        }
+        else
+        {
+            pnlBackupExplanation.Visible = false;
+        }
+    }
+
+    private void btnSaveAutoBackup_Click(object sender, EventArgs e)
+    {
+        var enabled = chkEnableBackups.Checked;
+
+        if (lbxProfileSelectorAutoBackup.SelectedItem is not null)
+        {
+            Interactions.AnimateSaveChangesButton(btnSaveAutoBackup, "Save Settings", "Saved!");
+
+            var selectedProfile = lbxProfileSelectorAutoBackup.SelectedItem.ToString();
+            var profiles = LoadServerProfiles();
+            var profile = profiles?.FirstOrDefault(x => x.Name == selectedProfile);
+            if (profile != null)
+            {
+                if (enabled)
+                {
+                    profile.AutoBackup = new AutoBackup()
+                    {
+                        Interval = Convert.ToInt32(nudBackupInterval.Value),
+                        MaxiumBackups = Convert.ToInt32(nudBackupMaxCount.Value),
+                        Enabled = true
+                    };
+                }
+                else
+                {
+                    profile.AutoBackup = null;
+                }
+
+                // write the new profile to the json file
+                var output = JsonConvert.SerializeObject(profiles, _jsonSerializerSettings);
+                File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
+            }
+        }
+        else
+        {
+            MessageBox.Show("Please select a profile to configure.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+    private void Backup_AutoBackupSuccess(object? sender, AutoBackupSuccessEventArgs e)
+    {
+        Interactions.UpdateBackupInfo(lblProfileBackupsStats, _backup.GetBackupCount(e.ProfileName), _backup.GetDiskConsumption(e.ProfileName));
     }
 }

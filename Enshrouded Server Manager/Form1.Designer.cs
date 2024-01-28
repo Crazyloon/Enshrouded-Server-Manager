@@ -87,7 +87,8 @@
             btnAddNewProfile = new Button();
             lbxServerProfiles = new ListBox();
             tabAutoBackup = new TabPage();
-            checkBox1 = new CheckBox();
+            btnSaveAutoBackup = new Button();
+            chkEnableBackups = new CheckBox();
             lblProfileBackupsStats = new Label();
             lblProfileBackupsInstruction = new Label();
             nudBackupMaxCount = new NumericUpDown();
@@ -102,7 +103,7 @@
             GithubLabel = new Label();
             NewVersionText = new Label();
             toolTip1 = new ToolTip(components);
-            panel1 = new Panel();
+            pnlBackupExplanation = new Panel();
             label3 = new Label();
             pictureBox4 = new PictureBox();
             label1 = new Label();
@@ -126,7 +127,7 @@
             tabAutoBackup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudBackupMaxCount).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudBackupInterval).BeginInit();
-            panel1.SuspendLayout();
+            pnlBackupExplanation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             SuspendLayout();
             // 
@@ -649,6 +650,7 @@
             tabServerTabs.SelectedIndex = 0;
             tabServerTabs.Size = new Size(367, 374);
             tabServerTabs.TabIndex = 48;
+            tabServerTabs.SelectedIndexChanged += tabServerTabs_SelectedIndexChanged;
             // 
             // tabServerSettings
             // 
@@ -843,7 +845,8 @@
             // tabAutoBackup
             // 
             tabAutoBackup.BackColor = Color.FromArgb(0, 0, 18);
-            tabAutoBackup.Controls.Add(checkBox1);
+            tabAutoBackup.Controls.Add(btnSaveAutoBackup);
+            tabAutoBackup.Controls.Add(chkEnableBackups);
             tabAutoBackup.Controls.Add(lblProfileBackupsStats);
             tabAutoBackup.Controls.Add(lblProfileBackupsInstruction);
             tabAutoBackup.Controls.Add(nudBackupMaxCount);
@@ -859,33 +862,53 @@
             tabAutoBackup.TabIndex = 2;
             tabAutoBackup.Text = "Auto Backup";
             // 
-            // checkBox1
+            // btnSaveAutoBackup
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(191, 114);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(108, 19);
-            checkBox1.TabIndex = 14;
-            checkBox1.Text = "Enable Backups";
-            checkBox1.UseVisualStyleBackColor = true;
+            btnSaveAutoBackup.Cursor = Cursors.Hand;
+            btnSaveAutoBackup.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnSaveAutoBackup.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnSaveAutoBackup.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnSaveAutoBackup.FlatStyle = FlatStyle.Flat;
+            btnSaveAutoBackup.ForeColor = Color.FromArgb(0, 255, 185);
+            btnSaveAutoBackup.Location = new Point(204, 252);
+            btnSaveAutoBackup.Name = "btnSaveAutoBackup";
+            btnSaveAutoBackup.Size = new Size(128, 30);
+            btnSaveAutoBackup.TabIndex = 15;
+            btnSaveAutoBackup.Text = "Save Changes";
+            btnSaveAutoBackup.UseCompatibleTextRendering = true;
+            btnSaveAutoBackup.UseVisualStyleBackColor = true;
+            btnSaveAutoBackup.EnabledChanged += SaveSettings_Button_EnabledChanged;
+            btnSaveAutoBackup.Click += btnSaveAutoBackup_Click;
+            // 
+            // chkEnableBackups
+            // 
+            chkEnableBackups.AutoSize = true;
+            chkEnableBackups.Location = new Point(191, 114);
+            chkEnableBackups.Name = "chkEnableBackups";
+            chkEnableBackups.Size = new Size(108, 19);
+            chkEnableBackups.TabIndex = 14;
+            chkEnableBackups.Text = "Enable Backups";
+            chkEnableBackups.UseVisualStyleBackColor = true;
             // 
             // lblProfileBackupsStats
             // 
             lblProfileBackupsStats.AutoSize = true;
             lblProfileBackupsStats.ForeColor = Color.FromArgb(0, 255, 185);
-            lblProfileBackupsStats.Location = new Point(189, 47);
+            lblProfileBackupsStats.Location = new Point(187, 31);
             lblProfileBackupsStats.Name = "lblProfileBackupsStats";
             lblProfileBackupsStats.Size = new Size(147, 30);
             lblProfileBackupsStats.TabIndex = 13;
             lblProfileBackupsStats.Text = "Total Backups: 12\r\nDisk Consumption: 200MB\r\n";
+            lblProfileBackupsStats.Visible = false;
             // 
             // lblProfileBackupsInstruction
             // 
             lblProfileBackupsInstruction.AutoSize = true;
+            lblProfileBackupsInstruction.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             lblProfileBackupsInstruction.ForeColor = SystemColors.ButtonHighlight;
-            lblProfileBackupsInstruction.Location = new Point(189, 28);
+            lblProfileBackupsInstruction.Location = new Point(187, 10);
             lblProfileBackupsInstruction.Name = "lblProfileBackupsInstruction";
-            lblProfileBackupsInstruction.Size = new Size(152, 15);
+            lblProfileBackupsInstruction.Size = new Size(169, 17);
             lblProfileBackupsInstruction.TabIndex = 11;
             lblProfileBackupsInstruction.Text = "Select a Profile to configure";
             // 
@@ -894,7 +917,7 @@
             nudBackupMaxCount.BackColor = Color.FromArgb(6, 6, 48);
             nudBackupMaxCount.BorderStyle = BorderStyle.FixedSingle;
             nudBackupMaxCount.ForeColor = SystemColors.Window;
-            nudBackupMaxCount.Location = new Point(191, 236);
+            nudBackupMaxCount.Location = new Point(191, 207);
             nudBackupMaxCount.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             nudBackupMaxCount.Name = "nudBackupMaxCount";
             nudBackupMaxCount.Size = new Size(63, 23);
@@ -903,7 +926,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(187, 218);
+            label2.Location = new Point(187, 189);
             label2.Name = "label2";
             label2.Size = new Size(170, 15);
             label2.TabIndex = 9;
@@ -912,7 +935,7 @@
             // lblBackupFrequency
             // 
             lblBackupFrequency.AutoSize = true;
-            lblBackupFrequency.Location = new Point(187, 167);
+            lblBackupFrequency.Location = new Point(187, 138);
             lblBackupFrequency.Name = "lblBackupFrequency";
             lblBackupFrequency.Size = new Size(155, 15);
             lblBackupFrequency.TabIndex = 7;
@@ -923,7 +946,7 @@
             nudBackupInterval.BackColor = Color.FromArgb(6, 6, 48);
             nudBackupInterval.BorderStyle = BorderStyle.FixedSingle;
             nudBackupInterval.ForeColor = SystemColors.Window;
-            nudBackupInterval.Location = new Point(191, 185);
+            nudBackupInterval.Location = new Point(191, 156);
             nudBackupInterval.Maximum = new decimal(new int[] { 1080, 0, 0, 0 });
             nudBackupInterval.Name = "nudBackupInterval";
             nudBackupInterval.Size = new Size(63, 23);
@@ -1002,8 +1025,9 @@
             // NewVersionText
             // 
             NewVersionText.AutoSize = true;
+            NewVersionText.BackColor = Color.Transparent;
             NewVersionText.ForeColor = Color.FromArgb(0, 255, 185);
-            NewVersionText.Location = new Point(662, 368);
+            NewVersionText.Location = new Point(660, 368);
             NewVersionText.Name = "NewVersionText";
             NewVersionText.Size = new Size(124, 15);
             NewVersionText.TabIndex = 57;
@@ -1017,16 +1041,16 @@
             toolTip1.ToolTipIcon = ToolTipIcon.Info;
             toolTip1.ToolTipTitle = "Backup Info";
             // 
-            // panel1
+            // pnlBackupExplanation
             // 
-            panel1.Controls.Add(label3);
-            panel1.Controls.Add(pictureBox4);
-            panel1.Controls.Add(label1);
-            panel1.Location = new Point(549, 40);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(241, 374);
-            panel1.TabIndex = 58;
-            panel1.Visible = false;
+            pnlBackupExplanation.Controls.Add(label3);
+            pnlBackupExplanation.Controls.Add(pictureBox4);
+            pnlBackupExplanation.Controls.Add(label1);
+            pnlBackupExplanation.Location = new Point(550, 40);
+            pnlBackupExplanation.Name = "pnlBackupExplanation";
+            pnlBackupExplanation.Size = new Size(241, 369);
+            pnlBackupExplanation.TabIndex = 58;
+            pnlBackupExplanation.Visible = false;
             // 
             // label3
             // 
@@ -1037,7 +1061,6 @@
             label3.Size = new Size(166, 21);
             label3.TabIndex = 26;
             label3.Text = "How Backups Work...";
-            label3.Visible = false;
             // 
             // pictureBox4
             // 
@@ -1054,10 +1077,9 @@
             label1.ForeColor = SystemColors.Info;
             label1.Location = new Point(34, 95);
             label1.Name = "label1";
-            label1.Size = new Size(185, 135);
+            label1.Size = new Size(199, 180);
             label1.TabIndex = 0;
             label1.Text = resources.GetString("label1.Text");
-            label1.Visible = false;
             // 
             // btnStopServer
             // 
@@ -1083,12 +1105,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
+            Controls.Add(pnlBackupExplanation);
             Controls.Add(lblCredits);
             Controls.Add(VersionLabel);
-            Controls.Add(btnStopServer);
             Controls.Add(pictureBox7);
-            Controls.Add(panel1);
             Controls.Add(NewVersionText);
+            Controls.Add(btnStopServer);
             Controls.Add(GithubLabel);
             Controls.Add(pictureBox9);
             Controls.Add(pictureBox8);
@@ -1147,8 +1169,8 @@
             tabAutoBackup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudBackupMaxCount).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudBackupInterval).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            pnlBackupExplanation.ResumeLayout(false);
+            pnlBackupExplanation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -1227,12 +1249,13 @@
         private Label lblProfileBackupsInstruction;
         private ToolTip toolTip1;
         private Label lblProfileBackupsStats;
-        private CheckBox checkBox1;
-        private Panel panel1;
+        private CheckBox chkEnableBackups;
+        private Panel pnlBackupExplanation;
         private Label lblBackupInfo;
         private Label label1;
         private PictureBox pictureBox4;
         private Label label3;
         private Button btnStopServer;
+        private Button btnSaveAutoBackup;
     }
 }
