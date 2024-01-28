@@ -405,9 +405,12 @@ public partial class Form1 : Form
             return;
         }
 
-        // Validate Windows File Name Does not have Special Characters
+        // Validate:
+        // Not Null
+        // Windows File Name Does not have Special Characters
+        // Not the same as an existing profile nam
         string editProfileName = txtEditProfileName.Text;
-        if (editProfileName == null || !isProfileNameValid(editProfileName) || lbxServerProfiles.SelectedItem.ToString() == editProfileName)
+        if (editProfileName == null || !isProfileNameValid(editProfileName) || !lbxServerProfiles.Items.Contains(editProfileName))
         {
             return;
         }
