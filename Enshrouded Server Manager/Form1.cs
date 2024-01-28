@@ -400,6 +400,7 @@ public partial class Form1 : Form
 
     private void SaveProfileName_Button_Click(object sender, EventArgs e)
     {
+        var reservedProfileNames = new string[] { "AutoBackup" };
         if (lbxServerProfiles.SelectedItem is null)
         {
             return;
@@ -408,9 +409,13 @@ public partial class Form1 : Form
         // Validate:
         // Not Null
         // Windows File Name Does not have Special Characters
-        // Not the same as an existing profile nam
+        // Not the same as an existing profile name
+        // Not allowed to use ReservedNames
         string editProfileName = txtEditProfileName.Text;
-        if (editProfileName == null || !isProfileNameValid(editProfileName) || !lbxServerProfiles.Items.Contains(editProfileName))
+        if (editProfileName == null
+            || !isProfileNameValid(editProfileName)
+            || lbxServerProfiles.Items.Contains(editProfileName)
+            || reservedProfileNames.Contains(editProfileName))
         {
             return;
         }
