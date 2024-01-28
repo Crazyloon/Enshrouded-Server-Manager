@@ -51,7 +51,7 @@ public class Backup
 
     }
 
-    public async void StartAutoBackup(string saveFileDirectory, string profileName, int interval, int maximumBackups, CancellationToken token)
+    public async void StartAutoBackup(string saveFileDirectory, string profileName, int interval, int maximumBackups, CancellationToken token, String fileToCopy, String locationOfFileToCopy)
     {
         if (interval < 1 || maximumBackups < 1)
         {
@@ -67,8 +67,40 @@ public class Backup
 
         while (await timer.WaitForNextTickAsync(token))
         {
-            ZipFile.CreateFromDirectory(saveFileDirectory, $"{AUTO_BACKUPS_FOLDER}/{profileName}/backup-{_datetimeString}.zip");
+            //ZipFile.CreateFromDirectory(saveFileDirectory, $"{AUTO_BACKUPS_FOLDER}/{profileName}/backup-{_datetimeString}.zip");
 
+
+            // logic of manual Backup
+            if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
+            {
+                File.Delete($"{saveFileDirectory}/{fileToCopy}");
+            }
+
+            if (File.Exists($"{locationOfFileToCopy}/{fileToCopy}"))
+            {
+                File.Copy($"{locationOfFileToCopy}/{fileToCopy}", $"{saveFileDirectory}/{fileToCopy}");
+            }
+
+
+            try
+            {
+                // changed backup folder to autobackup folder
+                ZipFile.CreateFromDirectory(saveFileDirectory, $"{AUTO_BACKUPS_FOLDER}/{profileName}/backup-{_datetimeString}.zip");
+                MessageBox.Show(@$"Backup saved at: ""{BACKUPS_FOLDER}/{profileName}/backup-{_datetimeString}.zip""",
+                    "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(@$"An error occured while creating the zip file: {ex.Message.ToString()}",
+                    "Error while zipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
+            {
+                File.Delete($"{saveFileDirectory}/{fileToCopy}");
+            }
+            //
             DeleteOldestBackup(saveFileDirectory, maximumBackups);
         }
     }
