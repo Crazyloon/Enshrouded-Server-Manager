@@ -980,9 +980,9 @@
             lblNewsText.AutoSize = true;
             lblNewsText.Location = new Point(584, 181);
             lblNewsText.Name = "lblNewsText";
-            lblNewsText.Size = new Size(132, 45);
+            lblNewsText.Size = new Size(132, 75);
             lblNewsText.TabIndex = 53;
-            lblNewsText.Text = "Changes:\r\n- added process control\r\n   Start/Stop Server";
+            lblNewsText.Text = "Changes:\r\n- added process control\r\n   Start/Stop Server\r\n- added AutoBackup\r\n- fixed some stuff";
             // 
             // lblCredits
             // 
