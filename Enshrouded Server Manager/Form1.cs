@@ -832,19 +832,12 @@ public partial class Form1 : Form
             var profile = profiles?.FirstOrDefault(x => x.Name == selectedProfile);
             if (profile is not null)
             {
-                if (enabled)
+                profile.AutoBackup = new AutoBackup()
                 {
-                    profile.AutoBackup = new AutoBackup()
-                    {
-                        Interval = Convert.ToInt32(nudBackupInterval.Value),
-                        MaxiumBackups = Convert.ToInt32(nudBackupMaxCount.Value),
-                        Enabled = true
-                    };
-                }
-                else
-                {
-                    profile.AutoBackup = null;
-                }
+                    Interval = Convert.ToInt32(nudBackupInterval.Value),
+                    MaxiumBackups = Convert.ToInt32(nudBackupMaxCount.Value),
+                    Enabled = enabled
+                };
 
                 // write the new profile to the json file
                 var output = JsonConvert.SerializeObject(profiles, _jsonSerializerSettings);
