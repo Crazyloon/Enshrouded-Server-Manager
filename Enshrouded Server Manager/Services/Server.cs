@@ -144,7 +144,19 @@ public class Server
             return false;
         }
 
-        Process p = Process.GetProcessById(serverProcessInfo.Id);
+        Process p;
+        try
+        {
+            p = Process.GetProcessById(serverProcessInfo.Id);
+
+        }
+        catch (ArgumentException)
+        {
+            // The process doesn't exist anymore, so we can delete the pid file
+            File.Delete($"./cache/{ServerName}pid.json");
+            return false;
+        }
+
         return SERVER_PROCESS_NAME == p.ProcessName;
     }
 

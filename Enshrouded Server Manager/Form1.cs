@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Diagnostics;
 using System.Net;
-using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 
 namespace Enshrouded_Server_Manager;
@@ -401,7 +400,11 @@ public partial class Form1 : Form
 
     private void SaveProfileName_Button_Click(object sender, EventArgs e)
     {
-        // if server is running error
+        if (lbxServerProfiles.SelectedItem is null)
+        {
+            return;
+        }
+
         string selectedServerProfile = lbxServerProfiles.SelectedItem.ToString();
 
         if (Server.IsRunning(selectedServerProfile))
@@ -412,10 +415,6 @@ public partial class Form1 : Form
         }
 
         var reservedProfileNames = new string[] { "AutoBackup" };
-        if (lbxServerProfiles.SelectedItem is null)
-        {
-            return;
-        }
 
         // Validate:
         // Not Null
@@ -435,16 +434,16 @@ public partial class Form1 : Form
         List<ServerProfile>? profiledata = LoadServerProfiles();
         if (profiledata is null)
         {
+            // TODO: Report an error?
             return;
         }
 
         // get the selected profile
-        string selectedServerName = lbxServerProfiles.SelectedItem.ToString();
-        var selectedProfile = profiledata.FirstOrDefault(x => x.Name == selectedServerName);
+        var selectedProfile = profiledata.FirstOrDefault(x => x.Name == selectedServerProfile);
         if (selectedProfile != null)
         {
             // rename the server settings folder
-            RenameServerSettings(selectedServerName, editProfileName);
+            RenameServerSettings(selectedServerProfile, editProfileName);
 
             if (Directory.Exists($"{SERVER_PATH}{editProfileName}"))
             {
@@ -456,13 +455,13 @@ public partial class Form1 : Form
                 File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
 
                 // rename backup folder
-                RenameBackupFolder(selectedServerName, editProfileName);
+                RenameBackupFolder(selectedServerProfile, editProfileName);
 
                 // rename autobackup folder
-                RenameAutoBackupFolder(selectedServerName, editProfileName);
+                RenameAutoBackupFolder(selectedServerProfile, editProfileName);
 
                 // rename pid file
-                RenamePidFile(selectedServerName, editProfileName);
+                RenamePidFile(selectedServerProfile, editProfileName);
 
                 // ClearProfileName_TextBox
                 txtEditProfileName.Text = "";
@@ -621,6 +620,9 @@ public partial class Form1 : Form
 
     private void RenamePidFile(string oldServerName, string newServerName)
     {
+        // TODO: Review this code. Why are we creating a PID file if one does not exist?
+        // These files should only exist while the server is running
+
         // If old pidfile do not exist
         if (!File.Exists($"{CACHE_PATH}{oldServerName}{PID_CONFIG}"))
         {
