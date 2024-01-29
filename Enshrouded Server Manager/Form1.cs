@@ -266,7 +266,7 @@ public partial class Form1 : Form
                     var profile = profiles?.FirstOrDefault(x => x.Name == ServerSelectText);
                     if (profile != null && profile.AutoBackup != null && profile.AutoBackup.Enabled)
                     {
-                        _backup.StartAutoBackup($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, _backupCancellationToken);
+                        _backup.StartAutoBackup($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, _backupCancellationToken, GAME_SERVER_CONFIG, $"{SERVER_PATH}{ServerSelectText}");
                     }
                 }
             });

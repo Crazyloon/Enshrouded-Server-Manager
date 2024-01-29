@@ -54,7 +54,7 @@ public class Backup
 
     }
 
-    public async void StartAutoBackup(string saveFileDirectory, string profileName, int interval, int maximumBackups, CancellationToken token)
+    public async void StartAutoBackup(string saveFileDirectory, string profileName, int interval, int maximumBackups, CancellationToken token, String fileToCopy, String locationOfFileToCopy)
     {
         if (interval < 1 || maximumBackups < 1)
         {
@@ -79,9 +79,24 @@ public class Backup
 
             try
             {
+                if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
+                {
+                    File.Delete($"{saveFileDirectory}/{fileToCopy}");
+                }
+
+                if (File.Exists($"{locationOfFileToCopy}/{fileToCopy}"))
+                {
+                    File.Copy($"{locationOfFileToCopy}/{fileToCopy}", $"{saveFileDirectory}/{fileToCopy}");
+                }
+
                 _dateTimeString = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
                 // changed backup folder to autobackup folder
                 ZipFile.CreateFromDirectory(saveFileDirectory, $"{AUTO_BACKUPS_FOLDER}/{profileName}/backup-{_dateTimeString}.zip");
+
+                if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
+                {
+                    File.Delete($"{saveFileDirectory}/{fileToCopy}");
+                }
 
                 DeleteOldestBackup($"{AUTO_BACKUPS_FOLDER}/{profileName}", maximumBackups);
                 OnAutoBackupSuccess(new AutoBackupSuccessEventArgs { ProfileName = profileName });
