@@ -400,6 +400,14 @@ public partial class Form1 : Form
 
     private void SaveProfileName_Button_Click(object sender, EventArgs e)
     {
+        // if server is running error
+        if (Server.IsRunning(txtEditProfileName.Text))
+        {
+            MessageBox.Show($"The profilename cant be changed while the server is running!",
+                "Server is running", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
         var reservedProfileNames = new string[] { "AutoBackup" };
         if (lbxServerProfiles.SelectedItem is null)
         {
@@ -559,23 +567,16 @@ public partial class Form1 : Form
 
     private void RenameServerSettings(string oldServerName, string newServerName)
     {
-        // If old settings do not exist, write defaults
-        if (!File.Exists($"{SERVER_PATH}{oldServerName}{GAME_SERVER_CONFIG}"))
+        try
         {
-            _folder.Create($"{SERVER_PATH}{newServerName}");
-            WriteDefaultServerSettings(newServerName);
-            return;
+            Directory.Move($"{SERVER_PATH}{oldServerName}", $"{SERVER_PATH}{oldServerName}_temp");
+            Directory.Move($"{SERVER_PATH}{oldServerName}_temp", $"{SERVER_PATH}{newServerName}");
         }
-
-        // Read the existing settings file
-        var input = File.ReadAllText($"{SERVER_PATH}{oldServerName}{GAME_SERVER_CONFIG}");
-
-        // Write the new settings file
-        _folder.Create($"{SERVER_PATH}{newServerName}");
-        File.WriteAllText($"{SERVER_PATH}{newServerName}{GAME_SERVER_CONFIG}", input);
-
-        // Delete the old settings file
-        _folder.Delete($"{SERVER_PATH}{oldServerName}");
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Following error occured while changing profilename: {ex.Message.ToString()}",
+        "Error while changing profilename", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 
     private void RenameBackupFolder(string oldBackupFolderName, string newBackupFolderName)
