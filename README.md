@@ -32,7 +32,7 @@ To launch a server for the first time:
 - Select the server profile you wish to use.
 - Click Install Server.
 - Once the server is installed, click Start Server.
-- This should launch a server which will appear in the games list of Enshrouded.
+- This should launch a server that will appear in the games list of Enshrouded.
 
 ### Manage your profiles
 Under the Manage Profiles tab, you can add, rename, and delete server profiles.
@@ -40,6 +40,12 @@ To Add a Profile, click the + symbol next to Add New Profile. This will create a
 To Rename a Profile, click on the profile name you wish to modify. The name will appear in the Profile Name text box. Edit the server name here, and click Save Changes to rename your first server.
 To Delete a Profile, click on the profile name you wish to delete, then click the Delete Selected button. You must confirm you wish to delete by clicking yes in the window that appears.
 - Note: Deleting a profile will remove the profile and the underlying server files, but any backups you create will be retained. ONLY delete a profile if you are sure you have backed up the save files, or you are certain you don't want them anymore.
+
+### Automatically backup your world files
+Under the Auto Backup tab, you have the option to select your server profile and configure an automatic backup schedule to save a zip file with the contents of your savegame directory, where your world is stored, and the current server configuration file.
+Check the Enable Backups box to turn backups on, then set an interval of 60 and a maximum number of backups of 10 to configure the system to save a backup every hour, up to a maximum of 10 backups. Once the maximum backup limit is reached, the oldest backups will be deleted when a new backup is saved.
+- Note: automatic backups are separate from manual backups. Neither one will overwrite the other, nor does the maximum backups configuration affect manual backups
+
 
 ## Notes
 Every Server Profile has its own install directory and configuration.
