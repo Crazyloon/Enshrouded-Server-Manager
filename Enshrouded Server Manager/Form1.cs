@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Diagnostics;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 
 namespace Enshrouded_Server_Manager;
@@ -401,7 +402,9 @@ public partial class Form1 : Form
     private void SaveProfileName_Button_Click(object sender, EventArgs e)
     {
         // if server is running error
-        if (Server.IsRunning(txtEditProfileName.Text))
+        string selectedServerProfile = lbxServerProfiles.SelectedItem.ToString();
+
+        if (Server.IsRunning(selectedServerProfile))
         {
             MessageBox.Show($"The profilename cant be changed while the server is running!",
                 "Server is running", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -440,29 +443,32 @@ public partial class Form1 : Form
         var selectedProfile = profiledata.FirstOrDefault(x => x.Name == selectedServerName);
         if (selectedProfile != null)
         {
-            // update the name
-            selectedProfile.Name = editProfileName;
-
-            // write the new profile to the json file
-            var output = JsonConvert.SerializeObject(profiledata, _jsonSerializerSettings);
-            File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
-
-            // rename the server settings file
+            // rename the server settings folder
             RenameServerSettings(selectedServerName, editProfileName);
 
-            // rename backup folder
-            RenameBackupFolder(selectedServerName, editProfileName);
+            if (Directory.Exists($"{SERVER_PATH}{editProfileName}"))
+            {
+                // update the name
+                selectedProfile.Name = editProfileName;
 
-            // rename pid file
-            RenamePidFile(selectedServerName, editProfileName);
+                // write the new profile to the json file
+                var output = JsonConvert.SerializeObject(profiledata, _jsonSerializerSettings);
+                File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
 
-            // ClearProfileName_TextBox
-            txtEditProfileName.Text = "";
+                // rename backup folder
+                RenameBackupFolder(selectedServerName, editProfileName);
 
-            Interactions.AnimateSaveChangesButton(btnSaveProfileName, "Save Changes", "Saved!");
+                // rename pid file
+                RenamePidFile(selectedServerName, editProfileName);
 
-            // reload form1
-            Form1_Load(sender, e);
+                // ClearProfileName_TextBox
+                txtEditProfileName.Text = "";
+
+                Interactions.AnimateSaveChangesButton(btnSaveProfileName, "Save Changes", "Saved!");
+
+                // reload form1
+                Form1_Load(sender, e);
+            }
         }
     }
 
@@ -576,6 +582,7 @@ public partial class Form1 : Form
         {
             MessageBox.Show($"Following error occured while changing profilename: {ex.Message.ToString()}",
         "Error while changing profilename", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
         }
     }
 
