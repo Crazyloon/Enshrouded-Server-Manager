@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             cbxProfileSelectionComboBox = new ComboBox();
             lblProfileSelectionLabel = new Label();
@@ -85,11 +86,28 @@
             btnDeleteProfile = new Button();
             btnAddNewProfile = new Button();
             lbxServerProfiles = new ListBox();
+            tabAutoBackup = new TabPage();
+            btnSaveAutoBackup = new Button();
+            chkEnableBackups = new CheckBox();
+            lblProfileBackupsStats = new Label();
+            lblProfileBackupsInstruction = new Label();
+            nudBackupMaxCount = new NumericUpDown();
+            label2 = new Label();
+            lblBackupFrequency = new Label();
+            nudBackupInterval = new NumericUpDown();
+            lblScheduleBackups = new Label();
+            lbxProfileSelectorAutoBackup = new ListBox();
             lblNewsText = new Label();
             lblCredits = new Label();
             VersionLabel = new Label();
             GithubLabel = new Label();
-            NewVersionLabel = new Label();
+            NewVersionText = new Label();
+            toolTip1 = new ToolTip(components);
+            pnlBackupExplanation = new Panel();
+            label3 = new Label();
+            pictureBox4 = new PictureBox();
+            label1 = new Label();
+            btnStopServer = new Button();
             ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
@@ -106,6 +124,11 @@
             tabServerSettings.SuspendLayout();
             tabProfileManager.SuspendLayout();
             pnlProfileNameUpdate.SuspendLayout();
+            tabAutoBackup.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudBackupMaxCount).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)nudBackupInterval).BeginInit();
+            pnlBackupExplanation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             SuspendLayout();
             // 
             // cbxProfileSelectionComboBox
@@ -113,7 +136,7 @@
             cbxProfileSelectionComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxProfileSelectionComboBox.FlatStyle = FlatStyle.System;
             cbxProfileSelectionComboBox.FormattingEnabled = true;
-            cbxProfileSelectionComboBox.Location = new Point(112, 34);
+            cbxProfileSelectionComboBox.Location = new Point(279, 54);
             cbxProfileSelectionComboBox.Name = "cbxProfileSelectionComboBox";
             cbxProfileSelectionComboBox.Size = new Size(170, 23);
             cbxProfileSelectionComboBox.TabIndex = 0;
@@ -122,7 +145,7 @@
             // lblProfileSelectionLabel
             // 
             lblProfileSelectionLabel.AutoSize = true;
-            lblProfileSelectionLabel.Location = new Point(34, 37);
+            lblProfileSelectionLabel.Location = new Point(197, 57);
             lblProfileSelectionLabel.Name = "lblProfileSelectionLabel";
             lblProfileSelectionLabel.Size = new Size(76, 15);
             lblProfileSelectionLabel.TabIndex = 1;
@@ -167,7 +190,7 @@
             txtServerName.BackColor = Color.FromArgb(6, 6, 48);
             txtServerName.BorderStyle = BorderStyle.FixedSingle;
             txtServerName.ForeColor = SystemColors.Window;
-            txtServerName.Location = new Point(112, 78);
+            txtServerName.Location = new Point(112, 41);
             txtServerName.Name = "txtServerName";
             txtServerName.Size = new Size(170, 23);
             txtServerName.TabIndex = 4;
@@ -177,7 +200,7 @@
             txtServerPassword.BackColor = Color.FromArgb(6, 6, 48);
             txtServerPassword.BorderStyle = BorderStyle.FixedSingle;
             txtServerPassword.ForeColor = SystemColors.Window;
-            txtServerPassword.Location = new Point(112, 107);
+            txtServerPassword.Location = new Point(112, 70);
             txtServerPassword.Name = "txtServerPassword";
             txtServerPassword.PasswordChar = '*';
             txtServerPassword.Size = new Size(170, 23);
@@ -188,7 +211,7 @@
             txtIpAddress.BackColor = Color.FromArgb(6, 6, 48);
             txtIpAddress.BorderStyle = BorderStyle.FixedSingle;
             txtIpAddress.ForeColor = SystemColors.Window;
-            txtIpAddress.Location = new Point(112, 136);
+            txtIpAddress.Location = new Point(112, 99);
             txtIpAddress.Name = "txtIpAddress";
             txtIpAddress.Size = new Size(134, 23);
             txtIpAddress.TabIndex = 6;
@@ -198,7 +221,7 @@
             nudGamePort.BackColor = Color.FromArgb(6, 6, 48);
             nudGamePort.BorderStyle = BorderStyle.FixedSingle;
             nudGamePort.ForeColor = SystemColors.Window;
-            nudGamePort.Location = new Point(112, 166);
+            nudGamePort.Location = new Point(112, 129);
             nudGamePort.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             nudGamePort.Name = "nudGamePort";
             nudGamePort.Size = new Size(62, 23);
@@ -209,7 +232,7 @@
             nudQueryPort.BackColor = Color.FromArgb(6, 6, 48);
             nudQueryPort.BorderStyle = BorderStyle.FixedSingle;
             nudQueryPort.ForeColor = SystemColors.Window;
-            nudQueryPort.Location = new Point(112, 195);
+            nudQueryPort.Location = new Point(112, 158);
             nudQueryPort.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
             nudQueryPort.Name = "nudQueryPort";
             nudQueryPort.Size = new Size(62, 23);
@@ -220,7 +243,7 @@
             nudSlotCount.BackColor = Color.FromArgb(6, 6, 48);
             nudSlotCount.BorderStyle = BorderStyle.FixedSingle;
             nudSlotCount.ForeColor = SystemColors.Window;
-            nudSlotCount.Location = new Point(112, 224);
+            nudSlotCount.Location = new Point(112, 187);
             nudSlotCount.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
             nudSlotCount.Name = "nudSlotCount";
             nudSlotCount.Size = new Size(35, 23);
@@ -230,7 +253,7 @@
             // 
             lblServername.AutoSize = true;
             lblServername.ForeColor = SystemColors.ButtonHighlight;
-            lblServername.Location = new Point(41, 81);
+            lblServername.Location = new Point(41, 44);
             lblServername.Name = "lblServername";
             lblServername.Size = new Size(69, 15);
             lblServername.TabIndex = 10;
@@ -240,7 +263,7 @@
             // 
             lblPassword.AutoSize = true;
             lblPassword.ForeColor = SystemColors.ButtonHighlight;
-            lblPassword.Location = new Point(53, 110);
+            lblPassword.Location = new Point(53, 73);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(57, 15);
             lblPassword.TabIndex = 11;
@@ -250,7 +273,7 @@
             // 
             lblIpAddress.AutoSize = true;
             lblIpAddress.ForeColor = SystemColors.ButtonHighlight;
-            lblIpAddress.Location = new Point(48, 139);
+            lblIpAddress.Location = new Point(48, 102);
             lblIpAddress.Name = "lblIpAddress";
             lblIpAddress.Size = new Size(62, 15);
             lblIpAddress.TabIndex = 12;
@@ -260,7 +283,7 @@
             // 
             lblGamePort.AutoSize = true;
             lblGamePort.ForeColor = SystemColors.ButtonHighlight;
-            lblGamePort.Location = new Point(50, 168);
+            lblGamePort.Location = new Point(50, 131);
             lblGamePort.Name = "lblGamePort";
             lblGamePort.Size = new Size(60, 15);
             lblGamePort.TabIndex = 13;
@@ -270,7 +293,7 @@
             // 
             lblQueryPort.AutoSize = true;
             lblQueryPort.ForeColor = SystemColors.ButtonHighlight;
-            lblQueryPort.Location = new Point(49, 197);
+            lblQueryPort.Location = new Point(49, 160);
             lblQueryPort.Name = "lblQueryPort";
             lblQueryPort.Size = new Size(61, 15);
             lblQueryPort.TabIndex = 14;
@@ -279,7 +302,7 @@
             // lblMaxPlayers
             // 
             lblMaxPlayers.AutoSize = true;
-            lblMaxPlayers.Location = new Point(43, 226);
+            lblMaxPlayers.Location = new Point(43, 189);
             lblMaxPlayers.Name = "lblMaxPlayers";
             lblMaxPlayers.Size = new Size(67, 15);
             lblMaxPlayers.TabIndex = 15;
@@ -293,7 +316,7 @@
             btnSaveSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnSaveSettings.FlatStyle = FlatStyle.Flat;
             btnSaveSettings.ForeColor = Color.FromArgb(0, 255, 185);
-            btnSaveSettings.Location = new Point(127, 266);
+            btnSaveSettings.Location = new Point(127, 243);
             btnSaveSettings.Name = "btnSaveSettings";
             btnSaveSettings.Size = new Size(124, 30);
             btnSaveSettings.TabIndex = 17;
@@ -621,19 +644,19 @@
             // 
             tabServerTabs.Controls.Add(tabServerSettings);
             tabServerTabs.Controls.Add(tabProfileManager);
-            tabServerTabs.Location = new Point(187, 40);
+            tabServerTabs.Controls.Add(tabAutoBackup);
+            tabServerTabs.Location = new Point(187, 84);
             tabServerTabs.Name = "tabServerTabs";
             tabServerTabs.SelectedIndex = 0;
-            tabServerTabs.Size = new Size(367, 374);
+            tabServerTabs.Size = new Size(367, 330);
             tabServerTabs.TabIndex = 48;
+            tabServerTabs.SelectedIndexChanged += tabServerTabs_SelectedIndexChanged;
             // 
             // tabServerSettings
             // 
             tabServerSettings.BackColor = Color.FromArgb(0, 0, 18);
             tabServerSettings.Controls.Add(btnShowPassword);
             tabServerSettings.Controls.Add(txtIpAddress);
-            tabServerSettings.Controls.Add(cbxProfileSelectionComboBox);
-            tabServerSettings.Controls.Add(lblProfileSelectionLabel);
             tabServerSettings.Controls.Add(txtServerName);
             tabServerSettings.Controls.Add(txtServerPassword);
             tabServerSettings.Controls.Add(nudGamePort);
@@ -650,7 +673,7 @@
             tabServerSettings.Location = new Point(4, 24);
             tabServerSettings.Name = "tabServerSettings";
             tabServerSettings.Padding = new Padding(3);
-            tabServerSettings.Size = new Size(359, 346);
+            tabServerSettings.Size = new Size(359, 302);
             tabServerSettings.TabIndex = 0;
             tabServerSettings.Text = "Server Settings";
             // 
@@ -662,7 +685,7 @@
             btnShowPassword.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnShowPassword.FlatStyle = FlatStyle.Flat;
             btnShowPassword.ForeColor = SystemColors.Control;
-            btnShowPassword.Location = new Point(288, 107);
+            btnShowPassword.Location = new Point(288, 70);
             btnShowPassword.Name = "btnShowPassword";
             btnShowPassword.Size = new Size(48, 23);
             btnShowPassword.TabIndex = 26;
@@ -683,7 +706,7 @@
             tabProfileManager.Location = new Point(4, 24);
             tabProfileManager.Name = "tabProfileManager";
             tabProfileManager.Padding = new Padding(3);
-            tabProfileManager.Size = new Size(359, 346);
+            tabProfileManager.Size = new Size(359, 302);
             tabProfileManager.TabIndex = 1;
             tabProfileManager.Text = "Manage Profiles";
             // 
@@ -793,7 +816,7 @@
             btnAddNewProfile.FlatStyle = FlatStyle.Flat;
             btnAddNewProfile.Font = new Font("Consolas", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             btnAddNewProfile.ForeColor = Color.FromArgb(0, 255, 185);
-            btnAddNewProfile.Location = new Point(187, 10);
+            btnAddNewProfile.Location = new Point(187, 12);
             btnAddNewProfile.Margin = new Padding(0);
             btnAddNewProfile.Name = "btnAddNewProfile";
             btnAddNewProfile.Padding = new Padding(0, 2, 0, 0);
@@ -817,14 +840,149 @@
             lbxServerProfiles.TabIndex = 0;
             lbxServerProfiles.SelectedIndexChanged += ServerProfilesListBox_IndexChanged;
             // 
+            // tabAutoBackup
+            // 
+            tabAutoBackup.BackColor = Color.FromArgb(0, 0, 18);
+            tabAutoBackup.Controls.Add(btnSaveAutoBackup);
+            tabAutoBackup.Controls.Add(chkEnableBackups);
+            tabAutoBackup.Controls.Add(lblProfileBackupsStats);
+            tabAutoBackup.Controls.Add(lblProfileBackupsInstruction);
+            tabAutoBackup.Controls.Add(nudBackupMaxCount);
+            tabAutoBackup.Controls.Add(label2);
+            tabAutoBackup.Controls.Add(lblBackupFrequency);
+            tabAutoBackup.Controls.Add(nudBackupInterval);
+            tabAutoBackup.Controls.Add(lblScheduleBackups);
+            tabAutoBackup.Controls.Add(lbxProfileSelectorAutoBackup);
+            tabAutoBackup.Location = new Point(4, 24);
+            tabAutoBackup.Name = "tabAutoBackup";
+            tabAutoBackup.Padding = new Padding(3);
+            tabAutoBackup.Size = new Size(359, 302);
+            tabAutoBackup.TabIndex = 2;
+            tabAutoBackup.Text = "Auto Backup";
+            // 
+            // btnSaveAutoBackup
+            // 
+            btnSaveAutoBackup.Cursor = Cursors.Hand;
+            btnSaveAutoBackup.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnSaveAutoBackup.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnSaveAutoBackup.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnSaveAutoBackup.FlatStyle = FlatStyle.Flat;
+            btnSaveAutoBackup.ForeColor = Color.FromArgb(0, 255, 185);
+            btnSaveAutoBackup.Location = new Point(204, 252);
+            btnSaveAutoBackup.Name = "btnSaveAutoBackup";
+            btnSaveAutoBackup.Size = new Size(128, 30);
+            btnSaveAutoBackup.TabIndex = 15;
+            btnSaveAutoBackup.Text = "Save Changes";
+            btnSaveAutoBackup.UseCompatibleTextRendering = true;
+            btnSaveAutoBackup.UseVisualStyleBackColor = true;
+            btnSaveAutoBackup.EnabledChanged += SaveSettings_Button_EnabledChanged;
+            btnSaveAutoBackup.Click += btnSaveAutoBackup_Click;
+            // 
+            // chkEnableBackups
+            // 
+            chkEnableBackups.AutoSize = true;
+            chkEnableBackups.Location = new Point(191, 114);
+            chkEnableBackups.Name = "chkEnableBackups";
+            chkEnableBackups.Size = new Size(108, 19);
+            chkEnableBackups.TabIndex = 14;
+            chkEnableBackups.Text = "Enable Backups";
+            chkEnableBackups.UseVisualStyleBackColor = true;
+            // 
+            // lblProfileBackupsStats
+            // 
+            lblProfileBackupsStats.AutoSize = true;
+            lblProfileBackupsStats.ForeColor = Color.FromArgb(0, 255, 185);
+            lblProfileBackupsStats.Location = new Point(187, 31);
+            lblProfileBackupsStats.Name = "lblProfileBackupsStats";
+            lblProfileBackupsStats.Size = new Size(147, 30);
+            lblProfileBackupsStats.TabIndex = 13;
+            lblProfileBackupsStats.Text = "Total Backups: 12\r\nDisk Consumption: 200MB\r\n";
+            lblProfileBackupsStats.Visible = false;
+            // 
+            // lblProfileBackupsInstruction
+            // 
+            lblProfileBackupsInstruction.AutoSize = true;
+            lblProfileBackupsInstruction.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            lblProfileBackupsInstruction.ForeColor = SystemColors.ButtonHighlight;
+            lblProfileBackupsInstruction.Location = new Point(187, 10);
+            lblProfileBackupsInstruction.Name = "lblProfileBackupsInstruction";
+            lblProfileBackupsInstruction.Size = new Size(169, 17);
+            lblProfileBackupsInstruction.TabIndex = 11;
+            lblProfileBackupsInstruction.Text = "Select a Profile to configure";
+            // 
+            // nudBackupMaxCount
+            // 
+            nudBackupMaxCount.BackColor = Color.FromArgb(6, 6, 48);
+            nudBackupMaxCount.BorderStyle = BorderStyle.FixedSingle;
+            nudBackupMaxCount.ForeColor = SystemColors.Window;
+            nudBackupMaxCount.Location = new Point(191, 207);
+            nudBackupMaxCount.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            nudBackupMaxCount.Name = "nudBackupMaxCount";
+            nudBackupMaxCount.Size = new Size(63, 23);
+            nudBackupMaxCount.TabIndex = 10;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(187, 189);
+            label2.Name = "label2";
+            label2.Size = new Size(170, 15);
+            label2.TabIndex = 9;
+            label2.Text = "Maximum Number of Backups";
+            // 
+            // lblBackupFrequency
+            // 
+            lblBackupFrequency.AutoSize = true;
+            lblBackupFrequency.Location = new Point(187, 138);
+            lblBackupFrequency.Name = "lblBackupFrequency";
+            lblBackupFrequency.Size = new Size(155, 15);
+            lblBackupFrequency.TabIndex = 7;
+            lblBackupFrequency.Text = "Backup Interval (in minutes)";
+            // 
+            // nudBackupInterval
+            // 
+            nudBackupInterval.BackColor = Color.FromArgb(6, 6, 48);
+            nudBackupInterval.BorderStyle = BorderStyle.FixedSingle;
+            nudBackupInterval.ForeColor = SystemColors.Window;
+            nudBackupInterval.Location = new Point(191, 156);
+            nudBackupInterval.Maximum = new decimal(new int[] { 1080, 0, 0, 0 });
+            nudBackupInterval.Name = "nudBackupInterval";
+            nudBackupInterval.Size = new Size(63, 23);
+            nudBackupInterval.TabIndex = 6;
+            // 
+            // lblScheduleBackups
+            // 
+            lblScheduleBackups.AutoSize = true;
+            lblScheduleBackups.BackColor = Color.Transparent;
+            lblScheduleBackups.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            lblScheduleBackups.ForeColor = SystemColors.Control;
+            lblScheduleBackups.Location = new Point(6, 305);
+            lblScheduleBackups.Name = "lblScheduleBackups";
+            lblScheduleBackups.Size = new Size(220, 32);
+            lblScheduleBackups.TabIndex = 5;
+            lblScheduleBackups.Text = "Schedule Backups";
+            // 
+            // lbxProfileSelectorAutoBackup
+            // 
+            lbxProfileSelectorAutoBackup.BackColor = Color.FromArgb(0, 0, 28);
+            lbxProfileSelectorAutoBackup.BorderStyle = BorderStyle.FixedSingle;
+            lbxProfileSelectorAutoBackup.ForeColor = SystemColors.Window;
+            lbxProfileSelectorAutoBackup.FormattingEnabled = true;
+            lbxProfileSelectorAutoBackup.ItemHeight = 15;
+            lbxProfileSelectorAutoBackup.Location = new Point(10, 10);
+            lbxProfileSelectorAutoBackup.Name = "lbxProfileSelectorAutoBackup";
+            lbxProfileSelectorAutoBackup.Size = new Size(166, 272);
+            lbxProfileSelectorAutoBackup.TabIndex = 1;
+            lbxProfileSelectorAutoBackup.SelectedIndexChanged += lbxProfileSelectorAutoBackup_SelectedIndexChanged;
+            // 
             // lblNewsText
             // 
             lblNewsText.AutoSize = true;
             lblNewsText.Location = new Point(584, 181);
             lblNewsText.Name = "lblNewsText";
-            lblNewsText.Size = new Size(177, 105);
+            lblNewsText.Size = new Size(132, 75);
             lblNewsText.TabIndex = 53;
-            lblNewsText.Text = "Changes:\r\n- Version Check of the Manager\r\n- Github-Link\r\n- SteamCMD.zip will be deleted \r\n   now after install\r\n- Update interval added\r\n- at SteamCMD install it updates";
+            lblNewsText.Text = "Changes:\r\n- added process control\r\n   Start/Stop Server\r\n- added AutoBackup\r\n- fixed some stuff";
             // 
             // lblCredits
             // 
@@ -848,7 +1006,7 @@
             VersionLabel.Name = "VersionLabel";
             VersionLabel.Size = new Size(39, 13);
             VersionLabel.TabIndex = 55;
-            VersionLabel.Text = "v.0.1.1";
+            VersionLabel.Text = "v.0.2.0";
             // 
             // GithubLabel
             // 
@@ -862,16 +1020,82 @@
             GithubLabel.Text = "Github";
             GithubLabel.Click += GithubLabel_Click;
             // 
-            // NewVersionLabel
+            // NewVersionText
             // 
-            NewVersionLabel.AutoSize = true;
-            NewVersionLabel.ForeColor = Color.FromArgb(0, 255, 185);
-            NewVersionLabel.Location = new Point(662, 368);
-            NewVersionLabel.Name = "NewVersionLabel";
-            NewVersionLabel.Size = new Size(124, 15);
-            NewVersionLabel.TabIndex = 57;
-            NewVersionLabel.Text = "New version available!";
-            NewVersionLabel.Visible = false;
+            NewVersionText.AutoSize = true;
+            NewVersionText.BackColor = Color.Transparent;
+            NewVersionText.ForeColor = Color.FromArgb(0, 255, 185);
+            NewVersionText.Location = new Point(660, 368);
+            NewVersionText.Name = "NewVersionText";
+            NewVersionText.Size = new Size(124, 15);
+            NewVersionText.TabIndex = 57;
+            NewVersionText.Text = "New version available!";
+            NewVersionText.Visible = false;
+            // 
+            // toolTip1
+            // 
+            toolTip1.BackColor = SystemColors.ControlText;
+            toolTip1.ForeColor = SystemColors.Info;
+            toolTip1.ToolTipIcon = ToolTipIcon.Info;
+            toolTip1.ToolTipTitle = "Backup Info";
+            // 
+            // pnlBackupExplanation
+            // 
+            pnlBackupExplanation.Controls.Add(label3);
+            pnlBackupExplanation.Controls.Add(pictureBox4);
+            pnlBackupExplanation.Controls.Add(label1);
+            pnlBackupExplanation.Location = new Point(550, 40);
+            pnlBackupExplanation.Name = "pnlBackupExplanation";
+            pnlBackupExplanation.Size = new Size(241, 369);
+            pnlBackupExplanation.TabIndex = 58;
+            pnlBackupExplanation.Visible = false;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(34, 93);
+            label3.Name = "label3";
+            label3.Size = new Size(166, 21);
+            label3.TabIndex = 26;
+            label3.Text = "How Backups Work...";
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.BackColor = Color.White;
+            pictureBox4.Location = new Point(0, 66);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(239, 2);
+            pictureBox4.TabIndex = 25;
+            pictureBox4.TabStop = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = SystemColors.Info;
+            label1.Location = new Point(34, 138);
+            label1.Name = "label1";
+            label1.Size = new Size(199, 180);
+            label1.TabIndex = 0;
+            label1.Text = resources.GetString("label1.Text");
+            // 
+            // btnStopServer
+            // 
+            btnStopServer.Cursor = Cursors.Hand;
+            btnStopServer.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnStopServer.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnStopServer.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnStopServer.FlatStyle = FlatStyle.Flat;
+            btnStopServer.ForeColor = SystemColors.Control;
+            btnStopServer.Location = new Point(33, 165);
+            btnStopServer.Name = "btnStopServer";
+            btnStopServer.Size = new Size(127, 25);
+            btnStopServer.TabIndex = 59;
+            btnStopServer.Text = "Stop Server";
+            btnStopServer.UseCompatibleTextRendering = true;
+            btnStopServer.UseVisualStyleBackColor = true;
+            btnStopServer.Visible = false;
+            btnStopServer.Click += btnStopServer_Click;
             // 
             // Form1
             // 
@@ -879,11 +1103,15 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
-            Controls.Add(NewVersionLabel);
-            Controls.Add(GithubLabel);
-            Controls.Add(VersionLabel);
+            Controls.Add(pnlBackupExplanation);
             Controls.Add(lblCredits);
+            Controls.Add(cbxProfileSelectionComboBox);
+            Controls.Add(VersionLabel);
+            Controls.Add(lblProfileSelectionLabel);
             Controls.Add(pictureBox7);
+            Controls.Add(NewVersionText);
+            Controls.Add(btnStopServer);
+            Controls.Add(GithubLabel);
             Controls.Add(pictureBox9);
             Controls.Add(pictureBox8);
             Controls.Add(btnOpenLogFolder);
@@ -937,6 +1165,13 @@
             tabProfileManager.PerformLayout();
             pnlProfileNameUpdate.ResumeLayout(false);
             pnlProfileNameUpdate.PerformLayout();
+            tabAutoBackup.ResumeLayout(false);
+            tabAutoBackup.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudBackupMaxCount).EndInit();
+            ((System.ComponentModel.ISupportInitialize)nudBackupInterval).EndInit();
+            pnlBackupExplanation.ResumeLayout(false);
+            pnlBackupExplanation.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1003,6 +1238,24 @@
         private Button btnShowPassword;
         private Label VersionLabel;
         private Label GithubLabel;
-        private Label NewVersionLabel;
+        private Label NewVersionText;
+        private TabPage tabAutoBackup;
+        private Label lblScheduleBackups;
+        private ListBox lbxProfileSelectorAutoBackup;
+        private Label lblBackupFrequency;
+        private NumericUpDown nudBackupInterval;
+        private NumericUpDown nudBackupMaxCount;
+        private Label label2;
+        private Label lblProfileBackupsInstruction;
+        private ToolTip toolTip1;
+        private Label lblProfileBackupsStats;
+        private CheckBox chkEnableBackups;
+        private Panel pnlBackupExplanation;
+        private Label lblBackupInfo;
+        private Label label1;
+        private PictureBox pictureBox4;
+        private Label label3;
+        private Button btnStopServer;
+        private Button btnSaveAutoBackup;
     }
 }

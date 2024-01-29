@@ -1,61 +1,151 @@
+using Enshrouded_Server_Manager.Model;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace Enshrouded_Server_Manager.Services
+namespace Enshrouded_Server_Manager.Services;
+
+public class Server
 {
-    public class Server
+    private Folder _folder;
+    private const string PATH_STEAM_CMD_EXE = @".\SteamCMD\steamcmd.exe";
+    private const string SERVER_PROCESS_NAME = "enshrouded_server";
+
+    [DllImport("user32.dll")]
+    static extern int SetWindowText(IntPtr hWnd, string text);
+
+    [DllImport("kernel32.dll", SetLastError = true)]
+    static extern bool AttachConsole(uint dwProcessId);
+
+    [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+    static extern bool FreeConsole();
+
+    [DllImport("kernel32.dll")]
+    static extern bool SetConsoleCtrlHandler(ConsoleCtrlDelegate handler, bool add);
+
+    delegate Boolean ConsoleCtrlDelegate(CtrlTypes type);
+
+    enum CtrlTypes : uint
     {
-        private string _pathSteamCmdExe = @".\SteamCMD\steamcmd.exe";
+        CTRL_C_EVENT = 0,
+        CTRL_BREAK_EVENT,
+        CTRL_CLOSE_EVENT,
+        CTRL_LOGOFF_EVENT = 5,
+        CTRL_SHUTDOWN_EVENT
+    }
 
-        [DllImport("user32.dll")]
-        static extern int SetWindowText(IntPtr hWnd, string text);
+    [DllImport("kernel32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool GenerateConsoleCtrlEvent(CtrlTypes dwCtrlEvent, uint dwProcessGroupId);
 
-        /// <summary>
-        /// Start Gameserver
-        /// </summary>
-        public void Start(String pathServerExe, String ServerName)
+
+
+
+
+    /// <summary>
+    /// Start Gameserver
+    /// </summary>
+    public void Start(String pathServerExe, String ServerName)
+    {
+        _folder = new Folder();
+
+        try
         {
+            Process p = Process.Start(pathServerExe);
+            //Thread.Sleep(10000);
+            //SetWindowText(p.MainWindowHandle, ServerName);
+            int pid = p.Id;
+            _folder.Create($"./cache/");
+            EnshroudedServerProcess json = new EnshroudedServerProcess()
+            {
+                Id = pid,
+                Profile = ServerName
+            };
 
-            try
-            {
-                Process p = Process.Start(pathServerExe);
-                Thread.Sleep(5000);
-                SetWindowText(p.MainWindowHandle, $"ESM Server - {ServerName}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Following error occured while starting the server: {ex.Message.ToString()}",
-                    "Error while starting", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            var output = JsonConvert.SerializeObject(json);
+            File.WriteAllText($"./cache/{ServerName}pid.json", output);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Following error occured while starting the server: {ex.Message.ToString()}",
+                "Error while starting", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+    }
+
+    /// <summary>
+    /// Install/Validate/Update GameServer Files
+    /// </summary>
+    public void InstallUpdate(String SteamAppId, String Serverpath)
+    {
+        try
+        {
+            Process p = Process.Start(PATH_STEAM_CMD_EXE, $"+force_install_dir {Serverpath} +login anonymous +app_update {SteamAppId} validate +quit");
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Following error occured while updating the server: {ex.Message.ToString()}",
+                "Error while updating", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+    }
+
+    /// <summary>
+    /// Stop Gameserver
+    /// </summary>
+    public void Stop(String ServerName)
+    {
+        if (!File.Exists($"./cache/{ServerName}pid.json"))
+        {
+            return;
         }
 
-        /// <summary>
-        /// Install/Validate/Update GameServer Files
-        /// </summary>
-        public void InstallUpdate(String SteamAppId, String Serverpath)
-        {
+        // Load pid
+        var input = File.ReadAllText($"./cache/{ServerName}pid.json");
 
-            try
+        EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
+
+        int pid = serverProcessInfo.Id;
+        string name = serverProcessInfo.Profile;
+
+        try
+        {
+            Process p = Process.GetProcessById(pid);
+            FreeConsole();
+            if (AttachConsole((uint)pid))
             {
-                Process p = Process.Start(_pathSteamCmdExe, $"+force_install_dir {Serverpath} +login anonymous +app_update {SteamAppId} validate +quit");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Following error occured while updating the server: {ex.Message.ToString()}",
-                    "Error while updating", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                SetConsoleCtrlHandler(null, true);
+                GenerateConsoleCtrlEvent(CtrlTypes.CTRL_C_EVENT, 0);
+                Thread.Sleep(2000);
+                FreeConsole();
+                SetConsoleCtrlHandler(null, false);
             }
         }
-
-        /// <summary>
-        /// Stop Gameserver
-        /// </summary>
-        public void Stop()
+        catch (ArgumentException)
         {
-
+            return;
         }
 
+        File.Delete($"./cache/{ServerName}pid.json");
+    }
+
+    public static bool IsRunning(String ServerName)
+    {
+        if (!File.Exists($"./cache/{ServerName}pid.json"))
+        {
+            return false;
+        }
+
+        var input = File.ReadAllText($"./cache/{ServerName}pid.json");
+        EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
+
+        if (serverProcessInfo == null)
+        {
+            return false;
+        }
+
+        Process p = Process.GetProcessById(serverProcessInfo.Id);
+        return SERVER_PROCESS_NAME == p.ProcessName;
     }
 
 }

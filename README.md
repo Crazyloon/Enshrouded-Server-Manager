@@ -1,4 +1,5 @@
-# Current version: 0.1.1
+# Current version: 0.2.0
+
 
 This little tool is an experimental enshrouded server manager.
 
@@ -37,9 +38,6 @@ To Delete a Profile, click on the profile name you wish to delete, then click th
 Every Server Profile has its own install directory and configuration.
 You are able to make backups (.zip) of your worldsave files for each server.
 (If you change your server name, the backup folder name will change, but the zip folder name will not)
-
-Windowname of the server applications should be named as follow:
-ESM Server - "Servername"
 
 Important: 
 If you delete a profile, it is your own responsibility to backup your worldsave before, as these will be lost when you delete a profile.
