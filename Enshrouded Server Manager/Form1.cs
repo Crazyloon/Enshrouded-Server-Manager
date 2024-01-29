@@ -460,9 +460,6 @@ public partial class Form1 : Form
                 // rename autobackup folder
                 RenameAutoBackupFolder(selectedServerProfile, editProfileName);
 
-                // rename pid file
-                RenamePidFile(selectedServerProfile, editProfileName);
-
                 // ClearProfileName_TextBox
                 txtEditProfileName.Text = "";
 
@@ -616,35 +613,6 @@ public partial class Form1 : Form
             // Rename the existing Backup folder
             Directory.Move($"{BACKUPS_FOLDER}/AutoBackup/{oldBackupFolderName}", $"{BACKUPS_FOLDER}/AutoBackup/{newBackupFolderName}");
         }
-    }
-
-    private void RenamePidFile(string oldServerName, string newServerName)
-    {
-        // TODO: Review this code. Why are we creating a PID file if one does not exist?
-        // These files should only exist while the server is running
-
-        // If old pidfile do not exist
-        if (!File.Exists($"{CACHE_PATH}{oldServerName}{PID_CONFIG}"))
-        {
-            _folder.Create($"{CACHE_PATH}");
-            EnshroudedServerProcess json = new EnshroudedServerProcess()
-            {
-                Id = 1,
-                Profile = ""
-            };
-
-            var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
-            File.WriteAllText($"{CACHE_PATH}{oldServerName}pid.json", output);
-        }
-
-        // Read the existing pid file
-        var input = File.ReadAllText($"{CACHE_PATH}{oldServerName}{PID_CONFIG}");
-
-        // Write the new pid file
-        File.WriteAllText($"{CACHE_PATH}{newServerName}{PID_CONFIG}", input);
-
-        // Delete the old settings file
-        File.Delete($"{CACHE_PATH}{oldServerName}{PID_CONFIG}");
     }
 
     private void ServerProfileComboBox_IndexChanged(object sender, EventArgs e)
