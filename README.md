@@ -4,10 +4,17 @@
 This little tool is an experimental enshrouded server manager.
 
 ## Select a server profile, install the server, and start hosting.
-![Screenshot 2024-01-23 205508](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/46ad5b0b-b2ef-4bb3-95bb-6dbd44a06182)
+![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/d7c6b539-5fc2-4722-ab5b-e9291a76cf35)
+
 
 ## Manage your server profiles by adding renaming and deleting them.
-![Screenshot 2024-01-23 205606](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/70cf7792-f93d-47f2-9350-daad8076158e)
+![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/5182b41d-3d49-48bd-93b0-6b52f48451f3)
+
+
+## Configure Automatic Backup to save your world files on an interval
+![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/a95ec730-bae0-4329-8225-bb9bee5a5919)
+
+
 
 ## Download
 Click on the Releases link on the right-hand side of the repo, download the zip and extract it to your desired directory.
