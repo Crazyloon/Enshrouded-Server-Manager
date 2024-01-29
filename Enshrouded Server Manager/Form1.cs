@@ -17,8 +17,7 @@ public partial class Form1 : Form
     private Backup _backup;
     private Folder _folder;
     private JsonSerializerSettings _jsonSerializerSettings;
-    private CancellationToken _backupCancellationToken;
-
+    private CancellationTokenSource _backupCancellationTokenSource;
 
     // Server Tool SteamId
     private const string STEAM_APP_ID = "2278520";
@@ -58,7 +57,6 @@ public partial class Form1 : Form
         _server = new Server();
         _backup = new Backup();
         _folder = new Folder();
-        _backupCancellationToken = new CancellationToken();
 
         _backup.AutoBackupSuccess += Backup_AutoBackupSuccess;
     }
@@ -266,7 +264,9 @@ public partial class Form1 : Form
                     var profile = profiles?.FirstOrDefault(x => x.Name == ServerSelectText);
                     if (profile != null && profile.AutoBackup != null && profile.AutoBackup.Enabled)
                     {
-                        _backup.StartAutoBackup($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, _backupCancellationToken, GAME_SERVER_CONFIG, $"{SERVER_PATH}{ServerSelectText}");
+                        _backupCancellationTokenSource = new CancellationTokenSource();
+
+                        _backup.StartAutoBackup($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, _backupCancellationTokenSource.Token, GAME_SERVER_CONFIG, $"{SERVER_PATH}{ServerSelectText}");
                     }
                 }
             });
@@ -796,6 +796,12 @@ public partial class Form1 : Form
 
     private void btnStopServer_Click(object sender, EventArgs e)
     {
+        if (_backupCancellationTokenSource is not null)
+        {
+            _backupCancellationTokenSource.Cancel();
+            _backupCancellationTokenSource.Dispose();
+        }
+
         string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
         _server.Stop(ServerSelectText);
         btnStartServer.Visible = true;
@@ -821,12 +827,10 @@ public partial class Form1 : Form
 
         if (lbxProfileSelectorAutoBackup.SelectedItem is not null)
         {
-            Interactions.AnimateSaveChangesButton(btnSaveAutoBackup, "Save Settings", "Saved!");
-
             var selectedProfile = lbxProfileSelectorAutoBackup.SelectedItem.ToString();
             var profiles = LoadServerProfiles();
             var profile = profiles?.FirstOrDefault(x => x.Name == selectedProfile);
-            if (profile != null)
+            if (profile is not null)
             {
                 if (enabled)
                 {
@@ -845,6 +849,25 @@ public partial class Form1 : Form
                 // write the new profile to the json file
                 var output = JsonConvert.SerializeObject(profiles, _jsonSerializerSettings);
                 File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
+
+                // restart auto backup if the server is running;
+                if (Server.IsRunning(selectedProfile))
+                {
+                    // Cancel any currently running backup loops
+                    if (_backupCancellationTokenSource is not null)
+                    {
+                        _backupCancellationTokenSource.Cancel();
+                        _backupCancellationTokenSource.Dispose();
+                    }
+
+                    _backupCancellationTokenSource = new CancellationTokenSource();
+                    if (enabled)
+                    {
+                        _backup.StartAutoBackup($"{SERVER_PATH}{selectedProfile}{GAME_SERVER_SAVE_FOLDER}", selectedProfile, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, _backupCancellationTokenSource.Token, GAME_SERVER_CONFIG, $"{SERVER_PATH}{selectedProfile}");
+                    }
+                }
+
+                Interactions.AnimateSaveChangesButton(btnSaveAutoBackup, "Save Settings", "Saved!");
             }
         }
         else
@@ -855,6 +878,19 @@ public partial class Form1 : Form
 
     private void Backup_AutoBackupSuccess(object? sender, AutoBackupSuccessEventArgs e)
     {
-        Interactions.UpdateBackupInfo(lblProfileBackupsStats, _backup.GetBackupCount(e.ProfileName), _backup.GetDiskConsumption(e.ProfileName));
+        // Update the backup stats on the UI if the selected profile
+        if (lbxProfileSelectorAutoBackup.InvokeRequired)
+        {
+            lbxProfileSelectorAutoBackup.BeginInvoke(() =>
+            {
+                if (lbxProfileSelectorAutoBackup.SelectedItem is null
+                || lbxProfileSelectorAutoBackup.SelectedItem.ToString() != e.ProfileName)
+                {
+                    return;
+                }
+
+                Interactions.UpdateBackupInfo(lblProfileBackupsStats, _backup.GetBackupCount(e.ProfileName), _backup.GetDiskConsumption(e.ProfileName));
+            });
+        }
     }
 }

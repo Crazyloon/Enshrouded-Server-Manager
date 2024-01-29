@@ -23,16 +23,15 @@ public class Backup
         _folder.Create(saveFileDirectory);
         _folder.Create($"{BACKUPS_FOLDER}/{profileName}");
 
+        // Copy server config to the save file directory so it gets included in the backup
         if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
         {
             File.Delete($"{saveFileDirectory}/{fileToCopy}");
         }
-
         if (File.Exists($"{locationOfFileToCopy}/{fileToCopy}"))
         {
             File.Copy($"{locationOfFileToCopy}/{fileToCopy}", $"{saveFileDirectory}/{fileToCopy}");
         }
-
 
         try
         {
@@ -47,6 +46,7 @@ public class Backup
             return;
         }
 
+        // Delete the copied server config
         if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
         {
             File.Delete($"{saveFileDirectory}/{fileToCopy}");
@@ -66,48 +66,64 @@ public class Backup
         _folder.Create(saveFileDirectory);
         _folder.Create($"{AUTO_BACKUPS_FOLDER}/{profileName}");
 
-        var timer = new PeriodicTimer(TimeSpan.FromMinutes(interval));
+        var timer = new PeriodicTimer(TimeSpan.FromSeconds(10));
+        //var timer = new PeriodicTimer(TimeSpan.FromMinutes(interval));
 
-        while (await timer.WaitForNextTickAsync(token))
+        var pid = Server.GetServerProcessId(profileName);
+        if (pid is null)
         {
-            // check if the server is running
-            if (!Server.IsRunning(profileName))
-            {
-                timer.Dispose();
-                return;
-            }
+            timer.Dispose();
+            return;
+        }
 
-            try
+        try
+        {
+            while (await timer.WaitForNextTickAsync(token))
             {
-                if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
+                // check if the server is running
+                if (token.IsCancellationRequested || !Server.IsRunning(pid.Value))
                 {
-                    File.Delete($"{saveFileDirectory}/{fileToCopy}");
+                    timer.Dispose();
+                    return;
                 }
 
-                if (File.Exists($"{locationOfFileToCopy}/{fileToCopy}"))
+                try
                 {
-                    File.Copy($"{locationOfFileToCopy}/{fileToCopy}", $"{saveFileDirectory}/{fileToCopy}");
+                    // Copy server config to the save file directory so it gets included in the backup
+                    if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
+                    {
+                        File.Delete($"{saveFileDirectory}/{fileToCopy}");
+                    }
+                    if (File.Exists($"{locationOfFileToCopy}/{fileToCopy}"))
+                    {
+                        File.Copy($"{locationOfFileToCopy}/{fileToCopy}", $"{saveFileDirectory}/{fileToCopy}");
+                    }
+
+                    _dateTimeString = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+                    // changed backup folder to autobackup folder
+                    ZipFile.CreateFromDirectory(saveFileDirectory, $"{AUTO_BACKUPS_FOLDER}/{profileName}/backup-{_dateTimeString}.zip");
+
+                    // Delete the copied server config
+                    if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
+                    {
+                        File.Delete($"{saveFileDirectory}/{fileToCopy}");
+                    }
+
+                    DeleteOldestBackup($"{AUTO_BACKUPS_FOLDER}/{profileName}", maximumBackups);
+                    OnAutoBackupSuccess(new AutoBackupSuccessEventArgs { ProfileName = profileName });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(@$"An error occured while creating the zip file: {ex.Message}.{Environment.NewLine}{Environment.NewLine}Automatic backup has been stopped!",
+                        "Error while zipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
 
-                _dateTimeString = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-                // changed backup folder to autobackup folder
-                ZipFile.CreateFromDirectory(saveFileDirectory, $"{AUTO_BACKUPS_FOLDER}/{profileName}/backup-{_dateTimeString}.zip");
-
-                if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
-                {
-                    File.Delete($"{saveFileDirectory}/{fileToCopy}");
-                }
-
-                DeleteOldestBackup($"{AUTO_BACKUPS_FOLDER}/{profileName}", maximumBackups);
-                OnAutoBackupSuccess(new AutoBackupSuccessEventArgs { ProfileName = profileName });
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(@$"An error occured while creating the zip file: {ex.Message}",
-                    "Error while zipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
+        }
+        catch (OperationCanceledException)
+        {
+            // The operation was canceled, nothing to report.
         }
     }
 

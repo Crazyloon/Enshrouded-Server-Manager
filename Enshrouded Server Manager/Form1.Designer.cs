@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             cbxProfileSelectionComboBox = new ComboBox();
             lblProfileSelectionLabel = new Label();
@@ -102,12 +101,12 @@
             VersionLabel = new Label();
             GithubLabel = new Label();
             NewVersionText = new Label();
-            toolTip1 = new ToolTip(components);
             pnlBackupExplanation = new Panel();
             label3 = new Label();
             pictureBox4 = new PictureBox();
             label1 = new Label();
             btnStopServer = new Button();
+            bgwAutoBackupBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
@@ -176,7 +175,7 @@
             btnInstallServer.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnInstallServer.FlatStyle = FlatStyle.Flat;
             btnInstallServer.ForeColor = SystemColors.Control;
-            btnInstallServer.Location = new Point(34, 196);
+            btnInstallServer.Location = new Point(33, 196);
             btnInstallServer.Name = "btnInstallServer";
             btnInstallServer.Size = new Size(127, 25);
             btnInstallServer.TabIndex = 3;
@@ -618,7 +617,7 @@
             btnUpdateServer.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnUpdateServer.FlatStyle = FlatStyle.Flat;
             btnUpdateServer.ForeColor = SystemColors.Control;
-            btnUpdateServer.Location = new Point(34, 196);
+            btnUpdateServer.Location = new Point(33, 196);
             btnUpdateServer.Name = "btnUpdateServer";
             btnUpdateServer.Size = new Size(127, 25);
             btnUpdateServer.TabIndex = 2;
@@ -1032,13 +1031,6 @@
             NewVersionText.Text = "New version available!";
             NewVersionText.Visible = false;
             // 
-            // toolTip1
-            // 
-            toolTip1.BackColor = SystemColors.ControlText;
-            toolTip1.ForeColor = SystemColors.Info;
-            toolTip1.ToolTipIcon = ToolTipIcon.Info;
-            toolTip1.ToolTipTitle = "Backup Info";
-            // 
             // pnlBackupExplanation
             // 
             pnlBackupExplanation.Controls.Add(label3);
@@ -1247,7 +1239,6 @@
         private NumericUpDown nudBackupMaxCount;
         private Label label2;
         private Label lblProfileBackupsInstruction;
-        private ToolTip toolTip1;
         private Label lblProfileBackupsStats;
         private CheckBox chkEnableBackups;
         private Panel pnlBackupExplanation;
@@ -1257,5 +1248,6 @@
         private Label label3;
         private Button btnStopServer;
         private Button btnSaveAutoBackup;
+        private System.ComponentModel.BackgroundWorker bgwAutoBackupBackgroundWorker;
     }
 }

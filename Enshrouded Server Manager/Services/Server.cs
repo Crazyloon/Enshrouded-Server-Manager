@@ -129,19 +129,19 @@ public class Server
         File.Delete($"./cache/{ServerName}pid.json");
     }
 
-    public static bool IsRunning(String ServerName)
+    public static int? GetServerProcessId(string profileName)
     {
-        if (!File.Exists($"./cache/{ServerName}pid.json"))
+        if (!File.Exists($"./cache/{profileName}pid.json"))
         {
-            return false;
+            return null;
         }
 
-        var input = File.ReadAllText($"./cache/{ServerName}pid.json");
+        var input = File.ReadAllText($"./cache/{profileName}pid.json");
         EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
 
         if (serverProcessInfo == null)
         {
-            return false;
+            return null;
         }
 
         Process p;
@@ -153,11 +153,38 @@ public class Server
         catch (ArgumentException)
         {
             // The process doesn't exist anymore, so we can delete the pid file
-            File.Delete($"./cache/{ServerName}pid.json");
+            File.Delete($"./cache/{profileName}pid.json");
+            return null;
+        }
+
+        return p.Id;
+    }
+
+    public static bool IsRunning(int pid)
+    {
+        Process p;
+        try
+        {
+            p = Process.GetProcessById(pid);
+
+        }
+        catch (ArgumentException)
+        {
             return false;
         }
 
         return SERVER_PROCESS_NAME == p.ProcessName;
+    }
+
+    public static bool IsRunning(string profileName)
+    {
+        var pid = GetServerProcessId(profileName);
+        if (pid is null)
+        {
+            return false;
+        }
+
+        return IsRunning(pid.Value);
     }
 
 }
