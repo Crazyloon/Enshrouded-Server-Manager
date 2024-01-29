@@ -458,6 +458,9 @@ public partial class Form1 : Form
                 // rename backup folder
                 RenameBackupFolder(selectedServerName, editProfileName);
 
+                // rename autobackup folder
+                RenameAutoBackupFolder(selectedServerName, editProfileName);
+
                 // rename pid file
                 RenamePidFile(selectedServerName, editProfileName);
 
@@ -598,6 +601,21 @@ public partial class Form1 : Form
         {
             // Rename the existing Backup folder
             Directory.Move($"{BACKUPS_FOLDER}/{oldBackupFolderName}", $"{BACKUPS_FOLDER}/{newBackupFolderName}");
+        }
+    }
+
+    private void RenameAutoBackupFolder(string oldBackupFolderName, string newBackupFolderName)
+    {
+        // If old backup folder does not exist, create it
+        if (!Directory.Exists($"{BACKUPS_FOLDER}/AutoBackup/{oldBackupFolderName}"))
+        {
+            _folder.Create($"{BACKUPS_FOLDER}/AutoBackup/{newBackupFolderName}");
+            return;
+        }
+        else
+        {
+            // Rename the existing Backup folder
+            Directory.Move($"{BACKUPS_FOLDER}/AutoBackup/{oldBackupFolderName}", $"{BACKUPS_FOLDER}/AutoBackup/{newBackupFolderName}");
         }
     }
 
