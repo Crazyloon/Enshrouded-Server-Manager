@@ -1,14 +1,14 @@
 ﻿namespace Enshrouded_Server_Manager.UI;
 public static class Interactions
 {
-    public static void AnimateSaveChangesButton(Button btn, string buttonText, string savedText)
+    public static void AnimateSaveChangesButton(Button btn, string buttonText, string savedText, int duration = 2000)
     {
         btn.Text = savedText;
         btn.Enabled = false;
 
         Task.Factory.StartNew(() =>
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(duration);
             btn.Invoke(new Action(() =>
             {
                 btn.Text = buttonText;

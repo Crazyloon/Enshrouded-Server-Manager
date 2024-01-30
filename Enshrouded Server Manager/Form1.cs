@@ -17,7 +17,6 @@ public partial class Form1 : Form
     private Backup _backup;
     private Folder _folder;
     private JsonSerializerSettings _jsonSerializerSettings;
-    private CancellationToken _backupCancellationToken;
 
 
     // Server Tool SteamId
@@ -38,6 +37,7 @@ public partial class Form1 : Form
     private const string BACKUPS_FOLDER = "./Backups";
     private const string CACHE_PATH = @"./cache/";
     private const string PID_CONFIG = $"pid.json";
+    private const string AUTOBACKUPS_FOLDER = $"{BACKUPS_FOLDER}/AutoBackup";
 
     public const int BUTTON_DOWN = 0xA1;
     public const int CAPTION = 0x2;
@@ -58,7 +58,6 @@ public partial class Form1 : Form
         _server = new Server();
         _backup = new Backup();
         _folder = new Folder();
-        _backupCancellationToken = new CancellationToken();
 
         _backup.AutoBackupSuccess += Backup_AutoBackupSuccess;
     }
@@ -266,7 +265,7 @@ public partial class Form1 : Form
                     var profile = profiles?.FirstOrDefault(x => x.Name == ServerSelectText);
                     if (profile != null && profile.AutoBackup != null && profile.AutoBackup.Enabled)
                     {
-                        _backup.StartAutoBackup($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, _backupCancellationToken, GAME_SERVER_CONFIG, $"{SERVER_PATH}{ServerSelectText}");
+                        _backup.StartAutoBackup($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, GAME_SERVER_CONFIG, $"{SERVER_PATH}{ServerSelectText}");
                     }
                 }
             });
@@ -685,6 +684,18 @@ public partial class Form1 : Form
 
     private async void ManagerUpdate()
     {
+        CheckManagerVersion();
+
+        var timer = new PeriodicTimer(TimeSpan.FromMinutes(10));
+
+        while (await timer.WaitForNextTickAsync())
+        {
+            CheckManagerVersion();
+        }
+    }
+
+    private void CheckManagerVersion()
+    {
         using (WebClient Client = new WebClient())
         {
             try
@@ -716,43 +727,6 @@ public partial class Form1 : Form
         }
 
         File.Delete("./githubversion.json");
-
-        var timer = new PeriodicTimer(TimeSpan.FromMinutes(10));
-
-        while (await timer.WaitForNextTickAsync())
-        {
-            using (WebClient Client = new WebClient())
-            {
-                try
-                {
-                    Client.DownloadFile("https://raw.githubusercontent.com/ISpaikI/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json", "./githubversion.json");
-                }
-                catch (Exception ex)
-                {
-                    LauncherVersion json = new LauncherVersion()
-                    {
-                        Version = VersionLabel.Text,
-                    };
-
-                    var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
-                    File.WriteAllText($"./githubversion.json", output);
-                }
-
-            }
-
-            var input1 = File.ReadAllText($"./githubversion.json");
-
-            LauncherVersion deserializedSettings1 = JsonConvert.DeserializeObject<LauncherVersion>(input, _jsonSerializerSettings);
-
-            string githubversion1 = deserializedSettings1.Version;
-
-            if (githubversion != VersionLabel.Text)
-            {
-                NewVersionText.Visible = true;
-            }
-
-            File.Delete("./githubversion.json");
-        }
     }
 
     private void lbxProfileSelectorAutoBackup_SelectedIndexChanged(object sender, EventArgs e)
@@ -826,21 +800,14 @@ public partial class Form1 : Form
             var selectedProfile = lbxProfileSelectorAutoBackup.SelectedItem.ToString();
             var profiles = LoadServerProfiles();
             var profile = profiles?.FirstOrDefault(x => x.Name == selectedProfile);
-            if (profile != null)
+            if (profile is not null)
             {
-                if (enabled)
+                profile.AutoBackup = new AutoBackup()
                 {
-                    profile.AutoBackup = new AutoBackup()
-                    {
-                        Interval = Convert.ToInt32(nudBackupInterval.Value),
-                        MaxiumBackups = Convert.ToInt32(nudBackupMaxCount.Value),
-                        Enabled = true
-                    };
-                }
-                else
-                {
-                    profile.AutoBackup = null;
-                }
+                    Interval = Convert.ToInt32(nudBackupInterval.Value),
+                    MaxiumBackups = Convert.ToInt32(nudBackupMaxCount.Value),
+                    Enabled = enabled
+                };
 
                 // write the new profile to the json file
                 var output = JsonConvert.SerializeObject(profiles, _jsonSerializerSettings);
@@ -855,6 +822,25 @@ public partial class Form1 : Form
 
     private void Backup_AutoBackupSuccess(object? sender, AutoBackupSuccessEventArgs e)
     {
-        Interactions.UpdateBackupInfo(lblProfileBackupsStats, _backup.GetBackupCount(e.ProfileName), _backup.GetDiskConsumption(e.ProfileName));
+        // Update the backup stats on the UI if the selected profile
+        if (lbxProfileSelectorAutoBackup.InvokeRequired)
+        {
+            lbxProfileSelectorAutoBackup.BeginInvoke(() =>
+            {
+                if (lbxProfileSelectorAutoBackup.SelectedItem is null
+                || lbxProfileSelectorAutoBackup.SelectedItem.ToString() != e.ProfileName)
+                {
+                    return;
+                }
+                Interactions.UpdateBackupInfo(lblProfileBackupsStats, _backup.GetBackupCount(e.ProfileName), _backup.GetDiskConsumption(e.ProfileName));
+            });
+        }
+    }
+
+    private void btnOpenAutobackupFolder_Click(object sender, EventArgs e)
+    {
+        _folder.Create(AUTOBACKUPS_FOLDER);
+
+        Process.Start("explorer.exe", AUTOBACKUPS_FOLDER.Replace("/", @"\"));
     }
 }
