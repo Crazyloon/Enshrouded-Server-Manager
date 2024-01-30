@@ -57,7 +57,7 @@ public class Backup
 
     }
 
-    public async void StartAutoBackup(string saveFileDirectory, string profileName, int interval, int maximumBackups, CancellationToken token, String fileToCopy, String locationOfFileToCopy)
+    public async void StartAutoBackup(string saveFileDirectory, string profileName, int interval, int maximumBackups, String fileToCopy, String locationOfFileToCopy)
     {
         if (interval < 1 || maximumBackups < 1)
         {
@@ -78,7 +78,7 @@ public class Backup
         var input = File.ReadAllText($"./cache/{profileName}pid.json");
         EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
 
-        while (await timer.WaitForNextTickAsync(token))
+        while (await timer.WaitForNextTickAsync())
         {
             // check if the server is running
 

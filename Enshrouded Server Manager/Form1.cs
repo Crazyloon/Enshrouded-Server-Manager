@@ -17,7 +17,6 @@ public partial class Form1 : Form
     private Backup _backup;
     private Folder _folder;
     private JsonSerializerSettings _jsonSerializerSettings;
-    private CancellationToken _backupCancellationToken;
 
 
     // Server Tool SteamId
@@ -59,7 +58,6 @@ public partial class Form1 : Form
         _server = new Server();
         _backup = new Backup();
         _folder = new Folder();
-        _backupCancellationToken = new CancellationToken();
 
         _backup.AutoBackupSuccess += Backup_AutoBackupSuccess;
     }
@@ -267,7 +265,7 @@ public partial class Form1 : Form
                     var profile = profiles?.FirstOrDefault(x => x.Name == ServerSelectText);
                     if (profile != null && profile.AutoBackup != null && profile.AutoBackup.Enabled)
                     {
-                        _backup.StartAutoBackup($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, _backupCancellationToken, GAME_SERVER_CONFIG, $"{SERVER_PATH}{ServerSelectText}");
+                        _backup.StartAutoBackup($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, GAME_SERVER_CONFIG, $"{SERVER_PATH}{ServerSelectText}");
                     }
                 }
             });
@@ -802,21 +800,14 @@ public partial class Form1 : Form
             var selectedProfile = lbxProfileSelectorAutoBackup.SelectedItem.ToString();
             var profiles = LoadServerProfiles();
             var profile = profiles?.FirstOrDefault(x => x.Name == selectedProfile);
-            if (profile != null)
+            if (profile is not null)
             {
-                if (enabled)
+                profile.AutoBackup = new AutoBackup()
                 {
-                    profile.AutoBackup = new AutoBackup()
-                    {
-                        Interval = Convert.ToInt32(nudBackupInterval.Value),
-                        MaxiumBackups = Convert.ToInt32(nudBackupMaxCount.Value),
-                        Enabled = true
-                    };
-                }
-                else
-                {
-                    profile.AutoBackup = null;
-                }
+                    Interval = Convert.ToInt32(nudBackupInterval.Value),
+                    MaxiumBackups = Convert.ToInt32(nudBackupMaxCount.Value),
+                    Enabled = enabled
+                };
 
                 // write the new profile to the json file
                 var output = JsonConvert.SerializeObject(profiles, _jsonSerializerSettings);
@@ -831,7 +822,19 @@ public partial class Form1 : Form
 
     private void Backup_AutoBackupSuccess(object? sender, AutoBackupSuccessEventArgs e)
     {
-        Interactions.UpdateBackupInfo(lblProfileBackupsStats, _backup.GetBackupCount(e.ProfileName), _backup.GetDiskConsumption(e.ProfileName));
+        // Update the backup stats on the UI if the selected profile
+        if (lbxProfileSelectorAutoBackup.InvokeRequired)
+        {
+            lbxProfileSelectorAutoBackup.BeginInvoke(() =>
+            {
+                if (lbxProfileSelectorAutoBackup.SelectedItem is null
+                || lbxProfileSelectorAutoBackup.SelectedItem.ToString() != e.ProfileName)
+                {
+                    return;
+                }
+                Interactions.UpdateBackupInfo(lblProfileBackupsStats, _backup.GetBackupCount(e.ProfileName), _backup.GetDiskConsumption(e.ProfileName));
+            });
+        }
     }
 
     private void btnOpenAutobackupFolder_Click(object sender, EventArgs e)
