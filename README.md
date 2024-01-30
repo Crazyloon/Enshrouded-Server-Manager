@@ -44,7 +44,8 @@ To Delete a Profile, click on the profile name you wish to delete, then click th
 ### Automatically backup your world files
 Under the Auto Backup tab, you have the option to select your server profile and configure an automatic backup schedule to save a zip file with the contents of your savegame directory, where your world is stored, and the current server configuration file.
 Check the Enable Backups box to turn backups on, then set an interval of 60 and a maximum number of backups of 10 to configure the system to save a backup every hour, up to a maximum of 10 backups. Once the maximum backup limit is reached, the oldest backups will be deleted when a new backup is saved.
-- Note: automatic backups are separate from manual backups. Neither one will overwrite the other, nor does the maximum backups configuration affect manual backups
+- Note: Automatic backups are separate from manual backups. Neither one will overwrite the other, nor does the maximum backups configuration affect manual backups
+- Note: Auto Backup settings will be applied when a server starts. If your server is running, your settings will not be applied until you restart the server.
 
 
 ## Notes
