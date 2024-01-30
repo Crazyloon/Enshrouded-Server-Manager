@@ -686,6 +686,18 @@ public partial class Form1 : Form
 
     private async void ManagerUpdate()
     {
+        CheckManagerVersion();
+
+        var timer = new PeriodicTimer(TimeSpan.FromMinutes(10));
+
+        while (await timer.WaitForNextTickAsync())
+        {
+            CheckManagerVersion();
+        }
+    }
+
+    private void CheckManagerVersion()
+    {
         using (WebClient Client = new WebClient())
         {
             try
@@ -717,43 +729,6 @@ public partial class Form1 : Form
         }
 
         File.Delete("./githubversion.json");
-
-        var timer = new PeriodicTimer(TimeSpan.FromMinutes(10));
-
-        while (await timer.WaitForNextTickAsync())
-        {
-            using (WebClient Client = new WebClient())
-            {
-                try
-                {
-                    Client.DownloadFile("https://raw.githubusercontent.com/ISpaikI/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json", "./githubversion.json");
-                }
-                catch (Exception ex)
-                {
-                    LauncherVersion json = new LauncherVersion()
-                    {
-                        Version = VersionLabel.Text,
-                    };
-
-                    var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
-                    File.WriteAllText($"./githubversion.json", output);
-                }
-
-            }
-
-            var input1 = File.ReadAllText($"./githubversion.json");
-
-            LauncherVersion deserializedSettings1 = JsonConvert.DeserializeObject<LauncherVersion>(input, _jsonSerializerSettings);
-
-            string githubversion1 = deserializedSettings1.Version;
-
-            if (githubversion != VersionLabel.Text)
-            {
-                NewVersionText.Visible = true;
-            }
-
-            File.Delete("./githubversion.json");
-        }
     }
 
     private void lbxProfileSelectorAutoBackup_SelectedIndexChanged(object sender, EventArgs e)
