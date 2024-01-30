@@ -981,9 +981,9 @@
             lblNewsText.AutoSize = true;
             lblNewsText.Location = new Point(584, 181);
             lblNewsText.Name = "lblNewsText";
-            lblNewsText.Size = new Size(132, 75);
+            lblNewsText.Size = new Size(157, 75);
             lblNewsText.TabIndex = 53;
-            lblNewsText.Text = "Changes:\r\n- added process control\r\n   Start/Stop Server\r\n- added AutoBackup\r\n- fixed some stuff";
+            lblNewsText.Text = "Changes:\r\n\r\n- fixed AutoBackup function\r\n- added a button to open\r\n   the AutoBackup Folder";
             // 
             // lblCredits
             // 
@@ -1007,7 +1007,7 @@
             VersionLabel.Name = "VersionLabel";
             VersionLabel.Size = new Size(39, 13);
             VersionLabel.TabIndex = 55;
-            VersionLabel.Text = "v.0.2.1";
+            VersionLabel.Text = "v.0.2.2";
             // 
             // GithubLabel
             // 
