@@ -104,6 +104,7 @@
             NewVersionText = new Label();
             toolTip1 = new ToolTip(components);
             pnlBackupExplanation = new Panel();
+            btnOpenAutobackupFolder = new Button();
             label3 = new Label();
             pictureBox4 = new PictureBox();
             label1 = new Label();
@@ -136,16 +137,16 @@
             cbxProfileSelectionComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxProfileSelectionComboBox.FlatStyle = FlatStyle.System;
             cbxProfileSelectionComboBox.FormattingEnabled = true;
-            cbxProfileSelectionComboBox.Location = new Point(279, 54);
+            cbxProfileSelectionComboBox.Location = new Point(322, 54);
             cbxProfileSelectionComboBox.Name = "cbxProfileSelectionComboBox";
-            cbxProfileSelectionComboBox.Size = new Size(170, 23);
+            cbxProfileSelectionComboBox.Size = new Size(175, 23);
             cbxProfileSelectionComboBox.TabIndex = 0;
             cbxProfileSelectionComboBox.SelectedIndexChanged += ServerProfileComboBox_IndexChanged;
             // 
             // lblProfileSelectionLabel
             // 
             lblProfileSelectionLabel.AutoSize = true;
-            lblProfileSelectionLabel.Location = new Point(197, 57);
+            lblProfileSelectionLabel.Location = new Point(240, 57);
             lblProfileSelectionLabel.Name = "lblProfileSelectionLabel";
             lblProfileSelectionLabel.Size = new Size(76, 15);
             lblProfileSelectionLabel.TabIndex = 1;
@@ -1041,6 +1042,7 @@
             // 
             // pnlBackupExplanation
             // 
+            pnlBackupExplanation.Controls.Add(btnOpenAutobackupFolder);
             pnlBackupExplanation.Controls.Add(label3);
             pnlBackupExplanation.Controls.Add(pictureBox4);
             pnlBackupExplanation.Controls.Add(label1);
@@ -1049,6 +1051,23 @@
             pnlBackupExplanation.Size = new Size(241, 369);
             pnlBackupExplanation.TabIndex = 58;
             pnlBackupExplanation.Visible = false;
+            // 
+            // btnOpenAutobackupFolder
+            // 
+            btnOpenAutobackupFolder.Cursor = Cursors.Hand;
+            btnOpenAutobackupFolder.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnOpenAutobackupFolder.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnOpenAutobackupFolder.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnOpenAutobackupFolder.FlatStyle = FlatStyle.Flat;
+            btnOpenAutobackupFolder.ForeColor = SystemColors.Control;
+            btnOpenAutobackupFolder.Location = new Point(55, 320);
+            btnOpenAutobackupFolder.Name = "btnOpenAutobackupFolder";
+            btnOpenAutobackupFolder.Size = new Size(128, 30);
+            btnOpenAutobackupFolder.TabIndex = 16;
+            btnOpenAutobackupFolder.Text = "Autobackup Folder";
+            btnOpenAutobackupFolder.UseCompatibleTextRendering = true;
+            btnOpenAutobackupFolder.UseVisualStyleBackColor = true;
+            btnOpenAutobackupFolder.Click += btnOpenAutobackupFolder_Click;
             // 
             // label3
             // 
@@ -1073,7 +1092,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.Info;
-            label1.Location = new Point(34, 138);
+            label1.Location = new Point(34, 125);
             label1.Name = "label1";
             label1.Size = new Size(199, 180);
             label1.TabIndex = 0;
@@ -1257,5 +1276,6 @@
         private Label label3;
         private Button btnStopServer;
         private Button btnSaveAutoBackup;
+        private Button btnOpenAutobackupFolder;
     }
 }

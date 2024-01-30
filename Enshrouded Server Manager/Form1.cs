@@ -38,6 +38,7 @@ public partial class Form1 : Form
     private const string BACKUPS_FOLDER = "./Backups";
     private const string CACHE_PATH = @"./cache/";
     private const string PID_CONFIG = $"pid.json";
+    private const string AUTOBACKUPS_FOLDER = $"{BACKUPS_FOLDER}/AutoBackup";
 
     public const int BUTTON_DOWN = 0xA1;
     public const int CAPTION = 0x2;
@@ -856,5 +857,12 @@ public partial class Form1 : Form
     private void Backup_AutoBackupSuccess(object? sender, AutoBackupSuccessEventArgs e)
     {
         Interactions.UpdateBackupInfo(lblProfileBackupsStats, _backup.GetBackupCount(e.ProfileName), _backup.GetDiskConsumption(e.ProfileName));
+    }
+
+    private void btnOpenAutobackupFolder_Click(object sender, EventArgs e)
+    {
+        _folder.Create(AUTOBACKUPS_FOLDER);
+
+        Process.Start("explorer.exe", AUTOBACKUPS_FOLDER.Replace("/", @"\"));
     }
 }
