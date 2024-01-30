@@ -48,7 +48,6 @@
             btnSaveSettings = new Button();
             btnStartServer = new Button();
             pictureBox2 = new PictureBox();
-            pictureBox3 = new PictureBox();
             lblAdminPanel = new Label();
             lblTitle = new Label();
             lblServerSettings = new Label();
@@ -58,7 +57,6 @@
             lblNews = new Label();
             pictureBox7 = new PictureBox();
             pictureBox6 = new PictureBox();
-            pictureBox1 = new PictureBox();
             pictureBox8 = new PictureBox();
             pictureBox9 = new PictureBox();
             btnSaveBackup = new Button();
@@ -99,24 +97,24 @@
             lbxProfileSelectorAutoBackup = new ListBox();
             lblNewsText = new Label();
             lblCredits = new Label();
-            VersionLabel = new Label();
+            lblVersion = new Label();
             GithubLabel = new Label();
-            NewVersionText = new Label();
+            lblNewVersionAvailableNotification = new Label();
             pnlBackupExplanation = new Panel();
             btnOpenAutobackupFolder = new Button();
             label3 = new Label();
             pictureBox4 = new PictureBox();
             label1 = new Label();
             btnStopServer = new Button();
+            pictureBox1 = new PictureBox();
+            pbxFormHeader = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
@@ -129,6 +127,8 @@
             ((System.ComponentModel.ISupportInitialize)nudBackupInterval).BeginInit();
             pnlBackupExplanation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbxFormHeader).BeginInit();
             SuspendLayout();
             // 
             // cbxProfileSelectionComboBox
@@ -140,7 +140,7 @@
             cbxProfileSelectionComboBox.Name = "cbxProfileSelectionComboBox";
             cbxProfileSelectionComboBox.Size = new Size(175, 23);
             cbxProfileSelectionComboBox.TabIndex = 0;
-            cbxProfileSelectionComboBox.SelectedIndexChanged += ServerProfileComboBox_IndexChanged;
+            cbxProfileSelectionComboBox.SelectedIndexChanged += cbxProfileSelectionComboBox_IndexChanged;
             // 
             // lblProfileSelectionLabel
             // 
@@ -354,17 +354,6 @@
             pictureBox2.TabIndex = 21;
             pictureBox2.TabStop = false;
             // 
-            // pictureBox3
-            // 
-            pictureBox3.BackColor = Color.FromArgb(64, 64, 64);
-            pictureBox3.Dock = DockStyle.Top;
-            pictureBox3.Location = new Point(0, 0);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(800, 40);
-            pictureBox3.TabIndex = 22;
-            pictureBox3.TabStop = false;
-            pictureBox3.MouseDown += pictureBox3_MouseDown;
-            // 
             // lblAdminPanel
             // 
             lblAdminPanel.BackColor = Color.Transparent;
@@ -387,7 +376,7 @@
             lblTitle.Size = new Size(414, 32);
             lblTitle.TabIndex = 24;
             lblTitle.Text = "ESM - Enshrouded Server Manager";
-            lblTitle.MouseDown += pictureBox3_MouseDown;
+            lblTitle.MouseDown += FormHeader_MouseDown;
             // 
             // lblServerSettings
             // 
@@ -412,7 +401,7 @@
             lblCloseButton.Size = new Size(18, 19);
             lblCloseButton.TabIndex = 27;
             lblCloseButton.Text = "X";
-            lblCloseButton.Click += label4_Click;
+            lblCloseButton.Click += lblCloseButton_Click;
             // 
             // lblMinimizeTrayButton
             // 
@@ -425,7 +414,7 @@
             lblMinimizeTrayButton.Size = new Size(17, 21);
             lblMinimizeTrayButton.TabIndex = 28;
             lblMinimizeTrayButton.Text = "_";
-            lblMinimizeTrayButton.Click += label5_Click;
+            lblMinimizeTrayButton.Click += lblMinimizeButton_Click;
             // 
             // pictureBox5
             // 
@@ -468,16 +457,6 @@
             pictureBox6.Size = new Size(10, 390);
             pictureBox6.TabIndex = 34;
             pictureBox6.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = Color.FromArgb(0, 0, 18);
-            pictureBox1.Dock = DockStyle.Right;
-            pictureBox1.Location = new Point(560, 40);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(230, 390);
-            pictureBox1.TabIndex = 35;
-            pictureBox1.TabStop = false;
             // 
             // pictureBox8
             // 
@@ -630,6 +609,7 @@
             // 
             // lblLogo
             // 
+            lblLogo.Cursor = Cursors.Hand;
             lblLogo.AutoSize = true;
             lblLogo.BackColor = Color.Transparent;
             lblLogo.Font = new Font("Malgun Gothic", 60F, FontStyle.Bold, GraphicsUnit.Point);
@@ -639,6 +619,7 @@
             lblLogo.Size = new Size(210, 106);
             lblLogo.TabIndex = 47;
             lblLogo.Text = "ESM";
+            lblLogo.Click += GithubLabel_Click;
             // 
             // tabServerTabs
             // 
@@ -750,9 +731,9 @@
             lblProfileNameInfo.ForeColor = SystemColors.Info;
             lblProfileNameInfo.Location = new Point(9, 98);
             lblProfileNameInfo.Name = "lblProfileNameInfo";
-            lblProfileNameInfo.Size = new Size(140, 51);
+            lblProfileNameInfo.Size = new Size(136, 51);
             lblProfileNameInfo.TabIndex = 5;
-            lblProfileNameInfo.Text = "Only alphanumeric\r\nunderscore and dash\r\ncharacters are allowed";
+            lblProfileNameInfo.Text = "Only valid Windows\r\nFile System characters\r\nare allowed";
             // 
             // btnSaveProfileName
             // 
@@ -838,7 +819,7 @@
             lbxServerProfiles.Name = "lbxServerProfiles";
             lbxServerProfiles.Size = new Size(166, 272);
             lbxServerProfiles.TabIndex = 0;
-            lbxServerProfiles.SelectedIndexChanged += ServerProfilesListBox_IndexChanged;
+            lbxServerProfiles.SelectedIndexChanged += lbxServerProfiles_IndexChanged;
             // 
             // tabAutoBackup
             // 
@@ -1007,17 +988,17 @@
             lblCredits.TabIndex = 54;
             lblCredits.Text = "Credits to Strew / Evorin and Crazyloon";
             // 
-            // VersionLabel
+            // lblVersion
             // 
-            VersionLabel.AutoSize = true;
-            VersionLabel.BackColor = Color.FromArgb(64, 64, 64);
-            VersionLabel.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
-            VersionLabel.ForeColor = Color.FromArgb(0, 204, 204);
-            VersionLabel.Location = new Point(751, 413);
-            VersionLabel.Name = "VersionLabel";
-            VersionLabel.Size = new Size(39, 13);
-            VersionLabel.TabIndex = 55;
-            VersionLabel.Text = "v.0.2.2";
+            lblVersion.AutoSize = true;
+            lblVersion.BackColor = Color.FromArgb(64, 64, 64);
+            lblVersion.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
+            lblVersion.ForeColor = Color.FromArgb(0, 204, 204);
+            lblVersion.Location = new Point(751, 413);
+            lblVersion.Name = "lblVersion";
+            lblVersion.Size = new Size(39, 13);
+            lblVersion.TabIndex = 55;
+            lblVersion.Text = "v.0.2.2";
             // 
             // GithubLabel
             // 
@@ -1031,17 +1012,17 @@
             GithubLabel.Text = "Github";
             GithubLabel.Click += GithubLabel_Click;
             // 
-            // NewVersionText
+            // lblNewVersionAvailableNotification
             // 
-            NewVersionText.AutoSize = true;
-            NewVersionText.BackColor = Color.Transparent;
-            NewVersionText.ForeColor = Color.FromArgb(0, 255, 185);
-            NewVersionText.Location = new Point(660, 368);
-            NewVersionText.Name = "NewVersionText";
-            NewVersionText.Size = new Size(124, 15);
-            NewVersionText.TabIndex = 57;
-            NewVersionText.Text = "New version available!";
-            NewVersionText.Visible = false;
+            lblNewVersionAvailableNotification.AutoSize = true;
+            lblNewVersionAvailableNotification.BackColor = Color.Transparent;
+            lblNewVersionAvailableNotification.ForeColor = Color.FromArgb(0, 255, 185);
+            lblNewVersionAvailableNotification.Location = new Point(660, 368);
+            lblNewVersionAvailableNotification.Name = "lblNewVersionAvailableNotification";
+            lblNewVersionAvailableNotification.Size = new Size(124, 15);
+            lblNewVersionAvailableNotification.TabIndex = 57;
+            lblNewVersionAvailableNotification.Text = "New version available!";
+            lblNewVersionAvailableNotification.Visible = false;
             // 
             // pnlBackupExplanation
             // 
@@ -1119,6 +1100,27 @@
             btnStopServer.Visible = false;
             btnStopServer.Click += btnStopServer_Click;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.FromArgb(0, 0, 18);
+            pictureBox1.Dock = DockStyle.Right;
+            pictureBox1.Location = new Point(560, 40);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(230, 390);
+            pictureBox1.TabIndex = 35;
+            pictureBox1.TabStop = false;
+            // 
+            // pbxFormHeader
+            // 
+            pbxFormHeader.BackColor = Color.FromArgb(64, 64, 64);
+            pbxFormHeader.Dock = DockStyle.Top;
+            pbxFormHeader.Location = new Point(0, 0);
+            pbxFormHeader.Name = "pbxFormHeader";
+            pbxFormHeader.Size = new Size(800, 40);
+            pbxFormHeader.TabIndex = 22;
+            pbxFormHeader.TabStop = false;
+            pbxFormHeader.MouseDown += FormHeader_MouseDown;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1128,10 +1130,10 @@
             Controls.Add(pnlBackupExplanation);
             Controls.Add(lblCredits);
             Controls.Add(cbxProfileSelectionComboBox);
-            Controls.Add(VersionLabel);
+            Controls.Add(lblVersion);
             Controls.Add(lblProfileSelectionLabel);
             Controls.Add(pictureBox7);
-            Controls.Add(NewVersionText);
+            Controls.Add(lblNewVersionAvailableNotification);
             Controls.Add(btnStopServer);
             Controls.Add(GithubLabel);
             Controls.Add(pictureBox9);
@@ -1160,23 +1162,20 @@
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox5);
             Controls.Add(pictureBox6);
-            Controls.Add(pictureBox3);
+            Controls.Add(pbxFormHeader);
             ForeColor = SystemColors.ButtonHighlight;
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "ESM - Enshrouded Server Manager";
-            FormClosed += Form1_FormClosed;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)nudGamePort).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudQueryPort).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudSlotCount).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
@@ -1194,6 +1193,8 @@
             pnlBackupExplanation.ResumeLayout(false);
             pnlBackupExplanation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbxFormHeader).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1219,7 +1220,6 @@
         private Button btnSaveSettings;
         private Button btnStartServer;
         private PictureBox pictureBox2;
-        private PictureBox pictureBox3;
         private Label lblAdminPanel;
         private Label lblTitle;
         private Label lblServerSettings;
@@ -1229,7 +1229,6 @@
         private Label lblNews;
         private PictureBox pictureBox7;
         private PictureBox pictureBox6;
-        private PictureBox pictureBox1;
         private PictureBox pictureBox8;
         private PictureBox pictureBox9;
         private Button btnSaveBackup;
@@ -1258,9 +1257,9 @@
         private Label lblCredits;
         private Label lblAddNewProfile;
         private Button btnShowPassword;
-        private Label VersionLabel;
+        private Label lblVersion;
         private Label GithubLabel;
-        private Label NewVersionText;
+        private Label lblNewVersionAvailableNotification;
         private TabPage tabAutoBackup;
         private Label lblScheduleBackups;
         private ListBox lbxProfileSelectorAutoBackup;
@@ -1280,5 +1279,7 @@
         private Button btnSaveAutoBackup;
         private Button btnOpenAutobackupFolder;
         private Label lblAutoBackupChangesInfo;
+        private PictureBox pictureBox1;
+        private PictureBox pbxFormHeader;
     }
 }

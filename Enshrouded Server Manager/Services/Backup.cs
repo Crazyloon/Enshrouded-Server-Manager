@@ -1,5 +1,5 @@
 using Enshrouded_Server_Manager.Events;
-using Enshrouded_Server_Manager.Model;
+using Enshrouded_Server_Manager.Models;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.IO.Compression;
@@ -8,7 +8,6 @@ namespace Enshrouded_Server_Manager.Services;
 
 public class Backup
 {
-    private Folder? _folder;
     private const string BACKUPS_FOLDER = "./Backups";
     private const string AUTO_BACKUPS_FOLDER = BACKUPS_FOLDER + "/AutoBackup";
     private string _dateTimeString;
@@ -18,13 +17,12 @@ public class Backup
     /// <summary>
     /// Save a zip file of the location you set in "sourcefolder"
     /// </summary>
-    public void Save(String saveFileDirectory, String profileName, String fileToCopy, String locationOfFileToCopy)
+    public void Save(string saveFileDirectory, string profileName, string fileToCopy, string locationOfFileToCopy)
     {
         _dateTimeString = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-        _folder = new Folder();
 
-        _folder.Create(saveFileDirectory);
-        _folder.Create($"{BACKUPS_FOLDER}/{profileName}");
+        Directory.CreateDirectory(saveFileDirectory);
+        Directory.CreateDirectory($"{BACKUPS_FOLDER}/{profileName}");
 
         if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
         {
@@ -45,7 +43,7 @@ public class Backup
         }
         catch (Exception ex)
         {
-            MessageBox.Show(@$"An error occured while creating the zip file: {ex.Message.ToString()}",
+            MessageBox.Show(@$"An error occured while creating the zip file: {ex.Message}",
                 "Error while zipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return;
         }
@@ -57,17 +55,15 @@ public class Backup
 
     }
 
-    public async void StartAutoBackup(string saveFileDirectory, string profileName, int interval, int maximumBackups, String fileToCopy, String locationOfFileToCopy)
+    public async void StartAutoBackup(string saveFileDirectory, string profileName, int interval, int maximumBackups, string fileToCopy, string locationOfFileToCopy)
     {
         if (interval < 1 || maximumBackups < 1)
         {
             return;
         }
 
-        _folder = new Folder();
-
-        _folder.Create(saveFileDirectory);
-        _folder.Create($"{AUTO_BACKUPS_FOLDER}/{profileName}");
+        Directory.CreateDirectory(saveFileDirectory);
+        Directory.CreateDirectory($"{AUTO_BACKUPS_FOLDER}/{profileName}");
 
         var timer = new PeriodicTimer(TimeSpan.FromMinutes(interval));
         if (!Server.IsRunning(profileName))

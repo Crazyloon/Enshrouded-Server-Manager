@@ -1,4 +1,4 @@
-﻿namespace Enshrouded_Server_Manager.Model;
+﻿namespace Enshrouded_Server_Manager.Models;
 public class AutoBackup
 {
     public int Interval { get; set; }
