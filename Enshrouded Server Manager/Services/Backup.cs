@@ -1,4 +1,7 @@
 using Enshrouded_Server_Manager.Events;
+using Enshrouded_Server_Manager.Model;
+using Newtonsoft.Json;
+using System.Diagnostics;
 using System.IO.Compression;
 
 namespace Enshrouded_Server_Manager.Services;
@@ -67,11 +70,24 @@ public class Backup
         _folder.Create($"{AUTO_BACKUPS_FOLDER}/{profileName}");
 
         var timer = new PeriodicTimer(TimeSpan.FromMinutes(interval));
+        if (!Server.IsRunning(profileName))
+        {
+            timer.Dispose();
+            return;
+        }
+        var input = File.ReadAllText($"./cache/{profileName}pid.json");
+        EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
 
         while (await timer.WaitForNextTickAsync(token))
         {
             // check if the server is running
-            if (!Server.IsRunning(profileName))
+
+            try
+            {
+                Process.GetProcessById(serverProcessInfo.Id);
+
+            }
+            catch
             {
                 timer.Dispose();
                 return;
