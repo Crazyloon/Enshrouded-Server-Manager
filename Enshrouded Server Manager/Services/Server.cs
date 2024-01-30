@@ -1,4 +1,5 @@
-using Enshrouded_Server_Manager.Model;
+using Enshrouded_Server_Manager.Const;
+using Enshrouded_Server_Manager.Models;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -7,8 +8,8 @@ namespace Enshrouded_Server_Manager.Services;
 
 public class Server
 {
-    private Folder _folder;
-    private const string PATH_STEAM_CMD_EXE = @".\SteamCMD\steamcmd.exe";
+    private const string PID_JSON = "pid.json";
+    private const string CACHE_DIRECTORY = "./cache/";
     private const string SERVER_PROCESS_NAME = "enshrouded_server";
 
     [DllImport("user32.dll")]
@@ -38,16 +39,11 @@ public class Server
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool GenerateConsoleCtrlEvent(CtrlTypes dwCtrlEvent, uint dwProcessGroupId);
 
-
-
-
-
     /// <summary>
     /// Start Gameserver
     /// </summary>
-    public void Start(String pathServerExe, String ServerName)
+    public void Start(string pathServerExe, string ServerName)
     {
-        _folder = new Folder();
 
         try
         {
@@ -55,7 +51,7 @@ public class Server
             //Thread.Sleep(10000);
             //SetWindowText(p.MainWindowHandle, ServerName);
             int pid = p.Id;
-            _folder.Create($"./cache/");
+            Directory.CreateDirectory($"{CACHE_DIRECTORY}");
             EnshroudedServerProcess json = new EnshroudedServerProcess()
             {
                 Id = pid,
@@ -63,11 +59,11 @@ public class Server
             };
 
             var output = JsonConvert.SerializeObject(json);
-            File.WriteAllText($"./cache/{ServerName}pid.json", output);
+            File.WriteAllText($"{CACHE_DIRECTORY}{ServerName}{PID_JSON}", output);
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Following error occured while starting the server: {ex.Message.ToString()}",
+            MessageBox.Show($"Following error occured while starting the server: {ex.Message}",
                 "Error while starting", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
@@ -76,15 +72,15 @@ public class Server
     /// <summary>
     /// Install/Validate/Update GameServer Files
     /// </summary>
-    public void InstallUpdate(String SteamAppId, String Serverpath)
+    public void InstallUpdate(string SteamAppId, string Serverpath)
     {
         try
         {
-            Process p = Process.Start(PATH_STEAM_CMD_EXE, $"+force_install_dir {Serverpath} +login anonymous +app_update {SteamAppId} validate +quit");
+            Process p = Process.Start(Constants.Paths.STEAM_CMD_EXE, $"+force_install_dir {Serverpath} +login anonymous +app_update {SteamAppId} validate +quit");
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Following error occured while updating the server: {ex.Message.ToString()}",
+            MessageBox.Show($"Following error occured while updating the server: {ex.Message}",
                 "Error while updating", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
@@ -93,15 +89,15 @@ public class Server
     /// <summary>
     /// Stop Gameserver
     /// </summary>
-    public void Stop(String ServerName)
+    public void Stop(string ServerName)
     {
-        if (!File.Exists($"./cache/{ServerName}pid.json"))
+        if (!File.Exists($"{CACHE_DIRECTORY}{ServerName}{PID_JSON}"))
         {
             return;
         }
 
         // Load pid
-        var input = File.ReadAllText($"./cache/{ServerName}pid.json");
+        var input = File.ReadAllText($"{CACHE_DIRECTORY}{ServerName}{PID_JSON}");
 
         EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
 
@@ -126,17 +122,17 @@ public class Server
             return;
         }
 
-        File.Delete($"./cache/{ServerName}pid.json");
+        File.Delete($"{CACHE_DIRECTORY}{ServerName}{PID_JSON}");
     }
 
-    public static bool IsRunning(String ServerName)
+    public static bool IsRunning(string ServerName)
     {
-        if (!File.Exists($"./cache/{ServerName}pid.json"))
+        if (!File.Exists($"{CACHE_DIRECTORY}{ServerName}{PID_JSON}"))
         {
             return false;
         }
 
-        var input = File.ReadAllText($"./cache/{ServerName}pid.json");
+        var input = File.ReadAllText($"{CACHE_DIRECTORY}{ServerName}{PID_JSON}");
         EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
 
         if (serverProcessInfo == null)
@@ -148,16 +144,14 @@ public class Server
         try
         {
             p = Process.GetProcessById(serverProcessInfo.Id);
-
         }
         catch (ArgumentException)
         {
             // The process doesn't exist anymore, so we can delete the pid file
-            File.Delete($"./cache/{ServerName}pid.json");
+            File.Delete($"{CACHE_DIRECTORY}{ServerName}{PID_JSON}");
             return false;
         }
 
         return SERVER_PROCESS_NAME == p.ProcessName;
     }
-
 }

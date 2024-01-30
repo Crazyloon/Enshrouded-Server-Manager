@@ -1,11 +1,12 @@
+using Enshrouded_Server_Manager.Const;
 using Enshrouded_Server_Manager.Events;
-using Enshrouded_Server_Manager.Model;
+using Enshrouded_Server_Manager.Helpers;
+using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Diagnostics;
-using System.Net;
 using System.Runtime.InteropServices;
 
 namespace Enshrouded_Server_Manager;
@@ -15,32 +16,10 @@ public partial class Form1 : Form
     private SteamCMD _steamCMD;
     private Server _server;
     private Backup _backup;
-    private Folder _folder;
+    private FileSystemManager _fileSystemManager;
+    private ProfileManager _profileManager;
+    private VersionManager _versionManager;
     private JsonSerializerSettings _jsonSerializerSettings;
-
-
-    // Server Tool SteamId
-    private const string STEAM_APP_ID = "2278520";
-    // Game Server exe Name
-    private const string GAME_SERVER_EXE = @"/enshrouded_server.exe";
-    // Game Server config Name
-    private const string GAME_SERVER_CONFIG = @"/enshrouded_server.json";
-    // Savegame folder name after Server folder
-    private const string GAME_SERVER_SAVE_FOLDER = @"/savegame";
-    // Logs folder name after Server folder
-    private const string GAME_SERVER_LOGS_FOLDER = @"/logs";
-
-    private const string STEAM_CMD_EXE = @"./SteamCMD/steamcmd.exe";
-    private const string SERVER_PATH = @"./Servers/";
-    private const string DEFAULT_PROFILES_PATH = @"./ServerProfiles/";
-    private const string FIREWALL_PATH = @"c:\windows\system32\wf.msc";
-    private const string BACKUPS_FOLDER = "./Backups";
-    private const string CACHE_PATH = @"./cache/";
-    private const string PID_CONFIG = $"pid.json";
-    private const string AUTOBACKUPS_FOLDER = $"{BACKUPS_FOLDER}/AutoBackup";
-
-    public const int BUTTON_DOWN = 0xA1;
-    public const int CAPTION = 0x2;
 
     [DllImport("user32.dll")]
     public static extern bool ReleaseCapture();
@@ -57,8 +36,11 @@ public partial class Form1 : Form
         _steamCMD = new SteamCMD();
         _server = new Server();
         _backup = new Backup();
-        _folder = new Folder();
+        _fileSystemManager = new FileSystemManager();
+        _profileManager = new ProfileManager();
+        _versionManager = new VersionManager();
 
+        //Register Custom Events
         _backup.AutoBackupSuccess += Backup_AutoBackupSuccess;
     }
 
@@ -74,14 +56,14 @@ public partial class Form1 : Form
         };
 
         // Load Server Profiles
-        List<ServerProfile> profiledata = LoadServerProfiles(firstCheck: true);
+        List<ServerProfile>? profileData = _profileManager.LoadServerProfiles(_jsonSerializerSettings, true);
 
-        if (profiledata.Any())
+        if (profileData is not null && profileData.Any())
         {
             cbxProfileSelectionComboBox.Items.Clear();
             lbxServerProfiles.Items.Clear();
             lbxProfileSelectorAutoBackup.Items.Clear();
-            foreach (var profile in profiledata)
+            foreach (var profile in profileData)
             {
                 cbxProfileSelectionComboBox.Items.Add(profile.Name);
                 lbxServerProfiles.Items.Add(profile.Name);
@@ -90,75 +72,24 @@ public partial class Form1 : Form
 
             cbxProfileSelectionComboBox.SelectedIndex = 0;
 
-            string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
-            RefreshServerButtonsVisibility(ServerSelectText);
-
-            LoadServerSettings(ServerSelectText);
-        }
-
-        ManagerUpdate();
-    }
-
-    private void RefreshServerButtonsVisibility(string ServerSelectText)
-    {
-        btnStopServer.Visible = false;
-        if (File.Exists(STEAM_CMD_EXE))
-        {
-            btnInstallServer.Visible = true;
-            btnStartServer.Visible = true;
-        }
-        if (File.Exists($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_EXE}"))
-        {
-            btnInstallServer.Visible = false;
-            btnUpdateServer.Visible = true;
-        }
-        if (!File.Exists($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_EXE}"))
-        {
-            btnInstallServer.Visible = true;
-            btnUpdateServer.Visible = false;
-        }
-        if (!File.Exists(STEAM_CMD_EXE))
-        {
-            btnInstallServer.Visible = false;
-            btnStartServer.Visible = false;
-        }
-
-        try
-        {
-            if (Server.IsRunning(ServerSelectText))
+            if (cbxProfileSelectionComboBox.SelectedItem is not null)
             {
-                btnStartServer.Visible = false;
-                btnStopServer.Visible = true;
+                string selectedProfile = cbxProfileSelectionComboBox.SelectedItem.ToString();
+                RefreshServerButtonsVisibility(selectedProfile);
+                LoadServerSettings(selectedProfile);
             }
         }
-        catch (Exception)
-        {
-            if (File.Exists($"./cache/{ServerSelectText}pid.json"))
-            {
-                File.Delete($"./cache/{ServerSelectText}pid.json");
-            }
-        }
+
+        _versionManager.ManagerUpdate(lblVersion.Text, lblNewVersionAvailableNotification);
     }
 
-    private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-    {
-
-    }
-
-    private void pictureBox3_MouseDown(object sender, MouseEventArgs e)
-    {
-        if (e.Button == MouseButtons.Left)
-        {
-            ReleaseCapture();
-            SendMessage(Handle, BUTTON_DOWN, CAPTION, 0);
-        }
-    }
+    #region ButtonEvents
 
     private void InstallSteamCMD_Button_Click(object sender, EventArgs e)
     {
         _steamCMD.Install();
 
-        if (File.Exists(STEAM_CMD_EXE))
+        if (File.Exists(Constants.Paths.STEAM_CMD_EXE))
         {
             btnInstallServer.Visible = true;
             btnStartServer.Visible = true;
@@ -171,9 +102,9 @@ public partial class Form1 : Form
     {
         if (cbxProfileSelectionComboBox.SelectedItem is not null)
         {
-            string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
+            string selectedProfileName = cbxProfileSelectionComboBox.SelectedItem.ToString();
 
-            _server.InstallUpdate(STEAM_APP_ID, $".{SERVER_PATH}{ServerSelectText}");
+            _server.InstallUpdate(Constants.Paths.STEAM_APP_ID, $".{Constants.Paths.SERVER_PATH}{selectedProfileName}");
 
             btnInstallServer.Visible = false;
             btnUpdateServer.Visible = true;
@@ -184,9 +115,9 @@ public partial class Form1 : Form
     {
         if (cbxProfileSelectionComboBox.SelectedItem is not null)
         {
-            string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
+            string selectedProfileName = cbxProfileSelectionComboBox.SelectedItem.ToString();
 
-            _server.InstallUpdate(STEAM_APP_ID, $".{SERVER_PATH}{ServerSelectText}");
+            _server.InstallUpdate(Constants.Paths.STEAM_APP_ID, $".{Constants.Paths.SERVER_PATH}{selectedProfileName}");
         }
     }
 
@@ -194,9 +125,9 @@ public partial class Form1 : Form
     {
         if (cbxProfileSelectionComboBox.SelectedItem is not null)
         {
-            string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
+            string selectedProfileName = cbxProfileSelectionComboBox.SelectedItem.ToString();
 
-            _folder.Create($"{SERVER_PATH}{ServerSelectText}");
+            Directory.CreateDirectory($"{Constants.Paths.SERVER_PATH}{selectedProfileName}");
 
             int Gameport = Convert.ToInt32(nudGamePort.Text);
             int QueryPort = Convert.ToInt32(nudQueryPort.Text);
@@ -215,7 +146,7 @@ public partial class Form1 : Form
             };
 
             var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
-            File.WriteAllText($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_CONFIG}", output); //needs to be the server tool .json
+            File.WriteAllText($"{Constants.Paths.SERVER_PATH}{selectedProfileName}{Constants.Paths.GAME_SERVER_CONFIG}", output); //needs to be the server tool .json
 
             Interactions.AnimateSaveChangesButton(btnSaveSettings, "Save Changes", "Saved!");
         }
@@ -228,9 +159,9 @@ public partial class Form1 : Form
 
         if (cbxProfileSelectionComboBox.SelectedItem is not null)
         {
-            string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
+            string selectedProfileName = cbxProfileSelectionComboBox.SelectedItem.ToString();
 
-            _folder.Create($"{SERVER_PATH}{ServerSelectText}");
+            Directory.CreateDirectory($"{Constants.Paths.SERVER_PATH}{selectedProfileName}");
 
             int Gameport = Convert.ToInt32(nudGamePort.Text);
             int QueryPort = Convert.ToInt32(nudQueryPort.Text);
@@ -249,9 +180,9 @@ public partial class Form1 : Form
             };
 
             var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
-            File.WriteAllText($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_CONFIG}", output);
+            File.WriteAllText($"{Constants.Paths.SERVER_PATH}{selectedProfileName}{Constants.Paths.GAME_SERVER_CONFIG}", output);
 
-            _server.Start($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_EXE}", ServerSelectText);
+            _server.Start($"{Constants.Paths.SERVER_PATH}{selectedProfileName}{Constants.Paths.GAME_SERVER_EXE}", selectedProfileName);
 
 
             // Begin AutoBackup after waiting 5 seconds to ensure the server process has started
@@ -259,13 +190,13 @@ public partial class Form1 : Form
             {
                 await Task.Delay(5000);
 
-                if (Server.IsRunning(ServerSelectText))
+                if (Server.IsRunning(selectedProfileName))
                 {
-                    var profiles = LoadServerProfiles();
-                    var profile = profiles?.FirstOrDefault(x => x.Name == ServerSelectText);
+                    var profiles = _profileManager.LoadServerProfiles(_jsonSerializerSettings);
+                    var profile = profiles?.FirstOrDefault(x => x.Name == selectedProfileName);
                     if (profile != null && profile.AutoBackup != null && profile.AutoBackup.Enabled)
                     {
-                        _backup.StartAutoBackup($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, GAME_SERVER_CONFIG, $"{SERVER_PATH}{ServerSelectText}");
+                        _backup.StartAutoBackup($"{Constants.Paths.SERVER_PATH}{selectedProfileName}{Constants.Paths.GAME_SERVER_SAVE_FOLDER}", selectedProfileName, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, Constants.Paths.GAME_SERVER_CONFIG, $"{Constants.Paths.SERVER_PATH}{selectedProfileName}");
                     }
                 }
             });
@@ -280,45 +211,48 @@ public partial class Form1 : Form
     {
         if (cbxProfileSelectionComboBox.SelectedItem is not null)
         {
-            string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
+            string selectedProfileName = cbxProfileSelectionComboBox.SelectedItem.ToString();
 
-            _backup.Save($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}", ServerSelectText, GAME_SERVER_CONFIG, $"{SERVER_PATH}{ServerSelectText}");
+            _backup.Save($"{Constants.Paths.SERVER_PATH}{selectedProfileName}{Constants.Paths.GAME_SERVER_SAVE_FOLDER}", selectedProfileName, Constants.Paths.GAME_SERVER_CONFIG, $"{Constants.Paths.SERVER_PATH}{selectedProfileName}");
         }
 
     }
-    private void label4_Click(object sender, EventArgs e)
+    private void lblCloseButton_Click(object sender, EventArgs e)
     {
         this.Close();
     }
 
-    private void label5_Click(object sender, EventArgs e)
+    private void lblMinimizeButton_Click(object sender, EventArgs e)
     {
         this.WindowState = FormWindowState.Minimized;
     }
 
     private void OpenBackupFolder_Button_Click(object sender, EventArgs e)
     {
-        string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
-        string backupserverfolder = $"{BACKUPS_FOLDER}/{ServerSelectText}";
+        if (cbxProfileSelectionComboBox.SelectedItem is not null)
+        {
+            string selectedProfileName = cbxProfileSelectionComboBox.SelectedItem.ToString();
+            string backupserverfolder = $"{Constants.Paths.BACKUPS_FOLDER}/{selectedProfileName}";
 
-        _folder.Create(backupserverfolder);
+            Directory.CreateDirectory(backupserverfolder);
 
-        Process.Start("explorer.exe", backupserverfolder.Replace("/", @"\"));
+            Process.Start("explorer.exe", backupserverfolder.Replace("/", @"\"));
+        }
     }
 
     private void WindowsFirewall_Button_Click(object sender, EventArgs e)
     {
-        Process.Start("explorer.exe", FIREWALL_PATH);
+        Process.Start("explorer.exe", Constants.Paths.FIREWALL_PATH);
     }
 
     private void OpenSavegameFolder_Button_Click(object sender, EventArgs e)
     {
         if (cbxProfileSelectionComboBox.SelectedItem is not null)
         {
-            string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
-            string savegamefolder = $"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_SAVE_FOLDER}";
+            string selectedProfileName = cbxProfileSelectionComboBox.SelectedItem.ToString();
+            string savegamefolder = $"{Constants.Paths.SERVER_PATH}{selectedProfileName}{Constants.Paths.GAME_SERVER_SAVE_FOLDER}";
 
-            _folder.Create(savegamefolder);
+            Directory.CreateDirectory(savegamefolder);
 
             Process.Start("explorer.exe", savegamefolder.Replace("/", @"\"));
         }
@@ -328,34 +262,34 @@ public partial class Form1 : Form
     {
         if (cbxProfileSelectionComboBox.SelectedItem is not null)
         {
-            string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
-            string logfolder = $"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_LOGS_FOLDER}";
+            string selectedProfileName = cbxProfileSelectionComboBox.SelectedItem.ToString();
+            string logfolder = $"{Constants.Paths.SERVER_PATH}{selectedProfileName}{Constants.Paths.GAME_SERVER_LOGS_FOLDER}";
 
-            _folder.Create(logfolder);
+            Directory.CreateDirectory(logfolder);
 
             Process.Start("explorer.exe", logfolder.Replace("/", @"\"));
         }
     }
 
-    private void ServerProfilesListBox_IndexChanged(object sender, EventArgs e)
+    private void FormHeader_MouseDown(object sender, MouseEventArgs e)
     {
-        if (lbxServerProfiles.SelectedItem is not null)
+        if (e.Button == MouseButtons.Left)
         {
-            string ServerSelectText = lbxServerProfiles.SelectedItem.ToString();
-            txtEditProfileName.Text = ServerSelectText;
+            ReleaseCapture();
+            SendMessage(Handle, Constants.BUTTON_DOWN, Constants.CAPTION, 0);
         }
     }
 
     private void AddNewProfile_Button_Click(object sender, EventArgs e)
     {
         // Load Server Profiles
-        List<ServerProfile> profiledata = LoadServerProfiles();
+        List<ServerProfile> profiledata = _profileManager.LoadServerProfiles(_jsonSerializerSettings);
 
         // Generate a new Server name semi-randomly
-        var serverName = $"Server{GenerateRandomString(6)}";
+        var serverName = $"Server{GenerateText.RandomString(6)}";
         while (profiledata.Any(x => x.Name == serverName))
         {
-            serverName = $"Server{GenerateRandomString(6)}";
+            serverName = $"Server{GenerateText.RandomString(6)}";
         }
 
         profiledata.Add(new ServerProfile()
@@ -365,36 +299,14 @@ public partial class Form1 : Form
 
         // write the new profile to the json file
         var output = JsonConvert.SerializeObject(profiledata, _jsonSerializerSettings);
-        File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
+        File.WriteAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}{Constants.Paths.SERVER_PROFILES_JSON}", output);
 
         // Create a folder with for the configuration
-        _folder.Create($"{SERVER_PATH}{serverName}");
+        Directory.CreateDirectory($"{Constants.Paths.SERVER_PATH}{serverName}");
         WriteDefaultServerSettings(serverName);
 
         // reload form1
         Form1_Load(sender, e);
-    }
-
-    private bool isProfileNameValid(string profileName)
-    {
-        // Validate that the profileName is not empty, and does not contain any characters
-        // that are not allowed in a Windows file name
-        if (string.IsNullOrWhiteSpace(profileName))
-        {
-            MessageBox.Show("Profile name cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return false;
-        }
-
-        string invalid = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
-
-        // Check that the profileName does not contain any invalid characters
-        if (profileName.IndexOfAny(invalid.ToCharArray()) != -1)
-        {
-            MessageBox.Show($"Profile name contains invalid characters. Use only those characters acceptable by the Windows File System", "Invalid Characters", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return false;
-        }
-
-        return true;
     }
 
     private void SaveProfileName_Button_Click(object sender, EventArgs e)
@@ -422,7 +334,7 @@ public partial class Form1 : Form
         // Not allowed to use ReservedNames
         string editProfileName = txtEditProfileName.Text;
         if (editProfileName == null
-            || !isProfileNameValid(editProfileName)
+            || !_profileManager.IsProfileNameValid(editProfileName)
             || lbxServerProfiles.Items.Contains(editProfileName)
             || reservedProfileNames.Contains(editProfileName))
         {
@@ -430,7 +342,7 @@ public partial class Form1 : Form
         }
 
         // Load Server Profiles
-        List<ServerProfile>? profiledata = LoadServerProfiles();
+        List<ServerProfile>? profiledata = _profileManager.LoadServerProfiles(_jsonSerializerSettings);
         if (profiledata is null)
         {
             // TODO: Report an error?
@@ -444,14 +356,14 @@ public partial class Form1 : Form
             // rename the server settings folder
             RenameServerSettings(selectedServerProfile, editProfileName);
 
-            if (Directory.Exists($"{SERVER_PATH}{editProfileName}"))
+            if (Directory.Exists($"{Constants.Paths.SERVER_PATH}{editProfileName}"))
             {
                 // update the name
                 selectedProfile.Name = editProfileName;
 
                 // write the new profile to the json file
                 var output = JsonConvert.SerializeObject(profiledata, _jsonSerializerSettings);
-                File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
+                File.WriteAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}{Constants.Paths.SERVER_PROFILES_JSON}", output);
 
                 // rename backup folder
                 RenameBackupFolder(selectedServerProfile, editProfileName);
@@ -482,7 +394,7 @@ public partial class Form1 : Form
             }
 
             // Load Server Profiles
-            List<ServerProfile> profiledata = LoadServerProfiles();
+            List<ServerProfile> profiledata = _profileManager.LoadServerProfiles(_jsonSerializerSettings);
 
             // get the selected profile
             string selectedServerProfile = lbxServerProfiles.SelectedItem.ToString();
@@ -495,10 +407,10 @@ public partial class Form1 : Form
 
                 // write the new profile to the json file
                 var output = JsonConvert.SerializeObject(profiledata, _jsonSerializerSettings);
-                File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
+                File.WriteAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}{Constants.Paths.SERVER_PROFILES_JSON}", output);
 
                 // Delete the server folder
-                _folder.Delete($"{SERVER_PATH}{selectedServerProfile}");
+                _fileSystemManager.Delete($"{Constants.Paths.SERVER_PATH}{selectedServerProfile}");
 
                 // Clear UI Elements
                 txtEditProfileName.Text = "";
@@ -510,163 +422,12 @@ public partial class Form1 : Form
                 Form1_Load(sender, e);
 
                 //clear cache pid file
-                if (File.Exists($"{CACHE_PATH}{selectedServerProfile}pid.json"))
+                if (File.Exists($"{Constants.Paths.CACHE_PATH}{selectedServerProfile}pid.json"))
                 {
-                    File.Delete($"{CACHE_PATH}{selectedServerProfile}pid.json");
+                    File.Delete($"{Constants.Paths.CACHE_PATH}{selectedServerProfile}pid.json");
                 }
             }
         }
-    }
-
-    private string GenerateRandomString(int length)
-    {
-        Random random = new Random();
-        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        return new string(Enumerable.Repeat(chars, length)
-                     .Select(s => s[random.Next(s.Length)]).ToArray());
-    }
-
-    private List<ServerProfile>? LoadServerProfiles(bool firstCheck = false)
-    {
-        if (!File.Exists($"{DEFAULT_PROFILES_PATH}server_profiles.json"))
-        {
-            _folder.Create(DEFAULT_PROFILES_PATH);
-
-            if (firstCheck)
-            {
-                WriteDefaultProfile();
-            }
-            else
-            {
-                MessageBox.Show($"Critical Error. {DEFAULT_PROFILES_PATH}server_profiles.json not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        var profilesJson = File.ReadAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json");
-        List<ServerProfile>? serverProfiles = JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson, _jsonSerializerSettings);
-
-        if (serverProfiles is not null && serverProfiles.Count() <= 0)
-        {
-            WriteDefaultProfile();
-            profilesJson = File.ReadAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json");
-            return JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson, _jsonSerializerSettings);
-        }
-
-        return serverProfiles;
-    }
-
-    private void WriteDefaultProfile()
-    {
-        var json = new List<ServerProfile>
-        {
-            new ServerProfile()
-            {
-                Name = $"Server{GenerateRandomString(6)}"
-            }
-        };
-
-        var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
-        File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
-    }
-
-    private void RenameServerSettings(string oldServerName, string newServerName)
-    {
-        try
-        {
-            Directory.Move($"{SERVER_PATH}{oldServerName}", $"{SERVER_PATH}{oldServerName}_temp");
-            Directory.Move($"{SERVER_PATH}{oldServerName}_temp", $"{SERVER_PATH}{newServerName}");
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Following error occured while changing profilename: {ex.Message.ToString()}",
-        "Error while changing profilename", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
-        }
-    }
-
-    private void RenameBackupFolder(string oldBackupFolderName, string newBackupFolderName)
-    {
-        // If old backup folder does not exist, create it
-        if (!Directory.Exists($"{BACKUPS_FOLDER}/{oldBackupFolderName}"))
-        {
-            _folder.Create($"{BACKUPS_FOLDER}/{newBackupFolderName}");
-            return;
-        }
-        else
-        {
-            // Rename the existing Backup folder
-            Directory.Move($"{BACKUPS_FOLDER}/{oldBackupFolderName}", $"{BACKUPS_FOLDER}/{newBackupFolderName}");
-        }
-    }
-
-    private void RenameAutoBackupFolder(string oldBackupFolderName, string newBackupFolderName)
-    {
-        // If old backup folder does not exist, create it
-        if (!Directory.Exists($"{BACKUPS_FOLDER}/AutoBackup/{oldBackupFolderName}"))
-        {
-            _folder.Create($"{BACKUPS_FOLDER}/AutoBackup/{newBackupFolderName}");
-            return;
-        }
-        else
-        {
-            // Rename the existing Backup folder
-            Directory.Move($"{BACKUPS_FOLDER}/AutoBackup/{oldBackupFolderName}", $"{BACKUPS_FOLDER}/AutoBackup/{newBackupFolderName}");
-        }
-    }
-
-    private void ServerProfileComboBox_IndexChanged(object sender, EventArgs e)
-    {
-        if (cbxProfileSelectionComboBox.SelectedItem is not null)
-        {
-            var serverSelectedText = cbxProfileSelectionComboBox.SelectedItem.ToString();
-            RefreshServerButtonsVisibility(serverSelectedText);
-            LoadServerSettings(serverSelectedText);
-        }
-    }
-
-    private void LoadServerSettings(string ServerSelectText)
-    {
-        if (!File.Exists($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_CONFIG}"))
-        {
-            _folder.Create($"{SERVER_PATH}{ServerSelectText}");
-            WriteDefaultServerSettings(ServerSelectText);
-        }
-
-        var input = File.ReadAllText($"{SERVER_PATH}{ServerSelectText}{GAME_SERVER_CONFIG}");
-
-        ServerSettings deserializedSettings = JsonConvert.DeserializeObject<ServerSettings>(input, _jsonSerializerSettings);
-
-        txtServerName.Text = deserializedSettings.Name;
-        txtServerPassword.Text = deserializedSettings.Password;
-        txtIpAddress.Text = deserializedSettings.Ip;
-        nudGamePort.Text = deserializedSettings.GamePort.ToString();
-        nudQueryPort.Text = deserializedSettings.QueryPort.ToString();
-        nudSlotCount.Text = deserializedSettings.SlotCount.ToString();
-    }
-
-    private void WriteDefaultServerSettings(string serverName)
-    {
-        ServerSettings json = new ServerSettings()
-        {
-            Name = "Enshrouded Server",
-            Password = "",
-            SaveDirectory = "./savegame",
-            LogDirectory = "./logs",
-            Ip = "0.0.0.0",
-            GamePort = 15636,
-            QueryPort = 15637,
-            SlotCount = 16
-        };
-
-        var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
-        File.WriteAllText($"{SERVER_PATH}{serverName}{GAME_SERVER_CONFIG}", output);
-    }
-
-    private void SaveSettings_Button_EnabledChanged(object sender, EventArgs e)
-    {
-        var Sender = ((Button)sender);
-        Sender.BackColor = Sender.Enabled ? Color.FromArgb(255, 0, 0, 40) : Color.FromArgb(255, 115, 115, 137);
-        Sender.FlatAppearance.BorderColor = Sender.Enabled ? Color.FromArgb(255, 115, 115, 137) : Color.FromArgb(255, 0, 0, 40);
     }
 
     private void btnShowPassword_Click(object sender, EventArgs e)
@@ -682,51 +443,79 @@ public partial class Form1 : Form
         Process.Start("explorer.exe", "https://github.com/ISpaikI/Enshrouded-Server-Manager");
     }
 
-    private async void ManagerUpdate()
+    private void btnStopServer_Click(object sender, EventArgs e)
     {
-        CheckManagerVersion();
+        string selectedProfileName = cbxProfileSelectionComboBox.SelectedItem.ToString();
+        _server.Stop(selectedProfileName);
+        btnStartServer.Visible = true;
+        btnStopServer.Visible = false;
+    }
 
-        var timer = new PeriodicTimer(TimeSpan.FromMinutes(10));
+    private void btnSaveAutoBackup_Click(object sender, EventArgs e)
+    {
+        var enabled = chkEnableBackups.Checked;
 
-        while (await timer.WaitForNextTickAsync())
+        if (lbxProfileSelectorAutoBackup.SelectedItem is not null)
         {
-            CheckManagerVersion();
+            Interactions.AnimateSaveChangesButton(btnSaveAutoBackup, "Save Settings", "Saved!");
+
+            var selectedProfile = lbxProfileSelectorAutoBackup.SelectedItem.ToString();
+            var profiles = _profileManager.LoadServerProfiles(_jsonSerializerSettings);
+            var profile = profiles?.FirstOrDefault(x => x.Name == selectedProfile);
+            if (profile is not null)
+            {
+                profile.AutoBackup = new AutoBackup()
+                {
+                    Interval = Convert.ToInt32(nudBackupInterval.Value),
+                    MaxiumBackups = Convert.ToInt32(nudBackupMaxCount.Value),
+                    Enabled = enabled
+                };
+
+                // write the new profile to the json file
+                var output = JsonConvert.SerializeObject(profiles, _jsonSerializerSettings);
+                File.WriteAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}{Constants.Paths.SERVER_PROFILES_JSON}", output);
+            }
+        }
+        else
+        {
+            MessageBox.Show("Please select a profile to configure.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 
-    private void CheckManagerVersion()
+    private void btnOpenAutobackupFolder_Click(object sender, EventArgs e)
     {
-        using (WebClient Client = new WebClient())
+        Directory.CreateDirectory(Constants.Paths.AUTOBACKUPS_FOLDER);
+
+        Process.Start("explorer.exe", Constants.Paths.AUTOBACKUPS_FOLDER.Replace("/", @"\"));
+    }
+
+    private void SaveSettings_Button_EnabledChanged(object sender, EventArgs e)
+    {
+        var Sender = ((Button)sender);
+        Sender.BackColor = Sender.Enabled ? Color.FromArgb(255, 0, 0, 40) : Color.FromArgb(255, 115, 115, 137);
+        Sender.FlatAppearance.BorderColor = Sender.Enabled ? Color.FromArgb(255, 115, 115, 137) : Color.FromArgb(255, 0, 0, 40);
+    }
+    #endregion ButtonEvents
+
+
+    #region IndexChangeEvents
+    private void lbxServerProfiles_IndexChanged(object sender, EventArgs e)
+    {
+        if (lbxServerProfiles.SelectedItem is not null)
         {
-            try
-            {
-                Client.DownloadFile("https://raw.githubusercontent.com/ISpaikI/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json", "./githubversion.json");
-            }
-            catch (Exception ex)
-            {
-                LauncherVersion json = new LauncherVersion()
-                {
-                    Version = VersionLabel.Text,
-                };
-
-                var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
-                File.WriteAllText($"./githubversion.json", output);
-            }
-
+            string selectedProfileName = lbxServerProfiles.SelectedItem.ToString();
+            txtEditProfileName.Text = selectedProfileName;
         }
+    }
 
-        var input = File.ReadAllText($"./githubversion.json");
-
-        LauncherVersion deserializedSettings = JsonConvert.DeserializeObject<LauncherVersion>(input, _jsonSerializerSettings);
-
-        string githubversion = deserializedSettings.Version;
-
-        if (githubversion != VersionLabel.Text)
+    private void cbxProfileSelectionComboBox_IndexChanged(object sender, EventArgs e)
+    {
+        if (cbxProfileSelectionComboBox.SelectedItem is not null)
         {
-            NewVersionText.Visible = true;
+            var serverSelectedText = cbxProfileSelectionComboBox.SelectedItem.ToString();
+            RefreshServerButtonsVisibility(serverSelectedText);
+            LoadServerSettings(serverSelectedText);
         }
-
-        File.Delete("./githubversion.json");
     }
 
     private void lbxProfileSelectorAutoBackup_SelectedIndexChanged(object sender, EventArgs e)
@@ -736,7 +525,7 @@ public partial class Form1 : Form
         if (selectedProfile != null)
         {
             // load profile
-            var profile = LoadServerProfiles().FirstOrDefault(x => x.Name == selectedProfile);
+            var profile = _profileManager.LoadServerProfiles(_jsonSerializerSettings).FirstOrDefault(x => x.Name == selectedProfile);
             if (profile != null)
             {
                 // load auto backup settings
@@ -768,14 +557,6 @@ public partial class Form1 : Form
         }
     }
 
-    private void btnStopServer_Click(object sender, EventArgs e)
-    {
-        string ServerSelectText = cbxProfileSelectionComboBox.SelectedItem.ToString();
-        _server.Stop(ServerSelectText);
-        btnStartServer.Visible = true;
-        btnStopServer.Visible = false;
-    }
-
     private void tabServerTabs_SelectedIndexChanged(object sender, EventArgs e)
     {
         var selectedtab = tabServerTabs.SelectedTab;
@@ -788,38 +569,9 @@ public partial class Form1 : Form
             pnlBackupExplanation.Visible = false;
         }
     }
+    #endregion IndexChangeEvents
 
-    private void btnSaveAutoBackup_Click(object sender, EventArgs e)
-    {
-        var enabled = chkEnableBackups.Checked;
-
-        if (lbxProfileSelectorAutoBackup.SelectedItem is not null)
-        {
-            Interactions.AnimateSaveChangesButton(btnSaveAutoBackup, "Save Settings", "Saved!");
-
-            var selectedProfile = lbxProfileSelectorAutoBackup.SelectedItem.ToString();
-            var profiles = LoadServerProfiles();
-            var profile = profiles?.FirstOrDefault(x => x.Name == selectedProfile);
-            if (profile is not null)
-            {
-                profile.AutoBackup = new AutoBackup()
-                {
-                    Interval = Convert.ToInt32(nudBackupInterval.Value),
-                    MaxiumBackups = Convert.ToInt32(nudBackupMaxCount.Value),
-                    Enabled = enabled
-                };
-
-                // write the new profile to the json file
-                var output = JsonConvert.SerializeObject(profiles, _jsonSerializerSettings);
-                File.WriteAllText($"{DEFAULT_PROFILES_PATH}server_profiles.json", output);
-            }
-        }
-        else
-        {
-            MessageBox.Show("Please select a profile to configure.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-    }
-
+    #region CustomEvents
     private void Backup_AutoBackupSuccess(object? sender, AutoBackupSuccessEventArgs e)
     {
         // Update the backup stats on the UI if the selected profile
@@ -836,11 +588,132 @@ public partial class Form1 : Form
             });
         }
     }
+    #endregion
 
-    private void btnOpenAutobackupFolder_Click(object sender, EventArgs e)
+
+    private void RefreshServerButtonsVisibility(string selectedProfileName)
     {
-        _folder.Create(AUTOBACKUPS_FOLDER);
+        btnStopServer.Visible = false;
+        if (File.Exists(Constants.Paths.STEAM_CMD_EXE))
+        {
+            btnInstallServer.Visible = true;
+            btnStartServer.Visible = true;
+        }
+        if (File.Exists($"{Constants.Paths.SERVER_PATH}{selectedProfileName}{Constants.Paths.GAME_SERVER_EXE}"))
+        {
+            btnInstallServer.Visible = false;
+            btnUpdateServer.Visible = true;
+        }
+        if (!File.Exists($"{Constants.Paths.SERVER_PATH}{selectedProfileName}{Constants.Paths.GAME_SERVER_EXE}"))
+        {
+            btnInstallServer.Visible = true;
+            btnUpdateServer.Visible = false;
+        }
+        if (!File.Exists(Constants.Paths.STEAM_CMD_EXE))
+        {
+            btnInstallServer.Visible = false;
+            btnStartServer.Visible = false;
+        }
 
-        Process.Start("explorer.exe", AUTOBACKUPS_FOLDER.Replace("/", @"\"));
+        try
+        {
+            if (Server.IsRunning(selectedProfileName))
+            {
+                btnStartServer.Visible = false;
+                btnStopServer.Visible = true;
+            }
+        }
+        catch (Exception)
+        {
+            if (File.Exists($"./cache/{selectedProfileName}pid.json"))
+            {
+                File.Delete($"./cache/{selectedProfileName}pid.json");
+            }
+        }
+    }
+
+    private void RenameServerSettings(string oldServerName, string newServerName)
+    {
+        try
+        {
+            Directory.Move($"{Constants.Paths.SERVER_PATH}{oldServerName}", $"{Constants.Paths.SERVER_PATH}{oldServerName}_temp");
+            Directory.Move($"{Constants.Paths.SERVER_PATH}{oldServerName}_temp", $"{Constants.Paths.SERVER_PATH}{newServerName}");
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Following error occured while changing profilename: {ex.Message}",
+        "Error while changing profilename", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+    }
+
+    private void RenameBackupFolder(string oldBackupFolderName, string newBackupFolderName)
+    {
+        // If old backup folder does not exist, create it
+        if (!Directory.Exists($"{Constants.Paths.BACKUPS_FOLDER}/{oldBackupFolderName}"))
+        {
+            Directory.CreateDirectory($"{Constants.Paths.BACKUPS_FOLDER}/{newBackupFolderName}");
+            return;
+        }
+        else
+        {
+            // Rename the existing Backup folder
+            Directory.Move($"{Constants.Paths.BACKUPS_FOLDER}/{oldBackupFolderName}", $"{Constants.Paths.BACKUPS_FOLDER}/{newBackupFolderName}");
+        }
+    }
+
+    private void RenameAutoBackupFolder(string oldBackupFolderName, string newBackupFolderName)
+    {
+        // If old backup folder does not exist, create it
+        if (!Directory.Exists($"{Constants.Paths.BACKUPS_FOLDER}/AutoBackup/{oldBackupFolderName}"))
+        {
+            Directory.CreateDirectory($"{Constants.Paths.BACKUPS_FOLDER}/AutoBackup/{newBackupFolderName}");
+            return;
+        }
+        else
+        {
+            // Rename the existing Backup folder
+            Directory.Move($"{Constants.Paths.BACKUPS_FOLDER}/AutoBackup/{oldBackupFolderName}", $"{Constants.Paths.BACKUPS_FOLDER}/AutoBackup/{newBackupFolderName}");
+        }
+    }
+
+
+    private void LoadServerSettings(string selectedProfileName)
+    {
+        if (!File.Exists($"{Constants.Paths.SERVER_PATH}{selectedProfileName}{Constants.Paths.GAME_SERVER_CONFIG}"))
+        {
+            Directory.CreateDirectory($"{Constants.Paths.SERVER_PATH}{selectedProfileName}");
+            WriteDefaultServerSettings(selectedProfileName);
+        }
+
+        var input = File.ReadAllText($"{Constants.Paths.SERVER_PATH}{selectedProfileName}{Constants.Paths.GAME_SERVER_CONFIG}");
+
+        ServerSettings deserializedSettings = JsonConvert.DeserializeObject<ServerSettings>(input, _jsonSerializerSettings);
+
+
+        txtServerName.Text = deserializedSettings.Name;
+        txtServerPassword.Text = deserializedSettings.Password;
+        txtIpAddress.Text = deserializedSettings.Ip;
+        nudGamePort.Text = deserializedSettings.GamePort.ToString();
+        nudQueryPort.Text = deserializedSettings.QueryPort.ToString();
+        nudSlotCount.Text = deserializedSettings.SlotCount.ToString();
+    }
+
+    private void WriteDefaultServerSettings(string serverName)
+    {
+        ServerSettings json = new ServerSettings()
+        {
+            Name = "Enshrouded Server",
+            Password = "",
+            SaveDirectory = "./savegame",
+            LogDirectory = "./logs",
+            Ip = "0.0.0.0",
+            GamePort = 15636,
+            QueryPort = 15637,
+            SlotCount = 16
+        };
+
+        var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
+        File.WriteAllText($"{Constants.Paths.SERVER_PATH}{serverName}{Constants.Paths.GAME_SERVER_CONFIG}", output);
     }
 }
