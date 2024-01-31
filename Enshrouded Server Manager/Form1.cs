@@ -402,15 +402,26 @@ public partial class Form1 : Form
 
             if (serverProfile != null)
             {
+                // rename directory to check if in use
+                try
+                {
+                    Directory.Move($"{Constants.Paths.SERVER_PATH}{selectedServerProfile}", $"{Constants.Paths.SERVER_PATH}{selectedServerProfile}_delete");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Following error occured while deleting profile: {ex.Message}",
+                "Error while deleting profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                // Delete the server folder
+                _fileSystemManager.Delete($"{Constants.Paths.SERVER_PATH}{selectedServerProfile}_delete");
+
                 // remove the profile
                 profiledata.Remove(serverProfile);
 
                 // write the new profile to the json file
                 var output = JsonConvert.SerializeObject(profiledata, _jsonSerializerSettings);
                 File.WriteAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}{Constants.Paths.SERVER_PROFILES_JSON}", output);
-
-                // Delete the server folder
-                _fileSystemManager.Delete($"{Constants.Paths.SERVER_PATH}{selectedServerProfile}");
 
                 // Clear UI Elements
                 txtEditProfileName.Text = "";
