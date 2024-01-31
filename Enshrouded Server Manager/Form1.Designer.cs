@@ -176,7 +176,7 @@
             btnInstallServer.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnInstallServer.FlatStyle = FlatStyle.Flat;
             btnInstallServer.ForeColor = SystemColors.Control;
-            btnInstallServer.Location = new Point(34, 196);
+            btnInstallServer.Location = new Point(33, 196);
             btnInstallServer.Name = "btnInstallServer";
             btnInstallServer.Size = new Size(127, 25);
             btnInstallServer.TabIndex = 3;
@@ -597,7 +597,7 @@
             btnUpdateServer.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnUpdateServer.FlatStyle = FlatStyle.Flat;
             btnUpdateServer.ForeColor = SystemColors.Control;
-            btnUpdateServer.Location = new Point(34, 196);
+            btnUpdateServer.Location = new Point(33, 196);
             btnUpdateServer.Name = "btnUpdateServer";
             btnUpdateServer.Size = new Size(127, 25);
             btnUpdateServer.TabIndex = 2;
@@ -609,9 +609,9 @@
             // 
             // lblLogo
             // 
-            lblLogo.Cursor = Cursors.Hand;
             lblLogo.AutoSize = true;
             lblLogo.BackColor = Color.Transparent;
+            lblLogo.Cursor = Cursors.Hand;
             lblLogo.Font = new Font("Malgun Gothic", 60F, FontStyle.Bold, GraphicsUnit.Point);
             lblLogo.ForeColor = Color.FromArgb(0, 204, 204);
             lblLogo.Location = new Point(574, 49);

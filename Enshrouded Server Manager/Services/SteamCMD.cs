@@ -16,77 +16,51 @@ public class SteamCMD
     /// </summary>
     public void Install()
     {
-        Directory.CreateDirectory(TARGET_FOLDER);
-
-        if (File.Exists(STEAM_CMD_ZIP))
+        try
         {
-            try
+            Directory.CreateDirectory(TARGET_FOLDER);
+
+            if (File.Exists(STEAM_CMD_ZIP))
             {
                 File.Delete(STEAM_CMD_ZIP);
             }
-            catch (Exception ex)
+
+            //Download of SteamCMD Client
+            using (WebClient Client = new WebClient())
             {
-                MessageBox.Show($"Following error appeared while extracting: {ex.Message}",
-                "Error while extracting", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                Client.DownloadFile(STEAM_CMD_CDN_URL, STEAM_CMD_ZIP);
             }
-        }
 
-        //Download of SteamCMD Client
-        using (WebClient Client = new WebClient())
-        {
-            Client.DownloadFile(STEAM_CMD_CDN_URL, STEAM_CMD_ZIP);
-        }
-
-        if (File.Exists(STEAM_CMD_EXE))
-        {
-            try
+            if (File.Exists(STEAM_CMD_EXE))
             {
                 File.Delete(STEAM_CMD_EXE);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Following error appeared while extracting: {ex.Message}",
-                "Error while extracting", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-        }
 
-        try
-        {
             ZipFile.ExtractToDirectory(STEAM_CMD_ZIP, TARGET_FOLDER);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"Following error appeared while extracting: {ex.Message}",
-                "Error while extracting", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
-        }
-
-        if (File.Exists(STEAM_CMD_ZIP))
-        {
-            try
+            if (File.Exists(STEAM_CMD_ZIP))
             {
                 File.Delete(STEAM_CMD_ZIP);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Following error appeared while extracting: {ex.Message}",
-                "Error while extracting", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
         }
+        catch (Exception ex)
+        {
+            MessageBox.Show(string.Format(Constants.Errors.STEAM_CMD_DOWNLOAD_ERROR_MESSAGE, ex.Message),
+                Constants.Errors.STEAM_CMD_DOWNLOAD_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
     }
     public void Start()
     {
         try
         {
-            Process p = Process.Start(STEAM_CMD_EXE, $"+quit");
+            Process p = Process.Start(STEAM_CMD_EXE, "+quit");
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Following error occured while installing SteamCMD: {ex.Message}",
-                "Error while installing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(string.Format(Constants.Errors.STEAM_CMD_INSTALL_ERROR_MESSAGE, ex.Message),
+                Constants.Errors.STEAM_CMD_INSTALL_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             return;
         }
     }

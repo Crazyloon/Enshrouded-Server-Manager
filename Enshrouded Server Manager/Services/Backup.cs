@@ -71,7 +71,9 @@ public class Backup
             timer.Dispose();
             return;
         }
-        var input = File.ReadAllText($"./cache/{profileName}pid.json");
+
+        var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, profileName, Constants.Files.PID_JSON);
+        var input = File.ReadAllText(pidJsonFile);
         EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
 
         while (await timer.WaitForNextTickAsync())

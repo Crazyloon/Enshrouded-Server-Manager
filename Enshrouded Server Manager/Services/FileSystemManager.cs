@@ -16,4 +16,14 @@ public class FileSystemManager
             Directory.Delete(Foldername, true);
         }
     }
+
+    public bool RenameDirectory(string oldFoldername, string newFoldername)
+    {
+        if (Directory.Exists(oldFoldername))
+        {
+            Directory.Move(oldFoldername, newFoldername);
+            return true;
+        }
+        return false;
+    }
 }
