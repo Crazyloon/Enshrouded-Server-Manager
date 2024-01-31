@@ -413,29 +413,33 @@ public partial class Form1 : Form
                 "Error while deleting profile", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                // Delete the server folder
-                _fileSystemManager.Delete($"{Constants.Paths.SERVER_PATH}{selectedServerProfile}_delete");
 
-                // remove the profile
-                profiledata.Remove(serverProfile);
-
-                // write the new profile to the json file
-                var output = JsonConvert.SerializeObject(profiledata, _jsonSerializerSettings);
-                File.WriteAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}{Constants.Paths.SERVER_PROFILES_JSON}", output);
-
-                // Clear UI Elements
-                txtEditProfileName.Text = "";
-                lbxServerProfiles.Items.Remove(selectedServerProfile);
-                cbxProfileSelectionComboBox.Items.Remove(selectedServerProfile);
-                RefreshServerButtonsVisibility(selectedServerProfile);
-
-                // reload form1
-                Form1_Load(sender, e);
-
-                //clear cache pid file
-                if (File.Exists($"{Constants.Paths.CACHE_PATH}{selectedServerProfile}pid.json"))
+                if (Directory.Exists($"{Constants.Paths.SERVER_PATH}{selectedServerProfile}_delete"))
                 {
-                    File.Delete($"{Constants.Paths.CACHE_PATH}{selectedServerProfile}pid.json");
+                    // Delete the server folder
+                    _fileSystemManager.Delete($"{Constants.Paths.SERVER_PATH}{selectedServerProfile}_delete");
+
+                    // remove the profile
+                    profiledata.Remove(serverProfile);
+
+                    // write the new profile to the json file
+                    var output = JsonConvert.SerializeObject(profiledata, _jsonSerializerSettings);
+                    File.WriteAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}{Constants.Paths.SERVER_PROFILES_JSON}", output);
+
+                    // Clear UI Elements
+                    txtEditProfileName.Text = "";
+                    lbxServerProfiles.Items.Remove(selectedServerProfile);
+                    cbxProfileSelectionComboBox.Items.Remove(selectedServerProfile);
+                    RefreshServerButtonsVisibility(selectedServerProfile);
+
+                    // reload form1
+                    Form1_Load(sender, e);
+
+                    //clear cache pid file
+                    if (File.Exists($"{Constants.Paths.CACHE_PATH}{selectedServerProfile}pid.json"))
+                    {
+                        File.Delete($"{Constants.Paths.CACHE_PATH}{selectedServerProfile}pid.json");
+                    }
                 }
             }
         }
