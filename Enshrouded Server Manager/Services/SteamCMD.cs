@@ -6,6 +6,8 @@ namespace Enshrouded_Server_Manager.Services;
 
 public class SteamCMD
 {
+
+    FileSystemManager _fileSystemManager = new FileSystemManager();
     private const string TARGET_FOLDER = "./SteamCMD/";
     private const string STEAM_CMD_ZIP = $"{TARGET_FOLDER}steamcmd.zip";
     private const string STEAM_CMD_EXE = $"{TARGET_FOLDER}steamcmd.exe";
@@ -18,12 +20,8 @@ public class SteamCMD
     {
         try
         {
-            Directory.CreateDirectory(TARGET_FOLDER);
-
-            if (File.Exists(STEAM_CMD_ZIP))
-            {
-                File.Delete(STEAM_CMD_ZIP);
-            }
+            _fileSystemManager.CreateDirectory(TARGET_FOLDER);
+            _fileSystemManager.DeleteFile(STEAM_CMD_ZIP);
 
             //Download of SteamCMD Client
             using (WebClient Client = new WebClient())
@@ -31,16 +29,11 @@ public class SteamCMD
                 Client.DownloadFile(STEAM_CMD_CDN_URL, STEAM_CMD_ZIP);
             }
 
-            if (File.Exists(STEAM_CMD_EXE))
-            {
-                File.Delete(STEAM_CMD_EXE);
-            }
+            _fileSystemManager.DeleteFile(STEAM_CMD_EXE);
 
             ZipFile.ExtractToDirectory(STEAM_CMD_ZIP, TARGET_FOLDER);
-            if (File.Exists(STEAM_CMD_ZIP))
-            {
-                File.Delete(STEAM_CMD_ZIP);
-            }
+
+            _fileSystemManager.DeleteFile(STEAM_CMD_ZIP);
         }
         catch (Exception ex)
         {

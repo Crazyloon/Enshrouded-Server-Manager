@@ -447,7 +447,7 @@ public partial class Form1 : Form
                 if (Directory.Exists($"{serverProfilePath}_delete"))
                 {
                     // Delete the server folder
-                    _fileSystemManager.Delete($"{serverProfilePath}_delete");
+                    _fileSystemManager.DeleteDirectory($"{serverProfilePath}_delete");
 
                     // remove the profile
                     profiledata.Remove(serverProfile);
