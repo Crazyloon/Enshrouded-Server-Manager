@@ -104,7 +104,7 @@ public partial class Form1 : Form
             string selectedProfileName = cbxProfileSelectionComboBox.SelectedItem.ToString();
             var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
 
-            _server.InstallUpdate(Constants.STEAM_APP_ID, serverProfilePath);
+            _server.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}");
 
             btnInstallServer.Visible = false;
             btnUpdateServer.Visible = true;
@@ -118,7 +118,7 @@ public partial class Form1 : Form
             string selectedProfileName = cbxProfileSelectionComboBox.SelectedItem.ToString();
             var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
 
-            _server.InstallUpdate(Constants.STEAM_APP_ID, serverProfilePath);
+            _server.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}");
         }
     }
 
@@ -219,7 +219,7 @@ public partial class Form1 : Form
                 }
             });
 
-            if (Server.IsRunning(selectedProfileName))
+            if (_server.IsRunning(selectedProfileName))
             {
                 btnStartServer.Visible = false;
                 btnStopServer.Visible = true;
@@ -335,6 +335,14 @@ public partial class Form1 : Form
 
     private void SaveProfileName_Button_Click(object sender, EventArgs e)
     {
+        var reservedProfileNames = new string[] { "AutoBackup" };
+        string editProfileName = txtEditProfileName.Text;
+        var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, editProfileName);
+        if (Directory.Exists(serverProfilePath))
+        {
+            return;
+        }
+
         if (lbxServerProfiles.SelectedItem is null)
         {
             return;
@@ -349,22 +357,15 @@ public partial class Form1 : Form
             return;
         }
 
-
-        var reservedProfileNames = new string[] { Constants.ReservedProfileNames.AUTO_BACKCUP };
-
-
         // Validate:
         // Not Null
         // Windows File Name Does not have Special Characters
         // Not the same as an existing profile name
         // Not allowed to use ReservedNames
-
-        string editProfileName = txtEditProfileName.Text;
         if (editProfileName is null
-
             || !_profileManager.IsProfileNameValid(editProfileName)
             || lbxServerProfiles.Items.Contains(editProfileName)
-            || reservedProfileNames.Contains(editProfileName)) 
+            || reservedProfileNames.Contains(editProfileName))
         {
             return;
         }
@@ -384,7 +385,6 @@ public partial class Form1 : Form
             // rename the server settings folder
             RenameServerSettings(selectedServerProfile, editProfileName);
 
-            var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, editProfileName);
             if (_fileSystemManager.DirectoryExists(serverProfilePath))
             {
                 // update the name
@@ -399,6 +399,10 @@ public partial class Form1 : Form
                 // rename backup folder
                 var oldBackupFolder = Path.Join(Constants.Paths.BACKUPS_FOLDER, selectedServerProfile);
                 var newBackupFolder = Path.Join(Constants.Paths.BACKUPS_FOLDER, editProfileName);
+                if (!Directory.Exists(oldBackupFolder))
+                {
+                    Directory.CreateDirectory(oldBackupFolder);
+                }
                 if (!_fileSystemManager.RenameDirectory(oldBackupFolder, newBackupFolder))
                 {
                     MessageBox.Show(Constants.Errors.BACKUP_ERROR_MESSAGE, Constants.Errors.BACKUP_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -407,6 +411,10 @@ public partial class Form1 : Form
                 // rename autobackup folder
                 var oldAutoBackupFolder = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, selectedServerProfile);
                 var newAutoBackupFolder = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, editProfileName);
+                if (!Directory.Exists(oldAutoBackupFolder))
+                {
+                    Directory.CreateDirectory(oldAutoBackupFolder);
+                }
                 if (!_fileSystemManager.RenameDirectory(oldAutoBackupFolder, newAutoBackupFolder))
                 {
                     MessageBox.Show(Constants.Errors.AUTOBACKUP_ERROR_MESSAGE, Constants.Errors.AUTOBACKUP_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
