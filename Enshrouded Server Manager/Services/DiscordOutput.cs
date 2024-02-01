@@ -14,7 +14,8 @@ class DiscordOutput
         var embed = new EmbedBuilder
         {
             Title = $"ESM - {SERVERNAME}",
-            Description = "Server is online!"
+            Description = "Server is online!",
+            Color = Discord.Color.Green
         };
 
         await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
@@ -29,7 +30,8 @@ class DiscordOutput
         var embed = new EmbedBuilder
         {
             Title = $"ESM - {SERVERNAME}",
-            Description = "Server is offline!"
+            Description = "Server is offline!",
+            Color = Discord.Color.Red
         };
 
         await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
@@ -44,8 +46,10 @@ class DiscordOutput
         var embed = new EmbedBuilder
         {
             Title = $"ESM - {SERVERNAME}",
-            Description = "Server is updating..."
+            Description = "Server is updating...",
+            Color = Discord.Color.Blue
         };
+
 
         await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
     }
@@ -59,7 +63,8 @@ class DiscordOutput
         var embed = new EmbedBuilder
         {
             Title = $"ESM - {SERVERNAME}",
-            Description = "AutoBackup created!"
+            Description = "AutoBackup created!",
+            Color = Discord.Color.Gold
         };
 
         await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
