@@ -6,8 +6,6 @@ namespace Enshrouded_Server_Manager.Services;
 public class VersionManager
 {
     private readonly IFileSystemManager _fileSystemManager;
-    private const string REMOTE_VERSION_FILE_URL = "https://raw.githubusercontent.com/ISpaikI/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json";
-    private const string LOCAL_VERSION_FILE = "./githubversion.json";
 
     // TODO: Use HTTPClient instead of WebClient
     private const int TIMER_INTERVAL = 10;
@@ -35,7 +33,7 @@ public class VersionManager
         {
             try
             {
-                Client.DownloadFile(REMOTE_VERSION_FILE_URL, LOCAL_VERSION_FILE);
+                Client.DownloadFile(Constants.Urls.REMOTE_VERSION_FILE_URL, Constants.Files.LOCAL_VERSION_FILE);
             }
             catch (Exception)
             {
@@ -45,10 +43,10 @@ public class VersionManager
                 };
 
                 var output = JsonConvert.SerializeObject(json);
-                _fileSystemManager.WriteFile(LOCAL_VERSION_FILE, output);
+                _fileSystemManager.WriteFile(Constants.Files.LOCAL_VERSION_FILE, output);
             }
         }
-        var input = _fileSystemManager.ReadFile(LOCAL_VERSION_FILE);
+        var input = _fileSystemManager.ReadFile(Constants.Files.LOCAL_VERSION_FILE);
 
         LauncherVersion deserializedSettings = JsonConvert.DeserializeObject<LauncherVersion>(input);
 
@@ -65,6 +63,6 @@ public class VersionManager
             }
         }
 
-        _fileSystemManager.DeleteFile(LOCAL_VERSION_FILE);
+        _fileSystemManager.DeleteFile(Constants.Files.LOCAL_VERSION_FILE);
     }
 }

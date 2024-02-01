@@ -9,8 +9,6 @@ public class Backup
 {
     private readonly IFileSystemManager _fileSystemManager;
     private readonly Server _server; // TODO: Make this an interface
-    private const string BACKUPS_FOLDER = "./Backups";
-    private const string AUTO_BACKUPS_FOLDER = BACKUPS_FOLDER + "/AutoBackup";
     private string _dateTimeString;
 
     public event EventHandler<AutoBackupSuccessEventArgs> AutoBackupSuccess;
@@ -28,7 +26,7 @@ public class Backup
     {
         _dateTimeString = DateTime.Now.ToString(Constants.DATE_PATTERN);
 
-        var profileBackupDirectory = Path.Join(BACKUPS_FOLDER, profileName);
+        var profileBackupDirectory = Path.Join(Constants.Paths.BACKUPS_FOLDER, profileName);
         var originalServerConfigFile = Path.Join(serverConfigDirectory, serverConfigFileName);
         var copyOfServerConfigFile = Path.Join(saveFileDirectory, serverConfigFileName);
 
@@ -45,17 +43,17 @@ public class Backup
             _fileSystemManager.CopyFile(originalServerConfigFile, copyOfServerConfigFile);
         }
 
-        // zip all the files together
+        // zip all the files
+        var zipFileName = Path.Join(profileBackupDirectory, $"backup-{_dateTimeString}.zip");
         try
         {
-            _fileSystemManager.CreateZipFromDirectory(saveFileDirectory, Path.Join(profileBackupDirectory, $"backup-{_dateTimeString}.zip"));
-            MessageBox.Show(@$"Backup saved at: ""{BACKUPS_FOLDER}/{profileName}/backup-{_dateTimeString}.zip""",
-                "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            _fileSystemManager.CreateZipFromDirectory(saveFileDirectory, zipFileName);
+            MessageBox.Show(string.Format(Constants.Success.BACKUP_SAVED_SUCCESS_MESSAGE, zipFileName),
+                Constants.Success.BACKUP_SAVED_SUCCESS, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            MessageBox.Show(@$"An error occured while creating the zip file: {ex.Message}",
-                "Error while zipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Constants.Errors.BACKUP_ERROR_MESSAGE, Constants.Errors.BACKUP_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             return;
         }
@@ -74,7 +72,7 @@ public class Backup
             return;
         }
 
-        var profileAutoBackupDirectory = Path.Join(AUTO_BACKUPS_FOLDER, profileName);
+        var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, profileName);
         var originalServerConfigFile = Path.Join(serverConfigDirectory, serverConfigFileName);
         var copyOfServerConfigFile = Path.Join(saveFileDirectory, serverConfigFileName);
 
@@ -136,8 +134,7 @@ public class Backup
             }
             catch (Exception ex)
             {
-                MessageBox.Show(@$"An error occured while creating the zip file: {ex.Message}",
-                    "Error while zipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Constants.Errors.AUTOBACKUP_ERROR_MESSAGE, Constants.Errors.AUTOBACKUP_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -146,13 +143,14 @@ public class Backup
 
     public int GetBackupCount(string profileName)
     {
-        if (!_fileSystemManager.DirectoryExists($"{AUTO_BACKUPS_FOLDER}/{profileName}"))
+        var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, profileName);
+        if (!_fileSystemManager.DirectoryExists(profileAutoBackupDirectory))
         {
             return 0;
         }
 
         // find the number of backups for the selected profile
-        var directory = new DirectoryInfo($"{AUTO_BACKUPS_FOLDER}/{profileName}");
+        var directory = new DirectoryInfo(profileAutoBackupDirectory);
         var files = directory.GetFiles("*.zip");
 
         return files.Length;
@@ -160,13 +158,14 @@ public class Backup
 
     public long GetDiskConsumption(string profileName)
     {
-        if (!_fileSystemManager.DirectoryExists($"{AUTO_BACKUPS_FOLDER}/{profileName}"))
+        var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, profileName);
+        if (!_fileSystemManager.DirectoryExists(profileAutoBackupDirectory))
         {
             return 0;
         }
 
         // find all backups for the selected profile
-        var directory = new DirectoryInfo($"{AUTO_BACKUPS_FOLDER}/{profileName}");
+        var directory = new DirectoryInfo(profileAutoBackupDirectory);
         var files = directory.GetFiles("*.zip");
 
         // sum up the size of all backups

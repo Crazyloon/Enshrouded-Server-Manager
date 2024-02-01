@@ -26,6 +26,7 @@ public static class Constants
         public const string SERVER_PROFILES_JSON = "server_profiles.json";
         public const string GAME_SERVER_EXE = "enshrouded_server.exe";
         public const string WINDOWS_FIREWALL = @"c:\windows\system32\wf.msc";
+        public const string LOCAL_VERSION_FILE = "./githubversion.json";
     }
 
     public static class Errors
@@ -76,6 +77,12 @@ public static class Constants
         public const string DELETE_PROFILE_WARNING_MESSAGE = "Are you sure you want to delete this profile and all related server files?";
     }
 
+    public static class Success
+    {
+        public const string BACKUP_SAVED_SUCCESS = "Backup Saved";
+        public const string BACKUP_SAVED_SUCCESS_MESSAGE = @"Backup saved at: ""{0}""";
+    }
+
     public static class ButtonText
     {
         public const string SAVED_SUCCESS = "Saved!";
@@ -105,5 +112,12 @@ public static class Constants
         public static readonly Color BUTTON_BORDER = BLUE_GRAY;
         public static readonly Color BUTTON_BORDER_DISABLED = DARK_BLUE;
 
+    }
+
+    public static class Urls
+    {
+        public const string ESM_GITHUB_LINK = "https://github.com/ISpaikI/Enshrouded-Server-Manager";
+        public const string STEAM_CMD_CDN_URL = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip";
+        public const string REMOTE_VERSION_FILE_URL = "https://raw.githubusercontent.com/ISpaikI/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json";
     }
 }

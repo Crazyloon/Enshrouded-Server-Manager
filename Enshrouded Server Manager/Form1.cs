@@ -490,7 +490,7 @@ public partial class Form1 : Form
 
     private void GithubLabel_Click(object sender, EventArgs e)
     {
-        Process.Start(Constants.ProcessNames.EXPLORER_EXE, "https://github.com/ISpaikI/Enshrouded-Server-Manager");
+        Process.Start(Constants.ProcessNames.EXPLORER_EXE, Constants.Urls.ESM_GITHUB_LINK);
     }
 
     private void btnStopServer_Click(object sender, EventArgs e)

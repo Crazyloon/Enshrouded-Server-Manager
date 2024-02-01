@@ -9,7 +9,6 @@ public class SteamCMD
     private const string TARGET_FOLDER = "./SteamCMD/";
     private const string STEAM_CMD_ZIP = $"{TARGET_FOLDER}steamcmd.zip";
     private const string STEAM_CMD_EXE = $"{TARGET_FOLDER}steamcmd.exe";
-    private const string STEAM_CMD_CDN_URL = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip";
 
     public SteamCMD(IFileSystemManager fsm)
     {
@@ -29,7 +28,7 @@ public class SteamCMD
             //Download of SteamCMD Client
             using (WebClient Client = new WebClient())
             {
-                Client.DownloadFile(STEAM_CMD_CDN_URL, STEAM_CMD_ZIP);
+                Client.DownloadFile(Constants.Urls.STEAM_CMD_CDN_URL, STEAM_CMD_ZIP);
             }
 
             _fileSystemManager.DeleteFile(STEAM_CMD_EXE);
