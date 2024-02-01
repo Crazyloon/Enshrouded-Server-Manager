@@ -326,19 +326,22 @@ public partial class Form1 : Form
                 "Server is running", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
-
         var reservedProfileNames = new string[] { "AutoBackup" };
+        string editProfileName = txtEditProfileName.Text;
+        if (Directory.Exists($"{Constants.Paths.SERVER_PATH}{editProfileName}"))
+        {
+            return;
+        }
 
         // Validate:
         // Not Null
         // Windows File Name Does not have Special Characters
         // Not the same as an existing profile name
         // Not allowed to use ReservedNames
-        string editProfileName = txtEditProfileName.Text;
         if (editProfileName == null
             || !_profileManager.IsProfileNameValid(editProfileName)
             || lbxServerProfiles.Items.Contains(editProfileName)
-            || reservedProfileNames.Contains(editProfileName))
+            || reservedProfileNames.Contains(editProfileName)) 
         {
             return;
         }
