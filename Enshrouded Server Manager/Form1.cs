@@ -219,9 +219,11 @@ public partial class Form1 : Form
                 }
             });
 
-
-            btnStartServer.Visible = false;
-            btnStopServer.Visible = true;
+            if (Server.IsRunning(selectedProfileName))
+            {
+                btnStartServer.Visible = false;
+                btnStopServer.Visible = true;
+            }
         }
     }
 
@@ -347,18 +349,22 @@ public partial class Form1 : Form
             return;
         }
 
+
         var reservedProfileNames = new string[] { Constants.ReservedProfileNames.AUTO_BACKCUP };
+
 
         // Validate:
         // Not Null
         // Windows File Name Does not have Special Characters
         // Not the same as an existing profile name
         // Not allowed to use ReservedNames
+
         string editProfileName = txtEditProfileName.Text;
         if (editProfileName is null
+
             || !_profileManager.IsProfileNameValid(editProfileName)
             || lbxServerProfiles.Items.Contains(editProfileName)
-            || reservedProfileNames.Contains(editProfileName))
+            || reservedProfileNames.Contains(editProfileName)) 
         {
             return;
         }
