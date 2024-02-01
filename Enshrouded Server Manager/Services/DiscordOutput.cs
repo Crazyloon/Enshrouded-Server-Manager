@@ -13,7 +13,7 @@ class DiscordOutput
 
         var embed = new EmbedBuilder
         {
-            Title = $"Server {SERVERNAME}",
+            Title = $"ESM - {SERVERNAME}",
             Description = "Server is online!"
         };
 
@@ -28,7 +28,7 @@ class DiscordOutput
 
         var embed = new EmbedBuilder
         {
-            Title = $"Server {SERVERNAME}",
+            Title = $"ESM - {SERVERNAME}",
             Description = "Server is offline!"
         };
 
@@ -43,8 +43,8 @@ class DiscordOutput
 
         var embed = new EmbedBuilder
         {
-            Title = $"Server {SERVERNAME}",
-            Description = "Server is updating!"
+            Title = $"ESM - {SERVERNAME}",
+            Description = "Server is updating..."
         };
 
         await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
@@ -58,7 +58,7 @@ class DiscordOutput
 
         var embed = new EmbedBuilder
         {
-            Title = $"Server {SERVERNAME}",
+            Title = $"ESM - {SERVERNAME}",
             Description = "AutoBackup created!"
         };
 

@@ -1,4 +1,5 @@
 using Enshrouded_Server_Manager.Events;
+using Enshrouded_Server_Manager.Model;
 using Enshrouded_Server_Manager.Models;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -10,6 +11,8 @@ public class Backup
     private readonly IFileSystemManager _fileSystemManager;
     private readonly Server _server; // TODO: Make this an interface
     private string _dateTimeString;
+    private JsonSerializerSettings _jsonSerializerSettings;
+    private DiscordOutput _discordOutput;
 
     public event EventHandler<AutoBackupSuccessEventArgs> AutoBackupSuccess;
 
@@ -90,6 +93,16 @@ public class Backup
         var input = _fileSystemManager.ReadFile(pidJsonFile);
         EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
 
+        var input2 = File.ReadAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json");
+        DiscordProfile deserializedSettings = JsonConvert.DeserializeObject<DiscordProfile>(input2, _jsonSerializerSettings);
+        string DiscordUrl = deserializedSettings.DiscordUrl;
+
+        string selectedProfileName = profileName;
+        var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
+        var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
+        var input3 = _fileSystemManager.ReadFile(gameServerConfig);
+        ServerSettings deserializedSettings3 = JsonConvert.DeserializeObject<ServerSettings>(input3, _jsonSerializerSettings);
+        string name = deserializedSettings3.Name;
 
         while (await timer.WaitForNextTickAsync())
         {
@@ -138,6 +151,18 @@ public class Backup
                 return;
             }
 
+            // discord Output
+            if (deserializedSettings.Enabled)
+            {
+                try
+                {
+                    _discordOutput.ServerBackup(name, DiscordUrl);
+                }
+                catch
+                {
+
+                }
+            }
         }
     }
 

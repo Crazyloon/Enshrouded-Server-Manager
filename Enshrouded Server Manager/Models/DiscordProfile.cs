@@ -3,6 +3,7 @@
 namespace Enshrouded_Server_Manager.Model;
 public class DiscordProfile
 {
-    public string Url { get; set; }
+    public string DiscordUrl { get; set; }
+    public bool Enabled { get; set; }
 }
 

@@ -1011,6 +1011,7 @@
             btnSaveDiscordSettings.Text = "Save Changes";
             btnSaveDiscordSettings.UseCompatibleTextRendering = true;
             btnSaveDiscordSettings.UseVisualStyleBackColor = true;
+            btnSaveDiscordSettings.Click += btnSaveDiscordSettings_Click;
             // 
             // txtDiscordUrl
             // 
