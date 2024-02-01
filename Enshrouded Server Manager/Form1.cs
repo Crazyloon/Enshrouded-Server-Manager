@@ -128,6 +128,14 @@ public partial class Form1 : Form
         {
             string selectedProfileName = cbxProfileSelectionComboBox.SelectedItem.ToString();
 
+            if (_server.IsRunning(selectedProfileName))
+            {
+                MessageBox.Show(Constants.Errors.SERVER_RUNNING_ERROR_MESSAGE, Constants.Errors.SERVER_RUNNING_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                cbxProfileSelectionComboBox_IndexChanged(sender, e);
+                return;
+            }
+
             var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
             _fileSystemManager.CreateDirectory(serverProfilePath);
 
@@ -186,10 +194,10 @@ public partial class Form1 : Form
 
             var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
 
-            var gameServerConfig = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName, Constants.Files.GAME_SERVER_CONFIG_JSON);
+            var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
             _fileSystemManager.WriteFile(gameServerConfig, output);
 
-            var gameServerExe = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName, Constants.Files.GAME_SERVER_EXE);
+            var gameServerExe = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_EXE);
             _server.Start(gameServerExe, selectedProfileName);
 
 
@@ -202,10 +210,9 @@ public partial class Form1 : Form
                 {
                     var profiles = _profileManager.LoadServerProfiles(_jsonSerializerSettings);
                     var profile = profiles?.FirstOrDefault(x => x.Name == selectedProfileName);
-                    if (profile != null && profile.AutoBackup != null && profile.AutoBackup.Enabled)
+                    if (profile is not null && profile.AutoBackup is not null && profile.AutoBackup.Enabled)
                     {
-                        var saveGameFolder = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName, Constants.Paths.GAME_SERVER_SAVE_FOLDER);
-                        var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
+                        var saveGameFolder = Path.Join(serverProfilePath, Constants.Paths.GAME_SERVER_SAVE_FOLDER);
 
                         _backup.StartAutoBackup(saveGameFolder, selectedProfileName, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
                     }
@@ -335,8 +342,8 @@ public partial class Form1 : Form
 
         if (_server.IsRunning(selectedServerProfile))
         {
-            MessageBox.Show(Constants.Errors.SERVER_RUNNING_ERROR_MESSAGE,
-                Constants.Errors.SERVER_RUNNING_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(Constants.Errors.SERVER_RUNNING_ERROR_MESSAGE, Constants.Errors.SERVER_RUNNING_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             return;
         }
 
@@ -348,7 +355,7 @@ public partial class Form1 : Form
         // Not the same as an existing profile name
         // Not allowed to use ReservedNames
         string editProfileName = txtEditProfileName.Text;
-        if (editProfileName == null
+        if (editProfileName is null
             || !_profileManager.IsProfileNameValid(editProfileName)
             || lbxServerProfiles.Items.Contains(editProfileName)
             || reservedProfileNames.Contains(editProfileName))
@@ -366,7 +373,7 @@ public partial class Form1 : Form
 
         // get the selected profile
         var selectedProfile = profiledata.FirstOrDefault(x => x.Name == selectedServerProfile);
-        if (selectedProfile != null)
+        if (selectedProfile is not null)
         {
             // rename the server settings folder
             RenameServerSettings(selectedServerProfile, editProfileName);
@@ -414,6 +421,16 @@ public partial class Form1 : Form
     {
         if (lbxServerProfiles.SelectedItem is not null)
         {
+            // get the selected profile
+            string selectedServerProfile = lbxServerProfiles.SelectedItem.ToString();
+
+            if (_server.IsRunning(selectedServerProfile))
+            {
+                MessageBox.Show(Constants.Errors.SERVER_RUNNING_ERROR_MESSAGE, Constants.Errors.SERVER_RUNNING_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+
             var result = MessageBox.Show(Constants.Warnings.DELETE_PROFILE_WARNING_MESSAGE, Constants.Warnings.DELETE_PROFILE_WARNING, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (result != DialogResult.Yes)
@@ -423,12 +440,8 @@ public partial class Form1 : Form
 
             // Load Server Profiles
             List<ServerProfile> profiledata = _profileManager.LoadServerProfiles(_jsonSerializerSettings);
-
-            // get the selected profile
-            string selectedServerProfile = lbxServerProfiles.SelectedItem.ToString();
             var serverProfile = profiledata.FirstOrDefault(x => x.Name == selectedServerProfile);
-
-            if (serverProfile != null)
+            if (serverProfile is not null)
             {
                 var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedServerProfile);
                 // rename directory to check if in use
@@ -573,14 +586,14 @@ public partial class Form1 : Form
     {
         // get selected item
         var selectedProfile = lbxProfileSelectorAutoBackup.SelectedItem?.ToString();
-        if (selectedProfile != null)
+        if (selectedProfile is not null)
         {
             // load profile
             var profile = _profileManager.LoadServerProfiles(_jsonSerializerSettings).FirstOrDefault(x => x.Name == selectedProfile);
-            if (profile != null)
+            if (profile is not null)
             {
                 // load auto backup settings
-                if (profile.AutoBackup == null)
+                if (profile.AutoBackup is null)
                 {
                     // create new auto backup settings
                     profile.AutoBackup = new AutoBackup()

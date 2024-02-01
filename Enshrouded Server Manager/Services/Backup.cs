@@ -185,7 +185,7 @@ public class Backup
         if (zipFiles.Length > maximumBackups)
         {
             var oldestZip = zipFiles.FirstOrDefault();
-            if (oldestZip != null)
+            if (oldestZip is not null)
             {
                 oldestZip.Delete();
             }
