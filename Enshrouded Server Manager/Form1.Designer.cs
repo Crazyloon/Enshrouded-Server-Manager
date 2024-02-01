@@ -95,6 +95,11 @@
             nudBackupInterval = new NumericUpDown();
             lblScheduleBackups = new Label();
             lbxProfileSelectorAutoBackup = new ListBox();
+            tabDiscord = new TabPage();
+            DiscordUrl = new Label();
+            btnSaveDiscordSettings = new Button();
+            txtDiscordUrl = new TextBox();
+            chkEnableDiscord = new CheckBox();
             lblNewsText = new Label();
             lblCredits = new Label();
             lblVersion = new Label();
@@ -108,11 +113,6 @@
             btnStopServer = new Button();
             pictureBox1 = new PictureBox();
             pbxFormHeader = new PictureBox();
-            tabDiscord = new TabPage();
-            chkEnableDiscord = new CheckBox();
-            textBox1 = new TextBox();
-            button1 = new Button();
-            DiscordWebhook = new Label();
             ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
@@ -130,11 +130,11 @@
             tabAutoBackup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudBackupMaxCount).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudBackupInterval).BeginInit();
+            tabDiscord.SuspendLayout();
             pnlBackupExplanation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbxFormHeader).BeginInit();
-            tabDiscord.SuspendLayout();
             SuspendLayout();
             // 
             // cbxProfileSelectionComboBox
@@ -974,6 +974,64 @@
             lbxProfileSelectorAutoBackup.TabIndex = 1;
             lbxProfileSelectorAutoBackup.SelectedIndexChanged += lbxProfileSelectorAutoBackup_SelectedIndexChanged;
             // 
+            // tabDiscord
+            // 
+            tabDiscord.BackColor = Color.FromArgb(0, 0, 18);
+            tabDiscord.Controls.Add(DiscordUrl);
+            tabDiscord.Controls.Add(btnSaveDiscordSettings);
+            tabDiscord.Controls.Add(txtDiscordUrl);
+            tabDiscord.Controls.Add(chkEnableDiscord);
+            tabDiscord.Location = new Point(4, 24);
+            tabDiscord.Name = "tabDiscord";
+            tabDiscord.Size = new Size(359, 302);
+            tabDiscord.TabIndex = 3;
+            tabDiscord.Text = "Discord";
+            // 
+            // DiscordUrl
+            // 
+            DiscordUrl.AutoSize = true;
+            DiscordUrl.Location = new Point(114, 104);
+            DiscordUrl.Name = "DiscordUrl";
+            DiscordUrl.Size = new Size(128, 15);
+            DiscordUrl.TabIndex = 18;
+            DiscordUrl.Text = "Your Discord Webhook";
+            // 
+            // btnSaveDiscordSettings
+            // 
+            btnSaveDiscordSettings.Cursor = Cursors.Hand;
+            btnSaveDiscordSettings.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnSaveDiscordSettings.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnSaveDiscordSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnSaveDiscordSettings.FlatStyle = FlatStyle.Flat;
+            btnSaveDiscordSettings.ForeColor = Color.FromArgb(0, 255, 185);
+            btnSaveDiscordSettings.Location = new Point(115, 166);
+            btnSaveDiscordSettings.Name = "btnSaveDiscordSettings";
+            btnSaveDiscordSettings.Size = new Size(128, 30);
+            btnSaveDiscordSettings.TabIndex = 17;
+            btnSaveDiscordSettings.Text = "Save Changes";
+            btnSaveDiscordSettings.UseCompatibleTextRendering = true;
+            btnSaveDiscordSettings.UseVisualStyleBackColor = true;
+            // 
+            // txtDiscordUrl
+            // 
+            txtDiscordUrl.BackColor = Color.FromArgb(6, 6, 48);
+            txtDiscordUrl.BorderStyle = BorderStyle.FixedSingle;
+            txtDiscordUrl.ForeColor = SystemColors.Window;
+            txtDiscordUrl.Location = new Point(106, 124);
+            txtDiscordUrl.Name = "txtDiscordUrl";
+            txtDiscordUrl.Size = new Size(146, 23);
+            txtDiscordUrl.TabIndex = 16;
+            // 
+            // chkEnableDiscord
+            // 
+            chkEnableDiscord.AutoSize = true;
+            chkEnableDiscord.Location = new Point(127, 69);
+            chkEnableDiscord.Name = "chkEnableDiscord";
+            chkEnableDiscord.Size = new Size(104, 19);
+            chkEnableDiscord.TabIndex = 15;
+            chkEnableDiscord.Text = "Enable Discord";
+            chkEnableDiscord.UseVisualStyleBackColor = true;
+            // 
             // lblNewsText
             // 
             lblNewsText.AutoSize = true;
@@ -1128,64 +1186,6 @@
             pbxFormHeader.TabStop = false;
             pbxFormHeader.MouseDown += FormHeader_MouseDown;
             // 
-            // tabDiscord
-            // 
-            tabDiscord.BackColor = Color.FromArgb(0, 0, 18);
-            tabDiscord.Controls.Add(DiscordWebhook);
-            tabDiscord.Controls.Add(button1);
-            tabDiscord.Controls.Add(textBox1);
-            tabDiscord.Controls.Add(chkEnableDiscord);
-            tabDiscord.Location = new Point(4, 24);
-            tabDiscord.Name = "tabDiscord";
-            tabDiscord.Size = new Size(359, 302);
-            tabDiscord.TabIndex = 3;
-            tabDiscord.Text = "Discord";
-            // 
-            // chkEnableDiscord
-            // 
-            chkEnableDiscord.AutoSize = true;
-            chkEnableDiscord.Location = new Point(127, 69);
-            chkEnableDiscord.Name = "chkEnableDiscord";
-            chkEnableDiscord.Size = new Size(104, 19);
-            chkEnableDiscord.TabIndex = 15;
-            chkEnableDiscord.Text = "Enable Discord";
-            chkEnableDiscord.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            textBox1.BackColor = Color.FromArgb(6, 6, 48);
-            textBox1.BorderStyle = BorderStyle.FixedSingle;
-            textBox1.ForeColor = SystemColors.Window;
-            textBox1.Location = new Point(106, 124);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(146, 23);
-            textBox1.TabIndex = 16;
-            // 
-            // button1
-            // 
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
-            button1.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
-            button1.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.ForeColor = Color.FromArgb(0, 255, 185);
-            button1.Location = new Point(115, 166);
-            button1.Name = "button1";
-            button1.Size = new Size(128, 30);
-            button1.TabIndex = 17;
-            button1.Text = "Save Changes";
-            button1.UseCompatibleTextRendering = true;
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // DiscordWebhook
-            // 
-            DiscordWebhook.AutoSize = true;
-            DiscordWebhook.Location = new Point(114, 104);
-            DiscordWebhook.Name = "DiscordWebhook";
-            DiscordWebhook.Size = new Size(128, 15);
-            DiscordWebhook.TabIndex = 18;
-            DiscordWebhook.Text = "Your Discord Webhook";
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1255,13 +1255,13 @@
             tabAutoBackup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudBackupMaxCount).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudBackupInterval).EndInit();
+            tabDiscord.ResumeLayout(false);
+            tabDiscord.PerformLayout();
             pnlBackupExplanation.ResumeLayout(false);
             pnlBackupExplanation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbxFormHeader).EndInit();
-            tabDiscord.ResumeLayout(false);
-            tabDiscord.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1349,9 +1349,9 @@
         private PictureBox pictureBox1;
         private PictureBox pbxFormHeader;
         private TabPage tabDiscord;
-        private Label DiscordWebhook;
-        private Button button1;
-        private TextBox textBox1;
+        private Label DiscordUrl;
+        private Button btnSaveDiscordSettings;
+        private TextBox txtDiscordUrl;
         private CheckBox chkEnableDiscord;
     }
 }
