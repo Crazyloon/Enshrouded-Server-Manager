@@ -7,7 +7,13 @@ namespace Enshrouded_Server_Manager.Services;
 
 public class Server
 {
+    private readonly IFileSystemManager _fileSystemManager;
     private const string SERVER_PROCESS_NAME = "enshrouded_server";
+
+    public Server(IFileSystemManager fsm)
+    {
+        _fileSystemManager = fsm;
+    }
 
     [DllImport("user32.dll")]
     static extern int SetWindowText(IntPtr hWnd, string text);
@@ -51,7 +57,7 @@ public class Server
 
             var serverCachePath = Path.Join(Constants.Paths.CACHE_DIRECTORY, selectedProfileName);
 
-            Directory.CreateDirectory(serverCachePath);
+            _fileSystemManager.CreateDirectory(serverCachePath);
             EnshroudedServerProcess json = new EnshroudedServerProcess()
             {
                 Id = pid,
@@ -60,7 +66,7 @@ public class Server
 
             var output = JsonConvert.SerializeObject(json);
             var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, selectedProfileName, Constants.Files.PID_JSON);
-            File.WriteAllText(pidJsonFile, output);
+            _fileSystemManager.WriteFile(pidJsonFile, output);
         }
         catch (Exception ex)
         {
@@ -94,13 +100,13 @@ public class Server
     public void Stop(string selectedProfileName)
     {
         var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, selectedProfileName, Constants.Files.PID_JSON);
-        if (!File.Exists(pidJsonFile))
+        if (!_fileSystemManager.FileExists(pidJsonFile))
         {
             return;
         }
 
         // Load pid
-        var input = File.ReadAllText(pidJsonFile);
+        var input = _fileSystemManager.ReadFile(pidJsonFile);
 
         EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
 
@@ -125,18 +131,18 @@ public class Server
             return;
         }
 
-        File.Delete(pidJsonFile);
+        _fileSystemManager.DeleteFile(pidJsonFile);
     }
 
-    public static bool IsRunning(string selectedProfileName)
+    public bool IsRunning(string selectedProfileName)
     {
         var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, selectedProfileName, Constants.Files.PID_JSON);
-        if (!File.Exists(pidJsonFile))
+        if (!_fileSystemManager.FileExists(pidJsonFile))
         {
             return false;
         }
 
-        var input = File.ReadAllText(pidJsonFile);
+        var input = _fileSystemManager.ReadFile(pidJsonFile);
         EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
 
         if (serverProcessInfo == null)
@@ -152,7 +158,11 @@ public class Server
         catch (ArgumentException)
         {
             // The process doesn't exist anymore, so we can delete the pid file
-            File.Delete(pidJsonFile);
+            if (_fileSystemManager.FileExists(pidJsonFile))
+            {
+                _fileSystemManager.DeleteFile(pidJsonFile);
+            }
+
             return false;
         }
 

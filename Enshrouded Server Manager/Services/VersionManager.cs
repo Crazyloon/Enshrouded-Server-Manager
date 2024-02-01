@@ -5,11 +5,17 @@ using System.Net;
 namespace Enshrouded_Server_Manager.Services;
 public class VersionManager
 {
+    private readonly IFileSystemManager _fileSystemManager;
     private const string REMOTE_VERSION_FILE_URL = "https://raw.githubusercontent.com/ISpaikI/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json";
     private const string LOCAL_VERSION_FILE = "./githubversion.json";
 
     // TODO: Use HTTPClient instead of WebClient
     private const int TIMER_INTERVAL = 10;
+
+    public VersionManager(IFileSystemManager fsm)
+    {
+        _fileSystemManager = fsm;
+    }
 
     public async void ManagerUpdate(string currentVersionText, Label lblNewVersionText)
     {
@@ -39,10 +45,10 @@ public class VersionManager
                 };
 
                 var output = JsonConvert.SerializeObject(json);
-                File.WriteAllText(LOCAL_VERSION_FILE, output);
+                _fileSystemManager.WriteFile(LOCAL_VERSION_FILE, output);
             }
         }
-        var input = File.ReadAllText(LOCAL_VERSION_FILE);
+        var input = _fileSystemManager.ReadFile(LOCAL_VERSION_FILE);
 
         LauncherVersion deserializedSettings = JsonConvert.DeserializeObject<LauncherVersion>(input);
 
@@ -59,6 +65,6 @@ public class VersionManager
             }
         }
 
-        File.Delete(LOCAL_VERSION_FILE);
+        _fileSystemManager.DeleteFile(LOCAL_VERSION_FILE);
     }
 }

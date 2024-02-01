@@ -4,6 +4,7 @@ public static class Constants
     public const int BUTTON_DOWN = 0xA1;
     public const int CAPTION = 0x2;
     public const string STEAM_APP_ID = "2278520";
+    public const string DATE_PATTERN = "yyyy-MM-dd-HH-mm-ss";
 
     public static class Paths
     {

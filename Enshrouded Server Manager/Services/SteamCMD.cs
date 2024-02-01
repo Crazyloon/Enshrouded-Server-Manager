@@ -1,17 +1,20 @@
 using System.Diagnostics;
-using System.IO.Compression;
 using System.Net;
 
 namespace Enshrouded_Server_Manager.Services;
 
 public class SteamCMD
 {
-
-    FileSystemManager _fileSystemManager = new FileSystemManager();
+    private readonly IFileSystemManager _fileSystemManager;
     private const string TARGET_FOLDER = "./SteamCMD/";
     private const string STEAM_CMD_ZIP = $"{TARGET_FOLDER}steamcmd.zip";
     private const string STEAM_CMD_EXE = $"{TARGET_FOLDER}steamcmd.exe";
     private const string STEAM_CMD_CDN_URL = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip";
+
+    public SteamCMD(IFileSystemManager fsm)
+    {
+        _fileSystemManager = fsm;
+    }
 
     /// <summary>
     /// Download and installation of SteamCMD in the same folder as the Executeable
@@ -31,7 +34,7 @@ public class SteamCMD
 
             _fileSystemManager.DeleteFile(STEAM_CMD_EXE);
 
-            ZipFile.ExtractToDirectory(STEAM_CMD_ZIP, TARGET_FOLDER);
+            _fileSystemManager.ExtractZipToDirectory(STEAM_CMD_ZIP, TARGET_FOLDER);
 
             _fileSystemManager.DeleteFile(STEAM_CMD_ZIP);
         }

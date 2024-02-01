@@ -5,13 +5,19 @@ using Newtonsoft.Json;
 namespace Enshrouded_Server_Manager.Services;
 public class ProfileManager
 {
+    private readonly IFileSystemManager _fileSystemManager;
+    public ProfileManager(IFileSystemManager fsm)
+    {
+        _fileSystemManager = fsm;
+    }
+
     public List<ServerProfile>? LoadServerProfiles(JsonSerializerSettings jsonSerializerSettings, bool firstCheck = false)
     {
         var serverProfilesJson = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON);
 
-        if (!File.Exists(serverProfilesJson))
+        if (!_fileSystemManager.FileExists(serverProfilesJson))
         {
-            Directory.CreateDirectory(Constants.Paths.DEFAULT_PROFILES_PATH);
+            _fileSystemManager.CreateDirectory(Constants.Paths.DEFAULT_PROFILES_PATH);
 
             // First time loading server profiles should, create default profile
             if (firstCheck)
@@ -24,13 +30,13 @@ public class ProfileManager
             }
         }
 
-        var profilesJson = File.ReadAllText(serverProfilesJson);
+        var profilesJson = _fileSystemManager.ReadFile(serverProfilesJson);
         List<ServerProfile>? serverProfiles = JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson, jsonSerializerSettings);
 
         if (serverProfiles is not null && serverProfiles.Count() <= 0)
         {
             WriteDefaultProfileJson(serverProfilesJson, jsonSerializerSettings);
-            profilesJson = File.ReadAllText(serverProfilesJson);
+            profilesJson = _fileSystemManager.ReadFile(serverProfilesJson);
             return JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson, jsonSerializerSettings);
         }
 
@@ -70,6 +76,6 @@ public class ProfileManager
         };
 
         var output = JsonConvert.SerializeObject(json, settings);
-        File.WriteAllText(profilePath, output);
+        _fileSystemManager.WriteFile(profilePath, output);
     }
 }
