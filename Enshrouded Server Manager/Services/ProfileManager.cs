@@ -1,35 +1,42 @@
-﻿using Enshrouded_Server_Manager.Const;
-using Enshrouded_Server_Manager.Helpers;
+﻿using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Models;
 using Newtonsoft.Json;
 
 namespace Enshrouded_Server_Manager.Services;
 public class ProfileManager
 {
+    private readonly IFileSystemManager _fileSystemManager;
+    public ProfileManager(IFileSystemManager fsm)
+    {
+        _fileSystemManager = fsm;
+    }
+
     public List<ServerProfile>? LoadServerProfiles(JsonSerializerSettings jsonSerializerSettings, bool firstCheck = false)
     {
-        if (!File.Exists($"{Constants.Paths.DEFAULT_PROFILES_PATH}{Constants.Paths.SERVER_PROFILES_JSON}"))
+        var serverProfilesJson = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON);
+
+        if (!_fileSystemManager.FileExists(serverProfilesJson))
         {
-            Directory.CreateDirectory(Constants.Paths.DEFAULT_PROFILES_PATH);
+            _fileSystemManager.CreateDirectory(Constants.Paths.DEFAULT_PROFILES_PATH);
 
             // First time loading server profiles should, create default profile
             if (firstCheck)
             {
-                WriteDefaultProfileJson($"{Constants.Paths.DEFAULT_PROFILES_PATH}{Constants.Paths.SERVER_PROFILES_JSON}", jsonSerializerSettings);
+                WriteDefaultProfileJson(serverProfilesJson, jsonSerializerSettings);
             }
             else
             {
-                MessageBox.Show($"Critical Error. {Constants.Paths.DEFAULT_PROFILES_PATH}{Constants.Paths.SERVER_PROFILES_JSON} not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Constants.Errors.SERVER_PROFILES_NOT_FOUND_ERROR_MESSAGE, Constants.Errors.SERVER_PROFILES_NOT_FOUND_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        var profilesJson = File.ReadAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}{Constants.Paths.SERVER_PROFILES_JSON}");
+        var profilesJson = _fileSystemManager.ReadFile(serverProfilesJson);
         List<ServerProfile>? serverProfiles = JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson, jsonSerializerSettings);
 
         if (serverProfiles is not null && serverProfiles.Count() <= 0)
         {
-            WriteDefaultProfileJson($"{Constants.Paths.DEFAULT_PROFILES_PATH}{Constants.Paths.SERVER_PROFILES_JSON}", jsonSerializerSettings);
-            profilesJson = File.ReadAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}{Constants.Paths.SERVER_PROFILES_JSON}");
+            WriteDefaultProfileJson(serverProfilesJson, jsonSerializerSettings);
+            profilesJson = _fileSystemManager.ReadFile(serverProfilesJson);
             return JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson, jsonSerializerSettings);
         }
 
@@ -42,7 +49,7 @@ public class ProfileManager
         // that are not allowed in a Windows file name
         if (string.IsNullOrWhiteSpace(profileName))
         {
-            MessageBox.Show("Profile name cannot be empty", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(Constants.Errors.SERVER_PROFILE_EMPTY_ERROR_MESSAGE, Constants.Errors.SERVER_PROFILE_EMPTY_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
             return false;
         }
 
@@ -51,7 +58,7 @@ public class ProfileManager
         // Check that the profileName does not contain any invalid characters
         if (profileName.IndexOfAny(invalid.ToCharArray()) != -1)
         {
-            MessageBox.Show($"Profile name contains invalid characters. Use only those characters acceptable by the Windows File System", "Invalid Characters", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(Constants.Errors.SERVER_PROFILE_INVALID_CHARACTERS_ERROR_MESSAGE, Constants.Errors.SERVER_PROFILE_INVALID_CHARACTERS_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
             return false;
         }
 
@@ -64,11 +71,11 @@ public class ProfileManager
         {
             new ServerProfile()
             {
-                Name = $"Server{GenerateText.RandomString(6)}"
+                Name = GenerateText.RandomServerName(6)
             }
         };
 
         var output = JsonConvert.SerializeObject(json, settings);
-        File.WriteAllText(profilePath, output);
+        _fileSystemManager.WriteFile(profilePath, output);
     }
 }
