@@ -80,6 +80,7 @@ public partial class Form1 : Form
                 string selectedProfile = cbxProfileSelectionComboBox.SelectedItem.ToString();
                 RefreshServerButtonsVisibility(selectedProfile);
                 LoadServerSettings(selectedProfile);
+                LoadDiscordSettings();
             }
         }
 
@@ -834,6 +835,19 @@ public partial class Form1 : Form
         nudGamePort.Text = deserializedSettings.GamePort.ToString();
         nudQueryPort.Text = deserializedSettings.QueryPort.ToString();
         nudSlotCount.Text = deserializedSettings.SlotCount.ToString();
+    }
+
+    private void LoadDiscordSettings()
+    {
+        if (!_fileSystemManager.FileExists($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json"))
+        {
+            return;
+        }
+        var input = File.ReadAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json");
+        DiscordProfile deserializedSettings = JsonConvert.DeserializeObject<DiscordProfile>(input, _jsonSerializerSettings);
+
+        txtDiscordUrl.Text = deserializedSettings.DiscordUrl;
+        chkEnableDiscord.Checked = deserializedSettings.Enabled;
     }
 
     private void WriteDefaultServerSettings(string profileName)

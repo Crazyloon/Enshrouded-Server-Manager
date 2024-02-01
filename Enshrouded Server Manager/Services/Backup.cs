@@ -94,12 +94,13 @@ public class Backup
         EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
 
         var input2 = File.ReadAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json");
-        DiscordProfile deserializedSettings = JsonConvert.DeserializeObject<DiscordProfile>(input2, _jsonSerializerSettings);
-        string DiscordUrl = deserializedSettings.DiscordUrl;
+        DiscordProfile deserializedSettings2 = JsonConvert.DeserializeObject<DiscordProfile>(input2, _jsonSerializerSettings);
+        string DiscordUrl = deserializedSettings2.DiscordUrl;
 
         string selectedProfileName = profileName;
         var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
         var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
+        
         var input3 = _fileSystemManager.ReadFile(gameServerConfig);
         ServerSettings deserializedSettings3 = JsonConvert.DeserializeObject<ServerSettings>(input3, _jsonSerializerSettings);
         string name = deserializedSettings3.Name;
@@ -152,16 +153,18 @@ public class Backup
             }
 
             // discord Output
-            if (deserializedSettings.Enabled)
+            if (deserializedSettings2.Enabled)
             {
+
                 try
                 {
-                    _discordOutput.ServerBackup(name, DiscordUrl);
+                    await _discordOutput.ServerOffline(name, DiscordUrl);
                 }
                 catch
                 {
 
                 }
+
             }
         }
     }
