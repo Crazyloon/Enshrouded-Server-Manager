@@ -201,9 +201,11 @@ public partial class Form1 : Form
                 }
             });
 
-
-            btnStartServer.Visible = false;
-            btnStopServer.Visible = true;
+            if (Server.IsRunning(selectedProfileName))
+            {
+                btnStartServer.Visible = false;
+                btnStopServer.Visible = true;
+            }
         }
     }
 
