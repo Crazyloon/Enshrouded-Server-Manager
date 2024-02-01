@@ -93,6 +93,7 @@ public class Backup
         var input = _fileSystemManager.ReadFile(pidJsonFile);
         EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
 
+        //
         var input2 = File.ReadAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json");
         DiscordProfile deserializedSettings2 = JsonConvert.DeserializeObject<DiscordProfile>(input2, _jsonSerializerSettings);
         string DiscordUrl = deserializedSettings2.DiscordUrl;
@@ -104,7 +105,7 @@ public class Backup
         var input3 = _fileSystemManager.ReadFile(gameServerConfig);
         ServerSettings deserializedSettings3 = JsonConvert.DeserializeObject<ServerSettings>(input3, _jsonSerializerSettings);
         string name = deserializedSettings3.Name;
-
+        //
         while (await timer.WaitForNextTickAsync())
         {
             // check if the server is running
@@ -158,7 +159,7 @@ public class Backup
 
                 try
                 {
-                    await _discordOutput.ServerOffline(name, DiscordUrl);
+                    await _discordOutput.ServerBackup(name, DiscordUrl);
                 }
                 catch
                 {
