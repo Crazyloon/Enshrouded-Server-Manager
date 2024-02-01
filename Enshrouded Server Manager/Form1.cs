@@ -747,14 +747,14 @@ public partial class Form1 : Form
     {
         ServerSettings json = new ServerSettings()
         {
-            Name = "Enshrouded Server",
-            Password = "",
+            Name = Constants.ServerSettings.DEFAULT_SERVER_NAME,
+            Password = Constants.ServerSettings.DEFAULT_SERVER_PASSWORD,
             SaveDirectory = Constants.Paths.ENSHROUDED_SAVE_GAME_DIRECTORY,
             LogDirectory = Constants.Paths.ENSHROUDED_LOGS_DIRECTORY,
-            Ip = "0.0.0.0",
-            GamePort = 15636,
-            QueryPort = 15637,
-            SlotCount = 16
+            Ip = Constants.ServerSettings.DEFAULT_SERVER_IP,
+            GamePort = Constants.ServerSettings.DEFAULT_SERVER_GAME_PORT,
+            QueryPort = Constants.ServerSettings.DEFAULT_SERVER_QUERY_PORT,
+            SlotCount = Constants.ServerSettings.DEFAULT_SERVER_SLOT_COUNT
         };
 
         var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);

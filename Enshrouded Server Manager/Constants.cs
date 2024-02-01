@@ -29,6 +29,16 @@ public static class Constants
         public const string LOCAL_VERSION_FILE = "githubversion.json";
     }
 
+    public static class ServerSettings
+    {
+        public const string DEFAULT_SERVER_NAME = "Enshrouded Server";
+        public const string DEFAULT_SERVER_PASSWORD = "";
+        public const string DEFAULT_SERVER_IP = "0.0.0.0";
+        public const int DEFAULT_SERVER_GAME_PORT = 15636;
+        public const int DEFAULT_SERVER_QUERY_PORT = 15637;
+        public const int DEFAULT_SERVER_SLOT_COUNT = 16;
+    }
+
     public static class Errors
     {
         public const string BACKUP_ERROR = "Backup Failed";
