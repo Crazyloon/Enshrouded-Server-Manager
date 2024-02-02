@@ -1039,9 +1039,9 @@
             lblNewsText.AutoSize = true;
             lblNewsText.Location = new Point(584, 181);
             lblNewsText.Name = "lblNewsText";
-            lblNewsText.Size = new Size(157, 75);
+            lblNewsText.Size = new Size(183, 180);
             lblNewsText.TabIndex = 53;
-            lblNewsText.Text = "Changes:\r\n\r\n- fixed AutoBackup function\r\n- added a button to open\r\n   the AutoBackup Folder";
+            lblNewsText.Text = resources.GetString("lblNewsText.Text");
             // 
             // lblCredits
             // 
@@ -1065,7 +1065,7 @@
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(39, 13);
             lblVersion.TabIndex = 55;
-            lblVersion.Text = "v.0.2.2";
+            lblVersion.Text = "v.0.3.0";
             // 
             // GithubLabel
             // 
