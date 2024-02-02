@@ -1,87 +1,148 @@
 using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Model;
+using Enshrouded_Server_Manager.Models;
 using Newtonsoft.Json;
 using System.Diagnostics;
-using System.IO.Compression;
 
 namespace Enshrouded_Server_Manager.Services;
 
 public class Backup
 {
-    private Folder? _folder;
-    private const string BACKUPS_FOLDER = "./Backups";
-    private const string AUTO_BACKUPS_FOLDER = BACKUPS_FOLDER + "/AutoBackup";
+    private readonly IFileSystemManager _fileSystemManager;
+    private readonly Server _server; // TODO: Make this an interface
     private string _dateTimeString;
+    private JsonSerializerSettings _jsonSerializerSettings;
+    private DiscordOutput _discordOutput;
 
     public event EventHandler<AutoBackupSuccessEventArgs> AutoBackupSuccess;
+
+    public Backup(IFileSystemManager fsm)
+    {
+        _fileSystemManager = fsm;
+        _server = new Server(fsm); // TODO: Inject this dependency
+    }
 
     /// <summary>
     /// Save a zip file of the location you set in "sourcefolder"
     /// </summary>
-    public void Save(String saveFileDirectory, String profileName, String fileToCopy, String locationOfFileToCopy)
+    public void Save(string saveFileDirectory, string profileName, string serverConfigFileName, string serverConfigDirectory)
     {
-        _dateTimeString = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-        _folder = new Folder();
+        _dateTimeString = DateTime.Now.ToString(Constants.DATE_PATTERN);
 
-        _folder.Create(saveFileDirectory);
-        _folder.Create($"{BACKUPS_FOLDER}/{profileName}");
+        var profileBackupDirectory = Path.Join(Constants.Paths.BACKUPS_FOLDER, profileName);
+        var originalServerConfigFile = Path.Join(serverConfigDirectory, serverConfigFileName);
+        var copyOfServerConfigFile = Path.Join(saveFileDirectory, serverConfigFileName);
 
-        if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
+        _fileSystemManager.CreateDirectory(saveFileDirectory);
+        _fileSystemManager.CreateDirectory(profileBackupDirectory);
+
+        // Copy the configuration file to the savefile directory so it can get zipped with the world files
+        if (_fileSystemManager.FileExists(copyOfServerConfigFile))
         {
-            File.Delete($"{saveFileDirectory}/{fileToCopy}");
+            _fileSystemManager.DeleteFile(copyOfServerConfigFile);
+        }
+        if (_fileSystemManager.FileExists(originalServerConfigFile))
+        {
+            _fileSystemManager.CopyFile(originalServerConfigFile, copyOfServerConfigFile);
         }
 
-        if (File.Exists($"{locationOfFileToCopy}/{fileToCopy}"))
-        {
-            File.Copy($"{locationOfFileToCopy}/{fileToCopy}", $"{saveFileDirectory}/{fileToCopy}");
-        }
-
-
+        // zip all the files
+        var zipFileName = Path.Join(profileBackupDirectory, $"backup-{_dateTimeString}.zip");
         try
         {
-            ZipFile.CreateFromDirectory(saveFileDirectory, $"{BACKUPS_FOLDER}/{profileName}/backup-{_dateTimeString}.zip");
-            MessageBox.Show(@$"Backup saved at: ""{BACKUPS_FOLDER}/{profileName}/backup-{_dateTimeString}.zip""",
-                "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            _fileSystemManager.CreateZipFromDirectory(saveFileDirectory, zipFileName);
+            MessageBox.Show(string.Format(Constants.Success.BACKUP_SAVED_SUCCESS_MESSAGE, zipFileName),
+                Constants.Success.BACKUP_SAVED_SUCCESS, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            MessageBox.Show(@$"An error occured while creating the zip file: {ex.Message.ToString()}",
-                "Error while zipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Constants.Errors.BACKUP_ERROR_MESSAGE, Constants.Errors.BACKUP_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             return;
         }
 
-        if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
+        // remove the config files from the save file directory
+        if (_fileSystemManager.FileExists(copyOfServerConfigFile))
         {
-            File.Delete($"{saveFileDirectory}/{fileToCopy}");
+            _fileSystemManager.DeleteFile(copyOfServerConfigFile);
         }
 
+
+        // discord Output
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        if (_fileSystemManager.FileExists(discordSettingsFile))
+        {
+            var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
+            DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
+            string discordUrl = discordProfile.DiscordUrl;
+
+            var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, profileName);
+            var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
+
+            var gameServerConfigText = _fileSystemManager.ReadFile(gameServerConfig);
+            ServerSettings gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, _jsonSerializerSettings);
+            string name = gameServerSettings.Name;
+
+            if (discordProfile.Enabled)
+            {
+                Task.Factory.StartNew(async () =>
+                {
+                    try
+                    {
+                        _discordOutput = new DiscordOutput();
+                        _discordOutput.ServerBackup(name, discordUrl);
+                    }
+                    catch
+                    {
+
+                    }
+                });
+            }
+        }
     }
 
-    public async void StartAutoBackup(string saveFileDirectory, string profileName, int interval, int maximumBackups, String fileToCopy, String locationOfFileToCopy)
+    public async void StartAutoBackup(string saveFileDirectory, string profileName, int interval, int maximumBackups, string serverConfigFileName, string serverConfigDirectory)
     {
         if (interval < 1 || maximumBackups < 1)
         {
             return;
         }
 
-        _folder = new Folder();
+        var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, profileName);
+        var originalServerConfigFile = Path.Join(serverConfigDirectory, serverConfigFileName);
+        var copyOfServerConfigFile = Path.Join(saveFileDirectory, serverConfigFileName);
 
-        _folder.Create(saveFileDirectory);
-        _folder.Create($"{AUTO_BACKUPS_FOLDER}/{profileName}");
+        _fileSystemManager.CreateDirectory(saveFileDirectory);
+        _fileSystemManager.CreateDirectory(profileAutoBackupDirectory);
 
         var timer = new PeriodicTimer(TimeSpan.FromMinutes(interval));
-        if (!Server.IsRunning(profileName))
+        if (!_server.IsRunning(profileName))
         {
             timer.Dispose();
             return;
         }
-        var input = File.ReadAllText($"./cache/{profileName}pid.json");
-        EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
+
+        var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, profileName, Constants.Files.PID_JSON);
+        var processIdText = _fileSystemManager.ReadFile(pidJsonFile);
+        EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(processIdText);
+
+        DiscordProfile discordProfile = null;
+        ServerSettings gameServerSettings = null;
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, profileName);
+        var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
+        if (_fileSystemManager.FileExists(discordSettingsFile) && _fileSystemManager.FileExists(gameServerConfig))
+        {
+            var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
+            discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
+
+            var gameServerConfigText = _fileSystemManager.ReadFile(gameServerConfig);
+            gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, _jsonSerializerSettings);
+        }
 
         while (await timer.WaitForNextTickAsync())
         {
             // check if the server is running
-
             try
             {
                 Process.GetProcessById(serverProcessInfo.Id);
@@ -95,47 +156,64 @@ public class Backup
 
             try
             {
-                if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
+                // Copy the configuration file to the savefile directory so it can get zipped with the world files
+                if (_fileSystemManager.FileExists(copyOfServerConfigFile))
                 {
-                    File.Delete($"{saveFileDirectory}/{fileToCopy}");
+                    _fileSystemManager.DeleteFile(copyOfServerConfigFile);
                 }
 
-                if (File.Exists($"{locationOfFileToCopy}/{fileToCopy}"))
+                if (_fileSystemManager.FileExists(originalServerConfigFile))
                 {
-                    File.Copy($"{locationOfFileToCopy}/{fileToCopy}", $"{saveFileDirectory}/{fileToCopy}");
+                    _fileSystemManager.CopyFile(originalServerConfigFile, copyOfServerConfigFile);
                 }
 
-                _dateTimeString = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+                _dateTimeString = DateTime.Now.ToString(Constants.DATE_PATTERN);
+                // zip all the files together
                 // changed backup folder to autobackup folder
-                ZipFile.CreateFromDirectory(saveFileDirectory, $"{AUTO_BACKUPS_FOLDER}/{profileName}/backup-{_dateTimeString}.zip");
+                _fileSystemManager.CreateZipFromDirectory(saveFileDirectory, Path.Join(profileAutoBackupDirectory, $"backup-{_dateTimeString}.zip"));
 
-                if (File.Exists($"{saveFileDirectory}/{fileToCopy}"))
+                if (_fileSystemManager.FileExists(copyOfServerConfigFile))
                 {
-                    File.Delete($"{saveFileDirectory}/{fileToCopy}");
+                    _fileSystemManager.DeleteFile(copyOfServerConfigFile);
                 }
 
-                DeleteOldestBackup($"{AUTO_BACKUPS_FOLDER}/{profileName}", maximumBackups);
+                DeleteOldestBackup(profileAutoBackupDirectory, maximumBackups);
                 OnAutoBackupSuccess(new AutoBackupSuccessEventArgs { ProfileName = profileName });
             }
             catch (Exception ex)
             {
-                MessageBox.Show(@$"An error occured while creating the zip file: {ex.Message}",
-                    "Error while zipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Constants.Errors.AUTOBACKUP_ERROR_MESSAGE, Constants.Errors.AUTOBACKUP_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+            // discord Output
+            if (discordProfile is not null && discordProfile.Enabled && gameServerSettings is not null)
+            {
+
+                try
+                {
+                    _discordOutput = new DiscordOutput();
+                    await _discordOutput.ServerBackup(gameServerSettings.Name, discordProfile.DiscordUrl);
+                }
+                catch
+                {
+
+                }
+
+            }
         }
     }
 
     public int GetBackupCount(string profileName)
     {
-        if (!Directory.Exists($"{AUTO_BACKUPS_FOLDER}/{profileName}"))
+        var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, profileName);
+        if (!_fileSystemManager.DirectoryExists(profileAutoBackupDirectory))
         {
             return 0;
         }
 
         // find the number of backups for the selected profile
-        var directory = new DirectoryInfo($"{AUTO_BACKUPS_FOLDER}/{profileName}");
+        var directory = new DirectoryInfo(profileAutoBackupDirectory);
         var files = directory.GetFiles("*.zip");
 
         return files.Length;
@@ -143,13 +221,14 @@ public class Backup
 
     public long GetDiskConsumption(string profileName)
     {
-        if (!Directory.Exists($"{AUTO_BACKUPS_FOLDER}/{profileName}"))
+        var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, profileName);
+        if (!_fileSystemManager.DirectoryExists(profileAutoBackupDirectory))
         {
             return 0;
         }
 
         // find all backups for the selected profile
-        var directory = new DirectoryInfo($"{AUTO_BACKUPS_FOLDER}/{profileName}");
+        var directory = new DirectoryInfo(profileAutoBackupDirectory);
         var files = directory.GetFiles("*.zip");
 
         // sum up the size of all backups
@@ -169,7 +248,7 @@ public class Backup
         if (zipFiles.Length > maximumBackups)
         {
             var oldestZip = zipFiles.FirstOrDefault();
-            if (oldestZip != null)
+            if (oldestZip is not null)
             {
                 oldestZip.Delete();
             }

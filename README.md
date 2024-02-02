@@ -1,4 +1,4 @@
-# Current version: 0.2.2
+# Current version: 0.3.0
 
 
 This little tool is an experimental enshrouded server manager.
@@ -6,14 +6,15 @@ This little tool is an experimental enshrouded server manager.
 ## Select a server profile, install the server, and start hosting.
 ![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/d7c6b539-5fc2-4722-ab5b-e9291a76cf35)
 
-
 ## Manage your server profiles by adding renaming and deleting them.
 ![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/5182b41d-3d49-48bd-93b0-6b52f48451f3)
-
 
 ## Configure Automatic Backup to save your world files on an interval
 ![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/a95ec730-bae0-4329-8225-bb9bee5a5919)
 
+## Update your Discord with Server information
+![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/32116fba-afb2-40ca-a16c-9f571af696af)
+![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/106ff404-e5c0-4d71-86be-4f691214e7c7)
 
 
 ## Download
@@ -47,6 +48,9 @@ Check the Enable Backups box to turn backups on, then set an interval of 60 and 
 - Note: Automatic backups are separate from manual backups. Neither one will overwrite the other, nor does the maximum backups configuration affect manual backups
 - Note: Auto Backup settings will be applied when a server starts. If your server is running, your settings will not be applied until you restart the server.
 
+### Add your discord webhook to update your community
+Under the Discord tab, paste in your Discord server's Webhook and check Enable Discord to update your community whenever the server starts, stops, updates, or creates a backup.
+If you need more information about creating a Webhook for your server, see the official [Discord Webhooks Documentation](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)
 
 ## Notes
 Every Server Profile has its own install directory and configuration.

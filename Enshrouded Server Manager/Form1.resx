@@ -117,6 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lblNewsText.Text" xml:space="preserve">
+    <value>Changes:
+
+- Added Discord Webhooks
+   to update your community
+   when the server starts, stops,
+   updates or makes a backup
+- Fixed a bug when deleting or
+   renaming a profile while the
+   server was running
+- Fixed a bug with Start/Stop
+   buttons not appearing correctly
+- Other minor bug fixes</value>
+  </data>
   <data name="label1.Text" xml:space="preserve">
     <value>The Enshrouded server saves
 backups every 5 minutes, but
