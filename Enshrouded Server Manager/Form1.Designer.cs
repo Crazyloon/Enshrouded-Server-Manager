@@ -1011,6 +1011,7 @@
             btnSaveDiscordSettings.Text = "Save Changes";
             btnSaveDiscordSettings.UseCompatibleTextRendering = true;
             btnSaveDiscordSettings.UseVisualStyleBackColor = true;
+            btnSaveDiscordSettings.EnabledChanged += SaveSettings_Button_EnabledChanged;
             btnSaveDiscordSettings.Click += btnSaveDiscordSettings_Click;
             // 
             // txtDiscordUrl
@@ -1018,9 +1019,9 @@
             txtDiscordUrl.BackColor = Color.FromArgb(6, 6, 48);
             txtDiscordUrl.BorderStyle = BorderStyle.FixedSingle;
             txtDiscordUrl.ForeColor = SystemColors.Window;
-            txtDiscordUrl.Location = new Point(106, 124);
+            txtDiscordUrl.Location = new Point(6, 124);
             txtDiscordUrl.Name = "txtDiscordUrl";
-            txtDiscordUrl.Size = new Size(146, 23);
+            txtDiscordUrl.Size = new Size(347, 23);
             txtDiscordUrl.TabIndex = 16;
             // 
             // chkEnableDiscord

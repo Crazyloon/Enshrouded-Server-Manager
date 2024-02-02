@@ -69,32 +69,35 @@ public class Backup
 
 
         // discord Output
-        var input2 = File.ReadAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json");
-        DiscordProfile deserializedSettings2 = JsonConvert.DeserializeObject<DiscordProfile>(input2, _jsonSerializerSettings);
-        string DiscordUrl = deserializedSettings2.DiscordUrl;
-
-        string selectedProfileName = profileName;
-        var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
-        var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
-
-        var input3 = _fileSystemManager.ReadFile(gameServerConfig);
-        ServerSettings deserializedSettings3 = JsonConvert.DeserializeObject<ServerSettings>(input3, _jsonSerializerSettings);
-        string name = deserializedSettings3.Name;
-
-        if (deserializedSettings2.Enabled)
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        if (_fileSystemManager.FileExists(discordSettingsFile))
         {
-            Task.Factory.StartNew(async () =>
-            {
-                try
-                {
-                    _discordOutput = new DiscordOutput();
-                    _discordOutput.ServerBackup(name, DiscordUrl);
-                }
-                catch
-                {
+            var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
+            DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
+            string discordUrl = discordProfile.DiscordUrl;
 
-                }
-            });
+            var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, profileName);
+            var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
+
+            var gameServerConfigText = _fileSystemManager.ReadFile(gameServerConfig);
+            ServerSettings gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, _jsonSerializerSettings);
+            string name = gameServerSettings.Name;
+
+            if (discordProfile.Enabled)
+            {
+                Task.Factory.StartNew(async () =>
+                {
+                    try
+                    {
+                        _discordOutput = new DiscordOutput();
+                        _discordOutput.ServerBackup(name, discordUrl);
+                    }
+                    catch
+                    {
+
+                    }
+                });
+            }
         }
     }
 
@@ -120,26 +123,26 @@ public class Backup
         }
 
         var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, profileName, Constants.Files.PID_JSON);
-        var input = _fileSystemManager.ReadFile(pidJsonFile);
-        EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
+        var processIdText = _fileSystemManager.ReadFile(pidJsonFile);
+        EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(processIdText);
 
-        //
-        var input2 = File.ReadAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json");
-        DiscordProfile deserializedSettings2 = JsonConvert.DeserializeObject<DiscordProfile>(input2, _jsonSerializerSettings);
-        string DiscordUrl = deserializedSettings2.DiscordUrl;
-
-        string selectedProfileName = profileName;
-        var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
+        DiscordProfile discordProfile = null;
+        ServerSettings gameServerSettings = null;
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, profileName);
         var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
-        
-        var input3 = _fileSystemManager.ReadFile(gameServerConfig);
-        ServerSettings deserializedSettings3 = JsonConvert.DeserializeObject<ServerSettings>(input3, _jsonSerializerSettings);
-        string name = deserializedSettings3.Name;
-        //
+        if (_fileSystemManager.FileExists(discordSettingsFile) && _fileSystemManager.FileExists(gameServerConfig))
+        {
+            var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
+            discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
+
+            var gameServerConfigText = _fileSystemManager.ReadFile(gameServerConfig);
+            gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, _jsonSerializerSettings);
+        }
+
         while (await timer.WaitForNextTickAsync())
         {
             // check if the server is running
-
             try
             {
                 Process.GetProcessById(serverProcessInfo.Id);
@@ -184,13 +187,13 @@ public class Backup
             }
 
             // discord Output
-            if (deserializedSettings2.Enabled)
+            if (discordProfile is not null && discordProfile.Enabled && gameServerSettings is not null)
             {
 
                 try
                 {
                     _discordOutput = new DiscordOutput();
-                    await _discordOutput.ServerBackup(name, DiscordUrl);
+                    await _discordOutput.ServerBackup(gameServerSettings.Name, discordProfile.DiscordUrl);
                 }
                 catch
                 {

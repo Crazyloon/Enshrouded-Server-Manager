@@ -1,4 +1,3 @@
-using Discord.Rest;
 using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Model;
@@ -124,28 +123,32 @@ public partial class Form1 : Form
             var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
 
             // discord Output
-            var input = File.ReadAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json");
-            DiscordProfile deserializedSettings = JsonConvert.DeserializeObject<DiscordProfile>(input, _jsonSerializerSettings);
-            string DiscordUrl = deserializedSettings.DiscordUrl;
-
-            var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
-            var input2 = _fileSystemManager.ReadFile(gameServerConfig);
-            ServerSettings deserializedSettings2 = JsonConvert.DeserializeObject<ServerSettings>(input2, _jsonSerializerSettings);
-            string name = deserializedSettings2.Name;
-
-            if (deserializedSettings.Enabled)
+            var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+            if (_fileSystemManager.FileExists(discordSettingsFile))
             {
-                Task.Factory.StartNew(async () =>
-                {
-                    try
-                    {
-                        _discordOutput.ServerUpdating(name, DiscordUrl);
-                    }
-                    catch
-                    {
+                var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
+                DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
+                string discordUrl = discordProfile.DiscordUrl;
 
-                    }
-                });
+                var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
+                var gameServerConfigText = _fileSystemManager.ReadFile(gameServerConfig);
+                ServerSettings gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, _jsonSerializerSettings);
+                string name = gameServerSettings.Name;
+
+                if (discordProfile.Enabled)
+                {
+                    Task.Factory.StartNew(async () =>
+                    {
+                        try
+                        {
+                            _discordOutput.ServerUpdating(name, discordUrl);
+                        }
+                        catch
+                        {
+
+                        }
+                    });
+                }
             }
 
             _server.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}");
@@ -254,29 +257,33 @@ public partial class Form1 : Form
                 btnStartServer.Visible = false;
                 btnStopServer.Visible = true;
             }
-            
+
             // discord Output
-            var input = File.ReadAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json");
-            DiscordProfile deserializedSettings = JsonConvert.DeserializeObject<DiscordProfile>(input, _jsonSerializerSettings);
-            string DiscordUrl = deserializedSettings.DiscordUrl;
-
-            var input2 = _fileSystemManager.ReadFile(gameServerConfig);
-            ServerSettings deserializedSettings2 = JsonConvert.DeserializeObject<ServerSettings>(input2, _jsonSerializerSettings);
-            string name = deserializedSettings2.Name;
-
-            if (deserializedSettings.Enabled)
+            var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+            if (_fileSystemManager.FileExists(discordSettingsFile))
             {
-                Task.Factory.StartNew(async () =>
-                {
-                    try
-                    {
-                        _discordOutput.ServerOnline(name, DiscordUrl);
-                    }
-                    catch
-                    {
+                var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
+                DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
+                string DiscordUrl = discordProfile.DiscordUrl;
 
-                    }
-                });
+                var gameServerConfigText = _fileSystemManager.ReadFile(gameServerConfig);
+                ServerSettings serverSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, _jsonSerializerSettings);
+                string name = serverSettings.Name;
+
+                if (discordProfile.Enabled)
+                {
+                    Task.Factory.StartNew(async () =>
+                    {
+                        try
+                        {
+                            _discordOutput.ServerOnline(name, DiscordUrl);
+                        }
+                        catch
+                        {
+
+                        }
+                    });
+                }
             }
         }
     }
@@ -392,7 +399,7 @@ public partial class Form1 : Form
         var reservedProfileNames = new string[] { "AutoBackup" };
         string editProfileName = txtEditProfileName.Text;
         var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, editProfileName);
-        if (Directory.Exists(serverProfilePath))
+        if (_fileSystemManager.DirectoryExists(serverProfilePath))
         {
             return;
         }
@@ -453,9 +460,9 @@ public partial class Form1 : Form
                 // rename backup folder
                 var oldBackupFolder = Path.Join(Constants.Paths.BACKUPS_FOLDER, selectedServerProfile);
                 var newBackupFolder = Path.Join(Constants.Paths.BACKUPS_FOLDER, editProfileName);
-                if (!Directory.Exists(oldBackupFolder))
+                if (!_fileSystemManager.DirectoryExists(oldBackupFolder))
                 {
-                    Directory.CreateDirectory(oldBackupFolder);
+                    _fileSystemManager.CreateDirectory(oldBackupFolder);
                 }
                 if (!_fileSystemManager.RenameDirectory(oldBackupFolder, newBackupFolder))
                 {
@@ -465,9 +472,9 @@ public partial class Form1 : Form
                 // rename autobackup folder
                 var oldAutoBackupFolder = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, selectedServerProfile);
                 var newAutoBackupFolder = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, editProfileName);
-                if (!Directory.Exists(oldAutoBackupFolder))
+                if (!_fileSystemManager.DirectoryExists(oldAutoBackupFolder))
                 {
-                    Directory.CreateDirectory(oldAutoBackupFolder);
+                    _fileSystemManager.CreateDirectory(oldAutoBackupFolder);
                 }
                 if (!_fileSystemManager.RenameDirectory(oldAutoBackupFolder, newAutoBackupFolder))
                 {
@@ -582,29 +589,33 @@ public partial class Form1 : Form
         btnStopServer.Visible = false;
 
         // discord Output
-        var input = File.ReadAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json");
-        DiscordProfile deserializedSettings = JsonConvert.DeserializeObject<DiscordProfile>(input, _jsonSerializerSettings);
-        string DiscordUrl = deserializedSettings.DiscordUrl;
-
-        var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
-        var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
-        var input2 = _fileSystemManager.ReadFile(gameServerConfig);
-        ServerSettings deserializedSettings2 = JsonConvert.DeserializeObject<ServerSettings>(input2, _jsonSerializerSettings);
-        string name = deserializedSettings2.Name;
-
-        if (deserializedSettings.Enabled)
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        if (_fileSystemManager.FileExists(discordSettingsFile))
         {
-            Task.Factory.StartNew(async () =>
-            {
-                try
-                {
-                    _discordOutput.ServerOffline(name, DiscordUrl);
-                }
-                catch
-                {
+            var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
+            DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
+            string DiscordUrl = discordProfile.DiscordUrl;
 
-                }
-            });
+            var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
+            var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
+            var gameServerConfigText = _fileSystemManager.ReadFile(gameServerConfig);
+            ServerSettings gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, _jsonSerializerSettings);
+            string name = gameServerSettings.Name;
+
+            if (discordProfile.Enabled)
+            {
+                Task.Factory.StartNew(async () =>
+                {
+                    try
+                    {
+                        _discordOutput.ServerOffline(name, DiscordUrl);
+                    }
+                    catch
+                    {
+
+                    }
+                });
+            }
         }
     }
 
@@ -839,15 +850,16 @@ public partial class Form1 : Form
 
     private void LoadDiscordSettings()
     {
-        if (!_fileSystemManager.FileExists($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json"))
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        if (!_fileSystemManager.FileExists(discordSettingsFile))
         {
             return;
         }
-        var input = File.ReadAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json");
-        DiscordProfile deserializedSettings = JsonConvert.DeserializeObject<DiscordProfile>(input, _jsonSerializerSettings);
+        var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
+        DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
 
-        txtDiscordUrl.Text = deserializedSettings.DiscordUrl;
-        chkEnableDiscord.Checked = deserializedSettings.Enabled;
+        txtDiscordUrl.Text = discordProfile.DiscordUrl;
+        chkEnableDiscord.Checked = discordProfile.Enabled;
     }
 
     private void WriteDefaultServerSettings(string profileName)
@@ -874,15 +886,18 @@ public partial class Form1 : Form
     {
         var enabled = chkEnableDiscord.Checked;
         string url = txtDiscordUrl.Text;
-        DiscordProfile json = new DiscordProfile()
+        DiscordProfile discordProfile = new DiscordProfile()
         {
             DiscordUrl = url,
             Enabled = enabled
         };
 
         // write the new discord profile to the json file
-        var output = JsonConvert.SerializeObject(json, _jsonSerializerSettings);
-        File.WriteAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json", output);
+        var discordProfileJson = JsonConvert.SerializeObject(discordProfile, _jsonSerializerSettings);
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        _fileSystemManager.WriteFile(discordSettingsFile, discordProfileJson);
+
+        Interactions.AnimateSaveChangesButton(btnSaveDiscordSettings, btnSaveDiscordSettings.Text, Constants.ButtonText.SAVED_SUCCESS);
     }
 }
 

@@ -3,17 +3,17 @@ using Discord.Webhook;
 
 namespace Enshrouded_Server_Manager.Services;
 
-class DiscordOutput
+public class DiscordOutput
 {
     // send server is online status to webhook
-    public async Task ServerOnline(string SERVERNAME, string URL)
+    public async Task ServerOnline(string serverName, string Url)
     {
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
-        using var client = new DiscordWebhookClient($"{URL}");
+        using var client = new DiscordWebhookClient(Url);
 
         var embed = new EmbedBuilder
         {
-            Title = $"ESM - {SERVERNAME} : Online",
+            Title = $"ESM - {serverName} : Online",
             Description = "",
             Color = Discord.Color.Green
         };
@@ -22,14 +22,14 @@ class DiscordOutput
     }
 
     // send server is offline status to webhook
-    public async Task ServerOffline(string SERVERNAME, string URL)
+    public async Task ServerOffline(string serverName, string Url)
     {
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
-        using var client = new DiscordWebhookClient($"{URL}");
+        using var client = new DiscordWebhookClient(Url);
 
         var embed = new EmbedBuilder
         {
-            Title = $"ESM - {SERVERNAME} : Offline",
+            Title = $"ESM - {serverName} : Offline",
             Description = "",
             Color = Discord.Color.Red
         };
@@ -38,14 +38,14 @@ class DiscordOutput
     }
 
     // send server is updating status to webhook
-    public async Task ServerUpdating(string SERVERNAME, string URL)
+    public async Task ServerUpdating(string serverName, string Url)
     {
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
-        using var client = new DiscordWebhookClient($"{URL}");
+        using var client = new DiscordWebhookClient(Url);
 
         var embed = new EmbedBuilder
         {
-            Title = $"ESM - {SERVERNAME} : Updating...",
+            Title = $"ESM - {serverName} : Updating...",
             Description = "",
             Color = Discord.Color.Gold
         };
@@ -55,14 +55,14 @@ class DiscordOutput
     }
 
     // send server backup has been created status to webhook
-    public async Task ServerBackup(string SERVERNAME, string URL)
+    public async Task ServerBackup(string serverName, string Url)
     {
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
-        using var client = new DiscordWebhookClient($"{URL}");
+        using var client = new DiscordWebhookClient(Url);
 
         var embed = new EmbedBuilder
         {
-            Title = $"ESM - {SERVERNAME} : Backup created",
+            Title = $"ESM - {serverName} : Backup created",
             Description = "",
             Color = Discord.Color.Blue
         };
