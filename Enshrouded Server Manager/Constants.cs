@@ -128,8 +128,8 @@ public static class Constants
 
     public static class Urls
     {
-        public const string ESM_GITHUB_LINK = "https://github.com/ISpaikI/Enshrouded-Server-Manager";
+        public const string ESM_GITHUB_LINK = "https://github.com/Crazyloon/Enshrouded-Server-Manager";
         public const string STEAM_CMD_CDN_URL = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip";
-        public const string REMOTE_VERSION_FILE_URL = "https://raw.githubusercontent.com/ISpaikI/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json";
+        public const string REMOTE_VERSION_FILE_URL = "https://raw.githubusercontent.com/Crazyloon/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json";
     }
 }

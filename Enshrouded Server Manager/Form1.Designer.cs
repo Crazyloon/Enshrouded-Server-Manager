@@ -1065,7 +1065,7 @@
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(39, 13);
             lblVersion.TabIndex = 55;
-            lblVersion.Text = "v.0.3.0";
+            lblVersion.Text = "v.0.3.1";
             // 
             // GithubLabel
             // 
