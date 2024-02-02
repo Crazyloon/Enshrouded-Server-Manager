@@ -13,8 +13,8 @@ class DiscordOutput
 
         var embed = new EmbedBuilder
         {
-            Title = $"ESM - {SERVERNAME}",
-            Description = "Server is online!",
+            Title = $"ESM - {SERVERNAME} : Online",
+            Description = "",
             Color = Discord.Color.Green
         };
 
@@ -29,8 +29,8 @@ class DiscordOutput
 
         var embed = new EmbedBuilder
         {
-            Title = $"ESM - {SERVERNAME}",
-            Description = "Server is offline!",
+            Title = $"ESM - {SERVERNAME} : Offline",
+            Description = "",
             Color = Discord.Color.Red
         };
 
@@ -45,8 +45,8 @@ class DiscordOutput
 
         var embed = new EmbedBuilder
         {
-            Title = $"ESM - {SERVERNAME}",
-            Description = "Server is updating...",
+            Title = $"ESM - {SERVERNAME} : Updating...",
+            Description = "",
             Color = Discord.Color.Blue
         };
 
@@ -62,8 +62,8 @@ class DiscordOutput
 
         var embed = new EmbedBuilder
         {
-            Title = $"ESM - {SERVERNAME}",
-            Description = "AutoBackup created!",
+            Title = $"ESM - {SERVERNAME} : Backup created",
+            Description = "",
             Color = Discord.Color.Gold
         };
 
