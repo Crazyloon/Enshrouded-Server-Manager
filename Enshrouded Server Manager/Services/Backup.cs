@@ -68,7 +68,7 @@ public class Backup
         }
 
 
-        //test
+        // discord Output
         var input2 = File.ReadAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json");
         DiscordProfile deserializedSettings2 = JsonConvert.DeserializeObject<DiscordProfile>(input2, _jsonSerializerSettings);
         string DiscordUrl = deserializedSettings2.DiscordUrl;
@@ -96,8 +96,6 @@ public class Backup
                 }
             });
         }
-
-
     }
 
     public async void StartAutoBackup(string saveFileDirectory, string profileName, int interval, int maximumBackups, string serverConfigFileName, string serverConfigDirectory)
