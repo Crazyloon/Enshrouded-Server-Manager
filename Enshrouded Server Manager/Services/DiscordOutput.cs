@@ -47,7 +47,7 @@ class DiscordOutput
         {
             Title = $"ESM - {SERVERNAME} : Updating...",
             Description = "",
-            Color = Discord.Color.Blue
+            Color = Discord.Color.Gold
         };
 
 
@@ -64,7 +64,7 @@ class DiscordOutput
         {
             Title = $"ESM - {SERVERNAME} : Backup created",
             Description = "",
-            Color = Discord.Color.Gold
+            Color = Discord.Color.Blue
         };
 
         await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
