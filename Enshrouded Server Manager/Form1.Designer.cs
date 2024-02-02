@@ -1011,6 +1011,7 @@
             btnSaveDiscordSettings.Text = "Save Changes";
             btnSaveDiscordSettings.UseCompatibleTextRendering = true;
             btnSaveDiscordSettings.UseVisualStyleBackColor = true;
+            btnSaveDiscordSettings.EnabledChanged += SaveSettings_Button_EnabledChanged;
             btnSaveDiscordSettings.Click += btnSaveDiscordSettings_Click;
             // 
             // txtDiscordUrl
@@ -1018,9 +1019,9 @@
             txtDiscordUrl.BackColor = Color.FromArgb(6, 6, 48);
             txtDiscordUrl.BorderStyle = BorderStyle.FixedSingle;
             txtDiscordUrl.ForeColor = SystemColors.Window;
-            txtDiscordUrl.Location = new Point(106, 124);
+            txtDiscordUrl.Location = new Point(6, 124);
             txtDiscordUrl.Name = "txtDiscordUrl";
-            txtDiscordUrl.Size = new Size(146, 23);
+            txtDiscordUrl.Size = new Size(347, 23);
             txtDiscordUrl.TabIndex = 16;
             // 
             // chkEnableDiscord
@@ -1038,9 +1039,9 @@
             lblNewsText.AutoSize = true;
             lblNewsText.Location = new Point(584, 181);
             lblNewsText.Name = "lblNewsText";
-            lblNewsText.Size = new Size(157, 75);
+            lblNewsText.Size = new Size(183, 180);
             lblNewsText.TabIndex = 53;
-            lblNewsText.Text = "Changes:\r\n\r\n- fixed AutoBackup function\r\n- added a button to open\r\n   the AutoBackup Folder";
+            lblNewsText.Text = resources.GetString("lblNewsText.Text");
             // 
             // lblCredits
             // 
@@ -1064,7 +1065,7 @@
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(39, 13);
             lblVersion.TabIndex = 55;
-            lblVersion.Text = "v.0.2.2";
+            lblVersion.Text = "v.0.3.0";
             // 
             // GithubLabel
             // 

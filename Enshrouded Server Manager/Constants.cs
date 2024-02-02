@@ -1,4 +1,5 @@
-﻿namespace Enshrouded_Server_Manager;
+﻿
+namespace Enshrouded_Server_Manager;
 public static class Constants
 {
     public const int BUTTON_DOWN = 0xA1;
@@ -24,9 +25,10 @@ public static class Constants
         public const string PID_JSON = "pid.json";
         public const string GAME_SERVER_CONFIG_JSON = "enshrouded_server.json";
         public const string SERVER_PROFILES_JSON = "server_profiles.json";
+        public const string LOCAL_GITHUB_VERSION_JSON = "githubversion.json";
+        public const string DISCORD_JSON = "discord.json";
         public const string GAME_SERVER_EXE = "enshrouded_server.exe";
         public const string WINDOWS_FIREWALL = @"c:\windows\system32\wf.msc";
-        public const string LOCAL_VERSION_FILE = "githubversion.json";
     }
 
     public static class ServerSettings
@@ -84,7 +86,7 @@ public static class Constants
     public static class Warnings
     {
         public const string DELETE_PROFILE_WARNING = "Delete Profile?";
-        public const string DELETE_PROFILE_WARNING_MESSAGE = "Are you sure you want to delete this profile and all related server files?";
+        public const string DELETE_PROFILE_WARNING_MESSAGE = "Are you sure you want to delete this profile and all related files, including backups and server configuration?\n\nThis operation cannot be undone.";
     }
 
     public static class Success

@@ -33,7 +33,7 @@ public class VersionManager
         {
             try
             {
-                Client.DownloadFile(Constants.Urls.REMOTE_VERSION_FILE_URL, Constants.Files.LOCAL_VERSION_FILE);
+                Client.DownloadFile(Constants.Urls.REMOTE_VERSION_FILE_URL, Constants.Files.LOCAL_GITHUB_VERSION_JSON);
             }
             catch (Exception)
             {
@@ -43,10 +43,10 @@ public class VersionManager
                 };
 
                 var output = JsonConvert.SerializeObject(json);
-                _fileSystemManager.WriteFile(Constants.Files.LOCAL_VERSION_FILE, output);
+                _fileSystemManager.WriteFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON, output);
             }
         }
-        var input = _fileSystemManager.ReadFile(Constants.Files.LOCAL_VERSION_FILE);
+        var input = _fileSystemManager.ReadFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON);
 
         LauncherVersion deserializedSettings = JsonConvert.DeserializeObject<LauncherVersion>(input);
 
@@ -61,8 +61,12 @@ public class VersionManager
                     lblNewVersionText.Visible = true;
                 });
             }
+            else
+            {
+                lblNewVersionText.Visible = true;
+            }
         }
 
-        _fileSystemManager.DeleteFile(Constants.Files.LOCAL_VERSION_FILE);
+        _fileSystemManager.DeleteFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON);
     }
 }
