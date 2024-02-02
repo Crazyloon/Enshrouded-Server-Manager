@@ -66,6 +66,38 @@ public class Backup
         {
             _fileSystemManager.DeleteFile(copyOfServerConfigFile);
         }
+
+
+        //test
+        var input2 = File.ReadAllText($"{Constants.Paths.DEFAULT_PROFILES_PATH}/discord.json");
+        DiscordProfile deserializedSettings2 = JsonConvert.DeserializeObject<DiscordProfile>(input2, _jsonSerializerSettings);
+        string DiscordUrl = deserializedSettings2.DiscordUrl;
+
+        string selectedProfileName = profileName;
+        var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
+        var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
+
+        var input3 = _fileSystemManager.ReadFile(gameServerConfig);
+        ServerSettings deserializedSettings3 = JsonConvert.DeserializeObject<ServerSettings>(input3, _jsonSerializerSettings);
+        string name = deserializedSettings3.Name;
+
+        if (deserializedSettings2.Enabled)
+        {
+            Task.Factory.StartNew(async () =>
+            {
+                try
+                {
+                    _discordOutput = new DiscordOutput();
+                    _discordOutput.ServerBackup(name, DiscordUrl);
+                }
+                catch
+                {
+
+                }
+            });
+        }
+
+
     }
 
     public async void StartAutoBackup(string saveFileDirectory, string profileName, int interval, int maximumBackups, string serverConfigFileName, string serverConfigDirectory)
@@ -159,6 +191,7 @@ public class Backup
 
                 try
                 {
+                    _discordOutput = new DiscordOutput();
                     await _discordOutput.ServerBackup(name, DiscordUrl);
                 }
                 catch
