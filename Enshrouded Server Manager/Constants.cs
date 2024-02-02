@@ -86,7 +86,7 @@ public static class Constants
     public static class Warnings
     {
         public const string DELETE_PROFILE_WARNING = "Delete Profile?";
-        public const string DELETE_PROFILE_WARNING_MESSAGE = "Are you sure you want to delete this profile and all related server files?";
+        public const string DELETE_PROFILE_WARNING_MESSAGE = "Are you sure you want to delete this profile and all related files, including backups and server configuration?\n\nThis operation cannot be undone.";
     }
 
     public static class Success

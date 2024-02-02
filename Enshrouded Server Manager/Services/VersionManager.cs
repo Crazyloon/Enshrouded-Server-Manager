@@ -61,6 +61,10 @@ public class VersionManager
                     lblNewVersionText.Visible = true;
                 });
             }
+            else
+            {
+                lblNewVersionText.Visible = true;
+            }
         }
 
         _fileSystemManager.DeleteFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON);

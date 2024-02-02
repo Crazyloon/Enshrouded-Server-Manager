@@ -519,10 +519,25 @@ public partial class Form1 : Form
             if (serverProfile is not null)
             {
                 var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedServerProfile);
+                var autoBackupPath = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, selectedServerProfile);
+                var backupPath = Path.Join(Constants.Paths.BACKUPS_FOLDER, selectedServerProfile);
+
                 // rename directory to check if in use
                 try
                 {
-                    _fileSystemManager.MoveDirectory(serverProfilePath, $"{serverProfilePath}_delete");
+                    if (_fileSystemManager.DirectoryExists(serverProfilePath))
+                    {
+                        _fileSystemManager.MoveDirectory(serverProfilePath, $"{serverProfilePath}_delete");
+                    }
+                    if (_fileSystemManager.DirectoryExists(autoBackupPath))
+                    {
+                        _fileSystemManager.MoveDirectory(autoBackupPath, $"{autoBackupPath}_delete");
+                    }
+                    if (_fileSystemManager.DirectoryExists(backupPath))
+                    {
+                        _fileSystemManager.MoveDirectory(backupPath, $"{backupPath}_delete");
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -530,6 +545,15 @@ public partial class Form1 : Form
                         Constants.Errors.DELETE_PROFILE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                     return;
+                }
+
+                if (_fileSystemManager.DirectoryExists($"{autoBackupPath}_delete"))
+                {
+                    _fileSystemManager.DeleteDirectory($"{autoBackupPath}_delete");
+                }
+                if (_fileSystemManager.DirectoryExists($"{backupPath}_delete"))
+                {
+                    _fileSystemManager.DeleteDirectory($"{backupPath}_delete");
                 }
 
                 if (_fileSystemManager.DirectoryExists($"{serverProfilePath}_delete"))
