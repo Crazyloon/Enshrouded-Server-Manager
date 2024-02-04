@@ -708,6 +708,7 @@ public partial class Form1 : Form
             var serverSelectedText = cbxProfileSelectionComboBox.SelectedItem.ToString();
             RefreshServerButtonsVisibility(serverSelectedText);
             LoadServerSettings(serverSelectedText);
+            _versionManager.ServerUpdateCheck(selectedProfile1, btnUpdateServer);
         }
     }
 
