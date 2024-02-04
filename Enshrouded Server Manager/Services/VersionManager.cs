@@ -70,7 +70,7 @@ public class VersionManager
         _fileSystemManager.DeleteFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON);
     }
 
-    public async Task UpdateCheck(string selectedProfileName)
+    public async Task ServerUpdateCheck(string selectedProfileName)
     {
         using (HttpClient Client = new HttpClient())
         {
