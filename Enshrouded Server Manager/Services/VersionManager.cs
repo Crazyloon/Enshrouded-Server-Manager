@@ -70,7 +70,7 @@ public class VersionManager
         _fileSystemManager.DeleteFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON);
     }
 
-    public async Task ServerUpdateCheck(string selectedProfileName)
+    public async Task ServerUpdateCheck(string selectedProfileName, Button btnUpdateServer)
     {
         using (HttpClient Client = new HttpClient())
         {
@@ -98,11 +98,16 @@ public class VersionManager
                 if (!File.ReadLines(file).Any(line => line.Contains(buildId)))
                 {
                     // change update server button border to red
+                    btnUpdateServer.FlatAppearance.BorderColor = Color.Red;
+                }
+                else
+                {
+                    btnUpdateServer.FlatAppearance.BorderColor = Color.Green;
                 }
             }
             catch (Exception)
             {
-
+                btnUpdateServer.FlatAppearance.BorderColor = Color.White;
             }
         }
     }

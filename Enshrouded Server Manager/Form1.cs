@@ -82,7 +82,7 @@ public partial class Form1 : Form
             }
         }
         string selectedProfile1 = cbxProfileSelectionComboBox.SelectedItem.ToString();
-        _versionManager.ServerUpdateCheck(selectedProfile1);
+        _versionManager.ServerUpdateCheck(selectedProfile1, btnUpdateServer);
         _versionManager.ManagerUpdate(lblVersion.Text, lblNewVersionAvailableNotification);
     }
 
