@@ -69,4 +69,45 @@ public class VersionManager
 
         _fileSystemManager.DeleteFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON);
     }
+
+    public async Task UpdateCheck(string selectedProfileName)
+    {
+        using (HttpClient Client = new HttpClient())
+        {
+            try
+            {
+                // check file for actual version
+                string url = "https://api.steamcmd.net/v1/info/2278520";
+                HttpResponseMessage response = await Client.GetAsync(url);
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                dynamic data = JsonConvert.DeserializeObject(jsonResponse);
+
+                // readout branches>public>buildid of actual version
+                dynamic branchesData = data["branches"];
+                dynamic publicData = branchesData["public"];
+                string buildId = publicData["buildid"];
+
+                // readout servers/selectedprofilename/steamapps/appmanifest_$AppID.acf
+                var steamappsPath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName, Constants.Paths.GAME_SERVER_STEAMAPPS_FOLDER);
+                var file = Path.Join(steamappsPath, Constants.Files.APP_MANIFEST);
+
+                // readout buildid out of app manifest of the server
+                dynamic dataFile = JsonConvert.DeserializeObject(file);
+                string buildIdFile = dataFile["buildid"];
+
+
+                //check if not !=
+                if (buildId != buildIdFile)
+                {
+                    // change update Server btn border to red
+                    // btnUpdateServer.FlatAppearance.BorderColor = Color.Red;
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+    }
+
 }
