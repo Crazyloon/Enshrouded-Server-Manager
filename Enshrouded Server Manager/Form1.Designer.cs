@@ -96,6 +96,7 @@
             lblScheduleBackups = new Label();
             lbxProfileSelectorAutoBackup = new ListBox();
             tabDiscord = new TabPage();
+            btnTestDiscord = new Button();
             DiscordUrl = new Label();
             btnSaveDiscordSettings = new Button();
             txtDiscordUrl = new TextBox();
@@ -981,6 +982,7 @@
             // tabDiscord
             // 
             tabDiscord.BackColor = Color.FromArgb(0, 0, 18);
+            tabDiscord.Controls.Add(btnTestDiscord);
             tabDiscord.Controls.Add(DiscordUrl);
             tabDiscord.Controls.Add(btnSaveDiscordSettings);
             tabDiscord.Controls.Add(txtDiscordUrl);
@@ -991,10 +993,27 @@
             tabDiscord.TabIndex = 3;
             tabDiscord.Text = "Discord";
             // 
+            // btnTestDiscord
+            // 
+            btnTestDiscord.Cursor = Cursors.Hand;
+            btnTestDiscord.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnTestDiscord.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnTestDiscord.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnTestDiscord.FlatStyle = FlatStyle.Flat;
+            btnTestDiscord.ForeColor = SystemColors.Control;
+            btnTestDiscord.Location = new Point(115, 260);
+            btnTestDiscord.Name = "btnTestDiscord";
+            btnTestDiscord.Size = new Size(127, 25);
+            btnTestDiscord.TabIndex = 60;
+            btnTestDiscord.Text = "Test Discord Msg";
+            btnTestDiscord.UseCompatibleTextRendering = true;
+            btnTestDiscord.UseVisualStyleBackColor = true;
+            btnTestDiscord.Click += btnTestDiscord_Click;
+            // 
             // DiscordUrl
             // 
             DiscordUrl.AutoSize = true;
-            DiscordUrl.Location = new Point(114, 104);
+            DiscordUrl.Location = new Point(114, 170);
             DiscordUrl.Name = "DiscordUrl";
             DiscordUrl.Size = new Size(128, 15);
             DiscordUrl.TabIndex = 18;
@@ -1008,7 +1027,7 @@
             btnSaveDiscordSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnSaveDiscordSettings.FlatStyle = FlatStyle.Flat;
             btnSaveDiscordSettings.ForeColor = Color.FromArgb(0, 255, 185);
-            btnSaveDiscordSettings.Location = new Point(115, 166);
+            btnSaveDiscordSettings.Location = new Point(114, 225);
             btnSaveDiscordSettings.Name = "btnSaveDiscordSettings";
             btnSaveDiscordSettings.Size = new Size(128, 30);
             btnSaveDiscordSettings.TabIndex = 17;
@@ -1023,7 +1042,7 @@
             txtDiscordUrl.BackColor = Color.FromArgb(6, 6, 48);
             txtDiscordUrl.BorderStyle = BorderStyle.FixedSingle;
             txtDiscordUrl.ForeColor = SystemColors.Window;
-            txtDiscordUrl.Location = new Point(6, 124);
+            txtDiscordUrl.Location = new Point(6, 193);
             txtDiscordUrl.Name = "txtDiscordUrl";
             txtDiscordUrl.Size = new Size(347, 23);
             txtDiscordUrl.TabIndex = 16;
@@ -1031,7 +1050,7 @@
             // chkEnableDiscord
             // 
             chkEnableDiscord.AutoSize = true;
-            chkEnableDiscord.Location = new Point(127, 69);
+            chkEnableDiscord.Location = new Point(125, 24);
             chkEnableDiscord.Name = "chkEnableDiscord";
             chkEnableDiscord.Size = new Size(104, 19);
             chkEnableDiscord.TabIndex = 15;
@@ -1052,11 +1071,11 @@
             // lblCreditsHeader
             // 
             lblCreditsHeader.BackColor = Color.Transparent;
-            lblCreditsHeader.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            lblCreditsHeader.Font = new Font("Malgun Gothic", 20F, FontStyle.Bold, GraphicsUnit.Point);
             lblCreditsHeader.ForeColor = SystemColors.Control;
-            lblCreditsHeader.Location = new Point(131, 38);
+            lblCreditsHeader.Location = new Point(121, 25);
             lblCreditsHeader.Name = "lblCreditsHeader";
-            lblCreditsHeader.Size = new Size(96, 32);
+            lblCreditsHeader.Size = new Size(113, 32);
             lblCreditsHeader.TabIndex = 55;
             lblCreditsHeader.Text = "Credits";
             // 
@@ -1064,11 +1083,11 @@
             // 
             lblCredits.AutoSize = true;
             lblCredits.BackColor = Color.FromArgb(0, 0, 18);
-            lblCredits.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblCredits.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
             lblCredits.ForeColor = Color.FromArgb(0, 204, 204);
-            lblCredits.Location = new Point(131, 88);
+            lblCredits.Location = new Point(131, 83);
             lblCredits.Name = "lblCredits";
-            lblCredits.Size = new Size(117, 63);
+            lblCredits.Size = new Size(103, 57);
             lblCredits.TabIndex = 54;
             lblCredits.Text = "Crazyloon\r\nStrew / Evorin\r\nSpaik";
             // 
@@ -1384,5 +1403,6 @@
         private CheckBox chkEnableDiscord;
         private TabPage tabCredits;
         private Label lblCreditsHeader;
+        private Button btnTestDiscord;
     }
 }

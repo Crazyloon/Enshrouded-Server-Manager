@@ -924,5 +924,18 @@ public partial class Form1 : Form
 
         Interactions.AnimateSaveChangesButton(btnSaveDiscordSettings, btnSaveDiscordSettings.Text, Constants.ButtonText.SAVED_SUCCESS);
     }
+
+    private void btnTestDiscord_Click(object sender, EventArgs e)
+    {
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        if (_fileSystemManager.FileExists(discordSettingsFile));
+        var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
+        DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
+        string DiscordUrl = discordProfile.DiscordUrl;
+        if (_fileSystemManager.FileExists(discordSettingsFile))
+        {
+            _discordOutput.TestMsg(DiscordUrl);
+        }
+    }
 }
 

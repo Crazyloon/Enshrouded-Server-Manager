@@ -69,4 +69,20 @@ public class DiscordOutput
 
         await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
     }
+
+    // send test msg to webhook
+    public async Task TestMsg(string Url)
+    {
+        // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
+        using var client = new DiscordWebhookClient(Url);
+
+        var embed = new EmbedBuilder
+        {
+            Title = $"ESM - Test : Test",
+            Description = "",
+            Color = Discord.Color.Blue
+        };
+
+        await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
+    }
 }
