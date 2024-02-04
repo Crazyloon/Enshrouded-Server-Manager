@@ -100,8 +100,10 @@
             btnSaveDiscordSettings = new Button();
             txtDiscordUrl = new TextBox();
             chkEnableDiscord = new CheckBox();
-            lblNewsText = new Label();
+            tabCredits = new TabPage();
+            lblCreditsHeader = new Label();
             lblCredits = new Label();
+            lblNewsText = new Label();
             lblVersion = new Label();
             GithubLabel = new Label();
             lblNewVersionAvailableNotification = new Label();
@@ -131,6 +133,7 @@
             ((System.ComponentModel.ISupportInitialize)nudBackupMaxCount).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudBackupInterval).BeginInit();
             tabDiscord.SuspendLayout();
+            tabCredits.SuspendLayout();
             pnlBackupExplanation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -633,6 +636,7 @@
             tabServerTabs.Controls.Add(tabProfileManager);
             tabServerTabs.Controls.Add(tabAutoBackup);
             tabServerTabs.Controls.Add(tabDiscord);
+            tabServerTabs.Controls.Add(tabCredits);
             tabServerTabs.Location = new Point(187, 84);
             tabServerTabs.Name = "tabServerTabs";
             tabServerTabs.SelectedIndex = 0;
@@ -663,7 +667,7 @@
             tabServerSettings.Padding = new Padding(3);
             tabServerSettings.Size = new Size(359, 302);
             tabServerSettings.TabIndex = 0;
-            tabServerSettings.Text = "Server Settings";
+            tabServerSettings.Text = "ServerSettings";
             // 
             // btnShowPassword
             // 
@@ -696,7 +700,7 @@
             tabProfileManager.Padding = new Padding(3);
             tabProfileManager.Size = new Size(359, 302);
             tabProfileManager.TabIndex = 1;
-            tabProfileManager.Text = "Manage Profiles";
+            tabProfileManager.Text = "ManageProfiles";
             // 
             // lblAddNewProfile
             // 
@@ -804,7 +808,7 @@
             btnAddNewProfile.FlatStyle = FlatStyle.Flat;
             btnAddNewProfile.Font = new Font("Consolas", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             btnAddNewProfile.ForeColor = Color.FromArgb(0, 255, 185);
-            btnAddNewProfile.Location = new Point(187, 12);
+            btnAddNewProfile.Location = new Point(184, 12);
             btnAddNewProfile.Margin = new Padding(0);
             btnAddNewProfile.Name = "btnAddNewProfile";
             btnAddNewProfile.Padding = new Padding(0, 2, 0, 0);
@@ -847,7 +851,7 @@
             tabAutoBackup.Padding = new Padding(3);
             tabAutoBackup.Size = new Size(359, 302);
             tabAutoBackup.TabIndex = 2;
-            tabAutoBackup.Text = "Auto Backup";
+            tabAutoBackup.Text = "AutoBackup";
             // 
             // lblAutoBackupChangesInfo
             // 
@@ -1034,6 +1038,40 @@
             chkEnableDiscord.Text = "Enable Discord";
             chkEnableDiscord.UseVisualStyleBackColor = true;
             // 
+            // tabCredits
+            // 
+            tabCredits.BackColor = Color.FromArgb(0, 0, 18);
+            tabCredits.Controls.Add(lblCreditsHeader);
+            tabCredits.Controls.Add(lblCredits);
+            tabCredits.Location = new Point(4, 24);
+            tabCredits.Name = "tabCredits";
+            tabCredits.Size = new Size(359, 302);
+            tabCredits.TabIndex = 4;
+            tabCredits.Text = "Credits";
+            // 
+            // lblCreditsHeader
+            // 
+            lblCreditsHeader.BackColor = Color.Transparent;
+            lblCreditsHeader.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            lblCreditsHeader.ForeColor = SystemColors.Control;
+            lblCreditsHeader.Location = new Point(131, 38);
+            lblCreditsHeader.Name = "lblCreditsHeader";
+            lblCreditsHeader.Size = new Size(96, 32);
+            lblCreditsHeader.TabIndex = 55;
+            lblCreditsHeader.Text = "Credits";
+            // 
+            // lblCredits
+            // 
+            lblCredits.AutoSize = true;
+            lblCredits.BackColor = Color.FromArgb(0, 0, 18);
+            lblCredits.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblCredits.ForeColor = Color.FromArgb(0, 204, 204);
+            lblCredits.Location = new Point(131, 88);
+            lblCredits.Name = "lblCredits";
+            lblCredits.Size = new Size(117, 63);
+            lblCredits.TabIndex = 54;
+            lblCredits.Text = "Crazyloon\r\nStrew / Evorin\r\nSpaik";
+            // 
             // lblNewsText
             // 
             lblNewsText.AutoSize = true;
@@ -1042,18 +1080,6 @@
             lblNewsText.Size = new Size(183, 180);
             lblNewsText.TabIndex = 53;
             lblNewsText.Text = resources.GetString("lblNewsText.Text");
-            // 
-            // lblCredits
-            // 
-            lblCredits.AutoSize = true;
-            lblCredits.BackColor = Color.FromArgb(64, 64, 64);
-            lblCredits.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
-            lblCredits.ForeColor = Color.FromArgb(0, 204, 204);
-            lblCredits.Location = new Point(10, 413);
-            lblCredits.Name = "lblCredits";
-            lblCredits.Size = new Size(211, 13);
-            lblCredits.TabIndex = 54;
-            lblCredits.Text = "Credits to Strew / Evorin and Crazyloon";
             // 
             // lblVersion
             // 
@@ -1195,7 +1221,6 @@
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
             Controls.Add(pnlBackupExplanation);
-            Controls.Add(lblCredits);
             Controls.Add(cbxProfileSelectionComboBox);
             Controls.Add(lblVersion);
             Controls.Add(lblProfileSelectionLabel);
@@ -1259,6 +1284,8 @@
             ((System.ComponentModel.ISupportInitialize)nudBackupInterval).EndInit();
             tabDiscord.ResumeLayout(false);
             tabDiscord.PerformLayout();
+            tabCredits.ResumeLayout(false);
+            tabCredits.PerformLayout();
             pnlBackupExplanation.ResumeLayout(false);
             pnlBackupExplanation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
@@ -1355,5 +1382,7 @@
         private Button btnSaveDiscordSettings;
         private TextBox txtDiscordUrl;
         private CheckBox chkEnableDiscord;
+        private TabPage tabCredits;
+        private Label lblCreditsHeader;
     }
 }
