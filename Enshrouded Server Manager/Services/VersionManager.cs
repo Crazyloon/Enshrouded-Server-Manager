@@ -1,5 +1,6 @@
 ﻿using Enshrouded_Server_Manager.Models;
 using Newtonsoft.Json;
+using System.Linq;
 using System.Net;
 
 namespace Enshrouded_Server_Manager.Services;
@@ -95,7 +96,7 @@ public class VersionManager
                 var file = Path.Join(steamappsPath, Constants.Files.APP_MANIFEST);
 
                 // check if file contains buildId
-                if (!File.ReadLines(file).Any(line => line.Contains(buildId)))
+                if (!File.ReadLines(file).Any(line => line.Contains($"\"buildid\"		\"{buildId}\"")))
                 {
                     // change update server button border to red
                     btnUpdateServer.FlatAppearance.BorderColor = Color.Yellow;
