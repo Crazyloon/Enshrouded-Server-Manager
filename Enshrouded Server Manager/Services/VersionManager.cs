@@ -83,7 +83,10 @@ public class VersionManager
                 dynamic data = JsonConvert.DeserializeObject(jsonResponse);
 
                 // readout branches>public>buildid of actual version
-                dynamic branchesData = data["branches"];
+                dynamic dataData = data["data"];
+                dynamic steamidData = dataData[$"{Constants.STEAM_APP_ID}"];
+                dynamic depotData = steamidData["depots"];
+                dynamic branchesData = depotData["branches"];
                 dynamic publicData = branchesData["public"];
                 string buildId = publicData["buildid"];
 
@@ -91,16 +94,10 @@ public class VersionManager
                 var steamappsPath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName, Constants.Paths.GAME_SERVER_STEAMAPPS_FOLDER);
                 var file = Path.Join(steamappsPath, Constants.Files.APP_MANIFEST);
 
-                // readout buildid out of app manifest of the server
-                dynamic dataFile = JsonConvert.DeserializeObject(file);
-                string buildIdFile = dataFile["buildid"];
-
-
-                //check if not !=
-                if (buildId != buildIdFile)
+                // check if file contains buildId
+                if (!File.ReadLines(file).Any(line => line.Contains(buildId)))
                 {
-                    // change update Server btn border to red
-                    // btnUpdateServer.FlatAppearance.BorderColor = Color.Red;
+                    // change update server button border to red
                 }
             }
             catch (Exception)

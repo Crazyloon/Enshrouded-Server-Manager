@@ -30,7 +30,7 @@ public static class Constants
         public const string DISCORD_JSON = "discord.json";
         public const string GAME_SERVER_EXE = "enshrouded_server.exe";
         public const string WINDOWS_FIREWALL = @"c:\windows\system32\wf.msc";
-        public const string APP_MANIFEST = "appmanifest_2278520.acf";
+        public const string APP_MANIFEST = $"appmanifest_{Constants.STEAM_APP_ID}.acf";
     }
 
     public static class ServerSettings

@@ -59,7 +59,6 @@ public partial class Form1 : Form
 
         // Load Server Profiles
         List<ServerProfile>? profileData = _profileManager.LoadServerProfiles(_jsonSerializerSettings, true);
-
         if (profileData is not null && profileData.Any())
         {
             cbxProfileSelectionComboBox.Items.Clear();
@@ -82,7 +81,8 @@ public partial class Form1 : Form
                 LoadDiscordSettings();
             }
         }
-
+        string selectedProfile1 = cbxProfileSelectionComboBox.SelectedItem.ToString();
+        _versionManager.ServerUpdateCheck(selectedProfile1);
         _versionManager.ManagerUpdate(lblVersion.Text, lblNewVersionAvailableNotification);
     }
 
