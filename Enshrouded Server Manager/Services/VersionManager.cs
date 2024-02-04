@@ -98,7 +98,7 @@ public class VersionManager
                 if (!File.ReadLines(file).Any(line => line.Contains(buildId)))
                 {
                     // change update server button border to red
-                    btnUpdateServer.FlatAppearance.BorderColor = Color.Red;
+                    btnUpdateServer.FlatAppearance.BorderColor = Color.Yellow;
                 }
                 else
                 {
@@ -107,7 +107,7 @@ public class VersionManager
             }
             catch (Exception)
             {
-                btnUpdateServer.FlatAppearance.BorderColor = Color.White;
+                btnUpdateServer.FlatAppearance.BorderColor = Color.Red;
             }
         }
     }
