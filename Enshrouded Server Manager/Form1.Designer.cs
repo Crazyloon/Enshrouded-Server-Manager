@@ -733,7 +733,7 @@
             // lblAddNewProfile
             // 
             lblAddNewProfile.AutoSize = true;
-            lblAddNewProfile.Location = new Point(225, 19);
+            lblAddNewProfile.Location = new Point(228, 20);
             lblAddNewProfile.Name = "lblAddNewProfile";
             lblAddNewProfile.Size = new Size(93, 15);
             lblAddNewProfile.TabIndex = 5;
@@ -836,7 +836,7 @@
             btnAddNewProfile.FlatStyle = FlatStyle.Flat;
             btnAddNewProfile.Font = new Font("Consolas", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             btnAddNewProfile.ForeColor = Color.FromArgb(0, 255, 185);
-            btnAddNewProfile.Location = new Point(184, 12);
+            btnAddNewProfile.Location = new Point(187, 12);
             btnAddNewProfile.Margin = new Padding(0);
             btnAddNewProfile.Name = "btnAddNewProfile";
             btnAddNewProfile.Padding = new Padding(0, 2, 0, 0);
@@ -1040,7 +1040,7 @@
             // chkNotifiBackup
             // 
             chkNotifiBackup.AutoSize = true;
-            chkNotifiBackup.Location = new Point(99, 159);
+            chkNotifiBackup.Location = new Point(99, 156);
             chkNotifiBackup.Name = "chkNotifiBackup";
             chkNotifiBackup.Size = new Size(109, 19);
             chkNotifiBackup.TabIndex = 64;
@@ -1050,7 +1050,7 @@
             // chkNotifiServerUpdating
             // 
             chkNotifiServerUpdating.AutoSize = true;
-            chkNotifiServerUpdating.Location = new Point(99, 136);
+            chkNotifiServerUpdating.Location = new Point(99, 133);
             chkNotifiServerUpdating.Name = "chkNotifiServerUpdating";
             chkNotifiServerUpdating.Size = new Size(110, 19);
             chkNotifiServerUpdating.TabIndex = 63;
@@ -1060,7 +1060,7 @@
             // chkNotifiServerStopped
             // 
             chkNotifiServerStopped.AutoSize = true;
-            chkNotifiServerStopped.Location = new Point(99, 111);
+            chkNotifiServerStopped.Location = new Point(99, 110);
             chkNotifiServerStopped.Name = "chkNotifiServerStopped";
             chkNotifiServerStopped.Size = new Size(105, 19);
             chkNotifiServerStopped.TabIndex = 62;
@@ -1070,7 +1070,7 @@
             // chkNotifiServerStarted
             // 
             chkNotifiServerStarted.AutoSize = true;
-            chkNotifiServerStarted.Location = new Point(99, 86);
+            chkNotifiServerStarted.Location = new Point(99, 87);
             chkNotifiServerStarted.Name = "chkNotifiServerStarted";
             chkNotifiServerStarted.Size = new Size(98, 19);
             chkNotifiServerStarted.TabIndex = 61;
@@ -1146,7 +1146,7 @@
             txtDiscordUrl.ForeColor = SystemColors.Window;
             txtDiscordUrl.Location = new Point(20, 217);
             txtDiscordUrl.Name = "txtDiscordUrl";
-            txtDiscordUrl.Size = new Size(321, 23);
+            txtDiscordUrl.Size = new Size(320, 23);
             txtDiscordUrl.TabIndex = 16;
             // 
             // chkEnableDiscord
@@ -1324,7 +1324,7 @@
             pnlCredits.Controls.Add(label4);
             pnlCredits.Controls.Add(lblContributors);
             pnlCredits.Controls.Add(lblCreditsMadeBy);
-            pnlCredits.Location = new Point(560, 40);
+            pnlCredits.Location = new Point(753, 413);
             pnlCredits.Name = "pnlCredits";
             pnlCredits.Size = new Size(230, 369);
             pnlCredits.TabIndex = 61;
