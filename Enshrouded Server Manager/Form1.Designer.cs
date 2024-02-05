@@ -115,8 +115,11 @@
             lblNewVersionAvailableNotification = new Label();
             pnlBackupExplanation = new Panel();
             btnOpenAutobackupFolder = new Button();
+            label3 = new Label();
+            pictureBox4 = new PictureBox();
+            label1 = new Label();
             pnlCredits = new Panel();
-            label4 = new Label();
+            lblCreditsSponsorsList = new Label();
             lblCreditsSupportedBy = new Label();
             btnCreditsClose = new Label();
             lblCreditsLogo = new Label();
@@ -124,9 +127,6 @@
             lblHeadingMadeBy = new Label();
             lblCreditsContributors = new Label();
             lblCreditsMadeBy = new Label();
-            label3 = new Label();
-            pictureBox4 = new PictureBox();
-            label1 = new Label();
             btnStopServer = new Button();
             pictureBox1 = new PictureBox();
             pbxFormHeader = new PictureBox();
@@ -152,8 +152,8 @@
             tabDiscord.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             pnlBackupExplanation.SuspendLayout();
-            pnlCredits.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            pnlCredits.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbxFormHeader).BeginInit();
             SuspendLayout();
@@ -1235,9 +1235,38 @@
             btnOpenAutobackupFolder.UseVisualStyleBackColor = true;
             btnOpenAutobackupFolder.Click += btnOpenAutobackupFolder_Click;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label3.Location = new Point(34, 93);
+            label3.Name = "label3";
+            label3.Size = new Size(166, 21);
+            label3.TabIndex = 26;
+            label3.Text = "How Backups Work...";
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.BackColor = Color.White;
+            pictureBox4.Location = new Point(0, 66);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new Size(239, 2);
+            pictureBox4.TabIndex = 25;
+            pictureBox4.TabStop = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.ForeColor = SystemColors.Info;
+            label1.Location = new Point(34, 125);
+            label1.Name = "label1";
+            label1.Size = new Size(199, 180);
+            label1.TabIndex = 0;
+            label1.Text = resources.GetString("label1.Text");
+            // 
             // pnlCredits
             // 
-            pnlCredits.Controls.Add(label4);
+            pnlCredits.Controls.Add(lblCreditsSponsorsList);
             pnlCredits.Controls.Add(lblCreditsSupportedBy);
             pnlCredits.Controls.Add(btnCreditsClose);
             pnlCredits.Controls.Add(lblCreditsLogo);
@@ -1251,14 +1280,14 @@
             pnlCredits.TabIndex = 61;
             pnlCredits.Visible = false;
             // 
-            // label4
+            // lblCreditsSponsorsList
             // 
-            label4.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(14, 295);
-            label4.Name = "label4";
-            label4.Size = new Size(155, 26);
-            label4.TabIndex = 50;
-            label4.Text = "xXFreeFunXx";
+            lblCreditsSponsorsList.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCreditsSponsorsList.Location = new Point(14, 295);
+            lblCreditsSponsorsList.Name = "lblCreditsSponsorsList";
+            lblCreditsSponsorsList.Size = new Size(155, 26);
+            lblCreditsSponsorsList.TabIndex = 50;
+            lblCreditsSponsorsList.Text = "FreeFun";
             // 
             // lblCreditsSupportedBy
             // 
@@ -1331,35 +1360,6 @@
             lblCreditsMadeBy.Size = new Size(155, 46);
             lblCreditsMadeBy.TabIndex = 31;
             lblCreditsMadeBy.Text = "Spaik\r\nCrazyloon\r\n\r\n";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(34, 93);
-            label3.Name = "label3";
-            label3.Size = new Size(166, 21);
-            label3.TabIndex = 26;
-            label3.Text = "How Backups Work...";
-            // 
-            // pictureBox4
-            // 
-            pictureBox4.BackColor = Color.White;
-            pictureBox4.Location = new Point(0, 66);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(239, 2);
-            pictureBox4.TabIndex = 25;
-            pictureBox4.TabStop = false;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.ForeColor = SystemColors.Info;
-            label1.Location = new Point(34, 125);
-            label1.Name = "label1";
-            label1.Size = new Size(199, 180);
-            label1.TabIndex = 0;
-            label1.Text = resources.GetString("label1.Text");
             // 
             // btnStopServer
             // 
@@ -1491,9 +1491,9 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             pnlBackupExplanation.ResumeLayout(false);
             pnlBackupExplanation.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             pnlCredits.ResumeLayout(false);
             pnlCredits.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbxFormHeader).EndInit();
             ResumeLayout(false);
@@ -1604,6 +1604,6 @@
         private Label lblHeadingMadeBy;
         private Label lblCreditsLogo;
         private Label lblCreditsSupportedBy;
-        private Label label4;
+        private Label lblCreditsSponsorsList;
     }
 }
