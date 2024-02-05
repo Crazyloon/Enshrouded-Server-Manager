@@ -1324,6 +1324,7 @@
             pnlCredits.Location = new Point(560, 40);
             pnlCredits.Name = "pnlCredits";
             pnlCredits.Size = new Size(230, 369);
+            pnlCredits.Visible = false;
             pnlCredits.TabIndex = 61;
             // 
             // label6
@@ -1386,7 +1387,6 @@
             btnCreditsClose.Size = new Size(18, 19);
             btnCreditsClose.TabIndex = 28;
             btnCreditsClose.Text = "X";
-            btnCreditsClose.Visible = false;
             btnCreditsClose.Click += btnToggleCredits_Click;
             // 
             // Form1
