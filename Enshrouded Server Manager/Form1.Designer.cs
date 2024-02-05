@@ -1174,7 +1174,7 @@
             lblVersion.BackColor = Color.FromArgb(64, 64, 64);
             lblVersion.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
             lblVersion.ForeColor = Color.FromArgb(0, 204, 204);
-            lblVersion.Location = new Point(12, 413);
+            lblVersion.Location = new Point(8, 413);
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(39, 13);
             lblVersion.TabIndex = 55;
@@ -1308,7 +1308,7 @@
             btnOpenCredits.Cursor = Cursors.Hand;
             btnOpenCredits.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
             btnOpenCredits.ForeColor = Color.FromArgb(0, 255, 185);
-            btnOpenCredits.Location = new Point(753, 413);
+            btnOpenCredits.Location = new Point(750, 413);
             btnOpenCredits.Name = "btnOpenCredits";
             btnOpenCredits.Size = new Size(43, 13);
             btnOpenCredits.TabIndex = 60;
@@ -1399,8 +1399,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
-            Controls.Add(pnlCredits);
             Controls.Add(btnOpenCredits);
+            Controls.Add(pnlCredits);
             Controls.Add(lblServerProfileSpecific);
             Controls.Add(pnlBackupExplanation);
             Controls.Add(cbxProfileSelectionComboBox);
