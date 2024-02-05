@@ -7,7 +7,6 @@ using Enshrouded_Server_Manager.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Diagnostics;
-using System.Reactive;
 using System.Runtime.InteropServices;
 
 namespace Enshrouded_Server_Manager;
@@ -33,6 +32,7 @@ public partial class Form1 : Form
     public Form1()
     {
         InitializeComponent();
+        InitializePanelPositions();
 
         //Initialize Services
         _fileSystemManager = new FileSystemManager();
@@ -45,6 +45,12 @@ public partial class Form1 : Form
 
         //Register Custom Events
         _backup.AutoBackupSuccess += Backup_AutoBackupSuccess;
+    }
+
+    private void InitializePanelPositions()
+    {
+        pnlBackupExplanation.Location = new Point(550, 40);
+        pnlCredits.Location = new Point(560, 40);
     }
 
     private void Form1_Load(object sender, EventArgs e)
@@ -138,7 +144,7 @@ public partial class Form1 : Form
 
                 if (discordProfile.Enabled)
                 {
-                    if(discordProfile.UpdatingEnabled) 
+                    if (discordProfile.UpdatingEnabled)
                     {
                         Task.Factory.StartNew(async () =>
                         {
@@ -276,7 +282,7 @@ public partial class Form1 : Form
 
                 if (discordProfile.Enabled)
                 {
-                    if(discordProfile.StartEnabled)
+                    if (discordProfile.StartEnabled)
                     {
                         Task.Factory.StartNew(async () =>
                         {
@@ -764,7 +770,7 @@ public partial class Form1 : Form
     private void tabServerTabs_SelectedIndexChanged(object sender, EventArgs e)
     {
         var selectedtab = tabServerTabs.SelectedTab;
-        if (selectedtab == tabAutoBackup)
+        if (selectedtab == tabAutoBackup && !pnlCredits.Visible)
         {
             pnlBackupExplanation.Visible = true;
         }
@@ -941,7 +947,7 @@ public partial class Form1 : Form
             UpdatingEnabled = updatingEnabled,
             BackupEnabled = backupEnabled,
             EmbedEnabled = embedEnabled
-};
+        };
 
         // write the new discord profile to the json file
         var discordProfileJson = JsonConvert.SerializeObject(discordProfile, _jsonSerializerSettings);
@@ -954,7 +960,7 @@ public partial class Form1 : Form
     private void btnTestDiscord_Click(object sender, EventArgs e)
     {
         var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
-        if (_fileSystemManager.FileExists(discordSettingsFile));
+        if (_fileSystemManager.FileExists(discordSettingsFile)) ;
         var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
         DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
         string DiscordUrl = discordProfile.DiscordUrl;
@@ -981,5 +987,27 @@ public partial class Form1 : Form
         }
     }
     #endregion
+
+    private void btnToggleCredits_Click(object sender, EventArgs e)
+    {
+        pnlCredits.Visible = !pnlCredits.Visible;
+        if (pnlCredits.Visible)
+        {
+            pbxCreditsBorder.Visible = true;
+
+            if (tabServerTabs.SelectedTab == tabAutoBackup)
+            {
+                pnlBackupExplanation.Visible = false;
+            }
+        }
+        else
+        {
+            pbxCreditsBorder.Visible = false;
+            if (tabServerTabs.SelectedTab == tabAutoBackup)
+            {
+                pnlBackupExplanation.Visible = true;
+            }
+        }
+    }
 }
 

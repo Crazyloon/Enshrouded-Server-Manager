@@ -58,6 +58,7 @@
             pictureBox7 = new PictureBox();
             pictureBox6 = new PictureBox();
             pictureBox8 = new PictureBox();
+            pbxCreditsBorder = new PictureBox();
             pictureBox9 = new PictureBox();
             btnSaveBackup = new Button();
             btnOpenBackupFolder = new Button();
@@ -120,6 +121,14 @@
             btnStopServer = new Button();
             pictureBox1 = new PictureBox();
             pbxFormHeader = new PictureBox();
+            btnOpenCredits = new Label();
+            pnlCredits = new Panel();
+            label6 = new Label();
+            label5 = new Label();
+            label4 = new Label();
+            lblContributors = new Label();
+            lblCreditsMadeBy = new Label();
+            btnCreditsClose = new Label();
             ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
@@ -128,6 +137,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbxCreditsBorder).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             tabServerTabs.SuspendLayout();
@@ -143,6 +153,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbxFormHeader).BeginInit();
+            pnlCredits.SuspendLayout();
             SuspendLayout();
             // 
             // cbxProfileSelectionComboBox
@@ -481,6 +492,17 @@
             pictureBox8.Size = new Size(10, 390);
             pictureBox8.TabIndex = 36;
             pictureBox8.TabStop = false;
+            // 
+            // pbxCreditsBorder
+            // 
+            pbxCreditsBorder.BackColor = Color.FromArgb(64, 64, 64);
+            pbxCreditsBorder.Dock = DockStyle.Right;
+            pbxCreditsBorder.Location = new Point(550, 40);
+            pbxCreditsBorder.Name = "pbxCreditsBorder";
+            pbxCreditsBorder.Size = new Size(10, 390);
+            pbxCreditsBorder.TabIndex = 36;
+            pbxCreditsBorder.TabStop = false;
+            pbxCreditsBorder.Visible = false;
             // 
             // pictureBox9
             // 
@@ -1150,7 +1172,7 @@
             lblVersion.BackColor = Color.FromArgb(64, 64, 64);
             lblVersion.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
             lblVersion.ForeColor = Color.FromArgb(0, 204, 204);
-            lblVersion.Location = new Point(751, 413);
+            lblVersion.Location = new Point(12, 413);
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(39, 13);
             lblVersion.TabIndex = 55;
@@ -1186,7 +1208,7 @@
             pnlBackupExplanation.Controls.Add(label3);
             pnlBackupExplanation.Controls.Add(pictureBox4);
             pnlBackupExplanation.Controls.Add(label1);
-            pnlBackupExplanation.Location = new Point(550, 40);
+            pnlBackupExplanation.Location = new Point(753, 413);
             pnlBackupExplanation.Name = "pnlBackupExplanation";
             pnlBackupExplanation.Size = new Size(241, 369);
             pnlBackupExplanation.TabIndex = 58;
@@ -1277,12 +1299,103 @@
             pbxFormHeader.TabStop = false;
             pbxFormHeader.MouseDown += FormHeader_MouseDown;
             // 
+            // btnOpenCredits
+            // 
+            btnOpenCredits.AutoSize = true;
+            btnOpenCredits.BackColor = Color.FromArgb(64, 64, 64);
+            btnOpenCredits.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
+            btnOpenCredits.ForeColor = Color.FromArgb(0, 255, 185);
+            btnOpenCredits.Location = new Point(753, 413);
+            btnOpenCredits.Name = "btnOpenCredits";
+            btnOpenCredits.Size = new Size(43, 13);
+            btnOpenCredits.TabIndex = 60;
+            btnOpenCredits.Text = "Credits";
+            btnOpenCredits.TextAlign = ContentAlignment.BottomLeft;
+            btnOpenCredits.Click += btnToggleCredits_Click;
+            // 
+            // pnlCredits
+            // 
+            pnlCredits.Controls.Add(btnCreditsClose);
+            pnlCredits.Controls.Add(label6);
+            pnlCredits.Controls.Add(label5);
+            pnlCredits.Controls.Add(label4);
+            pnlCredits.Controls.Add(lblContributors);
+            pnlCredits.Controls.Add(lblCreditsMadeBy);
+            pnlCredits.Location = new Point(560, 40);
+            pnlCredits.Name = "pnlCredits";
+            pnlCredits.Size = new Size(230, 369);
+            pnlCredits.TabIndex = 61;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.BackColor = Color.Transparent;
+            label6.Cursor = Cursors.Hand;
+            label6.Font = new Font("Malgun Gothic", 60F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.ForeColor = Color.FromArgb(0, 204, 204);
+            label6.Location = new Point(14, 9);
+            label6.Name = "label6";
+            label6.Size = new Size(210, 106);
+            label6.TabIndex = 48;
+            label6.Text = "ESM";
+            // 
+            // label5
+            // 
+            label5.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.Location = new Point(10, 241);
+            label5.Name = "label5";
+            label5.Size = new Size(155, 27);
+            label5.TabIndex = 34;
+            label5.Text = "Special Thanks to:";
+            // 
+            // label4
+            // 
+            label4.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.Location = new Point(10, 129);
+            label4.Name = "label4";
+            label4.Size = new Size(155, 27);
+            label4.TabIndex = 33;
+            label4.Text = "Made By:";
+            // 
+            // lblContributors
+            // 
+            lblContributors.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblContributors.Location = new Point(10, 268);
+            lblContributors.Name = "lblContributors";
+            lblContributors.Size = new Size(155, 34);
+            lblContributors.TabIndex = 32;
+            lblContributors.Text = "Strew/Evorin";
+            // 
+            // lblCreditsMadeBy
+            // 
+            lblCreditsMadeBy.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCreditsMadeBy.Location = new Point(10, 156);
+            lblCreditsMadeBy.Name = "lblCreditsMadeBy";
+            lblCreditsMadeBy.Size = new Size(155, 76);
+            lblCreditsMadeBy.TabIndex = 31;
+            lblCreditsMadeBy.Text = "Spaik\r\nCrazyloon\r\n\r\n";
+            // 
+            // btnCreditsClose
+            // 
+            btnCreditsClose.AutoSize = true;
+            btnCreditsClose.BackColor = Color.Transparent;
+            btnCreditsClose.Font = new Font("Malgun Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCreditsClose.ForeColor = Color.FromArgb(0, 255, 185);
+            btnCreditsClose.Location = new Point(206, 4);
+            btnCreditsClose.Name = "btnCreditsClose";
+            btnCreditsClose.Size = new Size(18, 19);
+            btnCreditsClose.TabIndex = 28;
+            btnCreditsClose.Text = "X";
+            btnCreditsClose.Click += btnToggleCredits_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
+            Controls.Add(pnlCredits);
+            Controls.Add(btnOpenCredits);
             Controls.Add(lblServerProfileSpecific);
             Controls.Add(pnlBackupExplanation);
             Controls.Add(cbxProfileSelectionComboBox);
@@ -1332,6 +1445,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbxCreditsBorder).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
             tabServerTabs.ResumeLayout(false);
@@ -1353,6 +1467,8 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbxFormHeader).EndInit();
+            pnlCredits.ResumeLayout(false);
+            pnlCredits.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1389,6 +1505,7 @@
         private PictureBox pictureBox6;
         private PictureBox pictureBox8;
         private PictureBox pictureBox9;
+        private PictureBox pbxCreditsBorder;
         private Button btnSaveBackup;
         private Button btnOpenBackupFolder;
         private Button btnWindowsFirewall;
@@ -1451,5 +1568,13 @@
         private CheckBox chkNotifiServerStarted;
         private PictureBox pictureBox3;
         private CheckBox chkEmbed;
+        private Label btnOpenCredits;
+        private Panel pnlCredits;
+        private Label btnCreditsClose;
+        private Label lblCreditsMadeBy;
+        private Label lblContributors;
+        private Label label5;
+        private Label label4;
+        private Label label6;
     }
 }
