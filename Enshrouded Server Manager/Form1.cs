@@ -7,6 +7,7 @@ using Enshrouded_Server_Manager.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Diagnostics;
+using System.Reactive;
 using System.Runtime.InteropServices;
 
 namespace Enshrouded_Server_Manager;
@@ -81,8 +82,7 @@ public partial class Form1 : Form
                 LoadDiscordSettings();
             }
         }
-        string selectedProfile1 = cbxProfileSelectionComboBox.SelectedItem.ToString();
-        _versionManager.ServerUpdateCheck(selectedProfile1, btnUpdateServer);
+        ServerUpdateCheckTimer();
         _versionManager.ManagerUpdate(lblVersion.Text, lblNewVersionAvailableNotification);
     }
 
@@ -137,20 +137,22 @@ public partial class Form1 : Form
 
                 if (discordProfile.Enabled)
                 {
-                    Task.Factory.StartNew(async () =>
+                    if(discordProfile.UpdatingEnabled) 
                     {
-                        try
+                        Task.Factory.StartNew(async () =>
                         {
-                            _discordOutput.ServerUpdating(name, discordUrl);
-                        }
-                        catch
-                        {
+                            try
+                            {
+                                _discordOutput.ServerUpdating(name, discordUrl);
+                            }
+                            catch
+                            {
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
             }
-
             _server.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}");
         }
     }
@@ -272,17 +274,20 @@ public partial class Form1 : Form
 
                 if (discordProfile.Enabled)
                 {
-                    Task.Factory.StartNew(async () =>
+                    if(discordProfile.StartEnabled)
                     {
-                        try
+                        Task.Factory.StartNew(async () =>
                         {
-                            _discordOutput.ServerOnline(name, DiscordUrl);
-                        }
-                        catch
-                        {
+                            try
+                            {
+                                _discordOutput.ServerOnline(name, DiscordUrl);
+                            }
+                            catch
+                            {
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
             }
         }
@@ -628,17 +633,20 @@ public partial class Form1 : Form
 
             if (discordProfile.Enabled)
             {
-                Task.Factory.StartNew(async () =>
+                if (discordProfile.StopEnabled)
                 {
-                    try
+                    Task.Factory.StartNew(async () =>
                     {
-                        _discordOutput.ServerOffline(name, DiscordUrl);
-                    }
-                    catch
-                    {
+                        try
+                        {
+                            _discordOutput.ServerOffline(name, DiscordUrl);
+                        }
+                        catch
+                        {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         }
     }
@@ -885,6 +893,11 @@ public partial class Form1 : Form
 
         txtDiscordUrl.Text = discordProfile.DiscordUrl;
         chkEnableDiscord.Checked = discordProfile.Enabled;
+        chkNotifiServerStarted.Checked = discordProfile.StartEnabled;
+        chkNotifiServerStopped.Checked = discordProfile.StopEnabled;
+        chkNotifiServerUpdating.Checked = discordProfile.UpdatingEnabled;
+        chkNotifiBackup.Checked = discordProfile.BackupEnabled;
+
     }
 
     private void WriteDefaultServerSettings(string profileName)
@@ -910,12 +923,20 @@ public partial class Form1 : Form
     private void btnSaveDiscordSettings_Click(object sender, EventArgs e)
     {
         var enabled = chkEnableDiscord.Checked;
+        var startedEnabled = chkNotifiServerStarted.Checked;
+        var stoppedEnabled = chkNotifiServerStopped.Checked;
+        var updatingEnabled = chkNotifiServerUpdating.Checked;
+        var backupEnabled = chkNotifiBackup.Checked;
         string url = txtDiscordUrl.Text;
         DiscordProfile discordProfile = new DiscordProfile()
         {
             DiscordUrl = url,
-            Enabled = enabled
-        };
+            Enabled = enabled,
+            StartEnabled = startedEnabled,
+            StopEnabled = stoppedEnabled,
+            UpdatingEnabled = updatingEnabled,
+            BackupEnabled = backupEnabled
+};
 
         // write the new discord profile to the json file
         var discordProfileJson = JsonConvert.SerializeObject(discordProfile, _jsonSerializerSettings);
@@ -937,5 +958,23 @@ public partial class Form1 : Form
             _discordOutput.TestMsg(DiscordUrl);
         }
     }
+
+    #region Update Serverbutton Timer
+    public async void ServerUpdateCheckTimer()
+    {
+        int TIMER_INTERVAL_SERVER_UPDATE_CHECK = 5;
+
+        string selectedProfile = cbxProfileSelectionComboBox.SelectedItem.ToString();
+        _versionManager.ServerUpdateCheck(selectedProfile, btnUpdateServer);
+
+        var timer = new PeriodicTimer(TimeSpan.FromMinutes(TIMER_INTERVAL_SERVER_UPDATE_CHECK));
+
+        while (await timer.WaitForNextTickAsync())
+        {
+            selectedProfile = cbxProfileSelectionComboBox.SelectedItem.ToString();
+            _versionManager.ServerUpdateCheck(selectedProfile, btnUpdateServer);
+        }
+    }
+    #endregion
 }
 

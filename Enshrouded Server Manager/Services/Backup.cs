@@ -85,18 +85,21 @@ public class Backup
 
             if (discordProfile.Enabled)
             {
-                Task.Factory.StartNew(async () =>
+                if(discordProfile.BackupEnabled) 
                 {
-                    try
+                    Task.Factory.StartNew(async () =>
                     {
-                        _discordOutput = new DiscordOutput();
-                        _discordOutput.ServerBackup(name, discordUrl);
-                    }
-                    catch
-                    {
+                        try
+                        {
+                            _discordOutput = new DiscordOutput();
+                            _discordOutput.ServerBackup(name, discordUrl);
+                        }
+                        catch
+                        {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         }
     }

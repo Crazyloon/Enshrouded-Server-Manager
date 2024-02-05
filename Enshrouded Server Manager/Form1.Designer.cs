@@ -96,14 +96,17 @@
             lblScheduleBackups = new Label();
             lbxProfileSelectorAutoBackup = new ListBox();
             tabDiscord = new TabPage();
+            chkNotifiBackup = new CheckBox();
+            chkNotifiServerUpdating = new CheckBox();
+            chkNotifiServerStopped = new CheckBox();
+            chkNotifiServerStarted = new CheckBox();
+            lblNotifications = new Label();
+            pictureBox3 = new PictureBox();
             btnTestDiscord = new Button();
             DiscordUrl = new Label();
             btnSaveDiscordSettings = new Button();
             txtDiscordUrl = new TextBox();
             chkEnableDiscord = new CheckBox();
-            tabCredits = new TabPage();
-            lblCreditsHeader = new Label();
-            lblCredits = new Label();
             lblNewsText = new Label();
             lblVersion = new Label();
             GithubLabel = new Label();
@@ -134,7 +137,7 @@
             ((System.ComponentModel.ISupportInitialize)nudBackupMaxCount).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudBackupInterval).BeginInit();
             tabDiscord.SuspendLayout();
-            tabCredits.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             pnlBackupExplanation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -550,7 +553,7 @@
             // lblServerProfileSpecific
             // 
             lblServerProfileSpecific.AutoSize = true;
-            lblServerProfileSpecific.Location = new Point(30, 133);
+            lblServerProfileSpecific.Location = new Point(32, 140);
             lblServerProfileSpecific.Name = "lblServerProfileSpecific";
             lblServerProfileSpecific.Size = new Size(129, 15);
             lblServerProfileSpecific.TabIndex = 42;
@@ -559,9 +562,9 @@
             // pictureBox10
             // 
             pictureBox10.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox10.Location = new Point(27, 158);
+            pictureBox10.Location = new Point(27, 148);
             pictureBox10.Name = "pictureBox10";
-            pictureBox10.Size = new Size(140, 205);
+            pictureBox10.Size = new Size(140, 215);
             pictureBox10.TabIndex = 43;
             pictureBox10.TabStop = false;
             // 
@@ -637,7 +640,6 @@
             tabServerTabs.Controls.Add(tabProfileManager);
             tabServerTabs.Controls.Add(tabAutoBackup);
             tabServerTabs.Controls.Add(tabDiscord);
-            tabServerTabs.Controls.Add(tabCredits);
             tabServerTabs.Location = new Point(187, 84);
             tabServerTabs.Name = "tabServerTabs";
             tabServerTabs.SelectedIndex = 0;
@@ -668,7 +670,7 @@
             tabServerSettings.Padding = new Padding(3);
             tabServerSettings.Size = new Size(359, 302);
             tabServerSettings.TabIndex = 0;
-            tabServerSettings.Text = "ServerSettings";
+            tabServerSettings.Text = "Server Settings";
             // 
             // btnShowPassword
             // 
@@ -701,7 +703,7 @@
             tabProfileManager.Padding = new Padding(3);
             tabProfileManager.Size = new Size(359, 302);
             tabProfileManager.TabIndex = 1;
-            tabProfileManager.Text = "ManageProfiles";
+            tabProfileManager.Text = "Manage Profiles";
             // 
             // lblAddNewProfile
             // 
@@ -852,7 +854,7 @@
             tabAutoBackup.Padding = new Padding(3);
             tabAutoBackup.Size = new Size(359, 302);
             tabAutoBackup.TabIndex = 2;
-            tabAutoBackup.Text = "AutoBackup";
+            tabAutoBackup.Text = "Auto Backup";
             // 
             // lblAutoBackupChangesInfo
             // 
@@ -982,6 +984,12 @@
             // tabDiscord
             // 
             tabDiscord.BackColor = Color.FromArgb(0, 0, 18);
+            tabDiscord.Controls.Add(chkNotifiBackup);
+            tabDiscord.Controls.Add(chkNotifiServerUpdating);
+            tabDiscord.Controls.Add(chkNotifiServerStopped);
+            tabDiscord.Controls.Add(chkNotifiServerStarted);
+            tabDiscord.Controls.Add(lblNotifications);
+            tabDiscord.Controls.Add(pictureBox3);
             tabDiscord.Controls.Add(btnTestDiscord);
             tabDiscord.Controls.Add(DiscordUrl);
             tabDiscord.Controls.Add(btnSaveDiscordSettings);
@@ -993,6 +1001,64 @@
             tabDiscord.TabIndex = 3;
             tabDiscord.Text = "Discord";
             // 
+            // chkNotifiBackup
+            // 
+            chkNotifiBackup.AutoSize = true;
+            chkNotifiBackup.Location = new Point(99, 140);
+            chkNotifiBackup.Name = "chkNotifiBackup";
+            chkNotifiBackup.Size = new Size(109, 19);
+            chkNotifiBackup.TabIndex = 64;
+            chkNotifiBackup.Text = "Backup Created";
+            chkNotifiBackup.UseVisualStyleBackColor = true;
+            // 
+            // chkNotifiServerUpdating
+            // 
+            chkNotifiServerUpdating.AutoSize = true;
+            chkNotifiServerUpdating.Location = new Point(99, 117);
+            chkNotifiServerUpdating.Name = "chkNotifiServerUpdating";
+            chkNotifiServerUpdating.Size = new Size(110, 19);
+            chkNotifiServerUpdating.TabIndex = 63;
+            chkNotifiServerUpdating.Text = "Server Updating";
+            chkNotifiServerUpdating.UseVisualStyleBackColor = true;
+            // 
+            // chkNotifiServerStopped
+            // 
+            chkNotifiServerStopped.AutoSize = true;
+            chkNotifiServerStopped.Location = new Point(99, 92);
+            chkNotifiServerStopped.Name = "chkNotifiServerStopped";
+            chkNotifiServerStopped.Size = new Size(105, 19);
+            chkNotifiServerStopped.TabIndex = 62;
+            chkNotifiServerStopped.Text = "Server Stopped";
+            chkNotifiServerStopped.UseVisualStyleBackColor = true;
+            // 
+            // chkNotifiServerStarted
+            // 
+            chkNotifiServerStarted.AutoSize = true;
+            chkNotifiServerStarted.Location = new Point(99, 67);
+            chkNotifiServerStarted.Name = "chkNotifiServerStarted";
+            chkNotifiServerStarted.Size = new Size(98, 19);
+            chkNotifiServerStarted.TabIndex = 61;
+            chkNotifiServerStarted.Text = "Server Started";
+            chkNotifiServerStarted.UseVisualStyleBackColor = true;
+            // 
+            // lblNotifications
+            // 
+            lblNotifications.AutoSize = true;
+            lblNotifications.Location = new Point(96, 45);
+            lblNotifications.Name = "lblNotifications";
+            lblNotifications.Size = new Size(75, 15);
+            lblNotifications.TabIndex = 65;
+            lblNotifications.Text = "Notifications";
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.BorderStyle = BorderStyle.FixedSingle;
+            pictureBox3.Location = new Point(82, 53);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(192, 115);
+            pictureBox3.TabIndex = 66;
+            pictureBox3.TabStop = false;
+            // 
             // btnTestDiscord
             // 
             btnTestDiscord.Cursor = Cursors.Hand;
@@ -1001,7 +1067,7 @@
             btnTestDiscord.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnTestDiscord.FlatStyle = FlatStyle.Flat;
             btnTestDiscord.ForeColor = SystemColors.Control;
-            btnTestDiscord.Location = new Point(115, 260);
+            btnTestDiscord.Location = new Point(115, 269);
             btnTestDiscord.Name = "btnTestDiscord";
             btnTestDiscord.Size = new Size(127, 25);
             btnTestDiscord.TabIndex = 60;
@@ -1013,7 +1079,7 @@
             // DiscordUrl
             // 
             DiscordUrl.AutoSize = true;
-            DiscordUrl.Location = new Point(114, 170);
+            DiscordUrl.Location = new Point(114, 179);
             DiscordUrl.Name = "DiscordUrl";
             DiscordUrl.Size = new Size(128, 15);
             DiscordUrl.TabIndex = 18;
@@ -1027,7 +1093,7 @@
             btnSaveDiscordSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnSaveDiscordSettings.FlatStyle = FlatStyle.Flat;
             btnSaveDiscordSettings.ForeColor = Color.FromArgb(0, 255, 185);
-            btnSaveDiscordSettings.Location = new Point(114, 225);
+            btnSaveDiscordSettings.Location = new Point(114, 234);
             btnSaveDiscordSettings.Name = "btnSaveDiscordSettings";
             btnSaveDiscordSettings.Size = new Size(128, 30);
             btnSaveDiscordSettings.TabIndex = 17;
@@ -1042,7 +1108,7 @@
             txtDiscordUrl.BackColor = Color.FromArgb(6, 6, 48);
             txtDiscordUrl.BorderStyle = BorderStyle.FixedSingle;
             txtDiscordUrl.ForeColor = SystemColors.Window;
-            txtDiscordUrl.Location = new Point(6, 193);
+            txtDiscordUrl.Location = new Point(6, 202);
             txtDiscordUrl.Name = "txtDiscordUrl";
             txtDiscordUrl.Size = new Size(347, 23);
             txtDiscordUrl.TabIndex = 16;
@@ -1050,46 +1116,12 @@
             // chkEnableDiscord
             // 
             chkEnableDiscord.AutoSize = true;
-            chkEnableDiscord.Location = new Point(125, 24);
+            chkEnableDiscord.Location = new Point(99, 14);
             chkEnableDiscord.Name = "chkEnableDiscord";
-            chkEnableDiscord.Size = new Size(104, 19);
+            chkEnableDiscord.Size = new Size(175, 19);
             chkEnableDiscord.TabIndex = 15;
-            chkEnableDiscord.Text = "Enable Discord";
+            chkEnableDiscord.Text = "Enable Discord Notifications";
             chkEnableDiscord.UseVisualStyleBackColor = true;
-            // 
-            // tabCredits
-            // 
-            tabCredits.BackColor = Color.FromArgb(0, 0, 18);
-            tabCredits.Controls.Add(lblCreditsHeader);
-            tabCredits.Controls.Add(lblCredits);
-            tabCredits.Location = new Point(4, 24);
-            tabCredits.Name = "tabCredits";
-            tabCredits.Size = new Size(359, 302);
-            tabCredits.TabIndex = 4;
-            tabCredits.Text = "Credits";
-            // 
-            // lblCreditsHeader
-            // 
-            lblCreditsHeader.BackColor = Color.Transparent;
-            lblCreditsHeader.Font = new Font("Malgun Gothic", 20F, FontStyle.Bold, GraphicsUnit.Point);
-            lblCreditsHeader.ForeColor = SystemColors.Control;
-            lblCreditsHeader.Location = new Point(121, 25);
-            lblCreditsHeader.Name = "lblCreditsHeader";
-            lblCreditsHeader.Size = new Size(113, 32);
-            lblCreditsHeader.TabIndex = 55;
-            lblCreditsHeader.Text = "Credits";
-            // 
-            // lblCredits
-            // 
-            lblCredits.AutoSize = true;
-            lblCredits.BackColor = Color.FromArgb(0, 0, 18);
-            lblCredits.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            lblCredits.ForeColor = Color.FromArgb(0, 204, 204);
-            lblCredits.Location = new Point(131, 83);
-            lblCredits.Name = "lblCredits";
-            lblCredits.Size = new Size(103, 57);
-            lblCredits.TabIndex = 54;
-            lblCredits.Text = "Crazyloon\r\nStrew / Evorin\r\nSpaik";
             // 
             // lblNewsText
             // 
@@ -1239,6 +1271,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
+            Controls.Add(lblServerProfileSpecific);
             Controls.Add(pnlBackupExplanation);
             Controls.Add(cbxProfileSelectionComboBox);
             Controls.Add(lblVersion);
@@ -1258,7 +1291,6 @@
             Controls.Add(btnStartServer);
             Controls.Add(pictureBox10);
             Controls.Add(lblAdminPanel);
-            Controls.Add(lblServerProfileSpecific);
             Controls.Add(btnWindowsFirewall);
             Controls.Add(btnInstallSteamCMD);
             Controls.Add(lblNewsText);
@@ -1303,8 +1335,7 @@
             ((System.ComponentModel.ISupportInitialize)nudBackupInterval).EndInit();
             tabDiscord.ResumeLayout(false);
             tabDiscord.PerformLayout();
-            tabCredits.ResumeLayout(false);
-            tabCredits.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             pnlBackupExplanation.ResumeLayout(false);
             pnlBackupExplanation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
@@ -1369,7 +1400,6 @@
         private Label lblProfileNameInfo;
         private Label lblLogo;
         private Label lblNewsText;
-        private Label lblCredits;
         private Label lblAddNewProfile;
         private Button btnShowPassword;
         private Label lblVersion;
@@ -1401,8 +1431,12 @@
         private Button btnSaveDiscordSettings;
         private TextBox txtDiscordUrl;
         private CheckBox chkEnableDiscord;
-        private TabPage tabCredits;
-        private Label lblCreditsHeader;
         private Button btnTestDiscord;
+        private Label lblNotifications;
+        private CheckBox chkNotifiBackup;
+        private CheckBox chkNotifiServerUpdating;
+        private CheckBox chkNotifiServerStopped;
+        private CheckBox chkNotifiServerStarted;
+        private PictureBox pictureBox3;
     }
 }

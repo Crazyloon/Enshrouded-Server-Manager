@@ -5,5 +5,9 @@ public class DiscordProfile
 {
     public string DiscordUrl { get; set; }
     public bool Enabled { get; set; }
+    public bool StartEnabled { get; set; }
+    public bool StopEnabled { get; set; }
+    public bool UpdatingEnabled { get; set; }
+    public bool BackupEnabled { get; set; }
 }
 
