@@ -115,6 +115,15 @@
             lblNewVersionAvailableNotification = new Label();
             pnlBackupExplanation = new Panel();
             btnOpenAutobackupFolder = new Button();
+            pnlCredits = new Panel();
+            label4 = new Label();
+            lblCreditsSupportedBy = new Label();
+            btnCreditsClose = new Label();
+            lblCreditsLogo = new Label();
+            lblHeadingSpecialThanks = new Label();
+            lblHeadingMadeBy = new Label();
+            lblCreditsContributors = new Label();
+            lblCreditsMadeBy = new Label();
             label3 = new Label();
             pictureBox4 = new PictureBox();
             label1 = new Label();
@@ -122,13 +131,6 @@
             pictureBox1 = new PictureBox();
             pbxFormHeader = new PictureBox();
             btnOpenCredits = new Label();
-            pnlCredits = new Panel();
-            btnCreditsClose = new Label();
-            label6 = new Label();
-            label5 = new Label();
-            label4 = new Label();
-            lblContributors = new Label();
-            lblCreditsMadeBy = new Label();
             ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
@@ -150,10 +152,10 @@
             tabDiscord.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             pnlBackupExplanation.SuspendLayout();
+            pnlCredits.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbxFormHeader).BeginInit();
-            pnlCredits.SuspendLayout();
             SuspendLayout();
             // 
             // cbxProfileSelectionComboBox
@@ -1233,6 +1235,103 @@
             btnOpenAutobackupFolder.UseVisualStyleBackColor = true;
             btnOpenAutobackupFolder.Click += btnOpenAutobackupFolder_Click;
             // 
+            // pnlCredits
+            // 
+            pnlCredits.Controls.Add(label4);
+            pnlCredits.Controls.Add(lblCreditsSupportedBy);
+            pnlCredits.Controls.Add(btnCreditsClose);
+            pnlCredits.Controls.Add(lblCreditsLogo);
+            pnlCredits.Controls.Add(lblHeadingSpecialThanks);
+            pnlCredits.Controls.Add(lblHeadingMadeBy);
+            pnlCredits.Controls.Add(lblCreditsContributors);
+            pnlCredits.Controls.Add(lblCreditsMadeBy);
+            pnlCredits.Location = new Point(753, 413);
+            pnlCredits.Name = "pnlCredits";
+            pnlCredits.Size = new Size(230, 369);
+            pnlCredits.TabIndex = 61;
+            pnlCredits.Visible = false;
+            // 
+            // label4
+            // 
+            label4.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Location = new Point(14, 295);
+            label4.Name = "label4";
+            label4.Size = new Size(155, 26);
+            label4.TabIndex = 50;
+            label4.Text = "xXFreeFunXx";
+            // 
+            // lblCreditsSupportedBy
+            // 
+            lblCreditsSupportedBy.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblCreditsSupportedBy.Location = new Point(14, 268);
+            lblCreditsSupportedBy.Name = "lblCreditsSupportedBy";
+            lblCreditsSupportedBy.Size = new Size(155, 27);
+            lblCreditsSupportedBy.TabIndex = 49;
+            lblCreditsSupportedBy.Text = "Sponsored By:";
+            // 
+            // btnCreditsClose
+            // 
+            btnCreditsClose.AutoSize = true;
+            btnCreditsClose.BackColor = Color.Transparent;
+            btnCreditsClose.Cursor = Cursors.Hand;
+            btnCreditsClose.Font = new Font("Malgun Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCreditsClose.ForeColor = Color.FromArgb(0, 255, 185);
+            btnCreditsClose.Location = new Point(206, 4);
+            btnCreditsClose.Name = "btnCreditsClose";
+            btnCreditsClose.Size = new Size(18, 19);
+            btnCreditsClose.TabIndex = 28;
+            btnCreditsClose.Text = "X";
+            btnCreditsClose.Click += btnToggleCredits_Click;
+            // 
+            // lblCreditsLogo
+            // 
+            lblCreditsLogo.AutoSize = true;
+            lblCreditsLogo.BackColor = Color.Transparent;
+            lblCreditsLogo.Cursor = Cursors.Hand;
+            lblCreditsLogo.Font = new Font("Malgun Gothic", 60F, FontStyle.Bold, GraphicsUnit.Point);
+            lblCreditsLogo.ForeColor = Color.FromArgb(0, 204, 204);
+            lblCreditsLogo.Location = new Point(14, 9);
+            lblCreditsLogo.Name = "lblCreditsLogo";
+            lblCreditsLogo.Size = new Size(210, 106);
+            lblCreditsLogo.TabIndex = 48;
+            lblCreditsLogo.Text = "ESM";
+            // 
+            // lblHeadingSpecialThanks
+            // 
+            lblHeadingSpecialThanks.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblHeadingSpecialThanks.Location = new Point(14, 202);
+            lblHeadingSpecialThanks.Name = "lblHeadingSpecialThanks";
+            lblHeadingSpecialThanks.Size = new Size(155, 27);
+            lblHeadingSpecialThanks.TabIndex = 34;
+            lblHeadingSpecialThanks.Text = "Special Thanks to:";
+            // 
+            // lblHeadingMadeBy
+            // 
+            lblHeadingMadeBy.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblHeadingMadeBy.Location = new Point(14, 114);
+            lblHeadingMadeBy.Name = "lblHeadingMadeBy";
+            lblHeadingMadeBy.Size = new Size(155, 27);
+            lblHeadingMadeBy.TabIndex = 33;
+            lblHeadingMadeBy.Text = "Made By:";
+            // 
+            // lblCreditsContributors
+            // 
+            lblCreditsContributors.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCreditsContributors.Location = new Point(14, 229);
+            lblCreditsContributors.Name = "lblCreditsContributors";
+            lblCreditsContributors.Size = new Size(155, 26);
+            lblCreditsContributors.TabIndex = 32;
+            lblCreditsContributors.Text = "Strew/Evorin";
+            // 
+            // lblCreditsMadeBy
+            // 
+            lblCreditsMadeBy.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCreditsMadeBy.Location = new Point(14, 141);
+            lblCreditsMadeBy.Name = "lblCreditsMadeBy";
+            lblCreditsMadeBy.Size = new Size(155, 46);
+            lblCreditsMadeBy.TabIndex = 31;
+            lblCreditsMadeBy.Text = "Spaik\r\nCrazyloon\r\n\r\n";
+            // 
             // label3
             // 
             label3.AutoSize = true;
@@ -1316,83 +1415,6 @@
             btnOpenCredits.TextAlign = ContentAlignment.BottomLeft;
             btnOpenCredits.Click += btnToggleCredits_Click;
             // 
-            // pnlCredits
-            // 
-            pnlCredits.Controls.Add(btnCreditsClose);
-            pnlCredits.Controls.Add(label6);
-            pnlCredits.Controls.Add(label5);
-            pnlCredits.Controls.Add(label4);
-            pnlCredits.Controls.Add(lblContributors);
-            pnlCredits.Controls.Add(lblCreditsMadeBy);
-            pnlCredits.Location = new Point(753, 413);
-            pnlCredits.Name = "pnlCredits";
-            pnlCredits.Size = new Size(230, 369);
-            pnlCredits.TabIndex = 61;
-            pnlCredits.Visible = false;
-            // 
-            // btnCreditsClose
-            // 
-            btnCreditsClose.AutoSize = true;
-            btnCreditsClose.BackColor = Color.Transparent;
-            btnCreditsClose.Cursor = Cursors.Hand;
-            btnCreditsClose.Font = new Font("Malgun Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnCreditsClose.ForeColor = Color.FromArgb(0, 255, 185);
-            btnCreditsClose.Location = new Point(206, 4);
-            btnCreditsClose.Name = "btnCreditsClose";
-            btnCreditsClose.Size = new Size(18, 19);
-            btnCreditsClose.TabIndex = 28;
-            btnCreditsClose.Text = "X";
-            btnCreditsClose.Click += btnToggleCredits_Click;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.BackColor = Color.Transparent;
-            label6.Cursor = Cursors.Hand;
-            label6.Font = new Font("Malgun Gothic", 60F, FontStyle.Bold, GraphicsUnit.Point);
-            label6.ForeColor = Color.FromArgb(0, 204, 204);
-            label6.Location = new Point(14, 9);
-            label6.Name = "label6";
-            label6.Size = new Size(210, 106);
-            label6.TabIndex = 48;
-            label6.Text = "ESM";
-            // 
-            // label5
-            // 
-            label5.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(10, 241);
-            label5.Name = "label5";
-            label5.Size = new Size(155, 27);
-            label5.TabIndex = 34;
-            label5.Text = "Special Thanks to:";
-            // 
-            // label4
-            // 
-            label4.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label4.Location = new Point(10, 129);
-            label4.Name = "label4";
-            label4.Size = new Size(155, 27);
-            label4.TabIndex = 33;
-            label4.Text = "Made By:";
-            // 
-            // lblContributors
-            // 
-            lblContributors.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lblContributors.Location = new Point(10, 268);
-            lblContributors.Name = "lblContributors";
-            lblContributors.Size = new Size(155, 34);
-            lblContributors.TabIndex = 32;
-            lblContributors.Text = "Strew/Evorin";
-            // 
-            // lblCreditsMadeBy
-            // 
-            lblCreditsMadeBy.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            lblCreditsMadeBy.Location = new Point(10, 156);
-            lblCreditsMadeBy.Name = "lblCreditsMadeBy";
-            lblCreditsMadeBy.Size = new Size(155, 76);
-            lblCreditsMadeBy.TabIndex = 31;
-            lblCreditsMadeBy.Text = "Spaik\r\nCrazyloon\r\n\r\n";
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1400,8 +1422,8 @@
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
             Controls.Add(btnOpenCredits);
-            Controls.Add(pnlCredits);
             Controls.Add(lblServerProfileSpecific);
+            Controls.Add(pnlCredits);
             Controls.Add(pnlBackupExplanation);
             Controls.Add(cbxProfileSelectionComboBox);
             Controls.Add(lblVersion);
@@ -1469,11 +1491,11 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             pnlBackupExplanation.ResumeLayout(false);
             pnlBackupExplanation.PerformLayout();
+            pnlCredits.ResumeLayout(false);
+            pnlCredits.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbxFormHeader).EndInit();
-            pnlCredits.ResumeLayout(false);
-            pnlCredits.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1577,9 +1599,11 @@
         private Panel pnlCredits;
         private Label btnCreditsClose;
         private Label lblCreditsMadeBy;
-        private Label lblContributors;
-        private Label label5;
+        private Label lblCreditsContributors;
+        private Label lblHeadingSpecialThanks;
+        private Label lblHeadingMadeBy;
+        private Label lblCreditsLogo;
+        private Label lblCreditsSupportedBy;
         private Label label4;
-        private Label label6;
     }
 }
