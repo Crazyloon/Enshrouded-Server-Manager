@@ -1386,6 +1386,7 @@
             btnCreditsClose.Size = new Size(18, 19);
             btnCreditsClose.TabIndex = 28;
             btnCreditsClose.Text = "X";
+            btnCreditsClose.Visible = false;
             btnCreditsClose.Click += btnToggleCredits_Click;
             // 
             // Form1
