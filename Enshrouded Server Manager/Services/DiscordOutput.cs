@@ -12,7 +12,7 @@ public class DiscordOutput
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
         using var client = new DiscordWebhookClient(Url);
 
-        if (embedEnabled)
+        if (embedEnabled == true)
         {
             var embed = new EmbedBuilder
             {
@@ -22,7 +22,7 @@ public class DiscordOutput
             };
             await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
         }
-        if (!embedEnabled)
+        if (embedEnabled == false)
         {
             await client.SendMessageAsync(text: $"ESM - {serverName} : Online");
         }
@@ -34,7 +34,7 @@ public class DiscordOutput
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
         using var client = new DiscordWebhookClient(Url);
 
-        if (embedEnabled)
+        if (embedEnabled == true)
         { 
             var embed = new EmbedBuilder
             {
@@ -44,7 +44,7 @@ public class DiscordOutput
             };
             await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
         }
-        if (!embedEnabled)
+        if (embedEnabled == false)
         {
             await client.SendMessageAsync(text: $"ESM - {serverName} : Offline");
         }
@@ -56,7 +56,7 @@ public class DiscordOutput
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
         using var client = new DiscordWebhookClient(Url);
 
-        if (embedEnabled)
+        if (embedEnabled == true)
         {
             var embed = new EmbedBuilder
             {
@@ -66,7 +66,7 @@ public class DiscordOutput
             };
             await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
         }
-        if (!embedEnabled)
+        if (embedEnabled == false)
         {
             await client.SendMessageAsync(text: $"ESM - {serverName} : Updating...");
         }
@@ -78,7 +78,7 @@ public class DiscordOutput
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
         using var client = new DiscordWebhookClient(Url);
 
-        if (embedEnabled)
+        if (embedEnabled == true)
         {
             var embed = new EmbedBuilder
             {
@@ -88,7 +88,7 @@ public class DiscordOutput
             };
             await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
         }
-        if (!embedEnabled)
+        if (embedEnabled == false)
         {
             await client.SendMessageAsync(text: $"ESM - {serverName} : Backup created");
         }
@@ -100,7 +100,7 @@ public class DiscordOutput
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
         using var client = new DiscordWebhookClient(Url);
 
-        if (embedEnabled)
+        if (embedEnabled == true)
         {
             var embed = new EmbedBuilder
             {
@@ -110,7 +110,7 @@ public class DiscordOutput
             };
             await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
         }
-        if (!embedEnabled)
+        if (embedEnabled == false)
         {
             await client.SendMessageAsync(text: $"ESM - Test : Test");
         }

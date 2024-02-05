@@ -899,6 +899,7 @@ public partial class Form1 : Form
         chkNotifiServerStopped.Checked = discordProfile.StopEnabled;
         chkNotifiServerUpdating.Checked = discordProfile.UpdatingEnabled;
         chkNotifiBackup.Checked = discordProfile.BackupEnabled;
+        chkEmbed.Checked = discordProfile.EmbedEnabled;
 
     }
 
