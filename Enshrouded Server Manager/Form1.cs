@@ -112,6 +112,7 @@ public partial class Form1 : Form
 
             btnInstallServer.Visible = false;
             btnUpdateServer.Visible = true;
+            btnUpdateServer.FlatAppearance.BorderColor = Color.Green
         }
     }
 
@@ -154,6 +155,7 @@ public partial class Form1 : Form
                 }
             }
             _server.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}");
+            btnUpdateServer.FlatAppearance.BorderColor = Color.Green
         }
     }
 
