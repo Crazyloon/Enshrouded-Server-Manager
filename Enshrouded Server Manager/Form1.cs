@@ -144,7 +144,7 @@ public partial class Form1 : Form
                         {
                             try
                             {
-                                _discordOutput.ServerUpdating(name, discordUrl);
+                                _discordOutput.ServerUpdating(name, discordUrl, discordProfile.EmbedEnabled);
                             }
                             catch
                             {
@@ -282,7 +282,7 @@ public partial class Form1 : Form
                         {
                             try
                             {
-                                _discordOutput.ServerOnline(name, DiscordUrl);
+                                _discordOutput.ServerOnline(name, DiscordUrl, discordProfile.EmbedEnabled);
                             }
                             catch
                             {
@@ -641,7 +641,7 @@ public partial class Form1 : Form
                     {
                         try
                         {
-                            _discordOutput.ServerOffline(name, DiscordUrl);
+                            _discordOutput.ServerOffline(name, DiscordUrl, discordProfile.EmbedEnabled);
                         }
                         catch
                         {
@@ -930,6 +930,7 @@ public partial class Form1 : Form
         var updatingEnabled = chkNotifiServerUpdating.Checked;
         var backupEnabled = chkNotifiBackup.Checked;
         string url = txtDiscordUrl.Text;
+        var embedEnabled = chkEmbed.Checked;
         DiscordProfile discordProfile = new DiscordProfile()
         {
             DiscordUrl = url,
@@ -937,7 +938,8 @@ public partial class Form1 : Form
             StartEnabled = startedEnabled,
             StopEnabled = stoppedEnabled,
             UpdatingEnabled = updatingEnabled,
-            BackupEnabled = backupEnabled
+            BackupEnabled = backupEnabled,
+            EmbedEnabled = embedEnabled
 };
 
         // write the new discord profile to the json file
@@ -957,7 +959,7 @@ public partial class Form1 : Form
         string DiscordUrl = discordProfile.DiscordUrl;
         if (_fileSystemManager.FileExists(discordSettingsFile))
         {
-            _discordOutput.TestMsg(DiscordUrl);
+            _discordOutput.TestMsg(DiscordUrl, discordProfile.EmbedEnabled);
         }
     }
 

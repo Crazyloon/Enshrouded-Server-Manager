@@ -9,5 +9,6 @@ public class DiscordProfile
     public bool StopEnabled { get; set; }
     public bool UpdatingEnabled { get; set; }
     public bool BackupEnabled { get; set; }
+    public bool EmbedEnabled { get; set; }
 }
 
