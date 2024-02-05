@@ -1004,7 +1004,7 @@
             // chkNotifiBackup
             // 
             chkNotifiBackup.AutoSize = true;
-            chkNotifiBackup.Location = new Point(99, 140);
+            chkNotifiBackup.Location = new Point(99, 145);
             chkNotifiBackup.Name = "chkNotifiBackup";
             chkNotifiBackup.Size = new Size(109, 19);
             chkNotifiBackup.TabIndex = 64;
@@ -1014,7 +1014,7 @@
             // chkNotifiServerUpdating
             // 
             chkNotifiServerUpdating.AutoSize = true;
-            chkNotifiServerUpdating.Location = new Point(99, 117);
+            chkNotifiServerUpdating.Location = new Point(99, 122);
             chkNotifiServerUpdating.Name = "chkNotifiServerUpdating";
             chkNotifiServerUpdating.Size = new Size(110, 19);
             chkNotifiServerUpdating.TabIndex = 63;
@@ -1024,7 +1024,7 @@
             // chkNotifiServerStopped
             // 
             chkNotifiServerStopped.AutoSize = true;
-            chkNotifiServerStopped.Location = new Point(99, 92);
+            chkNotifiServerStopped.Location = new Point(99, 97);
             chkNotifiServerStopped.Name = "chkNotifiServerStopped";
             chkNotifiServerStopped.Size = new Size(105, 19);
             chkNotifiServerStopped.TabIndex = 62;
@@ -1034,7 +1034,7 @@
             // chkNotifiServerStarted
             // 
             chkNotifiServerStarted.AutoSize = true;
-            chkNotifiServerStarted.Location = new Point(99, 67);
+            chkNotifiServerStarted.Location = new Point(99, 72);
             chkNotifiServerStarted.Name = "chkNotifiServerStarted";
             chkNotifiServerStarted.Size = new Size(98, 19);
             chkNotifiServerStarted.TabIndex = 61;
@@ -1044,7 +1044,7 @@
             // lblNotifications
             // 
             lblNotifications.AutoSize = true;
-            lblNotifications.Location = new Point(96, 45);
+            lblNotifications.Location = new Point(96, 50);
             lblNotifications.Name = "lblNotifications";
             lblNotifications.Size = new Size(75, 15);
             lblNotifications.TabIndex = 65;
@@ -1053,7 +1053,7 @@
             // pictureBox3
             // 
             pictureBox3.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox3.Location = new Point(82, 53);
+            pictureBox3.Location = new Point(82, 58);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(192, 115);
             pictureBox3.TabIndex = 66;
@@ -1067,9 +1067,9 @@
             btnTestDiscord.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnTestDiscord.FlatStyle = FlatStyle.Flat;
             btnTestDiscord.ForeColor = SystemColors.Control;
-            btnTestDiscord.Location = new Point(115, 269);
+            btnTestDiscord.Location = new Point(192, 245);
             btnTestDiscord.Name = "btnTestDiscord";
-            btnTestDiscord.Size = new Size(127, 25);
+            btnTestDiscord.Size = new Size(127, 30);
             btnTestDiscord.TabIndex = 60;
             btnTestDiscord.Text = "Test Discord Msg";
             btnTestDiscord.UseCompatibleTextRendering = true;
@@ -1079,7 +1079,7 @@
             // DiscordUrl
             // 
             DiscordUrl.AutoSize = true;
-            DiscordUrl.Location = new Point(114, 179);
+            DiscordUrl.Location = new Point(114, 184);
             DiscordUrl.Name = "DiscordUrl";
             DiscordUrl.Size = new Size(128, 15);
             DiscordUrl.TabIndex = 18;
@@ -1093,7 +1093,7 @@
             btnSaveDiscordSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnSaveDiscordSettings.FlatStyle = FlatStyle.Flat;
             btnSaveDiscordSettings.ForeColor = Color.FromArgb(0, 255, 185);
-            btnSaveDiscordSettings.Location = new Point(114, 234);
+            btnSaveDiscordSettings.Location = new Point(43, 245);
             btnSaveDiscordSettings.Name = "btnSaveDiscordSettings";
             btnSaveDiscordSettings.Size = new Size(128, 30);
             btnSaveDiscordSettings.TabIndex = 17;
@@ -1108,15 +1108,15 @@
             txtDiscordUrl.BackColor = Color.FromArgb(6, 6, 48);
             txtDiscordUrl.BorderStyle = BorderStyle.FixedSingle;
             txtDiscordUrl.ForeColor = SystemColors.Window;
-            txtDiscordUrl.Location = new Point(6, 202);
+            txtDiscordUrl.Location = new Point(20, 207);
             txtDiscordUrl.Name = "txtDiscordUrl";
-            txtDiscordUrl.Size = new Size(347, 23);
+            txtDiscordUrl.Size = new Size(321, 23);
             txtDiscordUrl.TabIndex = 16;
             // 
             // chkEnableDiscord
             // 
             chkEnableDiscord.AutoSize = true;
-            chkEnableDiscord.Location = new Point(99, 14);
+            chkEnableDiscord.Location = new Point(99, 19);
             chkEnableDiscord.Name = "chkEnableDiscord";
             chkEnableDiscord.Size = new Size(175, 19);
             chkEnableDiscord.TabIndex = 15;
