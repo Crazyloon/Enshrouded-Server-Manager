@@ -123,12 +123,12 @@
             pbxFormHeader = new PictureBox();
             btnOpenCredits = new Label();
             pnlCredits = new Panel();
+            btnCreditsClose = new Label();
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
             lblContributors = new Label();
             lblCreditsMadeBy = new Label();
-            btnCreditsClose = new Label();
             ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
@@ -419,6 +419,7 @@
             // 
             lblCloseButton.AutoSize = true;
             lblCloseButton.BackColor = Color.FromArgb(64, 64, 64);
+            lblCloseButton.Cursor = Cursors.Hand;
             lblCloseButton.Font = new Font("Malgun Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
             lblCloseButton.ForeColor = Color.FromArgb(0, 255, 185);
             lblCloseButton.Location = new Point(771, 9);
@@ -432,6 +433,7 @@
             // 
             lblMinimizeTrayButton.AutoSize = true;
             lblMinimizeTrayButton.BackColor = Color.FromArgb(64, 64, 64);
+            lblMinimizeTrayButton.Cursor = Cursors.Hand;
             lblMinimizeTrayButton.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblMinimizeTrayButton.ForeColor = Color.FromArgb(0, 255, 185);
             lblMinimizeTrayButton.Location = new Point(741, 6);
@@ -1303,6 +1305,7 @@
             // 
             btnOpenCredits.AutoSize = true;
             btnOpenCredits.BackColor = Color.FromArgb(64, 64, 64);
+            btnOpenCredits.Cursor = Cursors.Hand;
             btnOpenCredits.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
             btnOpenCredits.ForeColor = Color.FromArgb(0, 255, 185);
             btnOpenCredits.Location = new Point(753, 413);
@@ -1324,8 +1327,22 @@
             pnlCredits.Location = new Point(560, 40);
             pnlCredits.Name = "pnlCredits";
             pnlCredits.Size = new Size(230, 369);
-            pnlCredits.Visible = false;
             pnlCredits.TabIndex = 61;
+            pnlCredits.Visible = false;
+            // 
+            // btnCreditsClose
+            // 
+            btnCreditsClose.AutoSize = true;
+            btnCreditsClose.BackColor = Color.Transparent;
+            btnCreditsClose.Cursor = Cursors.Hand;
+            btnCreditsClose.Font = new Font("Malgun Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCreditsClose.ForeColor = Color.FromArgb(0, 255, 185);
+            btnCreditsClose.Location = new Point(206, 4);
+            btnCreditsClose.Name = "btnCreditsClose";
+            btnCreditsClose.Size = new Size(18, 19);
+            btnCreditsClose.TabIndex = 28;
+            btnCreditsClose.Text = "X";
+            btnCreditsClose.Click += btnToggleCredits_Click;
             // 
             // label6
             // 
@@ -1375,19 +1392,6 @@
             lblCreditsMadeBy.Size = new Size(155, 76);
             lblCreditsMadeBy.TabIndex = 31;
             lblCreditsMadeBy.Text = "Spaik\r\nCrazyloon\r\n\r\n";
-            // 
-            // btnCreditsClose
-            // 
-            btnCreditsClose.AutoSize = true;
-            btnCreditsClose.BackColor = Color.Transparent;
-            btnCreditsClose.Font = new Font("Malgun Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
-            btnCreditsClose.ForeColor = Color.FromArgb(0, 255, 185);
-            btnCreditsClose.Location = new Point(206, 4);
-            btnCreditsClose.Name = "btnCreditsClose";
-            btnCreditsClose.Size = new Size(18, 19);
-            btnCreditsClose.TabIndex = 28;
-            btnCreditsClose.Text = "X";
-            btnCreditsClose.Click += btnToggleCredits_Click;
             // 
             // Form1
             // 
