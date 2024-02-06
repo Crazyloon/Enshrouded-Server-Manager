@@ -1218,9 +1218,9 @@
             // lblNewsText
             // 
             lblNewsText.AutoSize = true;
-            lblNewsText.Location = new Point(584, 181);
+            lblNewsText.Location = new Point(567, 155);
             lblNewsText.Name = "lblNewsText";
-            lblNewsText.Size = new Size(201, 120);
+            lblNewsText.Size = new Size(217, 195);
             lblNewsText.TabIndex = 53;
             lblNewsText.Text = resources.GetString("lblNewsText.Text");
             // 
@@ -1234,7 +1234,7 @@
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(39, 13);
             lblVersion.TabIndex = 55;
-            lblVersion.Text = "v.0.4.0";
+            lblVersion.Text = "v.0.4.1";
             // 
             // GithubLabel
             // 
