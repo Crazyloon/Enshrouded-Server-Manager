@@ -32,6 +32,7 @@ public partial class Form1 : Form
     public Form1()
     {
         InitializeComponent();
+        InitializePanelPositions();
 
         //Initialize Services
         _fileSystemManager = new FileSystemManager();
@@ -44,6 +45,12 @@ public partial class Form1 : Form
 
         //Register Custom Events
         _backup.AutoBackupSuccess += Backup_AutoBackupSuccess;
+    }
+
+    private void InitializePanelPositions()
+    {
+        pnlBackupExplanation.Location = new Point(550, 40);
+        pnlCredits.Location = new Point(560, 40);
     }
 
     private void Form1_Load(object sender, EventArgs e)
@@ -59,7 +66,6 @@ public partial class Form1 : Form
 
         // Load Server Profiles
         List<ServerProfile>? profileData = _profileManager.LoadServerProfiles(_jsonSerializerSettings, true);
-
         if (profileData is not null && profileData.Any())
         {
             cbxProfileSelectionComboBox.Items.Clear();
@@ -82,7 +88,7 @@ public partial class Form1 : Form
                 LoadDiscordSettings();
             }
         }
-
+        ServerUpdateCheckTimer();
         _versionManager.ManagerUpdate(lblVersion.Text, lblNewVersionAvailableNotification);
     }
 
@@ -112,6 +118,7 @@ public partial class Form1 : Form
 
             btnInstallServer.Visible = false;
             btnUpdateServer.Visible = true;
+            btnUpdateServer.FlatAppearance.BorderColor = Color.Green;
         }
     }
 
@@ -137,21 +144,24 @@ public partial class Form1 : Form
 
                 if (discordProfile.Enabled)
                 {
-                    Task.Factory.StartNew(async () =>
+                    if (discordProfile.UpdatingEnabled)
                     {
-                        try
+                        Task.Factory.StartNew(async () =>
                         {
-                            _discordOutput.ServerUpdating(name, discordUrl);
-                        }
-                        catch
-                        {
+                            try
+                            {
+                                _discordOutput.ServerUpdating(name, discordUrl, discordProfile.EmbedEnabled);
+                            }
+                            catch
+                            {
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
             }
-
             _server.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}");
+            btnUpdateServer.FlatAppearance.BorderColor = Color.Green;
         }
     }
 
@@ -272,17 +282,20 @@ public partial class Form1 : Form
 
                 if (discordProfile.Enabled)
                 {
-                    Task.Factory.StartNew(async () =>
+                    if (discordProfile.StartEnabled)
                     {
-                        try
+                        Task.Factory.StartNew(async () =>
                         {
-                            _discordOutput.ServerOnline(name, DiscordUrl);
-                        }
-                        catch
-                        {
+                            try
+                            {
+                                _discordOutput.ServerOnline(name, DiscordUrl, discordProfile.EmbedEnabled);
+                            }
+                            catch
+                            {
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
             }
         }
@@ -628,17 +641,20 @@ public partial class Form1 : Form
 
             if (discordProfile.Enabled)
             {
-                Task.Factory.StartNew(async () =>
+                if (discordProfile.StopEnabled)
                 {
-                    try
+                    Task.Factory.StartNew(async () =>
                     {
-                        _discordOutput.ServerOffline(name, DiscordUrl);
-                    }
-                    catch
-                    {
+                        try
+                        {
+                            _discordOutput.ServerOffline(name, DiscordUrl, discordProfile.EmbedEnabled);
+                        }
+                        catch
+                        {
 
-                    }
-                });
+                        }
+                    });
+                }
             }
         }
     }
@@ -708,6 +724,7 @@ public partial class Form1 : Form
             var serverSelectedText = cbxProfileSelectionComboBox.SelectedItem.ToString();
             RefreshServerButtonsVisibility(serverSelectedText);
             LoadServerSettings(serverSelectedText);
+            _versionManager.ServerUpdateCheck(serverSelectedText, btnUpdateServer);
         }
     }
 
@@ -753,7 +770,7 @@ public partial class Form1 : Form
     private void tabServerTabs_SelectedIndexChanged(object sender, EventArgs e)
     {
         var selectedtab = tabServerTabs.SelectedTab;
-        if (selectedtab == tabAutoBackup)
+        if (selectedtab == tabAutoBackup && !pnlCredits.Visible)
         {
             pnlBackupExplanation.Visible = true;
         }
@@ -882,8 +899,14 @@ public partial class Form1 : Form
         var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
         DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
 
-        txtDiscordUrl.Text = discordProfile.DiscordUrl;
+        txtDiscordWebhookUrl.Text = discordProfile.DiscordUrl;
         chkEnableDiscord.Checked = discordProfile.Enabled;
+        chkNotifiServerStarted.Checked = discordProfile.StartEnabled;
+        chkNotifiServerStopped.Checked = discordProfile.StopEnabled;
+        chkNotifiServerUpdating.Checked = discordProfile.UpdatingEnabled;
+        chkNotifiBackup.Checked = discordProfile.BackupEnabled;
+        chkEmbed.Checked = discordProfile.EmbedEnabled;
+
     }
 
     private void WriteDefaultServerSettings(string profileName)
@@ -909,11 +932,21 @@ public partial class Form1 : Form
     private void btnSaveDiscordSettings_Click(object sender, EventArgs e)
     {
         var enabled = chkEnableDiscord.Checked;
-        string url = txtDiscordUrl.Text;
+        var startedEnabled = chkNotifiServerStarted.Checked;
+        var stoppedEnabled = chkNotifiServerStopped.Checked;
+        var updatingEnabled = chkNotifiServerUpdating.Checked;
+        var backupEnabled = chkNotifiBackup.Checked;
+        string url = txtDiscordWebhookUrl.Text;
+        var embedEnabled = chkEmbed.Checked;
         DiscordProfile discordProfile = new DiscordProfile()
         {
             DiscordUrl = url,
-            Enabled = enabled
+            Enabled = enabled,
+            StartEnabled = startedEnabled,
+            StopEnabled = stoppedEnabled,
+            UpdatingEnabled = updatingEnabled,
+            BackupEnabled = backupEnabled,
+            EmbedEnabled = embedEnabled
         };
 
         // write the new discord profile to the json file
@@ -922,6 +955,59 @@ public partial class Form1 : Form
         _fileSystemManager.WriteFile(discordSettingsFile, discordProfileJson);
 
         Interactions.AnimateSaveChangesButton(btnSaveDiscordSettings, btnSaveDiscordSettings.Text, Constants.ButtonText.SAVED_SUCCESS);
+    }
+
+    private void btnTestDiscord_Click(object sender, EventArgs e)
+    {
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        if (_fileSystemManager.FileExists(discordSettingsFile)) ;
+        var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
+        DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
+        string DiscordUrl = discordProfile.DiscordUrl;
+        if (_fileSystemManager.FileExists(discordSettingsFile))
+        {
+            _discordOutput.TestMsg(DiscordUrl, discordProfile.EmbedEnabled);
+        }
+    }
+
+    #region Update Serverbutton Timer
+    public async void ServerUpdateCheckTimer()
+    {
+        int TIMER_INTERVAL_SERVER_UPDATE_CHECK = 5;
+
+        string selectedProfile = cbxProfileSelectionComboBox.SelectedItem.ToString();
+        _versionManager.ServerUpdateCheck(selectedProfile, btnUpdateServer);
+
+        var timer = new PeriodicTimer(TimeSpan.FromMinutes(TIMER_INTERVAL_SERVER_UPDATE_CHECK));
+
+        while (await timer.WaitForNextTickAsync())
+        {
+            selectedProfile = cbxProfileSelectionComboBox.SelectedItem.ToString();
+            _versionManager.ServerUpdateCheck(selectedProfile, btnUpdateServer);
+        }
+    }
+    #endregion
+
+    private void btnToggleCredits_Click(object sender, EventArgs e)
+    {
+        pnlCredits.Visible = !pnlCredits.Visible;
+        if (pnlCredits.Visible)
+        {
+            pbxCreditsBorder.Visible = true;
+
+            if (tabServerTabs.SelectedTab == tabAutoBackup)
+            {
+                pnlBackupExplanation.Visible = false;
+            }
+        }
+        else
+        {
+            pbxCreditsBorder.Visible = false;
+            if (tabServerTabs.SelectedTab == tabAutoBackup)
+            {
+                pnlBackupExplanation.Visible = true;
+            }
+        }
     }
 }
 

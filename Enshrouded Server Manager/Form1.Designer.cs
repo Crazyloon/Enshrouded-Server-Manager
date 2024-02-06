@@ -58,6 +58,7 @@
             pictureBox7 = new PictureBox();
             pictureBox6 = new PictureBox();
             pictureBox8 = new PictureBox();
+            pbxCreditsBorder = new PictureBox();
             pictureBox9 = new PictureBox();
             btnSaveBackup = new Button();
             btnOpenBackupFolder = new Button();
@@ -96,12 +97,19 @@
             lblScheduleBackups = new Label();
             lbxProfileSelectorAutoBackup = new ListBox();
             tabDiscord = new TabPage();
-            DiscordUrl = new Label();
+            lblDiscordChanges = new Label();
+            gbxDiscordNotificationSettings = new GroupBox();
+            chkEmbed = new CheckBox();
+            chkNotifiBackup = new CheckBox();
+            chkNotifiServerUpdating = new CheckBox();
+            chkNotifiServerStopped = new CheckBox();
+            chkNotifiServerStarted = new CheckBox();
+            btnTestDiscord = new Button();
+            lblDiscordWebhookUrl = new Label();
             btnSaveDiscordSettings = new Button();
-            txtDiscordUrl = new TextBox();
+            txtDiscordWebhookUrl = new TextBox();
             chkEnableDiscord = new CheckBox();
             lblNewsText = new Label();
-            lblCredits = new Label();
             lblVersion = new Label();
             GithubLabel = new Label();
             lblNewVersionAvailableNotification = new Label();
@@ -110,9 +118,19 @@
             label3 = new Label();
             pictureBox4 = new PictureBox();
             label1 = new Label();
+            pnlCredits = new Panel();
+            lblCreditsSponsorsList = new Label();
+            lblCreditsSupportedBy = new Label();
+            btnCreditsClose = new Label();
+            lblCreditsLogo = new Label();
+            lblHeadingSpecialThanks = new Label();
+            lblHeadingMadeBy = new Label();
+            lblCreditsContributors = new Label();
+            lblCreditsMadeBy = new Label();
             btnStopServer = new Button();
             pictureBox1 = new PictureBox();
             pbxFormHeader = new PictureBox();
+            btnOpenCredits = new Label();
             ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
@@ -121,6 +139,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbxCreditsBorder).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).BeginInit();
             tabServerTabs.SuspendLayout();
@@ -131,8 +150,10 @@
             ((System.ComponentModel.ISupportInitialize)nudBackupMaxCount).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudBackupInterval).BeginInit();
             tabDiscord.SuspendLayout();
+            gbxDiscordNotificationSettings.SuspendLayout();
             pnlBackupExplanation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            pnlCredits.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbxFormHeader).BeginInit();
             SuspendLayout();
@@ -400,6 +421,7 @@
             // 
             lblCloseButton.AutoSize = true;
             lblCloseButton.BackColor = Color.FromArgb(64, 64, 64);
+            lblCloseButton.Cursor = Cursors.Hand;
             lblCloseButton.Font = new Font("Malgun Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
             lblCloseButton.ForeColor = Color.FromArgb(0, 255, 185);
             lblCloseButton.Location = new Point(771, 9);
@@ -413,6 +435,7 @@
             // 
             lblMinimizeTrayButton.AutoSize = true;
             lblMinimizeTrayButton.BackColor = Color.FromArgb(64, 64, 64);
+            lblMinimizeTrayButton.Cursor = Cursors.Hand;
             lblMinimizeTrayButton.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
             lblMinimizeTrayButton.ForeColor = Color.FromArgb(0, 255, 185);
             lblMinimizeTrayButton.Location = new Point(741, 6);
@@ -473,6 +496,17 @@
             pictureBox8.Size = new Size(10, 390);
             pictureBox8.TabIndex = 36;
             pictureBox8.TabStop = false;
+            // 
+            // pbxCreditsBorder
+            // 
+            pbxCreditsBorder.BackColor = Color.FromArgb(64, 64, 64);
+            pbxCreditsBorder.Dock = DockStyle.Right;
+            pbxCreditsBorder.Location = new Point(550, 40);
+            pbxCreditsBorder.Name = "pbxCreditsBorder";
+            pbxCreditsBorder.Size = new Size(10, 390);
+            pbxCreditsBorder.TabIndex = 36;
+            pbxCreditsBorder.TabStop = false;
+            pbxCreditsBorder.Visible = false;
             // 
             // pictureBox9
             // 
@@ -546,7 +580,7 @@
             // lblServerProfileSpecific
             // 
             lblServerProfileSpecific.AutoSize = true;
-            lblServerProfileSpecific.Location = new Point(30, 133);
+            lblServerProfileSpecific.Location = new Point(32, 140);
             lblServerProfileSpecific.Name = "lblServerProfileSpecific";
             lblServerProfileSpecific.Size = new Size(129, 15);
             lblServerProfileSpecific.TabIndex = 42;
@@ -555,9 +589,9 @@
             // pictureBox10
             // 
             pictureBox10.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox10.Location = new Point(27, 158);
+            pictureBox10.Location = new Point(27, 148);
             pictureBox10.Name = "pictureBox10";
-            pictureBox10.Size = new Size(140, 205);
+            pictureBox10.Size = new Size(140, 215);
             pictureBox10.TabIndex = 43;
             pictureBox10.TabStop = false;
             // 
@@ -701,7 +735,7 @@
             // lblAddNewProfile
             // 
             lblAddNewProfile.AutoSize = true;
-            lblAddNewProfile.Location = new Point(225, 19);
+            lblAddNewProfile.Location = new Point(228, 20);
             lblAddNewProfile.Name = "lblAddNewProfile";
             lblAddNewProfile.Size = new Size(93, 15);
             lblAddNewProfile.TabIndex = 5;
@@ -977,9 +1011,12 @@
             // tabDiscord
             // 
             tabDiscord.BackColor = Color.FromArgb(0, 0, 18);
-            tabDiscord.Controls.Add(DiscordUrl);
+            tabDiscord.Controls.Add(lblDiscordChanges);
+            tabDiscord.Controls.Add(gbxDiscordNotificationSettings);
+            tabDiscord.Controls.Add(btnTestDiscord);
+            tabDiscord.Controls.Add(lblDiscordWebhookUrl);
             tabDiscord.Controls.Add(btnSaveDiscordSettings);
-            tabDiscord.Controls.Add(txtDiscordUrl);
+            tabDiscord.Controls.Add(txtDiscordWebhookUrl);
             tabDiscord.Controls.Add(chkEnableDiscord);
             tabDiscord.Location = new Point(4, 24);
             tabDiscord.Name = "tabDiscord";
@@ -987,14 +1024,106 @@
             tabDiscord.TabIndex = 3;
             tabDiscord.Text = "Discord";
             // 
-            // DiscordUrl
+            // lblDiscordChanges
             // 
-            DiscordUrl.AutoSize = true;
-            DiscordUrl.Location = new Point(114, 104);
-            DiscordUrl.Name = "DiscordUrl";
-            DiscordUrl.Size = new Size(128, 15);
-            DiscordUrl.TabIndex = 18;
-            DiscordUrl.Text = "Your Discord Webhook";
+            lblDiscordChanges.AutoSize = true;
+            lblDiscordChanges.ForeColor = SystemColors.Info;
+            lblDiscordChanges.Location = new Point(51, 282);
+            lblDiscordChanges.Name = "lblDiscordChanges";
+            lblDiscordChanges.Size = new Size(258, 15);
+            lblDiscordChanges.TabIndex = 69;
+            lblDiscordChanges.Text = "Changes will take effect on the next server start ";
+            // 
+            // gbxDiscordNotificationSettings
+            // 
+            gbxDiscordNotificationSettings.Controls.Add(chkEmbed);
+            gbxDiscordNotificationSettings.Controls.Add(chkNotifiBackup);
+            gbxDiscordNotificationSettings.Controls.Add(chkNotifiServerUpdating);
+            gbxDiscordNotificationSettings.Controls.Add(chkNotifiServerStopped);
+            gbxDiscordNotificationSettings.Controls.Add(chkNotifiServerStarted);
+            gbxDiscordNotificationSettings.ForeColor = SystemColors.ControlLight;
+            gbxDiscordNotificationSettings.Location = new Point(84, 33);
+            gbxDiscordNotificationSettings.Name = "gbxDiscordNotificationSettings";
+            gbxDiscordNotificationSettings.Size = new Size(190, 143);
+            gbxDiscordNotificationSettings.TabIndex = 68;
+            gbxDiscordNotificationSettings.TabStop = false;
+            gbxDiscordNotificationSettings.Text = "Notifications";
+            // 
+            // chkEmbed
+            // 
+            chkEmbed.AutoSize = true;
+            chkEmbed.Location = new Point(14, 20);
+            chkEmbed.Name = "chkEmbed";
+            chkEmbed.Size = new Size(117, 19);
+            chkEmbed.TabIndex = 67;
+            chkEmbed.Text = "Embed Messages";
+            chkEmbed.UseVisualStyleBackColor = true;
+            // 
+            // chkNotifiBackup
+            // 
+            chkNotifiBackup.AutoSize = true;
+            chkNotifiBackup.Location = new Point(14, 112);
+            chkNotifiBackup.Name = "chkNotifiBackup";
+            chkNotifiBackup.Size = new Size(109, 19);
+            chkNotifiBackup.TabIndex = 64;
+            chkNotifiBackup.Text = "Backup Created";
+            chkNotifiBackup.UseVisualStyleBackColor = true;
+            // 
+            // chkNotifiServerUpdating
+            // 
+            chkNotifiServerUpdating.AutoSize = true;
+            chkNotifiServerUpdating.Location = new Point(14, 89);
+            chkNotifiServerUpdating.Name = "chkNotifiServerUpdating";
+            chkNotifiServerUpdating.Size = new Size(110, 19);
+            chkNotifiServerUpdating.TabIndex = 63;
+            chkNotifiServerUpdating.Text = "Server Updating";
+            chkNotifiServerUpdating.UseVisualStyleBackColor = true;
+            // 
+            // chkNotifiServerStopped
+            // 
+            chkNotifiServerStopped.AutoSize = true;
+            chkNotifiServerStopped.Location = new Point(14, 66);
+            chkNotifiServerStopped.Name = "chkNotifiServerStopped";
+            chkNotifiServerStopped.Size = new Size(105, 19);
+            chkNotifiServerStopped.TabIndex = 62;
+            chkNotifiServerStopped.Text = "Server Stopped";
+            chkNotifiServerStopped.UseVisualStyleBackColor = true;
+            // 
+            // chkNotifiServerStarted
+            // 
+            chkNotifiServerStarted.AutoSize = true;
+            chkNotifiServerStarted.Location = new Point(14, 43);
+            chkNotifiServerStarted.Name = "chkNotifiServerStarted";
+            chkNotifiServerStarted.Size = new Size(98, 19);
+            chkNotifiServerStarted.TabIndex = 61;
+            chkNotifiServerStarted.Text = "Server Started";
+            chkNotifiServerStarted.UseVisualStyleBackColor = true;
+            // 
+            // btnTestDiscord
+            // 
+            btnTestDiscord.Cursor = Cursors.Hand;
+            btnTestDiscord.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
+            btnTestDiscord.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
+            btnTestDiscord.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+            btnTestDiscord.FlatStyle = FlatStyle.Flat;
+            btnTestDiscord.ForeColor = SystemColors.Control;
+            btnTestDiscord.Location = new Point(192, 244);
+            btnTestDiscord.Name = "btnTestDiscord";
+            btnTestDiscord.Size = new Size(127, 30);
+            btnTestDiscord.TabIndex = 60;
+            btnTestDiscord.Text = "Test Discord Msg";
+            btnTestDiscord.UseCompatibleTextRendering = true;
+            btnTestDiscord.UseVisualStyleBackColor = true;
+            btnTestDiscord.Click += btnTestDiscord_Click;
+            // 
+            // lblDiscordWebhookUrl
+            // 
+            lblDiscordWebhookUrl.AutoSize = true;
+            lblDiscordWebhookUrl.Location = new Point(114, 187);
+            lblDiscordWebhookUrl.Name = "lblDiscordWebhookUrl";
+            lblDiscordWebhookUrl.Size = new Size(128, 15);
+            lblDiscordWebhookUrl.TabIndex = 18;
+            lblDiscordWebhookUrl.Text = "Your Discord Webhook";
             // 
             // btnSaveDiscordSettings
             // 
@@ -1004,7 +1133,7 @@
             btnSaveDiscordSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnSaveDiscordSettings.FlatStyle = FlatStyle.Flat;
             btnSaveDiscordSettings.ForeColor = Color.FromArgb(0, 255, 185);
-            btnSaveDiscordSettings.Location = new Point(115, 166);
+            btnSaveDiscordSettings.Location = new Point(43, 244);
             btnSaveDiscordSettings.Name = "btnSaveDiscordSettings";
             btnSaveDiscordSettings.Size = new Size(128, 30);
             btnSaveDiscordSettings.TabIndex = 17;
@@ -1014,24 +1143,24 @@
             btnSaveDiscordSettings.EnabledChanged += SaveSettings_Button_EnabledChanged;
             btnSaveDiscordSettings.Click += btnSaveDiscordSettings_Click;
             // 
-            // txtDiscordUrl
+            // txtDiscordWebhookUrl
             // 
-            txtDiscordUrl.BackColor = Color.FromArgb(6, 6, 48);
-            txtDiscordUrl.BorderStyle = BorderStyle.FixedSingle;
-            txtDiscordUrl.ForeColor = SystemColors.Window;
-            txtDiscordUrl.Location = new Point(6, 124);
-            txtDiscordUrl.Name = "txtDiscordUrl";
-            txtDiscordUrl.Size = new Size(347, 23);
-            txtDiscordUrl.TabIndex = 16;
+            txtDiscordWebhookUrl.BackColor = Color.FromArgb(6, 6, 48);
+            txtDiscordWebhookUrl.BorderStyle = BorderStyle.FixedSingle;
+            txtDiscordWebhookUrl.ForeColor = SystemColors.Window;
+            txtDiscordWebhookUrl.Location = new Point(20, 210);
+            txtDiscordWebhookUrl.Name = "txtDiscordWebhookUrl";
+            txtDiscordWebhookUrl.Size = new Size(320, 23);
+            txtDiscordWebhookUrl.TabIndex = 16;
             // 
             // chkEnableDiscord
             // 
             chkEnableDiscord.AutoSize = true;
-            chkEnableDiscord.Location = new Point(127, 69);
+            chkEnableDiscord.Location = new Point(99, 8);
             chkEnableDiscord.Name = "chkEnableDiscord";
-            chkEnableDiscord.Size = new Size(104, 19);
+            chkEnableDiscord.Size = new Size(175, 19);
             chkEnableDiscord.TabIndex = 15;
-            chkEnableDiscord.Text = "Enable Discord";
+            chkEnableDiscord.Text = "Enable Discord Notifications";
             chkEnableDiscord.UseVisualStyleBackColor = true;
             // 
             // lblNewsText
@@ -1039,21 +1168,9 @@
             lblNewsText.AutoSize = true;
             lblNewsText.Location = new Point(584, 181);
             lblNewsText.Name = "lblNewsText";
-            lblNewsText.Size = new Size(183, 180);
+            lblNewsText.Size = new Size(201, 120);
             lblNewsText.TabIndex = 53;
             lblNewsText.Text = resources.GetString("lblNewsText.Text");
-            // 
-            // lblCredits
-            // 
-            lblCredits.AutoSize = true;
-            lblCredits.BackColor = Color.FromArgb(64, 64, 64);
-            lblCredits.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
-            lblCredits.ForeColor = Color.FromArgb(0, 204, 204);
-            lblCredits.Location = new Point(10, 413);
-            lblCredits.Name = "lblCredits";
-            lblCredits.Size = new Size(211, 13);
-            lblCredits.TabIndex = 54;
-            lblCredits.Text = "Credits to Strew / Evorin and Crazyloon";
             // 
             // lblVersion
             // 
@@ -1061,11 +1178,11 @@
             lblVersion.BackColor = Color.FromArgb(64, 64, 64);
             lblVersion.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
             lblVersion.ForeColor = Color.FromArgb(0, 204, 204);
-            lblVersion.Location = new Point(751, 413);
+            lblVersion.Location = new Point(8, 413);
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(39, 13);
             lblVersion.TabIndex = 55;
-            lblVersion.Text = "v.0.3.1";
+            lblVersion.Text = "v.0.4.0";
             // 
             // GithubLabel
             // 
@@ -1097,7 +1214,7 @@
             pnlBackupExplanation.Controls.Add(label3);
             pnlBackupExplanation.Controls.Add(pictureBox4);
             pnlBackupExplanation.Controls.Add(label1);
-            pnlBackupExplanation.Location = new Point(550, 40);
+            pnlBackupExplanation.Location = new Point(753, 413);
             pnlBackupExplanation.Name = "pnlBackupExplanation";
             pnlBackupExplanation.Size = new Size(241, 369);
             pnlBackupExplanation.TabIndex = 58;
@@ -1149,6 +1266,103 @@
             label1.TabIndex = 0;
             label1.Text = resources.GetString("label1.Text");
             // 
+            // pnlCredits
+            // 
+            pnlCredits.Controls.Add(lblCreditsSponsorsList);
+            pnlCredits.Controls.Add(lblCreditsSupportedBy);
+            pnlCredits.Controls.Add(btnCreditsClose);
+            pnlCredits.Controls.Add(lblCreditsLogo);
+            pnlCredits.Controls.Add(lblHeadingSpecialThanks);
+            pnlCredits.Controls.Add(lblHeadingMadeBy);
+            pnlCredits.Controls.Add(lblCreditsContributors);
+            pnlCredits.Controls.Add(lblCreditsMadeBy);
+            pnlCredits.Location = new Point(753, 413);
+            pnlCredits.Name = "pnlCredits";
+            pnlCredits.Size = new Size(230, 369);
+            pnlCredits.TabIndex = 61;
+            pnlCredits.Visible = false;
+            // 
+            // lblCreditsSponsorsList
+            // 
+            lblCreditsSponsorsList.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCreditsSponsorsList.Location = new Point(14, 295);
+            lblCreditsSponsorsList.Name = "lblCreditsSponsorsList";
+            lblCreditsSponsorsList.Size = new Size(155, 26);
+            lblCreditsSponsorsList.TabIndex = 50;
+            lblCreditsSponsorsList.Text = "FreeFun";
+            // 
+            // lblCreditsSupportedBy
+            // 
+            lblCreditsSupportedBy.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblCreditsSupportedBy.Location = new Point(14, 268);
+            lblCreditsSupportedBy.Name = "lblCreditsSupportedBy";
+            lblCreditsSupportedBy.Size = new Size(155, 27);
+            lblCreditsSupportedBy.TabIndex = 49;
+            lblCreditsSupportedBy.Text = "Sponsored By:";
+            // 
+            // btnCreditsClose
+            // 
+            btnCreditsClose.AutoSize = true;
+            btnCreditsClose.BackColor = Color.Transparent;
+            btnCreditsClose.Cursor = Cursors.Hand;
+            btnCreditsClose.Font = new Font("Malgun Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCreditsClose.ForeColor = Color.FromArgb(0, 255, 185);
+            btnCreditsClose.Location = new Point(206, 4);
+            btnCreditsClose.Name = "btnCreditsClose";
+            btnCreditsClose.Size = new Size(18, 19);
+            btnCreditsClose.TabIndex = 28;
+            btnCreditsClose.Text = "X";
+            btnCreditsClose.Click += btnToggleCredits_Click;
+            // 
+            // lblCreditsLogo
+            // 
+            lblCreditsLogo.AutoSize = true;
+            lblCreditsLogo.BackColor = Color.Transparent;
+            lblCreditsLogo.Cursor = Cursors.Hand;
+            lblCreditsLogo.Font = new Font("Malgun Gothic", 60F, FontStyle.Bold, GraphicsUnit.Point);
+            lblCreditsLogo.ForeColor = Color.FromArgb(0, 204, 204);
+            lblCreditsLogo.Location = new Point(14, 9);
+            lblCreditsLogo.Name = "lblCreditsLogo";
+            lblCreditsLogo.Size = new Size(210, 106);
+            lblCreditsLogo.TabIndex = 48;
+            lblCreditsLogo.Text = "ESM";
+            // 
+            // lblHeadingSpecialThanks
+            // 
+            lblHeadingSpecialThanks.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblHeadingSpecialThanks.Location = new Point(14, 202);
+            lblHeadingSpecialThanks.Name = "lblHeadingSpecialThanks";
+            lblHeadingSpecialThanks.Size = new Size(155, 27);
+            lblHeadingSpecialThanks.TabIndex = 34;
+            lblHeadingSpecialThanks.Text = "Special Thanks to:";
+            // 
+            // lblHeadingMadeBy
+            // 
+            lblHeadingMadeBy.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lblHeadingMadeBy.Location = new Point(14, 114);
+            lblHeadingMadeBy.Name = "lblHeadingMadeBy";
+            lblHeadingMadeBy.Size = new Size(155, 27);
+            lblHeadingMadeBy.TabIndex = 33;
+            lblHeadingMadeBy.Text = "Made By:";
+            // 
+            // lblCreditsContributors
+            // 
+            lblCreditsContributors.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCreditsContributors.Location = new Point(14, 229);
+            lblCreditsContributors.Name = "lblCreditsContributors";
+            lblCreditsContributors.Size = new Size(155, 26);
+            lblCreditsContributors.TabIndex = 32;
+            lblCreditsContributors.Text = "Strew/Evorin";
+            // 
+            // lblCreditsMadeBy
+            // 
+            lblCreditsMadeBy.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+            lblCreditsMadeBy.Location = new Point(14, 141);
+            lblCreditsMadeBy.Name = "lblCreditsMadeBy";
+            lblCreditsMadeBy.Size = new Size(155, 46);
+            lblCreditsMadeBy.TabIndex = 31;
+            lblCreditsMadeBy.Text = "Spaik\r\nCrazyloon\r\n\r\n";
+            // 
             // btnStopServer
             // 
             btnStopServer.Cursor = Cursors.Hand;
@@ -1188,14 +1402,31 @@
             pbxFormHeader.TabStop = false;
             pbxFormHeader.MouseDown += FormHeader_MouseDown;
             // 
+            // btnOpenCredits
+            // 
+            btnOpenCredits.AutoSize = true;
+            btnOpenCredits.BackColor = Color.FromArgb(64, 64, 64);
+            btnOpenCredits.Cursor = Cursors.Hand;
+            btnOpenCredits.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
+            btnOpenCredits.ForeColor = Color.FromArgb(0, 255, 185);
+            btnOpenCredits.Location = new Point(750, 413);
+            btnOpenCredits.Name = "btnOpenCredits";
+            btnOpenCredits.Size = new Size(43, 13);
+            btnOpenCredits.TabIndex = 60;
+            btnOpenCredits.Text = "Credits";
+            btnOpenCredits.TextAlign = ContentAlignment.BottomLeft;
+            btnOpenCredits.Click += btnToggleCredits_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
+            Controls.Add(btnOpenCredits);
+            Controls.Add(lblServerProfileSpecific);
+            Controls.Add(pnlCredits);
             Controls.Add(pnlBackupExplanation);
-            Controls.Add(lblCredits);
             Controls.Add(cbxProfileSelectionComboBox);
             Controls.Add(lblVersion);
             Controls.Add(lblProfileSelectionLabel);
@@ -1214,7 +1445,6 @@
             Controls.Add(btnStartServer);
             Controls.Add(pictureBox10);
             Controls.Add(lblAdminPanel);
-            Controls.Add(lblServerProfileSpecific);
             Controls.Add(btnWindowsFirewall);
             Controls.Add(btnInstallSteamCMD);
             Controls.Add(lblNewsText);
@@ -1244,6 +1474,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbxCreditsBorder).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox10).EndInit();
             tabServerTabs.ResumeLayout(false);
@@ -1259,9 +1490,13 @@
             ((System.ComponentModel.ISupportInitialize)nudBackupInterval).EndInit();
             tabDiscord.ResumeLayout(false);
             tabDiscord.PerformLayout();
+            gbxDiscordNotificationSettings.ResumeLayout(false);
+            gbxDiscordNotificationSettings.PerformLayout();
             pnlBackupExplanation.ResumeLayout(false);
             pnlBackupExplanation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            pnlCredits.ResumeLayout(false);
+            pnlCredits.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbxFormHeader).EndInit();
             ResumeLayout(false);
@@ -1300,6 +1535,7 @@
         private PictureBox pictureBox6;
         private PictureBox pictureBox8;
         private PictureBox pictureBox9;
+        private PictureBox pbxCreditsBorder;
         private Button btnSaveBackup;
         private Button btnOpenBackupFolder;
         private Button btnWindowsFirewall;
@@ -1323,7 +1559,6 @@
         private Label lblProfileNameInfo;
         private Label lblLogo;
         private Label lblNewsText;
-        private Label lblCredits;
         private Label lblAddNewProfile;
         private Button btnShowPassword;
         private Label lblVersion;
@@ -1351,9 +1586,27 @@
         private PictureBox pictureBox1;
         private PictureBox pbxFormHeader;
         private TabPage tabDiscord;
-        private Label DiscordUrl;
+        private Label lblDiscordWebhookUrl;
         private Button btnSaveDiscordSettings;
-        private TextBox txtDiscordUrl;
+        private TextBox txtDiscordWebhookUrl;
         private CheckBox chkEnableDiscord;
+        private Button btnTestDiscord;
+        private CheckBox chkNotifiBackup;
+        private CheckBox chkNotifiServerUpdating;
+        private CheckBox chkNotifiServerStopped;
+        private CheckBox chkNotifiServerStarted;
+        private CheckBox chkEmbed;
+        private Label btnOpenCredits;
+        private Panel pnlCredits;
+        private Label btnCreditsClose;
+        private Label lblCreditsMadeBy;
+        private Label lblCreditsContributors;
+        private Label lblHeadingSpecialThanks;
+        private Label lblHeadingMadeBy;
+        private Label lblCreditsLogo;
+        private Label lblCreditsSupportedBy;
+        private Label lblCreditsSponsorsList;
+        private Label lblDiscordChanges;
+        private GroupBox gbxDiscordNotificationSettings;
     }
 }
