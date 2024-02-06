@@ -97,17 +97,17 @@
             lblScheduleBackups = new Label();
             lbxProfileSelectorAutoBackup = new ListBox();
             tabDiscord = new TabPage();
+            lblDiscordChanges = new Label();
+            gbxDiscordNotificationSettings = new GroupBox();
             chkEmbed = new CheckBox();
             chkNotifiBackup = new CheckBox();
             chkNotifiServerUpdating = new CheckBox();
             chkNotifiServerStopped = new CheckBox();
             chkNotifiServerStarted = new CheckBox();
-            lblNotifications = new Label();
-            pictureBox3 = new PictureBox();
             btnTestDiscord = new Button();
-            DiscordUrl = new Label();
+            lblDiscordWebhookUrl = new Label();
             btnSaveDiscordSettings = new Button();
-            txtDiscordUrl = new TextBox();
+            txtDiscordWebhookUrl = new TextBox();
             chkEnableDiscord = new CheckBox();
             lblNewsText = new Label();
             lblVersion = new Label();
@@ -150,7 +150,7 @@
             ((System.ComponentModel.ISupportInitialize)nudBackupMaxCount).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudBackupInterval).BeginInit();
             tabDiscord.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            gbxDiscordNotificationSettings.SuspendLayout();
             pnlBackupExplanation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             pnlCredits.SuspendLayout();
@@ -1011,17 +1011,12 @@
             // tabDiscord
             // 
             tabDiscord.BackColor = Color.FromArgb(0, 0, 18);
-            tabDiscord.Controls.Add(chkEmbed);
-            tabDiscord.Controls.Add(chkNotifiBackup);
-            tabDiscord.Controls.Add(chkNotifiServerUpdating);
-            tabDiscord.Controls.Add(chkNotifiServerStopped);
-            tabDiscord.Controls.Add(chkNotifiServerStarted);
-            tabDiscord.Controls.Add(lblNotifications);
-            tabDiscord.Controls.Add(pictureBox3);
+            tabDiscord.Controls.Add(lblDiscordChanges);
+            tabDiscord.Controls.Add(gbxDiscordNotificationSettings);
             tabDiscord.Controls.Add(btnTestDiscord);
-            tabDiscord.Controls.Add(DiscordUrl);
+            tabDiscord.Controls.Add(lblDiscordWebhookUrl);
             tabDiscord.Controls.Add(btnSaveDiscordSettings);
-            tabDiscord.Controls.Add(txtDiscordUrl);
+            tabDiscord.Controls.Add(txtDiscordWebhookUrl);
             tabDiscord.Controls.Add(chkEnableDiscord);
             tabDiscord.Location = new Point(4, 24);
             tabDiscord.Name = "tabDiscord";
@@ -1029,10 +1024,35 @@
             tabDiscord.TabIndex = 3;
             tabDiscord.Text = "Discord";
             // 
+            // lblDiscordChanges
+            // 
+            lblDiscordChanges.AutoSize = true;
+            lblDiscordChanges.ForeColor = SystemColors.Info;
+            lblDiscordChanges.Location = new Point(51, 282);
+            lblDiscordChanges.Name = "lblDiscordChanges";
+            lblDiscordChanges.Size = new Size(258, 15);
+            lblDiscordChanges.TabIndex = 69;
+            lblDiscordChanges.Text = "Changes will take effect on the next server start ";
+            // 
+            // gbxDiscordNotificationSettings
+            // 
+            gbxDiscordNotificationSettings.Controls.Add(chkEmbed);
+            gbxDiscordNotificationSettings.Controls.Add(chkNotifiBackup);
+            gbxDiscordNotificationSettings.Controls.Add(chkNotifiServerUpdating);
+            gbxDiscordNotificationSettings.Controls.Add(chkNotifiServerStopped);
+            gbxDiscordNotificationSettings.Controls.Add(chkNotifiServerStarted);
+            gbxDiscordNotificationSettings.ForeColor = SystemColors.ControlLight;
+            gbxDiscordNotificationSettings.Location = new Point(84, 33);
+            gbxDiscordNotificationSettings.Name = "gbxDiscordNotificationSettings";
+            gbxDiscordNotificationSettings.Size = new Size(190, 143);
+            gbxDiscordNotificationSettings.TabIndex = 68;
+            gbxDiscordNotificationSettings.TabStop = false;
+            gbxDiscordNotificationSettings.Text = "Notifications";
+            // 
             // chkEmbed
             // 
             chkEmbed.AutoSize = true;
-            chkEmbed.Location = new Point(99, 64);
+            chkEmbed.Location = new Point(14, 20);
             chkEmbed.Name = "chkEmbed";
             chkEmbed.Size = new Size(117, 19);
             chkEmbed.TabIndex = 67;
@@ -1042,7 +1062,7 @@
             // chkNotifiBackup
             // 
             chkNotifiBackup.AutoSize = true;
-            chkNotifiBackup.Location = new Point(99, 156);
+            chkNotifiBackup.Location = new Point(14, 112);
             chkNotifiBackup.Name = "chkNotifiBackup";
             chkNotifiBackup.Size = new Size(109, 19);
             chkNotifiBackup.TabIndex = 64;
@@ -1052,7 +1072,7 @@
             // chkNotifiServerUpdating
             // 
             chkNotifiServerUpdating.AutoSize = true;
-            chkNotifiServerUpdating.Location = new Point(99, 133);
+            chkNotifiServerUpdating.Location = new Point(14, 89);
             chkNotifiServerUpdating.Name = "chkNotifiServerUpdating";
             chkNotifiServerUpdating.Size = new Size(110, 19);
             chkNotifiServerUpdating.TabIndex = 63;
@@ -1062,7 +1082,7 @@
             // chkNotifiServerStopped
             // 
             chkNotifiServerStopped.AutoSize = true;
-            chkNotifiServerStopped.Location = new Point(99, 110);
+            chkNotifiServerStopped.Location = new Point(14, 66);
             chkNotifiServerStopped.Name = "chkNotifiServerStopped";
             chkNotifiServerStopped.Size = new Size(105, 19);
             chkNotifiServerStopped.TabIndex = 62;
@@ -1072,30 +1092,12 @@
             // chkNotifiServerStarted
             // 
             chkNotifiServerStarted.AutoSize = true;
-            chkNotifiServerStarted.Location = new Point(99, 87);
+            chkNotifiServerStarted.Location = new Point(14, 43);
             chkNotifiServerStarted.Name = "chkNotifiServerStarted";
             chkNotifiServerStarted.Size = new Size(98, 19);
             chkNotifiServerStarted.TabIndex = 61;
             chkNotifiServerStarted.Text = "Server Started";
             chkNotifiServerStarted.UseVisualStyleBackColor = true;
-            // 
-            // lblNotifications
-            // 
-            lblNotifications.AutoSize = true;
-            lblNotifications.Location = new Point(96, 42);
-            lblNotifications.Name = "lblNotifications";
-            lblNotifications.Size = new Size(75, 15);
-            lblNotifications.TabIndex = 65;
-            lblNotifications.Text = "Notifications";
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.BorderStyle = BorderStyle.FixedSingle;
-            pictureBox3.Location = new Point(82, 50);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(192, 137);
-            pictureBox3.TabIndex = 66;
-            pictureBox3.TabStop = false;
             // 
             // btnTestDiscord
             // 
@@ -1105,7 +1107,7 @@
             btnTestDiscord.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnTestDiscord.FlatStyle = FlatStyle.Flat;
             btnTestDiscord.ForeColor = SystemColors.Control;
-            btnTestDiscord.Location = new Point(192, 255);
+            btnTestDiscord.Location = new Point(192, 244);
             btnTestDiscord.Name = "btnTestDiscord";
             btnTestDiscord.Size = new Size(127, 30);
             btnTestDiscord.TabIndex = 60;
@@ -1114,14 +1116,14 @@
             btnTestDiscord.UseVisualStyleBackColor = true;
             btnTestDiscord.Click += btnTestDiscord_Click;
             // 
-            // DiscordUrl
+            // lblDiscordWebhookUrl
             // 
-            DiscordUrl.AutoSize = true;
-            DiscordUrl.Location = new Point(114, 194);
-            DiscordUrl.Name = "DiscordUrl";
-            DiscordUrl.Size = new Size(128, 15);
-            DiscordUrl.TabIndex = 18;
-            DiscordUrl.Text = "Your Discord Webhook";
+            lblDiscordWebhookUrl.AutoSize = true;
+            lblDiscordWebhookUrl.Location = new Point(114, 187);
+            lblDiscordWebhookUrl.Name = "lblDiscordWebhookUrl";
+            lblDiscordWebhookUrl.Size = new Size(128, 15);
+            lblDiscordWebhookUrl.TabIndex = 18;
+            lblDiscordWebhookUrl.Text = "Your Discord Webhook";
             // 
             // btnSaveDiscordSettings
             // 
@@ -1131,7 +1133,7 @@
             btnSaveDiscordSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnSaveDiscordSettings.FlatStyle = FlatStyle.Flat;
             btnSaveDiscordSettings.ForeColor = Color.FromArgb(0, 255, 185);
-            btnSaveDiscordSettings.Location = new Point(43, 255);
+            btnSaveDiscordSettings.Location = new Point(43, 244);
             btnSaveDiscordSettings.Name = "btnSaveDiscordSettings";
             btnSaveDiscordSettings.Size = new Size(128, 30);
             btnSaveDiscordSettings.TabIndex = 17;
@@ -1141,20 +1143,20 @@
             btnSaveDiscordSettings.EnabledChanged += SaveSettings_Button_EnabledChanged;
             btnSaveDiscordSettings.Click += btnSaveDiscordSettings_Click;
             // 
-            // txtDiscordUrl
+            // txtDiscordWebhookUrl
             // 
-            txtDiscordUrl.BackColor = Color.FromArgb(6, 6, 48);
-            txtDiscordUrl.BorderStyle = BorderStyle.FixedSingle;
-            txtDiscordUrl.ForeColor = SystemColors.Window;
-            txtDiscordUrl.Location = new Point(20, 217);
-            txtDiscordUrl.Name = "txtDiscordUrl";
-            txtDiscordUrl.Size = new Size(320, 23);
-            txtDiscordUrl.TabIndex = 16;
+            txtDiscordWebhookUrl.BackColor = Color.FromArgb(6, 6, 48);
+            txtDiscordWebhookUrl.BorderStyle = BorderStyle.FixedSingle;
+            txtDiscordWebhookUrl.ForeColor = SystemColors.Window;
+            txtDiscordWebhookUrl.Location = new Point(20, 210);
+            txtDiscordWebhookUrl.Name = "txtDiscordWebhookUrl";
+            txtDiscordWebhookUrl.Size = new Size(320, 23);
+            txtDiscordWebhookUrl.TabIndex = 16;
             // 
             // chkEnableDiscord
             // 
             chkEnableDiscord.AutoSize = true;
-            chkEnableDiscord.Location = new Point(99, 14);
+            chkEnableDiscord.Location = new Point(99, 8);
             chkEnableDiscord.Name = "chkEnableDiscord";
             chkEnableDiscord.Size = new Size(175, 19);
             chkEnableDiscord.TabIndex = 15;
@@ -1166,7 +1168,7 @@
             lblNewsText.AutoSize = true;
             lblNewsText.Location = new Point(584, 181);
             lblNewsText.Name = "lblNewsText";
-            lblNewsText.Size = new Size(183, 180);
+            lblNewsText.Size = new Size(201, 120);
             lblNewsText.TabIndex = 53;
             lblNewsText.Text = resources.GetString("lblNewsText.Text");
             // 
@@ -1180,7 +1182,7 @@
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(39, 13);
             lblVersion.TabIndex = 55;
-            lblVersion.Text = "v.0.3.1";
+            lblVersion.Text = "v.0.4.0";
             // 
             // GithubLabel
             // 
@@ -1488,7 +1490,8 @@
             ((System.ComponentModel.ISupportInitialize)nudBackupInterval).EndInit();
             tabDiscord.ResumeLayout(false);
             tabDiscord.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            gbxDiscordNotificationSettings.ResumeLayout(false);
+            gbxDiscordNotificationSettings.PerformLayout();
             pnlBackupExplanation.ResumeLayout(false);
             pnlBackupExplanation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
@@ -1583,17 +1586,15 @@
         private PictureBox pictureBox1;
         private PictureBox pbxFormHeader;
         private TabPage tabDiscord;
-        private Label DiscordUrl;
+        private Label lblDiscordWebhookUrl;
         private Button btnSaveDiscordSettings;
-        private TextBox txtDiscordUrl;
+        private TextBox txtDiscordWebhookUrl;
         private CheckBox chkEnableDiscord;
         private Button btnTestDiscord;
-        private Label lblNotifications;
         private CheckBox chkNotifiBackup;
         private CheckBox chkNotifiServerUpdating;
         private CheckBox chkNotifiServerStopped;
         private CheckBox chkNotifiServerStarted;
-        private PictureBox pictureBox3;
         private CheckBox chkEmbed;
         private Label btnOpenCredits;
         private Panel pnlCredits;
@@ -1605,5 +1606,7 @@
         private Label lblCreditsLogo;
         private Label lblCreditsSupportedBy;
         private Label lblCreditsSponsorsList;
+        private Label lblDiscordChanges;
+        private GroupBox gbxDiscordNotificationSettings;
     }
 }

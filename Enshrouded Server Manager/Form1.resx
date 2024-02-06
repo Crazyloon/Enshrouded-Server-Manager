@@ -120,16 +120,13 @@
   <data name="lblNewsText.Text" xml:space="preserve">
     <value>Changes:
 
-- Added Discord Webhooks
-   to update your community
-   when the server starts, stops,
-   updates or makes a backup
-- Fixed a bug when deleting or
-   renaming a profile while the
-   server was running
-- Fixed a bug with Start/Stop
-   buttons not appearing correctly
-- Other minor bug fixes</value>
+- Added configuration for which 
+   Discord notifications to send
+- Added a system to check the server
+   version for updates. Green means
+   you have the latest version. Red
+   means you need to update
+</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>The Enshrouded server saves

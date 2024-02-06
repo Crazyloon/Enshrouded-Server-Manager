@@ -899,7 +899,7 @@ public partial class Form1 : Form
         var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
         DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
 
-        txtDiscordUrl.Text = discordProfile.DiscordUrl;
+        txtDiscordWebhookUrl.Text = discordProfile.DiscordUrl;
         chkEnableDiscord.Checked = discordProfile.Enabled;
         chkNotifiServerStarted.Checked = discordProfile.StartEnabled;
         chkNotifiServerStopped.Checked = discordProfile.StopEnabled;
@@ -936,7 +936,7 @@ public partial class Form1 : Form
         var stoppedEnabled = chkNotifiServerStopped.Checked;
         var updatingEnabled = chkNotifiServerUpdating.Checked;
         var backupEnabled = chkNotifiBackup.Checked;
-        string url = txtDiscordUrl.Text;
+        string url = txtDiscordWebhookUrl.Text;
         var embedEnabled = chkEmbed.Checked;
         DiscordProfile discordProfile = new DiscordProfile()
         {

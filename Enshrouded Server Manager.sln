@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enshrouded Server Manager", "Enshrouded Server Manager\Enshrouded Server Manager.csproj", "{48319097-DBA7-40CD-8834-D8E84195EC9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enshrouded Server Manager", "Enshrouded Server Manager\Enshrouded Server Manager.csproj", "{48319097-DBA7-40CD-8834-D8E84195EC9E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{498C2F60-6E3C-47D4-9AB2-2F4CD35147CD}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
