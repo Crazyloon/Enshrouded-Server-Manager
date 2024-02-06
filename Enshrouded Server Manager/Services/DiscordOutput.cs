@@ -7,7 +7,7 @@ namespace Enshrouded_Server_Manager.Services;
 public class DiscordOutput
 {
     // send server is online status to webhook
-    public async Task ServerOnline(string serverName, string Url, bool embedEnabled)
+    public async Task ServerOnline(string serverName, string Url, bool embedEnabled, string onlineMsg)
     {
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
         using var client = new DiscordWebhookClient(Url);
@@ -16,7 +16,7 @@ public class DiscordOutput
         {
             var embed = new EmbedBuilder
             {
-                Title = $"ESM - {serverName} : Online",
+                Title = $"ESM - {serverName} : {onlineMsg}",
                 Description = "",
                 Color = Discord.Color.Green
             };
@@ -24,12 +24,12 @@ public class DiscordOutput
         }
         if (embedEnabled == false)
         {
-            await client.SendMessageAsync(text: $"ESM - {serverName} : Online");
+            await client.SendMessageAsync(text: $"ESM - {serverName} : {onlineMsg}");
         }
     }
 
     // send server is offline status to webhook
-    public async Task ServerOffline(string serverName, string Url, bool embedEnabled)
+    public async Task ServerOffline(string serverName, string Url, bool embedEnabled, string offlineMsg)
     {
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
         using var client = new DiscordWebhookClient(Url);
@@ -38,7 +38,7 @@ public class DiscordOutput
         { 
             var embed = new EmbedBuilder
             {
-            Title = $"ESM - {serverName} : Offline",
+            Title = $"ESM - {serverName} : {offlineMsg}",
             Description = "",
             Color = Discord.Color.Red
             };
@@ -46,12 +46,12 @@ public class DiscordOutput
         }
         if (embedEnabled == false)
         {
-            await client.SendMessageAsync(text: $"ESM - {serverName} : Offline");
+            await client.SendMessageAsync(text: $"ESM - {serverName} : {offlineMsg}");
         }
     }
 
     // send server is updating status to webhook
-    public async Task ServerUpdating(string serverName, string Url, bool embedEnabled)
+    public async Task ServerUpdating(string serverName, string Url, bool embedEnabled, string updatingMsg)
     {
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
         using var client = new DiscordWebhookClient(Url);
@@ -60,7 +60,7 @@ public class DiscordOutput
         {
             var embed = new EmbedBuilder
             {
-                Title = $"ESM - {serverName} : Updating...",
+                Title = $"ESM - {serverName} : {updatingMsg}",
                 Description = "",
                 Color = Discord.Color.Gold
             };
@@ -68,12 +68,12 @@ public class DiscordOutput
         }
         if (embedEnabled == false)
         {
-            await client.SendMessageAsync(text: $"ESM - {serverName} : Updating...");
+            await client.SendMessageAsync(text: $"ESM - {serverName} : {updatingMsg}");
         }
     }
 
     // send server backup has been created status to webhook
-    public async Task ServerBackup(string serverName, string Url, bool embedEnabled)
+    public async Task ServerBackup(string serverName, string Url, bool embedEnabled, string backupMsg)
     {
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
         using var client = new DiscordWebhookClient(Url);
@@ -82,7 +82,7 @@ public class DiscordOutput
         {
             var embed = new EmbedBuilder
             {
-                Title = $"ESM - {serverName} : Backup created",
+                Title = $"ESM - {serverName} : {backupMsg}",
                 Description = "",
                 Color = Discord.Color.Blue
             };
@@ -90,7 +90,7 @@ public class DiscordOutput
         }
         if (embedEnabled == false)
         {
-            await client.SendMessageAsync(text: $"ESM - {serverName} : Backup created");
+            await client.SendMessageAsync(text: $"ESM - {serverName} : {backupMsg}");
         }
     }
 

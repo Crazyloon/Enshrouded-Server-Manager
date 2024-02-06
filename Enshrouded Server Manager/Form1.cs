@@ -156,7 +156,7 @@ public partial class Form1 : Form
                         {
                             try
                             {
-                                _discordOutput.ServerUpdating(name, discordUrl, discordProfile.EmbedEnabled);
+                                _discordOutput.ServerUpdating(name, discordUrl, discordProfile.EmbedEnabled, discordProfile.ServerUpdatingMsg);
                             }
                             catch
                             {
@@ -294,7 +294,7 @@ public partial class Form1 : Form
                         {
                             try
                             {
-                                _discordOutput.ServerOnline(name, DiscordUrl, discordProfile.EmbedEnabled);
+                                _discordOutput.ServerOnline(name, DiscordUrl, discordProfile.EmbedEnabled, discordProfile.ServerOnlineMsg);
                             }
                             catch
                             {
@@ -653,7 +653,7 @@ public partial class Form1 : Form
                     {
                         try
                         {
-                            _discordOutput.ServerOffline(name, DiscordUrl, discordProfile.EmbedEnabled);
+                            _discordOutput.ServerOffline(name, DiscordUrl, discordProfile.EmbedEnabled, discordProfile.ServerStoppedMsg);
                         }
                         catch
                         {
@@ -912,7 +912,10 @@ public partial class Form1 : Form
         chkNotifiServerUpdating.Checked = discordProfile.UpdatingEnabled;
         chkNotifiBackup.Checked = discordProfile.BackupEnabled;
         chkEmbed.Checked = discordProfile.EmbedEnabled;
-
+        txtServerOnlineMsg.Text = discordProfile.ServerOnlineMsg;
+        txtServerStoppedMsg.Text = discordProfile.ServerStoppedMsg;
+        txtServerUpdatingMsg.Text = discordProfile.ServerUpdatingMsg;
+        txtBackupMsg.Text = discordProfile.BackupMsg;
     }
 
     private void WriteDefaultServerSettings(string profileName)
@@ -943,6 +946,10 @@ public partial class Form1 : Form
         var updatingEnabled = chkNotifiServerUpdating.Checked;
         var backupEnabled = chkNotifiBackup.Checked;
         string url = txtDiscordWebhookUrl.Text;
+        string serverOnlineMsg = txtServerOnlineMsg.Text;
+        string serverStoppedMsg = txtServerStoppedMsg.Text;
+        string serverUpdatingMsg = txtServerUpdatingMsg.Text;
+        string backupMsg = txtBackupMsg.Text;
         var embedEnabled = chkEmbed.Checked;
         DiscordProfile discordProfile = new DiscordProfile()
         {
@@ -952,7 +959,11 @@ public partial class Form1 : Form
             StopEnabled = stoppedEnabled,
             UpdatingEnabled = updatingEnabled,
             BackupEnabled = backupEnabled,
-            EmbedEnabled = embedEnabled
+            EmbedEnabled = embedEnabled,
+            ServerOnlineMsg = serverOnlineMsg,
+            ServerStoppedMsg = serverStoppedMsg,
+            ServerUpdatingMsg = serverUpdatingMsg,
+            BackupMsg = backupMsg
         };
 
         // write the new discord profile to the json file
