@@ -190,7 +190,7 @@ public class Backup
             }
 
             // discord Output
-            if (discordProfile is not null && discordProfile.Enabled && gameServerSettings is not null)
+            if (discordProfile is not null && discordProfile.Enabled && gameServerSettings is not null && discordProfile.BackupEnabled)
             {
 
                 try
