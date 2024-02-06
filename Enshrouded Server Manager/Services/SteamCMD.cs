@@ -3,7 +3,7 @@ using System.Net;
 
 namespace Enshrouded_Server_Manager.Services;
 
-public class SteamCMD
+public class SteamCMD : ISteamCMDInstaller
 {
     private readonly IFileSystemManager _fileSystemManager;
     private const string TARGET_FOLDER = "./SteamCMD/";
