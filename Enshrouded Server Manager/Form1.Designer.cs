@@ -131,6 +131,10 @@
             pictureBox1 = new PictureBox();
             pbxFormHeader = new PictureBox();
             btnOpenCredits = new Label();
+            txtServerOnlineMsg = new TextBox();
+            txtServerStoppedMsg = new TextBox();
+            txtServerUpdatingMsg = new TextBox();
+            txtBackupMsg = new TextBox();
             ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
@@ -1036,15 +1040,19 @@
             // 
             // gbxDiscordNotificationSettings
             // 
+            gbxDiscordNotificationSettings.Controls.Add(txtBackupMsg);
+            gbxDiscordNotificationSettings.Controls.Add(txtServerUpdatingMsg);
+            gbxDiscordNotificationSettings.Controls.Add(txtServerStoppedMsg);
+            gbxDiscordNotificationSettings.Controls.Add(txtServerOnlineMsg);
             gbxDiscordNotificationSettings.Controls.Add(chkEmbed);
             gbxDiscordNotificationSettings.Controls.Add(chkNotifiBackup);
             gbxDiscordNotificationSettings.Controls.Add(chkNotifiServerUpdating);
             gbxDiscordNotificationSettings.Controls.Add(chkNotifiServerStopped);
             gbxDiscordNotificationSettings.Controls.Add(chkNotifiServerStarted);
             gbxDiscordNotificationSettings.ForeColor = SystemColors.ControlLight;
-            gbxDiscordNotificationSettings.Location = new Point(84, 33);
+            gbxDiscordNotificationSettings.Location = new Point(19, 22);
             gbxDiscordNotificationSettings.Name = "gbxDiscordNotificationSettings";
-            gbxDiscordNotificationSettings.Size = new Size(190, 143);
+            gbxDiscordNotificationSettings.Size = new Size(320, 170);
             gbxDiscordNotificationSettings.TabIndex = 68;
             gbxDiscordNotificationSettings.TabStop = false;
             gbxDiscordNotificationSettings.Text = "Notifications";
@@ -1052,7 +1060,7 @@
             // chkEmbed
             // 
             chkEmbed.AutoSize = true;
-            chkEmbed.Location = new Point(14, 20);
+            chkEmbed.Location = new Point(15, 20);
             chkEmbed.Name = "chkEmbed";
             chkEmbed.Size = new Size(117, 19);
             chkEmbed.TabIndex = 67;
@@ -1062,7 +1070,7 @@
             // chkNotifiBackup
             // 
             chkNotifiBackup.AutoSize = true;
-            chkNotifiBackup.Location = new Point(14, 112);
+            chkNotifiBackup.Location = new Point(15, 137);
             chkNotifiBackup.Name = "chkNotifiBackup";
             chkNotifiBackup.Size = new Size(109, 19);
             chkNotifiBackup.TabIndex = 64;
@@ -1072,7 +1080,7 @@
             // chkNotifiServerUpdating
             // 
             chkNotifiServerUpdating.AutoSize = true;
-            chkNotifiServerUpdating.Location = new Point(14, 89);
+            chkNotifiServerUpdating.Location = new Point(15, 108);
             chkNotifiServerUpdating.Name = "chkNotifiServerUpdating";
             chkNotifiServerUpdating.Size = new Size(110, 19);
             chkNotifiServerUpdating.TabIndex = 63;
@@ -1082,7 +1090,7 @@
             // chkNotifiServerStopped
             // 
             chkNotifiServerStopped.AutoSize = true;
-            chkNotifiServerStopped.Location = new Point(14, 66);
+            chkNotifiServerStopped.Location = new Point(15, 78);
             chkNotifiServerStopped.Name = "chkNotifiServerStopped";
             chkNotifiServerStopped.Size = new Size(105, 19);
             chkNotifiServerStopped.TabIndex = 62;
@@ -1092,7 +1100,7 @@
             // chkNotifiServerStarted
             // 
             chkNotifiServerStarted.AutoSize = true;
-            chkNotifiServerStarted.Location = new Point(14, 43);
+            chkNotifiServerStarted.Location = new Point(15, 49);
             chkNotifiServerStarted.Name = "chkNotifiServerStarted";
             chkNotifiServerStarted.Size = new Size(98, 19);
             chkNotifiServerStarted.TabIndex = 61;
@@ -1107,7 +1115,7 @@
             btnTestDiscord.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnTestDiscord.FlatStyle = FlatStyle.Flat;
             btnTestDiscord.ForeColor = SystemColors.Control;
-            btnTestDiscord.Location = new Point(192, 244);
+            btnTestDiscord.Location = new Point(192, 249);
             btnTestDiscord.Name = "btnTestDiscord";
             btnTestDiscord.Size = new Size(127, 30);
             btnTestDiscord.TabIndex = 60;
@@ -1119,7 +1127,7 @@
             // lblDiscordWebhookUrl
             // 
             lblDiscordWebhookUrl.AutoSize = true;
-            lblDiscordWebhookUrl.Location = new Point(114, 187);
+            lblDiscordWebhookUrl.Location = new Point(114, 196);
             lblDiscordWebhookUrl.Name = "lblDiscordWebhookUrl";
             lblDiscordWebhookUrl.Size = new Size(128, 15);
             lblDiscordWebhookUrl.TabIndex = 18;
@@ -1133,7 +1141,7 @@
             btnSaveDiscordSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
             btnSaveDiscordSettings.FlatStyle = FlatStyle.Flat;
             btnSaveDiscordSettings.ForeColor = Color.FromArgb(0, 255, 185);
-            btnSaveDiscordSettings.Location = new Point(43, 244);
+            btnSaveDiscordSettings.Location = new Point(43, 249);
             btnSaveDiscordSettings.Name = "btnSaveDiscordSettings";
             btnSaveDiscordSettings.Size = new Size(128, 30);
             btnSaveDiscordSettings.TabIndex = 17;
@@ -1148,7 +1156,7 @@
             txtDiscordWebhookUrl.BackColor = Color.FromArgb(6, 6, 48);
             txtDiscordWebhookUrl.BorderStyle = BorderStyle.FixedSingle;
             txtDiscordWebhookUrl.ForeColor = SystemColors.Window;
-            txtDiscordWebhookUrl.Location = new Point(20, 210);
+            txtDiscordWebhookUrl.Location = new Point(20, 215);
             txtDiscordWebhookUrl.Name = "txtDiscordWebhookUrl";
             txtDiscordWebhookUrl.Size = new Size(320, 23);
             txtDiscordWebhookUrl.TabIndex = 16;
@@ -1417,6 +1425,50 @@
             btnOpenCredits.TextAlign = ContentAlignment.BottomLeft;
             btnOpenCredits.Click += btnToggleCredits_Click;
             // 
+            // txtServerOnlineMsg
+            // 
+            txtServerOnlineMsg.BackColor = Color.FromArgb(6, 6, 48);
+            txtServerOnlineMsg.BorderStyle = BorderStyle.FixedSingle;
+            txtServerOnlineMsg.ForeColor = SystemColors.Window;
+            txtServerOnlineMsg.Location = new Point(130, 47);
+            txtServerOnlineMsg.Name = "txtServerOnlineMsg";
+            txtServerOnlineMsg.Size = new Size(170, 23);
+            txtServerOnlineMsg.TabIndex = 68;
+            txtServerOnlineMsg.Text = "Online!";
+            // 
+            // txtServerStoppedMsg
+            // 
+            txtServerStoppedMsg.BackColor = Color.FromArgb(6, 6, 48);
+            txtServerStoppedMsg.BorderStyle = BorderStyle.FixedSingle;
+            txtServerStoppedMsg.ForeColor = SystemColors.Window;
+            txtServerStoppedMsg.Location = new Point(130, 76);
+            txtServerStoppedMsg.Name = "txtServerStoppedMsg";
+            txtServerStoppedMsg.Size = new Size(170, 23);
+            txtServerStoppedMsg.TabIndex = 69;
+            txtServerStoppedMsg.Text = "Offline!";
+            // 
+            // txtServerUpdatingMsg
+            // 
+            txtServerUpdatingMsg.BackColor = Color.FromArgb(6, 6, 48);
+            txtServerUpdatingMsg.BorderStyle = BorderStyle.FixedSingle;
+            txtServerUpdatingMsg.ForeColor = SystemColors.Window;
+            txtServerUpdatingMsg.Location = new Point(130, 105);
+            txtServerUpdatingMsg.Name = "txtServerUpdatingMsg";
+            txtServerUpdatingMsg.Size = new Size(170, 23);
+            txtServerUpdatingMsg.TabIndex = 70;
+            txtServerUpdatingMsg.Text = "Updating...";
+            // 
+            // txtBackupMsg
+            // 
+            txtBackupMsg.BackColor = Color.FromArgb(6, 6, 48);
+            txtBackupMsg.BorderStyle = BorderStyle.FixedSingle;
+            txtBackupMsg.ForeColor = SystemColors.Window;
+            txtBackupMsg.Location = new Point(130, 134);
+            txtBackupMsg.Name = "txtBackupMsg";
+            txtBackupMsg.Size = new Size(170, 23);
+            txtBackupMsg.TabIndex = 71;
+            txtBackupMsg.Text = "Backup created!";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1608,5 +1660,9 @@
         private Label lblCreditsSponsorsList;
         private Label lblDiscordChanges;
         private GroupBox gbxDiscordNotificationSettings;
+        private TextBox txtBackupMsg;
+        private TextBox txtServerUpdatingMsg;
+        private TextBox txtServerStoppedMsg;
+        private TextBox txtServerOnlineMsg;
     }
 }

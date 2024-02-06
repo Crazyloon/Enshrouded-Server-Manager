@@ -92,7 +92,7 @@ public class Backup
                         try
                         {
                             _discordOutput = new DiscordOutput();
-                            _discordOutput.ServerBackup(name, discordUrl, discordProfile.EmbedEnabled);
+                            _discordOutput.ServerBackup(name, discordUrl, discordProfile.EmbedEnabled, discordProfile.BackupMsg);
                         }
                         catch
                         {
@@ -196,7 +196,7 @@ public class Backup
                 try
                 {
                     _discordOutput = new DiscordOutput();
-                    await _discordOutput.ServerBackup(gameServerSettings.Name, discordProfile.DiscordUrl, discordProfile.EmbedEnabled);
+                    await _discordOutput.ServerBackup(gameServerSettings.Name, discordProfile.DiscordUrl, discordProfile.EmbedEnabled, discordProfile.BackupMsg);
                 }
                 catch
                 {
