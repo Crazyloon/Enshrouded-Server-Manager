@@ -13,14 +13,17 @@ namespace Enshrouded_Server_Manager;
 
 public partial class Form1 : Form
 {
+    private FileSystemManager _fileSystemManager;
+    private ProcessManager _processManager;
+    private MessageBoxWrapper _messageBox;
     private SteamCMD _steamCMD;
     private Server _server;
     private Backup _backup;
-    private FileSystemManager _fileSystemManager;
     private ProfileManager _profileManager;
     private VersionManager _versionManager;
     private JsonSerializerSettings _jsonSerializerSettings;
     private DiscordOutput _discordOutput;
+
 
     [DllImport("user32.dll")]
     public static extern bool ReleaseCapture();
@@ -36,7 +39,10 @@ public partial class Form1 : Form
 
         //Initialize Services
         _fileSystemManager = new FileSystemManager();
-        _steamCMD = new SteamCMD(_fileSystemManager);
+        _processManager = new ProcessManager();
+        _messageBox = new MessageBoxWrapper();
+
+        _steamCMD = new SteamCMD(_fileSystemManager, _processManager, _messageBox);
         _server = new Server(_fileSystemManager);
         _backup = new Backup(_fileSystemManager);
         _versionManager = new VersionManager(_fileSystemManager);

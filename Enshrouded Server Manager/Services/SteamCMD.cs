@@ -6,13 +6,18 @@ namespace Enshrouded_Server_Manager.Services;
 public class SteamCMD : ISteamCMDInstaller
 {
     private readonly IFileSystemManager _fileSystemManager;
+    private readonly IProcessManager _processManager;
+    private readonly IMessageBox _messageBox;
+
     private const string TARGET_FOLDER = "./SteamCMD/";
     private const string STEAM_CMD_ZIP = $"{TARGET_FOLDER}steamcmd.zip";
     private const string STEAM_CMD_EXE = $"{TARGET_FOLDER}steamcmd.exe";
 
-    public SteamCMD(IFileSystemManager fsm)
+    public SteamCMD(IFileSystemManager fileSystemManager, IProcessManager processManager, IMessageBox messageBox)
     {
-        _fileSystemManager = fsm;
+        _fileSystemManager = fileSystemManager;
+        _processManager = processManager;
+        _messageBox = messageBox;
     }
 
     /// <summary>
@@ -39,7 +44,7 @@ public class SteamCMD : ISteamCMDInstaller
         }
         catch (Exception ex)
         {
-            MessageBox.Show(string.Format(Constants.Errors.STEAM_CMD_DOWNLOAD_ERROR_MESSAGE, ex.Message),
+            _messageBox.Show(string.Format(Constants.Errors.STEAM_CMD_DOWNLOAD_ERROR_MESSAGE, ex.Message),
                 Constants.Errors.STEAM_CMD_DOWNLOAD_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
@@ -53,7 +58,7 @@ public class SteamCMD : ISteamCMDInstaller
         }
         catch (Exception ex)
         {
-            MessageBox.Show(string.Format(Constants.Errors.STEAM_CMD_INSTALL_ERROR_MESSAGE, ex.Message),
+            _messageBox.Show(string.Format(Constants.Errors.STEAM_CMD_INSTALL_ERROR_MESSAGE, ex.Message),
                 Constants.Errors.STEAM_CMD_INSTALL_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             return;
