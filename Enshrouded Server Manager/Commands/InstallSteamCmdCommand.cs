@@ -1,5 +1,5 @@
 ﻿using Enshrouded_Server_Manager.Events;
-using Enshrouded_Server_Manager.Services;
+using Enshrouded_Server_Manager.Services.Interfaces;
 
 namespace Enshrouded_Server_Manager.Commands;
 public class InstallSteamCmdCommand : CommandBase
@@ -11,6 +11,9 @@ public class InstallSteamCmdCommand : CommandBase
     {
         _steamCMDInstaller = steamCMDInstaller;
         _fileSystemManager = fileSystemManager;
+
+        IsEnabled = true;
+        IsVisible = true;
 
         EventAggregator.Instance.Subscribe<SteamCmdInstalledMessage>(b => IsEnabled = false);
     }

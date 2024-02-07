@@ -13,6 +13,7 @@ public abstract class CommandBase : IAdminPanelCommand
         _isEnabled = true;
     }
 
+
     public bool IsEnabled
     {
         get { return _isEnabled; }

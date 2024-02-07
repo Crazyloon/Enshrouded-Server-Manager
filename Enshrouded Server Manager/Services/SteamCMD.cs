@@ -1,5 +1,5 @@
+using Enshrouded_Server_Manager.Services.Interfaces;
 using System.Diagnostics;
-using System.Net;
 
 namespace Enshrouded_Server_Manager.Services;
 
@@ -8,16 +8,18 @@ public class SteamCMD : ISteamCMDInstaller
     private readonly IFileSystemManager _fileSystemManager;
     private readonly IProcessManager _processManager;
     private readonly IMessageBox _messageBox;
+    private readonly IHttpClient _httpClient;
 
     private const string TARGET_FOLDER = "./SteamCMD/";
     private const string STEAM_CMD_ZIP = $"{TARGET_FOLDER}steamcmd.zip";
     private const string STEAM_CMD_EXE = $"{TARGET_FOLDER}steamcmd.exe";
 
-    public SteamCMD(IFileSystemManager fileSystemManager, IProcessManager processManager, IMessageBox messageBox)
+    public SteamCMD(IFileSystemManager fileSystemManager, IProcessManager processManager, IMessageBox messageBox, IHttpClient httpClient)
     {
         _fileSystemManager = fileSystemManager;
         _processManager = processManager;
         _messageBox = messageBox;
+        _httpClient = httpClient;
     }
 
     /// <summary>
@@ -31,10 +33,7 @@ public class SteamCMD : ISteamCMDInstaller
             _fileSystemManager.DeleteFile(STEAM_CMD_ZIP);
 
             //Download of SteamCMD Client
-            using (WebClient Client = new WebClient())
-            {
-                Client.DownloadFile(Constants.Urls.STEAM_CMD_CDN_URL, STEAM_CMD_ZIP);
-            }
+            _httpClient.Send(Constants.Urls.STEAM_CMD_CDN_URL, STEAM_CMD_ZIP);
 
             _fileSystemManager.DeleteFile(STEAM_CMD_EXE);
 

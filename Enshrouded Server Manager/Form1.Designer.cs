@@ -1,4 +1,6 @@
-﻿namespace Enshrouded_Server_Manager
+﻿using Enshrouded_Server_Manager.Views;
+
+namespace Enshrouded_Server_Manager
 {
     partial class Form1
     {
@@ -197,7 +199,6 @@
             btnInstallSteamCMD.TabStop = false;
             btnInstallSteamCMD.Text = "Install SteamCMD";
             btnInstallSteamCMD.UseVisualStyleBackColor = true;
-            btnInstallSteamCMD.Click += InstallSteamCMD_Button_Click;
             // 
             // btnInstallServer
             // 
@@ -1469,12 +1470,21 @@
             btnOpenCredits.TextAlign = ContentAlignment.BottomLeft;
             btnOpenCredits.Click += btnToggleCredits_Click;
             // 
+            // adminPanelView1
+            // 
+            adminPanelView.BackColor = Color.FromArgb(0, 0, 18);
+            adminPanelView.Location = new Point(13, 41);
+            adminPanelView.Name = "adminPanelView1";
+            adminPanelView.Size = new Size(170, 369);
+            adminPanelView.TabIndex = 62;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
+            Controls.Add(adminPanelView);
             Controls.Add(btnOpenCredits);
             Controls.Add(lblServerProfileSpecific);
             Controls.Add(pnlCredits);
@@ -1495,8 +1505,6 @@
             Controls.Add(btnInstallServer);
             Controls.Add(btnSaveBackup);
             Controls.Add(btnStartServer);
-            Controls.Add(pictureBox10);
-            Controls.Add(lblAdminPanel);
             Controls.Add(btnWindowsFirewall);
             Controls.Add(btnInstallSteamCMD);
             Controls.Add(lblNewsText);
@@ -1504,10 +1512,12 @@
             Controls.Add(lblLogo);
             Controls.Add(tabServerTabs);
             Controls.Add(label7);
-            Controls.Add(pictureBox1);
             Controls.Add(lblMinimizeTrayButton);
             Controls.Add(lblCloseButton);
             Controls.Add(lblTitle);
+            Controls.Add(lblAdminPanel);
+            Controls.Add(pictureBox10);
+            Controls.Add(pictureBox1);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox5);
             Controls.Add(pictureBox6);

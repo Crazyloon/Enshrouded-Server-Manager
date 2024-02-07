@@ -146,7 +146,7 @@ partial class AdminPanelView
         lblAdminPanel.BackColor = Color.Transparent;
         lblAdminPanel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
         lblAdminPanel.ForeColor = SystemColors.Control;
-        lblAdminPanel.Location = new Point(5, 340);
+        lblAdminPanel.Location = new Point(5, 330);
         lblAdminPanel.Name = "lblAdminPanel";
         lblAdminPanel.Size = new Size(153, 32);
         lblAdminPanel.TabIndex = 66;
@@ -181,11 +181,12 @@ partial class AdminPanelView
         btnInstallSteamCMD.Size = new Size(127, 23);
         btnInstallSteamCMD.TabIndex = 61;
         btnInstallSteamCMD.TabStop = false;
-        btnInstallSteamCMD.Text = "Install SteamCMD";
+        btnInstallSteamCMD.Text = "Install Steam";
         btnInstallSteamCMD.UseVisualStyleBackColor = true;
         // 
         // gbxServerSpecificControls
         // 
+        gbxServerSpecificControls.BackColor = Color.FromArgb(0, 0, 18);
         gbxServerSpecificControls.Controls.Add(btnStopServer);
         gbxServerSpecificControls.Controls.Add(btnStartServer);
         gbxServerSpecificControls.Controls.Add(btnOpenLogFolder);
@@ -196,7 +197,7 @@ partial class AdminPanelView
         gbxServerSpecificControls.Controls.Add(btnSaveBackup);
         gbxServerSpecificControls.FlatStyle = FlatStyle.Flat;
         gbxServerSpecificControls.ForeColor = SystemColors.ControlLight;
-        gbxServerSpecificControls.Location = new Point(10, 117);
+        gbxServerSpecificControls.Location = new Point(10, 98);
         gbxServerSpecificControls.Name = "gbxServerSpecificControls";
         gbxServerSpecificControls.Size = new Size(150, 220);
         gbxServerSpecificControls.TabIndex = 71;
@@ -247,7 +248,7 @@ partial class AdminPanelView
         Controls.Add(btnWindowsFirewall);
         Controls.Add(btnInstallSteamCMD);
         Name = "AdminPanelView";
-        Size = new Size(170, 390);
+        Size = new Size(170, 370);
         gbxServerSpecificControls.ResumeLayout(false);
         ResumeLayout(false);
     }

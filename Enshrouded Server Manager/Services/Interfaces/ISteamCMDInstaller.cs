@@ -1,4 +1,4 @@
-﻿namespace Enshrouded_Server_Manager.Services;
+﻿namespace Enshrouded_Server_Manager.Services.Interfaces;
 public interface ISteamCMDInstaller
 {
     public void Install();

@@ -2,7 +2,6 @@ using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Model;
 using Enshrouded_Server_Manager.Models;
-using Enshrouded_Server_Manager.Presenters;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.UI;
 using Newtonsoft.Json;
@@ -14,6 +13,8 @@ namespace Enshrouded_Server_Manager;
 
 public partial class Form1 : Form
 {
+    private readonly Control adminPanelView;
+
     private FileSystemManager _fileSystemManager;
     private ProcessManager _processManager;
     private MessageBoxWrapper _messageBox;
@@ -25,8 +26,6 @@ public partial class Form1 : Form
     private JsonSerializerSettings _jsonSerializerSettings;
     private DiscordOutput _discordOutput;
 
-    private AdminPanelPresenter _adminPanelPresenter;
-
 
     [DllImport("user32.dll")]
     public static extern bool ReleaseCapture();
@@ -35,17 +34,21 @@ public partial class Form1 : Form
 
 
 
-    public Form1()
+    public Form1(Control adminPanelView)
     {
+        // Initialize Views
+        this.adminPanelView = adminPanelView;
+
         InitializeComponent();
         InitializePanelPositions();
+
 
         //Initialize Services
         _fileSystemManager = new FileSystemManager();
         _processManager = new ProcessManager();
         _messageBox = new MessageBoxWrapper();
 
-        _steamCMD = new SteamCMD(_fileSystemManager, _processManager, _messageBox);
+        //_steamCMD = new SteamCMD(_fileSystemManager, _processManager, _messageBox);
         _server = new Server(_fileSystemManager);
         _backup = new Backup(_fileSystemManager);
         _versionManager = new VersionManager(_fileSystemManager);
@@ -103,18 +106,18 @@ public partial class Form1 : Form
 
     #region ButtonEvents
 
-    private void InstallSteamCMD_Button_Click(object sender, EventArgs e)
-    {
-        _steamCMD.Install();
+    //private void InstallSteamCMD_Button_Click(object sender, EventArgs e)
+    //{
+    //    _steamCMD.Install();
 
-        if (_fileSystemManager.FileExists(Constants.ProcessNames.STEAM_CMD_EXE))
-        {
-            btnInstallServer.Visible = true;
-            btnStartServer.Visible = true;
-        }
+    //    if (_fileSystemManager.FileExists(Constants.ProcessNames.STEAM_CMD_EXE))
+    //    {
+    //        btnInstallServer.Visible = true;
+    //        btnStartServer.Visible = true;
+    //    }
 
-        _steamCMD.Start();
-    }
+    //    _steamCMD.Start();
+    //}
 
     private void InstallServer_Button_Click(object sender, EventArgs e)
     {

@@ -2,7 +2,7 @@
 
 namespace Enshrouded_Server_Manager.Events;
 
-class EventAggregator : IEventAggregator
+public class EventAggregator : IEventAggregator
 {
     private static readonly IEventAggregator instance = new EventAggregator();
     public static IEventAggregator Instance { get { return instance; } }

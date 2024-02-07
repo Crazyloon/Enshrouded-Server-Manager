@@ -3,9 +3,11 @@
 namespace Enshrouded_Server_Manager.Views;
 public partial class AdminPanelView : UserControl, IAdminPanelView
 {
+
     public AdminPanelView()
     {
         InitializeComponent();
+
     }
 
     //public event EventHandler InstallSteamCmd_ButtonClicked
@@ -72,7 +74,7 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
     {
         foreach (var command in commands)
         {
-            var button = new ToolStripButton();
+            var button = new Button();
             button.Enabled = command.IsEnabled;
             button.Visible = command.IsVisible;
 
@@ -82,15 +84,30 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
                 button.Enabled = c.IsEnabled;
                 button.Visible = c.IsVisible;
             };
-            button.Click += (o, s) => c.Execute();
+            btnInstallSteamCMD.Click += (o, s) =>
+            {
+                c.Execute();
+            };
         }
     }
 
     private void gbxServerSpecificControls_Paint(object sender, PaintEventArgs e)
     {
         GroupBox box = (GroupBox)sender;
-        e.Graphics.Clear(SystemColors.Control);
-        e.Graphics.DrawString(box.Text, box.Font, Brushes.Black, 0, 0);
+        e.Graphics.Clear(Color.FromArgb(0, 0, 18));
+        var pen = new Pen(Color.FromArgb(0, 0, 18), 0.5f);
+        var borderPen = new Pen(SystemBrushes.ControlDarkDark, 0.5f);
+        var brush = new SolidBrush(Color.FromArgb(0, 0, 18));
+        var fontHeight = (int)Math.Round(e.Graphics.MeasureString(box.Text, box.Font).Height);
+        var textWidth = e.Graphics.MeasureString(box.Text, box.Font).Width;
+        var textPaddingVertical = 2;
+        var textPaddingHorizontal = 3;
+
+        //e.Graphics.FillRectangle(brush, 0, 0, box.Width - 1, box.Height - 1); // fill the background
+        e.Graphics.DrawRectangle(borderPen, 0, 8, box.Width - 1, box.Height - 10); // draw the border
+
+        e.Graphics.FillRectangle(brush, 3, 0, textWidth + textPaddingHorizontal, box.Font.Height); // draw the text background
+        e.Graphics.DrawString(box.Text, box.Font, SystemBrushes.ControlLight, fontHeight / 2 - textPaddingVertical, 0); // draw the text
     }
 }
 

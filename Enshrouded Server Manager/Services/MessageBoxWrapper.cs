@@ -1,4 +1,6 @@
-﻿namespace Enshrouded_Server_Manager.Services;
+﻿using Enshrouded_Server_Manager.Services.Interfaces;
+
+namespace Enshrouded_Server_Manager.Services;
 public class MessageBoxWrapper : IMessageBox
 {
     public void Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)

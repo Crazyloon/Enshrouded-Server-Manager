@@ -1,12 +1,12 @@
 ﻿using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Models;
-using Enshrouded_Server_Manager.Services;
+using Enshrouded_Server_Manager.Services.Interfaces;
 using Enshrouded_Server_Manager.Views;
 
 namespace Enshrouded_Server_Manager.Presenters;
 public class AdminPanelPresenter
 {
-    private readonly IAdminPanelView _adminPanelView;
+    private readonly AdminPanelView _adminPanelView;
     private readonly ISteamCMDInstaller _steamCMDInstaller;
     private readonly IFileSystemManager _fileSystemManager;
     private readonly IServer _server;
@@ -14,64 +14,62 @@ public class AdminPanelPresenter
     private AdminPanelModel _model;
 
     public AdminPanelPresenter(
-        IAdminPanelView adminPanelView,
         ISteamCMDInstaller steamCMDInstaller,
         IFileSystemManager fileSystemManager,
         IServer server,
-        AdminPanelModel model)
+        AdminPanelView adminPanelView)
     {
         _adminPanelView = adminPanelView;
         _steamCMDInstaller = steamCMDInstaller;
         _fileSystemManager = fileSystemManager;
         _server = server;
-        _model = model;
 
         EventAggregator.Instance.Subscribe<SteamCmdInstalledMessage>(b => OnSteamCmdInstallVerified(b.IsInstalled));
     }
 
-    public void OpenBackupFolder_ButtonClicked(object sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
+    //public void OpenBackupFolder_ButtonClicked(object sender, EventArgs e)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public void SaveBackup_ButtonClicked(object sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
+    //public void SaveBackup_ButtonClicked(object sender, EventArgs e)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public void InstallServer_ButtonClicked(object sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
+    //public void InstallServer_ButtonClicked(object sender, EventArgs e)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public void UpdateServer_ButtonClicked(object sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
+    //public void UpdateServer_ButtonClicked(object sender, EventArgs e)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public void StopServer_ButtonClicked(object sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
+    //public void StopServer_ButtonClicked(object sender, EventArgs e)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public void StartServer_ButtonClicked(object sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
+    //public void StartServer_ButtonClicked(object sender, EventArgs e)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public void OpenWindowsFirewall_ButtonClicked(object sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
+    //public void OpenWindowsFirewall_ButtonClicked(object sender, EventArgs e)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public void InstallSteamCmd_ButtonClicked(object sender, EventArgs e)
-    {
-        _steamCMDInstaller.Install();
+    //public void InstallSteamCmd_ButtonClicked(object sender, EventArgs e)
+    //{
+    //    _steamCMDInstaller.Install();
 
-        EventAggregator.Instance.Publish(new SteamCmdInstalledMessage(_fileSystemManager.FileExists(Constants.ProcessNames.STEAM_CMD_EXE)));
+    //    EventAggregator.Instance.Publish(new SteamCmdInstalledMessage(_fileSystemManager.FileExists(Constants.ProcessNames.STEAM_CMD_EXE)));
 
-        _steamCMDInstaller.Start();
-    }
+    //    _steamCMDInstaller.Start();
+    //}
 
     private void OnSteamCmdInstallVerified(bool isInstalled)
     {
