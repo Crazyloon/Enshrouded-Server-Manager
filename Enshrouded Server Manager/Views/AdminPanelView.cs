@@ -8,23 +8,6 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
         InitializeComponent();
     }
 
-    public void SetCommands(IAdminPanelCommand[] commands)
-    {
-        foreach (var command in commands)
-        {
-            var button = new Button();
-            button.Enabled = command.IsEnabled;
-
-            var c = command; // create a closure around the command
-            command.PropertyChanged += (o, s) =>
-            {
-                button.Enabled = c.IsEnabled;
-                button.Visible = c.IsVisible;
-            };
-            button.Click += (o, s) => c.Execute();
-        }
-    }
-
     //public event EventHandler InstallSteamCmd_ButtonClicked
     //{
     //    add { btnInstallSteamCMD.Click += value; }
@@ -49,16 +32,16 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
     //    remove { btnStopServer.Click -= value; }
     //}
 
-    //public event EventHandler UpdateServer_ButtonClicked
-    //{
-    //    add { btnUpdateServer.Click += value; }
-    //    remove { btnUpdateServer.Click -= value; }
-    //}
-
     //public event EventHandler InstallServer_ButtonClicked
     //{
     //    add { btnInstallServer.Click += value; }
     //    remove { btnInstallServer.Click -= value; }
+    //}
+
+    //public event EventHandler UpdateServer_ButtonClicked
+    //{
+    //    add { btnUpdateServer.Click += value; }
+    //    remove { btnUpdateServer.Click -= value; }
     //}
 
     //public event EventHandler SaveBackup_ButtonClicked
@@ -85,6 +68,23 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
     //    remove { btnOpenLogFolder.Click -= value; }
     //}
 
+    public void SetCommands(IAdminPanelCommand[] commands)
+    {
+        foreach (var command in commands)
+        {
+            var button = new ToolStripButton();
+            button.Enabled = command.IsEnabled;
+            button.Visible = command.IsVisible;
+
+            var c = command; // create a closure around the command
+            command.PropertyChanged += (o, s) =>
+            {
+                button.Enabled = c.IsEnabled;
+                button.Visible = c.IsVisible;
+            };
+            button.Click += (o, s) => c.Execute();
+        }
+    }
 
     private void gbxServerSpecificControls_Paint(object sender, PaintEventArgs e)
     {
@@ -96,15 +96,16 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
 
 public interface IAdminPanelView
 {
-    void SetCommands(IAdminPanelCommand[] commands);
     //event EventHandler InstallSteamCmd_ButtonClicked;
     //event EventHandler OpenWindowsFirewall_ButtonClicked;
     //event EventHandler StartServer_ButtonClicked;
     //event EventHandler StopServer_ButtonClicked;
-    //event EventHandler UpdateServer_ButtonClicked;
     //event EventHandler InstallServer_ButtonClicked;
+    //event EventHandler UpdateServer_ButtonClicked;
     //event EventHandler SaveBackup_ButtonClicked;
     //event EventHandler OpenBackupFolder_ButtonClicked;
     //event EventHandler OpenSavegameFolder_ButtonClicked;
     //event EventHandler OpenLogFolder_ButtonClicked;
+
+    void SetCommands(IAdminPanelCommand[] commands);
 }

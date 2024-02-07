@@ -46,7 +46,6 @@ public class SteamCMD : ISteamCMDInstaller
         {
             _messageBox.Show(string.Format(Constants.Errors.STEAM_CMD_DOWNLOAD_ERROR_MESSAGE, ex.Message),
                 Constants.Errors.STEAM_CMD_DOWNLOAD_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
         }
 
     }
@@ -54,14 +53,12 @@ public class SteamCMD : ISteamCMDInstaller
     {
         try
         {
-            Process p = Process.Start(STEAM_CMD_EXE, "+quit");
+            Process p = _processManager.Start(STEAM_CMD_EXE, "+quit");
         }
         catch (Exception ex)
         {
             _messageBox.Show(string.Format(Constants.Errors.STEAM_CMD_INSTALL_ERROR_MESSAGE, ex.Message),
                 Constants.Errors.STEAM_CMD_INSTALL_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            return;
         }
     }
 }

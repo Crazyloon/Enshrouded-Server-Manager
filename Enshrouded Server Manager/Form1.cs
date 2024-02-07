@@ -2,6 +2,7 @@ using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Model;
 using Enshrouded_Server_Manager.Models;
+using Enshrouded_Server_Manager.Presenters;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.UI;
 using Newtonsoft.Json;
@@ -23,6 +24,8 @@ public partial class Form1 : Form
     private VersionManager _versionManager;
     private JsonSerializerSettings _jsonSerializerSettings;
     private DiscordOutput _discordOutput;
+
+    private AdminPanelPresenter _adminPanelPresenter;
 
 
     [DllImport("user32.dll")]

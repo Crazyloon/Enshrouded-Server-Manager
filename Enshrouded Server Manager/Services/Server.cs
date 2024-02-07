@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace Enshrouded_Server_Manager.Services;
 
-public class Server
+public class Server : IServer
 {
     private readonly IFileSystemManager _fileSystemManager;
     private const string SERVER_PROCESS_NAME = "enshrouded_server";
