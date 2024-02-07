@@ -84,7 +84,7 @@ public class Server
     {
         try
         {
-            Process p = Process.Start(Constants.ProcessNames.STEAM_CMD_EXE, $"+force_install_dir {serverProfilePath} +login anonymous +app_update {steamAppId} validate +quit");
+            Process p = Process.Start(Constants.ProcessNames.STEAM_CMD_EXE, $"+force_install_dir \"{serverProfilePath}\" +login anonymous +app_update {steamAppId} validate +quit");
         }
         catch (Exception ex)
         {
