@@ -274,6 +274,7 @@ public partial class Form1 : Form
             {
                 btnStartServer.Visible = false;
                 btnStopServer.Visible = true;
+                btnUpdateServer.Visible = false;
             }
 
             // discord Output
@@ -632,6 +633,7 @@ public partial class Form1 : Form
         _server.Stop(selectedProfileName);
         btnStartServer.Visible = true;
         btnStopServer.Visible = false;
+        btnUpdateServer.Visible = true;
 
         // discord Output
         var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
@@ -843,6 +845,7 @@ public partial class Form1 : Form
             {
                 btnStartServer.Visible = false;
                 btnStopServer.Visible = true;
+                btnUpdateServer.Visible = false;
             }
         }
         catch (Exception)
