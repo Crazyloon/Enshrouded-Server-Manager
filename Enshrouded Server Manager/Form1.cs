@@ -113,9 +113,12 @@ public partial class Form1 : Form
         {
             string selectedProfileName = cbxProfileSelectionComboBox.SelectedItem.ToString();
             var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
-
+            pnlUpdateServerfiles.Visible = true;
+            lblUpdateServerfiles.Visible = true;
             _server.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}", selectedProfileName, btnInstallServer, btnUpdateServer, btnStartServer);
             _versionManager.ServerUpdateCheck(selectedProfileName, btnUpdateServer);
+            pnlUpdateServerfiles.Visible = false;
+            lblUpdateServerfiles.Visible = false;
             btnUpdateServer.Visible = true;
             btnStartServer.Visible = true;
         }
@@ -159,11 +162,15 @@ public partial class Form1 : Form
                     }
                 }
             }
+            pnlUpdateServerfiles.Visible = true;
+            lblUpdateServerfiles.Visible = true;
             _server.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}", selectedProfileName, btnInstallServer, btnUpdateServer, btnStartServer);
             _versionManager.ServerUpdateCheck(selectedProfileName, btnUpdateServer);
+            pnlUpdateServerfiles.Visible = false;
+            lblUpdateServerfiles.Visible = false;
             btnUpdateServer.Visible = true;
             btnStartServer.Visible = true;
-    }
+        }
     }
 
     private void SaveSettings_Button_Click(object sender, EventArgs e)
