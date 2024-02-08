@@ -1,5 +1,8 @@
-# Current version: 0.4.1
+# ESM - Enshrouded Server Manager
+![][version] ![][downloads]
 
+[version]: https://img.shields.io/github/v/release/crazyloon/Enshrouded-Server-Manager?logo=github
+[downloads]: https://img.shields.io/github/downloads/crazyloon/enshrouded-server-manager/total.svg
 
 This little tool is an experimental enshrouded server manager.
 
