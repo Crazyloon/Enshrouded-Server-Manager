@@ -113,12 +113,14 @@ public partial class Form1 : Form
         {
             string selectedProfileName = cbxProfileSelectionComboBox.SelectedItem.ToString();
             var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
-
-            _server.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}");
-
-            btnInstallServer.Visible = false;
+            pnlUpdateServerfiles.Visible = true;
+            lblUpdateServerfiles.Visible = true;
+            _server.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}", selectedProfileName, btnInstallServer, btnUpdateServer, btnStartServer);
+            _versionManager.ServerUpdateCheck(selectedProfileName, btnUpdateServer);
+            pnlUpdateServerfiles.Visible = false;
+            lblUpdateServerfiles.Visible = false;
             btnUpdateServer.Visible = true;
-            btnUpdateServer.FlatAppearance.BorderColor = Color.Green;
+            btnStartServer.Visible = true;
         }
     }
 
@@ -160,8 +162,14 @@ public partial class Form1 : Form
                     }
                 }
             }
-            _server.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}");
-            btnUpdateServer.FlatAppearance.BorderColor = Color.Green;
+            pnlUpdateServerfiles.Visible = true;
+            lblUpdateServerfiles.Visible = true;
+            _server.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}", selectedProfileName, btnInstallServer, btnUpdateServer, btnStartServer);
+            _versionManager.ServerUpdateCheck(selectedProfileName, btnUpdateServer);
+            pnlUpdateServerfiles.Visible = false;
+            lblUpdateServerfiles.Visible = false;
+            btnUpdateServer.Visible = true;
+            btnStartServer.Visible = true;
         }
     }
 
@@ -266,6 +274,7 @@ public partial class Form1 : Form
             {
                 btnStartServer.Visible = false;
                 btnStopServer.Visible = true;
+                btnUpdateServer.Visible = false;
             }
 
             // discord Output
@@ -624,6 +633,7 @@ public partial class Form1 : Form
         _server.Stop(selectedProfileName);
         btnStartServer.Visible = true;
         btnStopServer.Visible = false;
+        btnUpdateServer.Visible = true;
 
         // discord Output
         var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
@@ -835,6 +845,7 @@ public partial class Form1 : Form
             {
                 btnStartServer.Visible = false;
                 btnStopServer.Visible = true;
+                btnUpdateServer.Visible = false;
             }
         }
         catch (Exception)
