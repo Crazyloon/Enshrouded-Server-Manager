@@ -71,9 +71,10 @@ public class ServerSettingsPresenter
             SlotCount = Convert.ToInt32(_serverSettingsView.MaxPlayers)
         };
 
-        _serverSettingsService.SaveServerSettings(json, _serverProfile);
-
-        // Used to update the button styles
-        EventAggregator.Instance.Publish(new ServerSettingsSavedSuccess());
+        if (_serverSettingsService.SaveServerSettings(json, _serverProfile))
+        {
+            // Used to update the button styles
+            EventAggregator.Instance.Publish(new ServerSettingsSavedSuccess());
+        }
     }
 }

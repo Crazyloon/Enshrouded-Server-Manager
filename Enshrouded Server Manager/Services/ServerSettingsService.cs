@@ -35,7 +35,7 @@ public class ServerSettingsService : IServerSettingsService
         return JsonConvert.DeserializeObject<ServerSettings>(input, JsonSettings.Default);
     }
 
-    public void SaveServerSettings(ServerSettings serverSettings, ServerProfile selectedProfile)
+    public bool SaveServerSettings(ServerSettings serverSettings, ServerProfile selectedProfile)
     {
         if (_server.IsRunning(selectedProfile.Name))
         {
@@ -43,7 +43,7 @@ public class ServerSettingsService : IServerSettingsService
 
             // Reset to original settings by reloading the profile data
             EventAggregator.Instance.Publish(new ProfileSelectedMessage(selectedProfile));
-            return;
+            return false;
         }
 
         // create the server profile directory if it doesn't exist
@@ -54,6 +54,8 @@ public class ServerSettingsService : IServerSettingsService
         var output = JsonConvert.SerializeObject(serverSettings, JsonSettings.Default);
         var gameServerConfig = Path.Join(Constants.Paths.SERVER_PATH, selectedProfile.Name, Constants.Files.GAME_SERVER_CONFIG_JSON);
         _fileSystemManager.WriteFile(gameServerConfig, output);
+
+        return true;
     }
 
     private void WriteDefaultServerSettings(string profileName)
