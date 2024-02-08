@@ -1,11 +1,13 @@
 ﻿using Enshrouded_Server_Manager.Commands;
+using Enshrouded_Server_Manager.Events;
+using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services.Interfaces;
-using Enshrouded_Server_Manager.Views;
+using Enshrouded_Server_Manager.Views.Interfaces;
 
 namespace Enshrouded_Server_Manager.Presenters;
 public class AdminPanelPresenter
 {
-    private readonly AdminPanelView _adminPanelView;
+    private readonly IAdminPanelView _adminPanelView;
     private readonly ISteamCMDInstaller _steamCMDInstaller;
     private readonly IFileSystemManager _fileSystemManager;
     private readonly IServer _server;
@@ -15,7 +17,7 @@ public class AdminPanelPresenter
         IFileSystemManager fileSystemManager,
         IServer server,
         IAdminPanelCommand[] commands,
-        AdminPanelView adminPanelView)
+        IAdminPanelView adminPanelView)
     {
         _adminPanelView = adminPanelView;
         _steamCMDInstaller = steamCMDInstaller;
@@ -23,5 +25,14 @@ public class AdminPanelPresenter
         _server = server;
 
         adminPanelView.SetCommands(commands);
+
+        EventAggregator.Instance.Subscribe<ProfileSelectedMessage>(p => OnProfileSelected(p.SelectedProfile));
+    }
+
+    private void OnProfileSelected(ServerProfile selectedProfile)
+    {
+        //RefreshServerButtonsVisibility(serverSelectedText);
+        //LoadServerSettings(serverSelectedText);
+        //_versionManager.ServerUpdateCheck(serverSelectedText, btnUpdateServer);
     }
 }

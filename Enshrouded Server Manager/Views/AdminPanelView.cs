@@ -45,6 +45,7 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
                 return null;
         }
     }
+
     private void OnSteamCmdInstallVerified(bool isInstalled)
     {
         btnInstallServer.Visible = true;

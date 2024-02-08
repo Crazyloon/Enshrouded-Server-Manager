@@ -1,11 +1,10 @@
 ﻿using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services.Interfaces;
 using Newtonsoft.Json;
-using System.Linq;
 using System.Net;
 
 namespace Enshrouded_Server_Manager.Services;
-public class VersionManager
+public class VersionManager : IVersionManager
 {
     private readonly IFileSystemManager _fileSystemManager;
 
