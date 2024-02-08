@@ -120,18 +120,15 @@
   <data name="lblNewsText.Text" xml:space="preserve">
     <value>Changes:
 
-v0.4.0
-- Added configuration for which 
-   Discord notifications to send
-- Added a system to check the server
-   version for updates. Green means
-   you have the latest version. Red
-   means you need to update
-
 v0.4.1
 - Added option to set custom messages
    for Discord notifications
-</value>
+
+v0.4.2
+- Fixed an issue with server names not
+   allowing spaces
+- Fixed an issue with button visibility
+   when updating a server</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
     <value>The Enshrouded server saves

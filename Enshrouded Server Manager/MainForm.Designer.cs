@@ -137,6 +137,8 @@ namespace Enshrouded_Server_Manager
             pictureBox1 = new PictureBox();
             pbxFormHeader = new PictureBox();
             btnOpenCredits = new Label();
+            pnlUpdateServerfiles = new Panel();
+            lblUpdateServerfiles = new Label();
             ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
@@ -162,6 +164,7 @@ namespace Enshrouded_Server_Manager
             pnlCredits.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbxFormHeader).BeginInit();
+            pnlUpdateServerfiles.SuspendLayout();
             SuspendLayout();
             // 
             // cbxProfileSelectionComboBox
@@ -1221,7 +1224,7 @@ namespace Enshrouded_Server_Manager
             lblNewsText.AutoSize = true;
             lblNewsText.Location = new Point(567, 155);
             lblNewsText.Name = "lblNewsText";
-            lblNewsText.Size = new Size(217, 195);
+            lblNewsText.Size = new Size(217, 165);
             lblNewsText.TabIndex = 53;
             lblNewsText.Text = resources.GetString("lblNewsText.Text");
             // 
@@ -1235,7 +1238,7 @@ namespace Enshrouded_Server_Manager
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(39, 13);
             lblVersion.TabIndex = 55;
-            lblVersion.Text = "v.0.4.1";
+            lblVersion.Text = "v.0.4.2";
             // 
             // GithubLabel
             // 
@@ -1471,11 +1474,32 @@ namespace Enshrouded_Server_Manager
             btnOpenCredits.Click += btnToggleCredits_Click;
             // 
             // MainForm
+            // pnlUpdateServerfiles
+            // 
+            pnlUpdateServerfiles.Controls.Add(lblUpdateServerfiles);
+            pnlUpdateServerfiles.Location = new Point(10, 40);
+            pnlUpdateServerfiles.Name = "pnlUpdateServerfiles";
+            pnlUpdateServerfiles.Size = new Size(540, 370);
+            pnlUpdateServerfiles.TabIndex = 62;
+            pnlUpdateServerfiles.Visible = false;
+            // 
+            // lblUpdateServerfiles
+            // 
+            lblUpdateServerfiles.AutoSize = true;
+            lblUpdateServerfiles.Location = new Point(222, 161);
+            lblUpdateServerfiles.Name = "lblUpdateServerfiles";
+            lblUpdateServerfiles.Size = new Size(121, 15);
+            lblUpdateServerfiles.TabIndex = 0;
+            lblUpdateServerfiles.Text = "Updating Serverfiles...";
+            lblUpdateServerfiles.Visible = false;
+            // 
+            // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
+            Controls.Add(pnlUpdateServerfiles);
             Controls.Add(btnOpenCredits);
             Controls.Add(lblServerProfileSpecific);
             Controls.Add(pnlCredits);
@@ -1552,6 +1576,8 @@ namespace Enshrouded_Server_Manager
             pnlCredits.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbxFormHeader).EndInit();
+            pnlUpdateServerfiles.ResumeLayout(false);
+            pnlUpdateServerfiles.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1665,5 +1691,7 @@ namespace Enshrouded_Server_Manager
         private TextBox txtServerUpdatingMsg;
         private TextBox txtServerStoppedMsg;
         private TextBox txtServerOnlineMsg;
+        private Panel pnlUpdateServerfiles;
+        private Label lblUpdateServerfiles;
     }
 }

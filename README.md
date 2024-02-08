@@ -1,5 +1,8 @@
-# Current version: 0.4.1
+# ESM - Enshrouded Server Manager
+![][version] ![][downloads]
 
+[version]: https://img.shields.io/github/v/release/crazyloon/Enshrouded-Server-Manager?logo=github
+[downloads]: https://img.shields.io/github/downloads/crazyloon/enshrouded-server-manager/total.svg
 
 This little tool is an experimental enshrouded server manager.
 
@@ -13,7 +16,7 @@ This little tool is an experimental enshrouded server manager.
 ![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/a95ec730-bae0-4329-8225-bb9bee5a5919)
 
 ## Update your Discord with Server information
-![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/32116fba-afb2-40ca-a16c-9f571af696af)
+![image](https://github.com/Crazyloon/Enshrouded-Server-Manager/assets/8146917/cfcb31bf-7884-47ec-b712-f4ddc8afbb2f)
 ![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/106ff404-e5c0-4d71-86be-4f691214e7c7)
 
 

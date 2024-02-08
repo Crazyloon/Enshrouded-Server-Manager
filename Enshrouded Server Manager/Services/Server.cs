@@ -81,12 +81,17 @@ public class Server : IServer
     /// <summary>
     /// Install/Validate/Update GameServer Files
     /// </summary>
-    public void InstallUpdate(string steamAppId, string serverProfilePath)
+    public void InstallUpdate(string steamAppId, string serverProfilePath, string selectedProfileName, Button btnInstallServer, Button btnUpdateServer, Button btnStartServer)
     {
         try
         {
-            Process p = Process.Start(Constants.ProcessNames.STEAM_CMD_EXE, $"+force_install_dir {serverProfilePath} +login anonymous +app_update {steamAppId} validate +quit");
+            btnInstallServer.Visible = false;
+            btnUpdateServer.Visible = false;
+            btnStartServer.Visible = false;
+            Process p = Process.Start(Constants.ProcessNames.STEAM_CMD_EXE, $"+force_install_dir \"{serverProfilePath}\" +login anonymous +app_update {steamAppId} validate +quit");
+            p.WaitForExit();
         }
+
         catch (Exception ex)
         {
             MessageBox.Show(string.Format(Constants.Errors.SERVER_UPDATE_ERROR_MESSAGE, ex.Message),
