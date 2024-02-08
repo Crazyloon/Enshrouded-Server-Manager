@@ -9,19 +9,19 @@ public class ServerSettingsPresenter
 {
     private readonly IServerSettingsView _serverSettingsView;
     private readonly IServerSettingsService _serverSettingsService;
-    private readonly IFileSystemManager _fileSystemManager;
-    private readonly IMessageBox _messageBox;
-    private readonly IServer _server;
+    private readonly IFileSystemService _fileSystemService;
+    private readonly IMessageBoxService _messageBox;
+    private readonly IEnshroudedServerService _server;
     private ServerProfile _serverProfile;
 
     public ServerSettingsPresenter(IServerSettingsView serverSettingsView,
         IServerSettingsService serverSettingsService,
-        IFileSystemManager fileSystemManager,
-        IServer server)
+        IFileSystemService fileSystemManager,
+        IEnshroudedServerService server)
     {
         _serverSettingsView = serverSettingsView;
         _serverSettingsService = serverSettingsService;
-        _fileSystemManager = fileSystemManager;
+        _fileSystemService = fileSystemManager;
         _server = server;
 
         _serverSettingsView.ShowPasswordButtonClicked += (sender, e) => TogglePasswordVisiblity();

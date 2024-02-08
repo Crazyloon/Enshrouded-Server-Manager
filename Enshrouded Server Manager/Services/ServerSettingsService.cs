@@ -7,15 +7,15 @@ using Newtonsoft.Json;
 namespace Enshrouded_Server_Manager.Services;
 public class ServerSettingsService : IServerSettingsService
 {
-    private readonly IFileSystemManager _fileSystemManager;
-    private readonly IMessageBox _messageBox;
-    private readonly IServer _server;
+    private readonly IFileSystemService _fileSystemService;
+    private readonly IMessageBoxService _messageBox;
+    private readonly IEnshroudedServerService _server;
 
-    public ServerSettingsService(IFileSystemManager fileSystemManager,
-        IMessageBox messageBox,
-        IServer server)
+    public ServerSettingsService(IFileSystemService fileSystemManager,
+        IMessageBoxService messageBox,
+        IEnshroudedServerService server)
     {
-        _fileSystemManager = fileSystemManager;
+        _fileSystemService = fileSystemManager;
         _messageBox = messageBox;
         _server = server;
     }
@@ -25,12 +25,12 @@ public class ServerSettingsService : IServerSettingsService
         var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
         var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
 
-        if (!_fileSystemManager.FileExists(gameServerConfig))
+        if (!_fileSystemService.FileExists(gameServerConfig))
         {
-            _fileSystemManager.CreateDirectory(serverProfilePath);
+            _fileSystemService.CreateDirectory(serverProfilePath);
             WriteDefaultServerSettings(selectedProfileName);
         }
-        var input = _fileSystemManager.ReadFile(gameServerConfig);
+        var input = _fileSystemService.ReadFile(gameServerConfig);
 
         return JsonConvert.DeserializeObject<ServerSettings>(input, JsonSettings.Default);
     }
@@ -48,12 +48,12 @@ public class ServerSettingsService : IServerSettingsService
 
         // create the server profile directory if it doesn't exist
         var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfile.Name);
-        _fileSystemManager.CreateDirectory(serverProfilePath);
+        _fileSystemService.CreateDirectory(serverProfilePath);
 
         // serialize the data and write it to a file
         var output = JsonConvert.SerializeObject(serverSettings, JsonSettings.Default);
         var gameServerConfig = Path.Join(Constants.Paths.SERVER_PATH, selectedProfile.Name, Constants.Files.GAME_SERVER_CONFIG_JSON);
-        _fileSystemManager.WriteFile(gameServerConfig, output);
+        _fileSystemService.WriteFile(gameServerConfig, output);
 
         return true;
     }
@@ -75,6 +75,6 @@ public class ServerSettingsService : IServerSettingsService
         var output = JsonConvert.SerializeObject(json, JsonSettings.Default);
         var gameServerConfig = Path.Join(Constants.Paths.SERVER_PATH, profileName, Constants.Files.GAME_SERVER_CONFIG_JSON);
 
-        _fileSystemManager.WriteFile(gameServerConfig, output);
+        _fileSystemService.WriteFile(gameServerConfig, output);
     }
 }

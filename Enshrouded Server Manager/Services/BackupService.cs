@@ -7,20 +7,20 @@ using System.Diagnostics;
 
 namespace Enshrouded_Server_Manager.Services;
 
-public class Backup
+public class BackupService : IBackupService
 {
-    private readonly IFileSystemManager _fileSystemManager;
-    private readonly Server _server; // TODO: Make this an interface
+    private readonly IFileSystemService _fileSystemService;
+    private readonly EnshroudedServerService _server; // TODO: Make this an interface
     private string _dateTimeString;
     private JsonSerializerSettings _jsonSerializerSettings;
-    private DiscordOutput _discordOutput;
+    private DiscordOutputService _discordOutput;
 
     public event EventHandler<AutoBackupSuccessEventArgs> AutoBackupSuccess;
 
-    public Backup(IFileSystemManager fsm)
+    public BackupService(IFileSystemService fsm)
     {
-        _fileSystemManager = fsm;
-        _server = new Server(fsm); // TODO: Inject this dependency
+        _fileSystemService = fsm;
+        _server = new EnshroudedServerService(fsm); // TODO: Inject this dependency
     }
 
     /// <summary>
@@ -34,24 +34,24 @@ public class Backup
         var originalServerConfigFile = Path.Join(serverConfigDirectory, serverConfigFileName);
         var copyOfServerConfigFile = Path.Join(saveFileDirectory, serverConfigFileName);
 
-        _fileSystemManager.CreateDirectory(saveFileDirectory);
-        _fileSystemManager.CreateDirectory(profileBackupDirectory);
+        _fileSystemService.CreateDirectory(saveFileDirectory);
+        _fileSystemService.CreateDirectory(profileBackupDirectory);
 
         // Copy the configuration file to the savefile directory so it can get zipped with the world files
-        if (_fileSystemManager.FileExists(copyOfServerConfigFile))
+        if (_fileSystemService.FileExists(copyOfServerConfigFile))
         {
-            _fileSystemManager.DeleteFile(copyOfServerConfigFile);
+            _fileSystemService.DeleteFile(copyOfServerConfigFile);
         }
-        if (_fileSystemManager.FileExists(originalServerConfigFile))
+        if (_fileSystemService.FileExists(originalServerConfigFile))
         {
-            _fileSystemManager.CopyFile(originalServerConfigFile, copyOfServerConfigFile);
+            _fileSystemService.CopyFile(originalServerConfigFile, copyOfServerConfigFile);
         }
 
         // zip all the files
         var zipFileName = Path.Join(profileBackupDirectory, $"backup-{_dateTimeString}.zip");
         try
         {
-            _fileSystemManager.CreateZipFromDirectory(saveFileDirectory, zipFileName);
+            _fileSystemService.CreateZipFromDirectory(saveFileDirectory, zipFileName);
             MessageBox.Show(string.Format(Constants.Success.BACKUP_SAVED_SUCCESS_MESSAGE, zipFileName),
                 Constants.Success.BACKUP_SAVED_SUCCESS, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -63,36 +63,36 @@ public class Backup
         }
 
         // remove the config files from the save file directory
-        if (_fileSystemManager.FileExists(copyOfServerConfigFile))
+        if (_fileSystemService.FileExists(copyOfServerConfigFile))
         {
-            _fileSystemManager.DeleteFile(copyOfServerConfigFile);
+            _fileSystemService.DeleteFile(copyOfServerConfigFile);
         }
 
 
         // discord Output
         var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
-        if (_fileSystemManager.FileExists(discordSettingsFile))
+        if (_fileSystemService.FileExists(discordSettingsFile))
         {
-            var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
+            var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
             DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
             string discordUrl = discordProfile.DiscordUrl;
 
             var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, profileName);
             var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
 
-            var gameServerConfigText = _fileSystemManager.ReadFile(gameServerConfig);
+            var gameServerConfigText = _fileSystemService.ReadFile(gameServerConfig);
             ServerSettings gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, _jsonSerializerSettings);
             string name = gameServerSettings.Name;
 
             if (discordProfile.Enabled)
             {
-                if(discordProfile.BackupEnabled) 
+                if (discordProfile.BackupEnabled)
                 {
                     Task.Factory.StartNew(async () =>
                     {
                         try
                         {
-                            _discordOutput = new DiscordOutput();
+                            _discordOutput = new DiscordOutputService();
                             _discordOutput.ServerBackup(name, discordUrl, discordProfile.EmbedEnabled, discordProfile.BackupMsg);
                         }
                         catch
@@ -116,8 +116,8 @@ public class Backup
         var originalServerConfigFile = Path.Join(serverConfigDirectory, serverConfigFileName);
         var copyOfServerConfigFile = Path.Join(saveFileDirectory, serverConfigFileName);
 
-        _fileSystemManager.CreateDirectory(saveFileDirectory);
-        _fileSystemManager.CreateDirectory(profileAutoBackupDirectory);
+        _fileSystemService.CreateDirectory(saveFileDirectory);
+        _fileSystemService.CreateDirectory(profileAutoBackupDirectory);
 
         var timer = new PeriodicTimer(TimeSpan.FromMinutes(interval));
         if (!_server.IsRunning(profileName))
@@ -127,7 +127,7 @@ public class Backup
         }
 
         var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, profileName, Constants.Files.PID_JSON);
-        var processIdText = _fileSystemManager.ReadFile(pidJsonFile);
+        var processIdText = _fileSystemService.ReadFile(pidJsonFile);
         EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(processIdText);
 
         DiscordProfile discordProfile = null;
@@ -135,12 +135,12 @@ public class Backup
         var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
         var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, profileName);
         var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
-        if (_fileSystemManager.FileExists(discordSettingsFile) && _fileSystemManager.FileExists(gameServerConfig))
+        if (_fileSystemService.FileExists(discordSettingsFile) && _fileSystemService.FileExists(gameServerConfig))
         {
-            var discordSettingsText = _fileSystemManager.ReadFile(discordSettingsFile);
+            var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
             discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
 
-            var gameServerConfigText = _fileSystemManager.ReadFile(gameServerConfig);
+            var gameServerConfigText = _fileSystemService.ReadFile(gameServerConfig);
             gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, _jsonSerializerSettings);
         }
 
@@ -161,24 +161,24 @@ public class Backup
             try
             {
                 // Copy the configuration file to the savefile directory so it can get zipped with the world files
-                if (_fileSystemManager.FileExists(copyOfServerConfigFile))
+                if (_fileSystemService.FileExists(copyOfServerConfigFile))
                 {
-                    _fileSystemManager.DeleteFile(copyOfServerConfigFile);
+                    _fileSystemService.DeleteFile(copyOfServerConfigFile);
                 }
 
-                if (_fileSystemManager.FileExists(originalServerConfigFile))
+                if (_fileSystemService.FileExists(originalServerConfigFile))
                 {
-                    _fileSystemManager.CopyFile(originalServerConfigFile, copyOfServerConfigFile);
+                    _fileSystemService.CopyFile(originalServerConfigFile, copyOfServerConfigFile);
                 }
 
                 _dateTimeString = DateTime.Now.ToString(Constants.DATE_PATTERN);
                 // zip all the files together
                 // changed backup folder to autobackup folder
-                _fileSystemManager.CreateZipFromDirectory(saveFileDirectory, Path.Join(profileAutoBackupDirectory, $"backup-{_dateTimeString}.zip"));
+                _fileSystemService.CreateZipFromDirectory(saveFileDirectory, Path.Join(profileAutoBackupDirectory, $"backup-{_dateTimeString}.zip"));
 
-                if (_fileSystemManager.FileExists(copyOfServerConfigFile))
+                if (_fileSystemService.FileExists(copyOfServerConfigFile))
                 {
-                    _fileSystemManager.DeleteFile(copyOfServerConfigFile);
+                    _fileSystemService.DeleteFile(copyOfServerConfigFile);
                 }
 
                 DeleteOldestBackup(profileAutoBackupDirectory, maximumBackups);
@@ -196,7 +196,7 @@ public class Backup
 
                 try
                 {
-                    _discordOutput = new DiscordOutput();
+                    _discordOutput = new DiscordOutputService();
                     await _discordOutput.ServerBackup(gameServerSettings.Name, discordProfile.DiscordUrl, discordProfile.EmbedEnabled, discordProfile.BackupMsg);
                 }
                 catch
@@ -211,7 +211,7 @@ public class Backup
     public int GetBackupCount(string profileName)
     {
         var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, profileName);
-        if (!_fileSystemManager.DirectoryExists(profileAutoBackupDirectory))
+        if (!_fileSystemService.DirectoryExists(profileAutoBackupDirectory))
         {
             return 0;
         }
@@ -226,7 +226,7 @@ public class Backup
     public long GetDiskConsumption(string profileName)
     {
         var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, profileName);
-        if (!_fileSystemManager.DirectoryExists(profileAutoBackupDirectory))
+        if (!_fileSystemService.DirectoryExists(profileAutoBackupDirectory))
         {
             return 0;
         }

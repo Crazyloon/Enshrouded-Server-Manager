@@ -1,10 +1,9 @@
 ﻿using Discord;
 using Discord.Webhook;
-using Enshrouded_Server_Manager.Model;
 
 namespace Enshrouded_Server_Manager.Services;
 
-public class DiscordOutput
+public class DiscordOutputService : IDiscordOutputService
 {
     // send server is online status to webhook
     public async Task ServerOnline(string serverName, string Url, bool embedEnabled, string onlineMsg)
@@ -35,12 +34,12 @@ public class DiscordOutput
         using var client = new DiscordWebhookClient(Url);
 
         if (embedEnabled == true)
-        { 
+        {
             var embed = new EmbedBuilder
             {
-            Title = $"ESM - {serverName} : {offlineMsg}",
-            Description = "",
-            Color = Discord.Color.Red
+                Title = $"ESM - {serverName} : {offlineMsg}",
+                Description = "",
+                Color = Discord.Color.Red
             };
             await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
         }

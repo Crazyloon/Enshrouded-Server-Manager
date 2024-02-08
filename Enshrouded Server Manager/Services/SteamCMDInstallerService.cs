@@ -3,20 +3,20 @@ using System.Diagnostics;
 
 namespace Enshrouded_Server_Manager.Services;
 
-public class SteamCMD : ISteamCMDInstaller
+public class SteamCMDInstallerService : ISteamCMDInstallerService
 {
-    private readonly IFileSystemManager _fileSystemManager;
-    private readonly IProcessManager _processManager;
-    private readonly IMessageBox _messageBox;
-    private readonly IHttpClient _httpClient;
+    private readonly IFileSystemService _fileSystemService;
+    private readonly ISystemProcessService _processManager;
+    private readonly IMessageBoxService _messageBox;
+    private readonly IHttpClientService _httpClient;
 
     private const string TARGET_FOLDER = "./SteamCMD/";
     private const string STEAM_CMD_ZIP = $"{TARGET_FOLDER}steamcmd.zip";
     private const string STEAM_CMD_EXE = $"{TARGET_FOLDER}steamcmd.exe";
 
-    public SteamCMD(IFileSystemManager fileSystemManager, IProcessManager processManager, IMessageBox messageBox, IHttpClient httpClient)
+    public SteamCMDInstallerService(IFileSystemService fileSystemManager, ISystemProcessService processManager, IMessageBoxService messageBox, IHttpClientService httpClient)
     {
-        _fileSystemManager = fileSystemManager;
+        _fileSystemService = fileSystemManager;
         _processManager = processManager;
         _messageBox = messageBox;
         _httpClient = httpClient;
@@ -29,17 +29,17 @@ public class SteamCMD : ISteamCMDInstaller
     {
         try
         {
-            _fileSystemManager.CreateDirectory(TARGET_FOLDER);
-            _fileSystemManager.DeleteFile(STEAM_CMD_ZIP);
+            _fileSystemService.CreateDirectory(TARGET_FOLDER);
+            _fileSystemService.DeleteFile(STEAM_CMD_ZIP);
 
             //Download of SteamCMD Client
             _httpClient.Send(Constants.Urls.STEAM_CMD_CDN_URL, STEAM_CMD_ZIP);
 
-            _fileSystemManager.DeleteFile(STEAM_CMD_EXE);
+            _fileSystemService.DeleteFile(STEAM_CMD_EXE);
 
-            _fileSystemManager.ExtractZipToDirectory(STEAM_CMD_ZIP, TARGET_FOLDER);
+            _fileSystemService.ExtractZipToDirectory(STEAM_CMD_ZIP, TARGET_FOLDER);
 
-            _fileSystemManager.DeleteFile(STEAM_CMD_ZIP);
+            _fileSystemService.DeleteFile(STEAM_CMD_ZIP);
         }
         catch (Exception ex)
         {

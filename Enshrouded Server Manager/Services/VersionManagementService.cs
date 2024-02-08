@@ -4,16 +4,16 @@ using Newtonsoft.Json;
 using System.Net;
 
 namespace Enshrouded_Server_Manager.Services;
-public class VersionManager : IVersionManager
+public class VersionManagementService : IVersionManagementService
 {
-    private readonly IFileSystemManager _fileSystemManager;
+    private readonly IFileSystemService _fileSystemService;
 
     // TODO: Use HTTPClient instead of WebClient
     private const int TIMER_INTERVAL = 10;
 
-    public VersionManager(IFileSystemManager fsm)
+    public VersionManagementService(IFileSystemService fsm)
     {
-        _fileSystemManager = fsm;
+        _fileSystemService = fsm;
     }
 
     public async void ManagerUpdate(string currentVersionText, Label lblNewVersionText)
@@ -44,10 +44,10 @@ public class VersionManager : IVersionManager
                 };
 
                 var output = JsonConvert.SerializeObject(json);
-                _fileSystemManager.WriteFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON, output);
+                _fileSystemService.WriteFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON, output);
             }
         }
-        var input = _fileSystemManager.ReadFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON);
+        var input = _fileSystemService.ReadFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON);
 
         LauncherVersion deserializedSettings = JsonConvert.DeserializeObject<LauncherVersion>(input);
 
@@ -68,10 +68,10 @@ public class VersionManager : IVersionManager
             }
         }
 
-        _fileSystemManager.DeleteFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON);
+        _fileSystemService.DeleteFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON);
     }
 
-    public async Task ServerUpdateCheck(string selectedProfileName, Button btnUpdateServer)
+    public async Task<Color> ServerUpdateCheck(string selectedProfileName)
     {
         using (HttpClient Client = new HttpClient())
         {
@@ -99,16 +99,16 @@ public class VersionManager : IVersionManager
                 if (!File.ReadLines(file).Any(line => line.Contains($"\"buildid\"		\"{buildId}\"")))
                 {
                     // change update server button border to red
-                    btnUpdateServer.FlatAppearance.BorderColor = Color.Yellow;
+                    return Color.Yellow;
                 }
                 else
                 {
-                    btnUpdateServer.FlatAppearance.BorderColor = Color.Green;
+                    return Color.Green;
                 }
             }
             catch (Exception)
             {
-                btnUpdateServer.FlatAppearance.BorderColor = Color.Red;
+                return Color.Red;
             }
         }
     }

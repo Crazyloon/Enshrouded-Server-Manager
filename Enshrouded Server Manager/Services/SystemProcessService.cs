@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
-using Enshrouded_Server_Manager.Services.Interfaces;
+﻿using Enshrouded_Server_Manager.Services.Interfaces;
+using System.Diagnostics;
 
 namespace Enshrouded_Server_Manager.Services;
-public class ProcessManager : IProcessManager
+public class SystemProcessService : ISystemProcessService
 {
     public Process Start(string fileName, string arguments)
     {

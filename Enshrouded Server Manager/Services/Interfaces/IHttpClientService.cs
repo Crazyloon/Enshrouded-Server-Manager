@@ -1,5 +1,5 @@
 ﻿namespace Enshrouded_Server_Manager.Services.Interfaces;
-public interface IHttpClient
+public interface IHttpClientService
 {
     void Send(string url, string fileName);
 }

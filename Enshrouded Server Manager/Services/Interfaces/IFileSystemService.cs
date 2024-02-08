@@ -1,6 +1,6 @@
 ﻿namespace Enshrouded_Server_Manager.Services.Interfaces;
 
-public interface IFileSystemManager
+public interface IFileSystemService
 {
     public void CreateDirectory(string directoryName);
     public void DeleteDirectory(string directoryName);

@@ -8,16 +8,16 @@ namespace Enshrouded_Server_Manager.Presenters;
 public class ProfileSelectorPresenter
 {
     private readonly IProfileSelectorView _profileSelectorView;
-    private readonly IProfileManager _profileManager;
-    private readonly IFileSystemManager _fileSystemManager;
+    private readonly IProfileService _profileManager;
+    private readonly IFileSystemService _fileSystemService;
 
     private List<ServerProfile>? _profiles;
 
-    public ProfileSelectorPresenter(IProfileSelectorView profileSelectorView, IProfileManager profileManager, IFileSystemManager fileSystemManager, List<ServerProfile>? serverProfiles)
+    public ProfileSelectorPresenter(IProfileSelectorView profileSelectorView, IProfileService profileManager, IFileSystemService fileSystemManager, List<ServerProfile>? serverProfiles)
     {
         _profileSelectorView = profileSelectorView;
         _profileManager = profileManager;
-        _fileSystemManager = fileSystemManager;
+        _fileSystemService = fileSystemManager;
         _profiles = serverProfiles;
 
         profileSelectorView.SelectedProfileChanged += OnSelectedProfileChanged;

@@ -14,8 +14,8 @@ public class AdminPanelCommandsTests
         //// Arrange
         bool actualMessageResult = false;
         bool expectedMessageResult = true;
-        var steamCMDInstaller = Substitute.For<ISteamCMDInstaller>();
-        var fileSystemManager = Substitute.For<IFileSystemManager>();
+        var steamCMDInstaller = Substitute.For<ISteamCMDInstallerService>();
+        var fileSystemManager = Substitute.For<IFileSystemService>();
         fileSystemManager.FileExists(Arg.Any<string>()).Returns(true);
 
         EventAggregator.Instance.Subscribe<SteamCmdInstalledMessage>(a => actualMessageResult = a.IsInstalled);

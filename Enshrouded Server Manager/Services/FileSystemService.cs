@@ -1,9 +1,9 @@
-using System.IO.Compression;
 using Enshrouded_Server_Manager.Services.Interfaces;
+using System.IO.Compression;
 
 namespace Enshrouded_Server_Manager.Services;
 
-public class FileSystemManager : IFileSystemManager
+public class FileSystemService : IFileSystemService
 {
     public void CreateDirectory(string directoryName)
     {

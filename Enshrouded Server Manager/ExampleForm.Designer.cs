@@ -30,6 +30,16 @@ partial class ExampleForm
     /// </summary>
     private void InitializeComponent()
     {
+        Models.AdminButtonState adminButtonState1 = new Models.AdminButtonState();
+        Models.AdminButtonState adminButtonState2 = new Models.AdminButtonState();
+        Models.AdminButtonState adminButtonState3 = new Models.AdminButtonState();
+        Models.AdminButtonState adminButtonState4 = new Models.AdminButtonState();
+        Models.AdminButtonState adminButtonState5 = new Models.AdminButtonState();
+        Models.AdminButtonState adminButtonState6 = new Models.AdminButtonState();
+        Models.AdminButtonState adminButtonState7 = new Models.AdminButtonState();
+        Models.AdminButtonState adminButtonState8 = new Models.AdminButtonState();
+        Models.AdminButtonState adminButtonState9 = new Models.AdminButtonState();
+        Models.AdminButtonState adminButtonState10 = new Models.AdminButtonState();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExampleForm));
         pbxFormHeader = new PictureBox();
         lblTitle = new Label();
@@ -114,6 +124,7 @@ partial class ExampleForm
         lblMinimizeTrayButton.TabIndex = 30;
         lblMinimizeTrayButton.Text = "_";
         lblMinimizeTrayButton.TextAlign = ContentAlignment.MiddleCenter;
+        lblMinimizeTrayButton.Click += lblMinimizeButton_Click;
         // 
         // lblCloseButton
         // 
@@ -129,6 +140,7 @@ partial class ExampleForm
         lblCloseButton.TabIndex = 29;
         lblCloseButton.Text = "X";
         lblCloseButton.TextAlign = ContentAlignment.MiddleCenter;
+        lblCloseButton.Click += lblCloseButton_Click;
         // 
         // pbxLeftBorder
         // 
@@ -136,7 +148,7 @@ partial class ExampleForm
         pbxLeftBorder.Dock = DockStyle.Left;
         pbxLeftBorder.Location = new Point(0, 0);
         pbxLeftBorder.Name = "pbxLeftBorder";
-        pbxLeftBorder.Size = new Size(10, 446);
+        pbxLeftBorder.Size = new Size(10, 443);
         pbxLeftBorder.TabIndex = 31;
         pbxLeftBorder.TabStop = false;
         // 
@@ -146,7 +158,7 @@ partial class ExampleForm
         pbxInnerLeftBorder.Dock = DockStyle.Right;
         pbxInnerLeftBorder.Location = new Point(180, 0);
         pbxInnerLeftBorder.Name = "pbxInnerLeftBorder";
-        pbxInnerLeftBorder.Size = new Size(10, 446);
+        pbxInnerLeftBorder.Size = new Size(10, 443);
         pbxInnerLeftBorder.TabIndex = 38;
         pbxInnerLeftBorder.TabStop = false;
         // 
@@ -156,7 +168,7 @@ partial class ExampleForm
         pbxRightBorder.Dock = DockStyle.Right;
         pbxRightBorder.Location = new Point(237, 0);
         pbxRightBorder.Name = "pbxRightBorder";
-        pbxRightBorder.Size = new Size(10, 446);
+        pbxRightBorder.Size = new Size(10, 443);
         pbxRightBorder.TabIndex = 39;
         pbxRightBorder.TabStop = false;
         // 
@@ -166,7 +178,7 @@ partial class ExampleForm
         pbxInnerRightBorder.Dock = DockStyle.Left;
         pbxInnerRightBorder.Location = new Point(0, 0);
         pbxInnerRightBorder.Name = "pbxInnerRightBorder";
-        pbxInnerRightBorder.Size = new Size(10, 446);
+        pbxInnerRightBorder.Size = new Size(10, 443);
         pbxInnerRightBorder.TabIndex = 41;
         pbxInnerRightBorder.TabStop = false;
         // 
@@ -186,19 +198,59 @@ partial class ExampleForm
         pnlLeftPanel.Controls.Add(pbxInnerLeftBorder);
         pnlLeftPanel.Controls.Add(pbxLeftBorder);
         pnlLeftPanel.Dock = DockStyle.Left;
-        pnlLeftPanel.Location = new Point(0, 37);
+        pnlLeftPanel.Location = new Point(0, 40);
         pnlLeftPanel.Name = "pnlLeftPanel";
-        pnlLeftPanel.Size = new Size(190, 446);
+        pnlLeftPanel.Size = new Size(190, 443);
         pnlLeftPanel.TabIndex = 49;
         // 
         // adminPanelView
         // 
         adminPanelView.BackColor = Color.FromArgb(0, 0, 18);
         adminPanelView.Dock = DockStyle.Fill;
+        adminButtonState1.BorderColor = Color.FromArgb(115, 115, 137);
+        adminButtonState1.IsEnabled = false;
+        adminButtonState1.IsVisible = false;
+        adminPanelView.InstallServerButtonState = adminButtonState1;
+        adminButtonState2.BorderColor = Color.FromArgb(115, 115, 137);
+        adminButtonState2.IsEnabled = false;
+        adminButtonState2.IsVisible = false;
+        adminPanelView.InstallSteamCMDButtonState = adminButtonState2;
         adminPanelView.Location = new Point(10, 0);
         adminPanelView.Name = "adminPanelView";
-        adminPanelView.Size = new Size(170, 446);
+        adminButtonState3.BorderColor = Color.FromArgb(115, 115, 137);
+        adminButtonState3.IsEnabled = false;
+        adminButtonState3.IsVisible = false;
+        adminPanelView.OpenBackupFolderButtonState = adminButtonState3;
+        adminButtonState4.BorderColor = Color.FromArgb(115, 115, 137);
+        adminButtonState4.IsEnabled = false;
+        adminButtonState4.IsVisible = false;
+        adminPanelView.OpenLogFolderButtonState = adminButtonState4;
+        adminButtonState5.BorderColor = Color.FromArgb(115, 115, 137);
+        adminButtonState5.IsEnabled = false;
+        adminButtonState5.IsVisible = false;
+        adminPanelView.OpenSavegameFolderButtonState = adminButtonState5;
+        adminButtonState6.BorderColor = Color.FromArgb(115, 115, 137);
+        adminButtonState6.IsEnabled = false;
+        adminButtonState6.IsVisible = false;
+        adminPanelView.SaveBackupButtonState = adminButtonState6;
+        adminPanelView.Size = new Size(170, 443);
+        adminButtonState7.BorderColor = Color.FromArgb(115, 115, 137);
+        adminButtonState7.IsEnabled = false;
+        adminButtonState7.IsVisible = false;
+        adminPanelView.StartServerButtonState = adminButtonState7;
+        adminButtonState8.BorderColor = Color.FromArgb(115, 115, 137);
+        adminButtonState8.IsEnabled = false;
+        adminButtonState8.IsVisible = false;
+        adminPanelView.StopServerButtonState = adminButtonState8;
         adminPanelView.TabIndex = 39;
+        adminButtonState9.BorderColor = Color.FromArgb(115, 115, 137);
+        adminButtonState9.IsEnabled = false;
+        adminButtonState9.IsVisible = false;
+        adminPanelView.UpdateServerButtonState = adminButtonState9;
+        adminButtonState10.BorderColor = Color.FromArgb(115, 115, 137);
+        adminButtonState10.IsEnabled = false;
+        adminButtonState10.IsVisible = false;
+        adminPanelView.WindowsFirewallButtonState = adminButtonState10;
         // 
         // pnlRightPanel
         // 
@@ -206,9 +258,9 @@ partial class ExampleForm
         pnlRightPanel.Controls.Add(pnlInfoPanel);
         pnlRightPanel.Controls.Add(tabsServerTabs);
         pnlRightPanel.Dock = DockStyle.Fill;
-        pnlRightPanel.Location = new Point(190, 37);
+        pnlRightPanel.Location = new Point(190, 40);
         pnlRightPanel.Name = "pnlRightPanel";
-        pnlRightPanel.Size = new Size(706, 446);
+        pnlRightPanel.Size = new Size(706, 443);
         pnlRightPanel.TabIndex = 50;
         // 
         // profileSelectorView
@@ -228,7 +280,7 @@ partial class ExampleForm
         pnlInfoPanel.Dock = DockStyle.Right;
         pnlInfoPanel.Location = new Point(459, 0);
         pnlInfoPanel.Name = "pnlInfoPanel";
-        pnlInfoPanel.Size = new Size(247, 446);
+        pnlInfoPanel.Size = new Size(247, 443);
         pnlInfoPanel.TabIndex = 0;
         // 
         // infoPanelView
@@ -238,7 +290,7 @@ partial class ExampleForm
         infoPanelView.ForeColor = SystemColors.HighlightText;
         infoPanelView.Location = new Point(10, 0);
         infoPanelView.Name = "infoPanelView";
-        infoPanelView.Size = new Size(227, 446);
+        infoPanelView.Size = new Size(227, 443);
         infoPanelView.TabIndex = 42;
         // 
         // tabsServerTabs
@@ -368,7 +420,7 @@ partial class ExampleForm
         pnlTopBorder.Dock = DockStyle.Top;
         pnlTopBorder.Location = new Point(0, 0);
         pnlTopBorder.Name = "pnlTopBorder";
-        pnlTopBorder.Size = new Size(896, 37);
+        pnlTopBorder.Size = new Size(896, 40);
         pnlTopBorder.TabIndex = 51;
         // 
         // ExampleForm

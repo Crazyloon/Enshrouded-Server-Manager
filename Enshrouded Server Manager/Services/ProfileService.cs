@@ -4,33 +4,33 @@ using Enshrouded_Server_Manager.Services.Interfaces;
 using Newtonsoft.Json;
 
 namespace Enshrouded_Server_Manager.Services;
-public class ProfileManager : IProfileManager
+public class ProfileService : IProfileService
 {
-    private readonly IFileSystemManager _fileSystemManager;
-    public ProfileManager(IFileSystemManager fsm)
+    private readonly IFileSystemService _fileSystemService;
+    public ProfileService(IFileSystemService fsm)
     {
-        _fileSystemManager = fsm;
+        _fileSystemService = fsm;
     }
 
     public List<ServerProfile>? LoadServerProfiles(JsonSerializerSettings jsonSerializerSettings, bool firstCheck = false)
     {
         var serverProfilesJson = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON);
 
-        if (!_fileSystemManager.FileExists(serverProfilesJson))
+        if (!_fileSystemService.FileExists(serverProfilesJson))
         {
-            _fileSystemManager.CreateDirectory(Constants.Paths.DEFAULT_PROFILES_PATH);
+            _fileSystemService.CreateDirectory(Constants.Paths.DEFAULT_PROFILES_PATH);
 
             // First time loading server profiles should, create default profile
             WriteDefaultProfileJson(serverProfilesJson, jsonSerializerSettings);
         }
 
-        var profilesJson = _fileSystemManager.ReadFile(serverProfilesJson);
+        var profilesJson = _fileSystemService.ReadFile(serverProfilesJson);
         List<ServerProfile>? serverProfiles = JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson, jsonSerializerSettings);
 
         if (serverProfiles is not null && serverProfiles.Count() <= 0)
         {
             WriteDefaultProfileJson(serverProfilesJson, jsonSerializerSettings);
-            profilesJson = _fileSystemManager.ReadFile(serverProfilesJson);
+            profilesJson = _fileSystemService.ReadFile(serverProfilesJson);
             return JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson, jsonSerializerSettings);
         }
 
@@ -70,6 +70,6 @@ public class ProfileManager : IProfileManager
         };
 
         var output = JsonConvert.SerializeObject(json, settings);
-        _fileSystemManager.WriteFile(profilePath, output);
+        _fileSystemService.WriteFile(profilePath, output);
     }
 }

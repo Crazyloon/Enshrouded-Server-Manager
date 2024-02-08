@@ -1,8 +1,8 @@
 ﻿namespace Enshrouded_Server_Manager.Services.Interfaces;
-public interface IServer
+public interface IEnshroudedServerService
 {
     void Start(string pathServerExe, string selectedProfileName);
-    void InstallUpdate(string steamAppId, string serverProfilePath, string selectedProfileName, Button btnInstallServer, Button btnUpdateServer, Button btnStartServer);
+    void InstallUpdate(string steamAppId, string serverProfilePath, string selectedProfileName);
     void Stop(string selectedProfileName);
     bool IsRunning(string selectedProfileName);
 }

@@ -6,14 +6,14 @@ using System.Runtime.InteropServices;
 
 namespace Enshrouded_Server_Manager.Services;
 
-public class Server : IServer
+public class EnshroudedServerService : IEnshroudedServerService
 {
-    private readonly IFileSystemManager _fileSystemManager;
+    private readonly IFileSystemService _fileSystemService;
     private const string SERVER_PROCESS_NAME = "enshrouded_server";
 
-    public Server(IFileSystemManager fsm)
+    public EnshroudedServerService(IFileSystemService fsm)
     {
-        _fileSystemManager = fsm;
+        _fileSystemService = fsm;
     }
 
     [DllImport("user32.dll")]
@@ -58,7 +58,7 @@ public class Server : IServer
 
             var serverCachePath = Path.Join(Constants.Paths.CACHE_DIRECTORY, selectedProfileName);
 
-            _fileSystemManager.CreateDirectory(serverCachePath);
+            _fileSystemService.CreateDirectory(serverCachePath);
             EnshroudedServerProcess json = new EnshroudedServerProcess()
             {
                 Id = pid,
@@ -67,7 +67,7 @@ public class Server : IServer
 
             var output = JsonConvert.SerializeObject(json);
             var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, selectedProfileName, Constants.Files.PID_JSON);
-            _fileSystemManager.WriteFile(pidJsonFile, output);
+            _fileSystemService.WriteFile(pidJsonFile, output);
         }
         catch (Exception ex)
         {
@@ -81,13 +81,10 @@ public class Server : IServer
     /// <summary>
     /// Install/Validate/Update GameServer Files
     /// </summary>
-    public void InstallUpdate(string steamAppId, string serverProfilePath, string selectedProfileName, Button btnInstallServer, Button btnUpdateServer, Button btnStartServer)
+    public void InstallUpdate(string steamAppId, string serverProfilePath, string selectedProfileName)
     {
         try
         {
-            btnInstallServer.Visible = false;
-            btnUpdateServer.Visible = false;
-            btnStartServer.Visible = false;
             Process p = Process.Start(Constants.ProcessNames.STEAM_CMD_EXE, $"+force_install_dir \"{serverProfilePath}\" +login anonymous +app_update {steamAppId} validate +quit");
             p.WaitForExit();
         }
@@ -106,13 +103,13 @@ public class Server : IServer
     public void Stop(string selectedProfileName)
     {
         var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, selectedProfileName, Constants.Files.PID_JSON);
-        if (!_fileSystemManager.FileExists(pidJsonFile))
+        if (!_fileSystemService.FileExists(pidJsonFile))
         {
             return;
         }
 
         // Load pid
-        var input = _fileSystemManager.ReadFile(pidJsonFile);
+        var input = _fileSystemService.ReadFile(pidJsonFile);
 
         EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
 
@@ -137,18 +134,18 @@ public class Server : IServer
             return;
         }
 
-        _fileSystemManager.DeleteFile(pidJsonFile);
+        _fileSystemService.DeleteFile(pidJsonFile);
     }
 
     public bool IsRunning(string selectedProfileName)
     {
         var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, selectedProfileName, Constants.Files.PID_JSON);
-        if (!_fileSystemManager.FileExists(pidJsonFile))
+        if (!_fileSystemService.FileExists(pidJsonFile))
         {
             return false;
         }
 
-        var input = _fileSystemManager.ReadFile(pidJsonFile);
+        var input = _fileSystemService.ReadFile(pidJsonFile);
         EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
 
         if (serverProcessInfo == null)
@@ -164,9 +161,9 @@ public class Server : IServer
         catch (ArgumentException)
         {
             // The process doesn't exist anymore, so we can delete the pid file
-            if (_fileSystemManager.FileExists(pidJsonFile))
+            if (_fileSystemService.FileExists(pidJsonFile))
             {
-                _fileSystemManager.DeleteFile(pidJsonFile);
+                _fileSystemService.DeleteFile(pidJsonFile);
             }
 
             return false;

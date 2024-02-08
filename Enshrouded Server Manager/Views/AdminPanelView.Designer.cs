@@ -184,7 +184,7 @@ partial class AdminPanelView
         btnInstallSteamCMD.Size = new Size(127, 23);
         btnInstallSteamCMD.TabIndex = 61;
         btnInstallSteamCMD.TabStop = false;
-        btnInstallSteamCMD.Text = "Install Steam";
+        btnInstallSteamCMD.Text = "Install Steam CMD";
         btnInstallSteamCMD.UseVisualStyleBackColor = true;
         // 
         // gbxServerSpecificControls
