@@ -9,8 +9,8 @@ public interface IServerSettingsView
     int QueryPort { get; set; }
     int MaxPlayers { get; set; }
     string ShowPasswordButtonText { get; set; }
-
     bool IsPasswordShown { get; set; }
+    char PasswordChar { get; set; }
 
     event EventHandler ShowPasswordButtonClicked;
     event EventHandler SaveChangesButtonClicked;

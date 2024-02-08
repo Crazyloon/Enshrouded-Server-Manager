@@ -45,7 +45,9 @@ public partial class ExampleForm : Form
         // Load the profiles for each view the first time they are created
         var profiles = profileManager.LoadServerProfiles(JsonSettings.Default, true);
 
+        serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, serverSettingsService);
         profileSelectorView.Tag = new ProfileSelectorPresenter(profileSelectorView, profileManager, fileSystemManager, profiles);
+
     }
 
     private void pbxFormHeader_MouseDown(object sender, MouseEventArgs e)

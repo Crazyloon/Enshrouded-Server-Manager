@@ -6,11 +6,14 @@ namespace Enshrouded_Server_Manager.Presenters;
 public class ServerSettingsPresenter
 {
     private readonly IServerSettingsView _serverSettingsView;
-    private readonly ServerSettingsService _serverSettingsService;
+    private readonly IServerSettingsService _serverSettingsService;
 
-    public ServerSettingsPresenter(IServerSettingsView serverSettingsView)
+    public ServerSettingsPresenter(IServerSettingsView serverSettingsView, IServerSettingsService serverSettingsService)
     {
         _serverSettingsView = serverSettingsView;
+        _serverSettingsService = serverSettingsService;
+
+        _serverSettingsView.ShowPasswordButtonClicked += (sender, e) => TogglePasswordVisiblity();
 
         EventAggregator.Instance.Subscribe<ProfileSelectedMessage>(p => OnServerProfileSelected(p.SelectedProfile));
     }
@@ -31,13 +34,13 @@ public class ServerSettingsPresenter
         SetServerSettings(settings);
     }
 
-    //public void TogglePasswordVisiblity()
-    //{
-    //    var text = btnShowPassword.Text;
-    //    // \0 is a null character, which is used to show the password
-    //    // * is the character displayed instead of each character in the password
-    //    txtServerPassword.PasswordChar = text == Constants.ButtonText.SHOW_PASSWORD ? '\0' : '*';
+    public void TogglePasswordVisiblity()
+    {
+        var text = _serverSettingsView.ShowPasswordButtonText;
+        // \0 is a null character, which is used to show the password
+        // * is the character displayed instead of each character in the password
+        _serverSettingsView.PasswordChar = text == Constants.ButtonText.SHOW_PASSWORD ? '\0' : '*';
 
-    //    btnShowPassword.Text = text == Constants.ButtonText.SHOW_PASSWORD ? Constants.ButtonText.HIDE_PASSWORD : Constants.ButtonText.SHOW_PASSWORD;
-    //}
+        _serverSettingsView.ShowPasswordButtonText = text == Constants.ButtonText.SHOW_PASSWORD ? Constants.ButtonText.HIDE_PASSWORD : Constants.ButtonText.SHOW_PASSWORD;
+    }
 }

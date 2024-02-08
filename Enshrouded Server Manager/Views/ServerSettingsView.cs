@@ -50,6 +50,12 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
 
     public bool IsPasswordShown { get; set; }
 
+    public char PasswordChar
+    {
+        get => txtServerPassword.PasswordChar;
+        set => txtServerPassword.PasswordChar = value;
+    }
+
     public event EventHandler ShowPasswordButtonClicked
     {
         add => btnShowPassword.Click += value;
