@@ -1,10 +1,8 @@
 ﻿using Enshrouded_Server_Manager.Events;
-using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.Services.Interfaces;
 using Enshrouded_Server_Manager.Views.Interfaces;
-using Newtonsoft.Json;
 
 namespace Enshrouded_Server_Manager.Presenters;
 public class ServerSettingsPresenter
@@ -61,24 +59,6 @@ public class ServerSettingsPresenter
 
     private void SaveServerSettings()
     {
-        string selectedProfileName = _serverProfile.Name;
-
-        if (_server.IsRunning(selectedProfileName))
-        {
-            _messageBox.Show(Constants.Errors.SERVER_RUNNING_ERROR_MESSAGE, Constants.Errors.SERVER_RUNNING_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            // TODO:
-            //cbxProfileSelectionComboBox_IndexChanged(sender, e);
-            return;
-        }
-
-        var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
-        _fileSystemManager.CreateDirectory(serverProfilePath);
-
-        int Gameport = Convert.ToInt32(_serverSettingsView.GamePort);
-        int QueryPort = Convert.ToInt32(_serverSettingsView.QueryPort);
-        int SlotCount = Convert.ToInt32(_serverSettingsView.MaxPlayers);
-
         ServerSettings json = new ServerSettings()
         {
             Name = _serverSettingsView.ServerName,
@@ -86,19 +66,14 @@ public class ServerSettingsPresenter
             SaveDirectory = Constants.Paths.ENSHROUDED_SAVE_GAME_DIRECTORY,
             LogDirectory = Constants.Paths.ENSHROUDED_LOGS_DIRECTORY,
             Ip = _serverSettingsView.IpAddress,
-            GamePort = Gameport,
-            QueryPort = QueryPort,
-            SlotCount = SlotCount
+            GamePort = Convert.ToInt32(_serverSettingsView.GamePort),
+            QueryPort = Convert.ToInt32(_serverSettingsView.QueryPort),
+            SlotCount = Convert.ToInt32(_serverSettingsView.MaxPlayers)
         };
 
-        var output = JsonConvert.SerializeObject(json, JsonSettings.Default);
+        _serverSettingsService.SaveServerSettings(json, _serverProfile);
 
-        var gameServerConfig = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName, Constants.Files.GAME_SERVER_CONFIG_JSON);
-        _fileSystemManager.WriteFile(gameServerConfig, output); //needs to be the server tool .json
-
-        // TODO:
-        //Interactions.AnimateSaveChangesButton(btnSaveSettings, btnSaveSettings.Text, Constants.ButtonText.SAVED_SUCCESS);
-
-
+        // Used to update the button styles
+        EventAggregator.Instance.Publish(new ServerSettingsSavedSuccess());
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Enshrouded_Server_Manager.Commands;
-using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services.Interfaces;
 using Enshrouded_Server_Manager.Views;
 
@@ -10,8 +9,6 @@ public class AdminPanelPresenter
     private readonly ISteamCMDInstaller _steamCMDInstaller;
     private readonly IFileSystemManager _fileSystemManager;
     private readonly IServer _server;
-
-    private AdminPanelModel _model;
 
     public AdminPanelPresenter(
         ISteamCMDInstaller steamCMDInstaller,

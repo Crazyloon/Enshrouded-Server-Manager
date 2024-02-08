@@ -1473,11 +1473,10 @@ namespace Enshrouded_Server_Manager
             btnOpenCredits.TextAlign = ContentAlignment.BottomLeft;
             btnOpenCredits.Click += btnToggleCredits_Click;
             // 
-            // MainForm
             // pnlUpdateServerfiles
             // 
             pnlUpdateServerfiles.Controls.Add(lblUpdateServerfiles);
-            pnlUpdateServerfiles.Location = new Point(10, 40);
+            pnlUpdateServerfiles.Location = new Point(700, 500);
             pnlUpdateServerfiles.Name = "pnlUpdateServerfiles";
             pnlUpdateServerfiles.Size = new Size(540, 370);
             pnlUpdateServerfiles.TabIndex = 62;
@@ -1493,7 +1492,7 @@ namespace Enshrouded_Server_Manager
             lblUpdateServerfiles.Text = "Updating Serverfiles...";
             lblUpdateServerfiles.Visible = false;
             // 
-            // Form1
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;

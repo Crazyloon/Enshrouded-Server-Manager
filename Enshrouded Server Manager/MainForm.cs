@@ -63,6 +63,7 @@ public partial class MainForm : Form
     {
         pnlBackupExplanation.Location = new Point(550, 40);
         pnlCredits.Location = new Point(560, 40);
+        pnlUpdateServerfiles.Location = new Point(10, 40);
     }
 
     private void Form1_Load(object sender, EventArgs e)

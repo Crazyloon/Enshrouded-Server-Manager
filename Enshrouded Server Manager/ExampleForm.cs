@@ -19,12 +19,12 @@ public partial class ExampleForm : Form
 
         // initialize services
         var fileSystemManager = new FileSystemManager();
+        var profileManager = new ProfileManager(fileSystemManager);
+        var server = new Server(fileSystemManager);
         var processManager = new ProcessManager();
         var messageBox = new MessageBoxWrapper();
         var httpClient = new HttpClientService(new WebClient());
-        var profileManager = new ProfileManager(fileSystemManager);
-        var server = new Server(fileSystemManager);
-        var serverSettingsService = new ServerSettingsService(fileSystemManager);
+        var serverSettingsService = new ServerSettingsService(fileSystemManager, messageBox, server);
         var steamCMDInstaller = new SteamCMD(fileSystemManager, processManager, messageBox, httpClient);
 
         var commands = new IAdminPanelCommand[]
@@ -45,7 +45,7 @@ public partial class ExampleForm : Form
         // Load the profiles for each view the first time they are created
         var profiles = profileManager.LoadServerProfiles(JsonSettings.Default, true);
 
-        serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, serverSettingsService);
+        serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, serverSettingsService, fileSystemManager, server);
         profileSelectorView.Tag = new ProfileSelectorPresenter(profileSelectorView, profileManager, fileSystemManager, profiles);
 
     }

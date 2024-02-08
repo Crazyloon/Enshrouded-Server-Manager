@@ -1,4 +1,6 @@
-﻿using Enshrouded_Server_Manager.Views.Interfaces;
+﻿using Enshrouded_Server_Manager.Events;
+using Enshrouded_Server_Manager.UI;
+using Enshrouded_Server_Manager.Views.Interfaces;
 
 namespace Enshrouded_Server_Manager;
 public partial class ServerSettingsView : UserControl, IServerSettingsView
@@ -6,6 +8,8 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
     public ServerSettingsView()
     {
         InitializeComponent();
+
+        EventAggregator.Instance.Subscribe<ServerSettingsSavedSuccess>(s => OnSettingsSaved());
     }
 
     public string ServerName
@@ -68,5 +72,10 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
     {
         add => btnSaveSettings.Click += value;
         remove => btnSaveSettings.Click -= value;
+    }
+
+    public void OnSettingsSaved()
+    {
+        Interactions.AnimateSaveChangesButton(btnSaveSettings, btnSaveSettings.Text, Constants.ButtonText.SAVED_SUCCESS);
     }
 }
