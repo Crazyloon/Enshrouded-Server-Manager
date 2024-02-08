@@ -1,5 +1,6 @@
 ﻿using Enshrouded_Server_Manager.Commands;
 using Enshrouded_Server_Manager.Events;
+using Enshrouded_Server_Manager.Views.Interfaces;
 
 namespace Enshrouded_Server_Manager.Views;
 public partial class AdminPanelView : UserControl, IAdminPanelView

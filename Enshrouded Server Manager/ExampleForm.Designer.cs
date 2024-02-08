@@ -56,7 +56,7 @@ partial class ExampleForm
         tabDiscord = new TabPage();
         discordNotificationsView = new DiscordNotificationsView();
         pnlBottomBorder = new Panel();
-        pnlFormHeader = new Panel();
+        pnlTopBorder = new Panel();
         ((System.ComponentModel.ISupportInitialize)pbxFormHeader).BeginInit();
         ((System.ComponentModel.ISupportInitialize)pbxLeftBorder).BeginInit();
         ((System.ComponentModel.ISupportInitialize)pbxInnerLeftBorder).BeginInit();
@@ -72,7 +72,7 @@ partial class ExampleForm
         tabAutoBackup.SuspendLayout();
         tabDiscord.SuspendLayout();
         pnlBottomBorder.SuspendLayout();
-        pnlFormHeader.SuspendLayout();
+        pnlTopBorder.SuspendLayout();
         SuspendLayout();
         // 
         // pbxFormHeader
@@ -277,6 +277,7 @@ partial class ExampleForm
         serverSettingsView.MaxPlayers = 0;
         serverSettingsView.Name = "serverSettingsView";
         serverSettingsView.Password = "";
+        serverSettingsView.PasswordChar = '*';
         serverSettingsView.QueryPort = 0;
         serverSettingsView.ServerName = "";
         serverSettingsView.ShowPasswordButtonText = "Show";
@@ -358,17 +359,17 @@ partial class ExampleForm
         pnlBottomBorder.Size = new Size(896, 21);
         pnlBottomBorder.TabIndex = 1;
         // 
-        // pnlFormHeader
+        // pnlTopBorder
         // 
-        pnlFormHeader.Controls.Add(lblMinimizeTrayButton);
-        pnlFormHeader.Controls.Add(lblCloseButton);
-        pnlFormHeader.Controls.Add(lblTitle);
-        pnlFormHeader.Controls.Add(pbxFormHeader);
-        pnlFormHeader.Dock = DockStyle.Top;
-        pnlFormHeader.Location = new Point(0, 0);
-        pnlFormHeader.Name = "pnlFormHeader";
-        pnlFormHeader.Size = new Size(896, 37);
-        pnlFormHeader.TabIndex = 51;
+        pnlTopBorder.Controls.Add(lblMinimizeTrayButton);
+        pnlTopBorder.Controls.Add(lblCloseButton);
+        pnlTopBorder.Controls.Add(lblTitle);
+        pnlTopBorder.Controls.Add(pbxFormHeader);
+        pnlTopBorder.Dock = DockStyle.Top;
+        pnlTopBorder.Location = new Point(0, 0);
+        pnlTopBorder.Name = "pnlTopBorder";
+        pnlTopBorder.Size = new Size(896, 37);
+        pnlTopBorder.TabIndex = 51;
         // 
         // ExampleForm
         // 
@@ -379,7 +380,7 @@ partial class ExampleForm
         ControlBox = false;
         Controls.Add(pnlRightPanel);
         Controls.Add(pnlLeftPanel);
-        Controls.Add(pnlFormHeader);
+        Controls.Add(pnlTopBorder);
         Controls.Add(pnlBottomBorder);
         ForeColor = SystemColors.ButtonHighlight;
         FormBorderStyle = FormBorderStyle.None;
@@ -401,8 +402,8 @@ partial class ExampleForm
         tabAutoBackup.ResumeLayout(false);
         tabDiscord.ResumeLayout(false);
         pnlBottomBorder.ResumeLayout(false);
-        pnlFormHeader.ResumeLayout(false);
-        pnlFormHeader.PerformLayout();
+        pnlTopBorder.ResumeLayout(false);
+        pnlTopBorder.PerformLayout();
         ResumeLayout(false);
     }
 
@@ -421,7 +422,7 @@ partial class ExampleForm
     private Panel pnlRightPanel;
     private Panel pnlInfoPanel;
     private Panel pnlBottomBorder;
-    private Panel pnlFormHeader;
+    private Panel pnlTopBorder;
     private TabControl tabsServerTabs;
     private TabPage tabServerSettings;
     private TabPage tabManageProfiles;

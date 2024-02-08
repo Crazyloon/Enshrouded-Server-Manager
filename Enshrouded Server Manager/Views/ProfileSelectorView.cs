@@ -1,4 +1,5 @@
 ﻿using Enshrouded_Server_Manager.Models;
+using Enshrouded_Server_Manager.Views.Interfaces;
 
 namespace Enshrouded_Server_Manager.Views;
 public partial class ProfileSelectorView : UserControl, IProfileSelectorView

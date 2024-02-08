@@ -1,4 +1,4 @@
-﻿namespace Enshrouded_Server_Manager;
+﻿namespace Enshrouded_Server_Manager.Views.Interfaces;
 
 public interface IServerSettingsView
 {

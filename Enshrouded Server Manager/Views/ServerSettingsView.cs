@@ -1,4 +1,6 @@
-﻿namespace Enshrouded_Server_Manager;
+﻿using Enshrouded_Server_Manager.Views.Interfaces;
+
+namespace Enshrouded_Server_Manager;
 public partial class ServerSettingsView : UserControl, IServerSettingsView
 {
     public ServerSettingsView()
