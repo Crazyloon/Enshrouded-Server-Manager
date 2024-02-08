@@ -6,7 +6,7 @@ using NSubstitute;
 namespace UnitTests;
 
 [TestClass]
-public class AdminPanelTests
+public class AdminPanelCommandsTests
 {
     [TestMethod]
     public void ClickingOn_InstallSteamCMD_Should_InstallSteamCMD_Success()

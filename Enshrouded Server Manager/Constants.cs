@@ -116,6 +116,11 @@ public static class Constants
         public const string AUTO_BACKCUP = "AutoBackup";
     }
 
+    public static class PropertyName
+    {
+        public const string NAME = "Name";
+    }
+
     public static class Colors
     {
         private static readonly Color DARK_BLUE = Color.FromArgb(255, 0, 0, 40);

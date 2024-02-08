@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 
 namespace Enshrouded_Server_Manager;
 
-public partial class Form1 : Form
+public partial class MainForm : Form
 {
     private readonly Control adminPanelView;
 
@@ -34,7 +34,7 @@ public partial class Form1 : Form
 
 
 
-    public Form1(Control adminPanelView)
+    public MainForm(Control adminPanelView)
     {
         // Initialize Views
         this.adminPanelView = adminPanelView;

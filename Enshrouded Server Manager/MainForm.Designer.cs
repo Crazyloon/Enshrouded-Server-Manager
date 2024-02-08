@@ -2,7 +2,7 @@
 
 namespace Enshrouded_Server_Manager
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -30,7 +30,7 @@ namespace Enshrouded_Server_Manager
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             cbxProfileSelectionComboBox = new ComboBox();
             lblProfileSelectionLabel = new Label();
             btnInstallSteamCMD = new Button();
@@ -1470,21 +1470,12 @@ namespace Enshrouded_Server_Manager
             btnOpenCredits.TextAlign = ContentAlignment.BottomLeft;
             btnOpenCredits.Click += btnToggleCredits_Click;
             // 
-            // adminPanelView1
-            // 
-            adminPanelView.BackColor = Color.FromArgb(0, 0, 18);
-            adminPanelView.Location = new Point(13, 41);
-            adminPanelView.Name = "adminPanelView1";
-            adminPanelView.Size = new Size(170, 369);
-            adminPanelView.TabIndex = 62;
-            // 
-            // Form1
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 18);
             ClientSize = new Size(800, 430);
-            Controls.Add(adminPanelView);
             Controls.Add(btnOpenCredits);
             Controls.Add(lblServerProfileSpecific);
             Controls.Add(pnlCredits);
@@ -1525,7 +1516,7 @@ namespace Enshrouded_Server_Manager
             ForeColor = SystemColors.ButtonHighlight;
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "Form1";
+            Name = "MainForm";
             Text = "ESM - Enshrouded Server Manager";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)nudGamePort).EndInit();

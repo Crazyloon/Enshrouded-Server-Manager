@@ -143,12 +143,15 @@ partial class AdminPanelView
         // 
         // lblAdminPanel
         // 
+        lblAdminPanel.AutoSize = true;
         lblAdminPanel.BackColor = Color.Transparent;
+        lblAdminPanel.Dock = DockStyle.Bottom;
         lblAdminPanel.Font = new Font("Malgun Gothic", 18F, FontStyle.Bold, GraphicsUnit.Point);
         lblAdminPanel.ForeColor = SystemColors.Control;
-        lblAdminPanel.Location = new Point(5, 330);
+        lblAdminPanel.Location = new Point(0, 330);
         lblAdminPanel.Name = "lblAdminPanel";
-        lblAdminPanel.Size = new Size(153, 32);
+        lblAdminPanel.Padding = new Padding(4);
+        lblAdminPanel.Size = new Size(161, 40);
         lblAdminPanel.TabIndex = 66;
         lblAdminPanel.Text = "AdminPanel";
         // 
@@ -251,6 +254,7 @@ partial class AdminPanelView
         Size = new Size(170, 370);
         gbxServerSpecificControls.ResumeLayout(false);
         ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion

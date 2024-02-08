@@ -1,4 +1,5 @@
 ﻿using Enshrouded_Server_Manager.Commands;
+using Enshrouded_Server_Manager.Events;
 
 namespace Enshrouded_Server_Manager.Views;
 public partial class AdminPanelView : UserControl, IAdminPanelView
@@ -8,73 +9,14 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
     {
         InitializeComponent();
 
+        EventAggregator.Instance.Subscribe<SteamCmdInstalledMessage>(b => OnSteamCmdInstallVerified(b.IsInstalled));
     }
-
-    //public event EventHandler InstallSteamCmd_ButtonClicked
-    //{
-    //    add { btnInstallSteamCMD.Click += value; }
-    //    remove { btnInstallSteamCMD.Click -= value; }
-    //}
-
-    //public event EventHandler OpenWindowsFirewall_ButtonClicked
-    //{
-    //    add { btnWindowsFirewall.Click += value; }
-    //    remove { btnWindowsFirewall.Click -= value; }
-    //}
-
-    //public event EventHandler StartServer_ButtonClicked
-    //{
-    //    add { btnStartServer.Click += value; }
-    //    remove { btnStartServer.Click -= value; }
-    //}
-
-    //public event EventHandler StopServer_ButtonClicked
-    //{
-    //    add { btnStopServer.Click += value; }
-    //    remove { btnStopServer.Click -= value; }
-    //}
-
-    //public event EventHandler InstallServer_ButtonClicked
-    //{
-    //    add { btnInstallServer.Click += value; }
-    //    remove { btnInstallServer.Click -= value; }
-    //}
-
-    //public event EventHandler UpdateServer_ButtonClicked
-    //{
-    //    add { btnUpdateServer.Click += value; }
-    //    remove { btnUpdateServer.Click -= value; }
-    //}
-
-    //public event EventHandler SaveBackup_ButtonClicked
-    //{
-    //    add { btnSaveBackup.Click += value; }
-    //    remove { btnSaveBackup.Click -= value; }
-    //}
-
-    //public event EventHandler OpenBackupFolder_ButtonClicked
-    //{
-    //    add { btnOpenBackupFolder.Click += value; }
-    //    remove { btnOpenBackupFolder.Click -= value; }
-    //}
-
-    //public event EventHandler OpenSavegameFolder_ButtonClicked
-    //{
-    //    add { btnOpenSavegameFolder.Click += value; }
-    //    remove { btnOpenSavegameFolder.Click -= value; }
-    //}
-
-    //public event EventHandler OpenLogFolder_ButtonClicked
-    //{
-    //    add { btnOpenLogFolder.Click += value; }
-    //    remove { btnOpenLogFolder.Click -= value; }
-    //}
 
     public void SetCommands(IAdminPanelCommand[] commands)
     {
         foreach (var command in commands)
         {
-            var button = new Button();
+            var button = GetButtonByCommand(command);
             button.Enabled = command.IsEnabled;
             button.Visible = command.IsVisible;
 
@@ -84,11 +26,28 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
                 button.Enabled = c.IsEnabled;
                 button.Visible = c.IsVisible;
             };
-            btnInstallSteamCMD.Click += (o, s) =>
+            button.Click += (o, s) =>
             {
                 c.Execute();
             };
         }
+    }
+
+    private Button GetButtonByCommand(IAdminPanelCommand command)
+    {
+        switch (command)
+        {
+            case InstallSteamCmdCommand:
+                return btnInstallSteamCMD;
+
+            default:
+                return null;
+        }
+    }
+    private void OnSteamCmdInstallVerified(bool isInstalled)
+    {
+        btnInstallServer.Visible = true;
+        btnStartServer.Visible = true;
     }
 
     private void gbxServerSpecificControls_Paint(object sender, PaintEventArgs e)
@@ -109,20 +68,4 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
         e.Graphics.FillRectangle(brush, 3, 0, textWidth + textPaddingHorizontal, box.Font.Height); // draw the text background
         e.Graphics.DrawString(box.Text, box.Font, SystemBrushes.ControlLight, fontHeight / 2 - textPaddingVertical, 0); // draw the text
     }
-}
-
-public interface IAdminPanelView
-{
-    //event EventHandler InstallSteamCmd_ButtonClicked;
-    //event EventHandler OpenWindowsFirewall_ButtonClicked;
-    //event EventHandler StartServer_ButtonClicked;
-    //event EventHandler StopServer_ButtonClicked;
-    //event EventHandler InstallServer_ButtonClicked;
-    //event EventHandler UpdateServer_ButtonClicked;
-    //event EventHandler SaveBackup_ButtonClicked;
-    //event EventHandler OpenBackupFolder_ButtonClicked;
-    //event EventHandler OpenSavegameFolder_ButtonClicked;
-    //event EventHandler OpenLogFolder_ButtonClicked;
-
-    void SetCommands(IAdminPanelCommand[] commands);
 }

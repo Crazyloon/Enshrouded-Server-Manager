@@ -4,7 +4,7 @@ using Enshrouded_Server_Manager.Services.Interfaces;
 using Newtonsoft.Json;
 
 namespace Enshrouded_Server_Manager.Services;
-public class ProfileManager
+public class ProfileManager : IProfileManager
 {
     private readonly IFileSystemManager _fileSystemManager;
     public ProfileManager(IFileSystemManager fsm)
@@ -21,14 +21,7 @@ public class ProfileManager
             _fileSystemManager.CreateDirectory(Constants.Paths.DEFAULT_PROFILES_PATH);
 
             // First time loading server profiles should, create default profile
-            if (firstCheck)
-            {
-                WriteDefaultProfileJson(serverProfilesJson, jsonSerializerSettings);
-            }
-            else
-            {
-                MessageBox.Show(Constants.Errors.SERVER_PROFILES_NOT_FOUND_ERROR_MESSAGE, Constants.Errors.SERVER_PROFILES_NOT_FOUND_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            WriteDefaultProfileJson(serverProfilesJson, jsonSerializerSettings);
         }
 
         var profilesJson = _fileSystemManager.ReadFile(serverProfilesJson);
@@ -66,7 +59,7 @@ public class ProfileManager
         return true;
     }
 
-    public void WriteDefaultProfileJson(string profilePath, JsonSerializerSettings settings)
+    private void WriteDefaultProfileJson(string profilePath, JsonSerializerSettings settings)
     {
         var json = new List<ServerProfile>
         {
