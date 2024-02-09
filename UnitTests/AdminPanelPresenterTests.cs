@@ -29,6 +29,8 @@ public class AdminPanelPresenterTests
 
     public AdminPanelPresenterTests()
     {
+        // Setup: This runs before each test
+
         _steamCMDInstallerService = Substitute.For<ISteamCMDInstallerService>();
         _fileSystemService = Substitute.For<IFileSystemService>();
         _versionManagementService = Substitute.For<IVersionManagementService>();
