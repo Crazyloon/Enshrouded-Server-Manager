@@ -32,6 +32,7 @@ public class AdminPanelPresenter
         IEnshroudedServerService server,
         IProfileService profileService,
         IDiscordService discordOutputService,
+        IBackupService backupService,
         IAdminPanelView adminPanelView)
     {
         _steamCMDInstaller = steamCMDInstaller;
@@ -42,6 +43,7 @@ public class AdminPanelPresenter
         _profileService = profileService;
         _enshroudedServerService = server;
         _discordOutputService = discordOutputService;
+        _backupService = backupService;
         _adminPanelView = adminPanelView;
 
         adminPanelView.InstallSteamCMDButtonClicked += (s, e) => OnInstallSteamCMDButtonClicked();
@@ -62,8 +64,8 @@ public class AdminPanelPresenter
     {
         _steamCMDInstaller.Install();
 
-        _adminPanelView.StartServerButtonState.Visible = true;
-        _adminPanelView.InstallServerButtonState.Visible = true;
+        _adminPanelView.StartServerButtonVisible = true;
+        _adminPanelView.InstallServerButtonVisible = true;
 
         _steamCMDInstaller.Start();
     }
@@ -98,31 +100,27 @@ public class AdminPanelPresenter
             _enshroudedServerService.Start(gameServerExe, selectedProfileName);
 
             // Begin AutoBackup after waiting 5 seconds to ensure the server process has started
-            Task.Factory.StartNew(async () =>
-            {
-                await Task.Delay(5000);
-
-                if (_enshroudedServerService.IsRunning(selectedProfileName))
-                {
-                    var profiles = _profileService.LoadServerProfiles(JsonSettings.Default);
-                    var profile = profiles?.FirstOrDefault(x => x.Name == selectedProfileName);
-                    if (profile is not null && profile.AutoBackup is not null && profile.AutoBackup.Enabled)
-                    {
-                        var saveGameFolder = Path.Join(serverProfilePath, Constants.Paths.GAME_SERVER_SAVE_FOLDER);
-
-                        _backupService.StartAutoBackup(saveGameFolder, selectedProfileName, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
-                    }
-                }
-            });
 
             if (_enshroudedServerService.IsRunning(selectedProfileName))
             {
-                _adminPanelView.StartServerButtonState.Visible = false;
-                _adminPanelView.StopServerButtonState.Visible = true;
+                var profiles = _profileService.LoadServerProfiles(JsonSettings.Default);
+                var profile = profiles?.FirstOrDefault(x => x.Name == selectedProfileName);
+                if (profile is not null && profile.AutoBackup is not null && profile.AutoBackup.Enabled)
+                {
+                    var saveGameFolder = Path.Join(serverProfilePath, Constants.Paths.GAME_SERVER_SAVE_FOLDER);
+
+                    _backupService.StartAutoBackup(saveGameFolder, selectedProfileName, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
+                }
+            }
+
+            if (_enshroudedServerService.IsRunning(selectedProfileName))
+            {
+                _adminPanelView.StartServerButtonVisible = false;
+                _adminPanelView.StopServerButtonVisible = true;
 
                 // TODO: Instead of hiding the button, we can disable it
                 // Would need to set some styles for a disabled state for this to make sense
-                _adminPanelView.UpdateServerButtonState.Visible = false;
+                _adminPanelView.UpdateServerButtonVisible = false;
             }
 
             // discord Output
@@ -142,17 +140,14 @@ public class AdminPanelPresenter
                 {
                     if (discordProfile.StartEnabled)
                     {
-                        Task.Factory.StartNew(async () =>
+                        try
                         {
-                            try
-                            {
-                                _discordOutputService.ServerOnline(name, DiscordUrl, discordProfile.EmbedEnabled, discordProfile.ServerOnlineMsg);
-                            }
-                            catch
-                            {
-                                // TODO: Raise an erorr event/Report an error message
-                            }
-                        });
+                            _discordOutputService.ServerOnline(name, DiscordUrl, discordProfile.EmbedEnabled, discordProfile.ServerOnlineMsg);
+                        }
+                        catch
+                        {
+                            // TODO: Raise an erorr event/Report an error message
+                        }
                     }
                 }
             }
@@ -164,9 +159,9 @@ public class AdminPanelPresenter
         string selectedProfileName = _selectedProfile.Name;
         _enshroudedServerService.Stop(selectedProfileName);
 
-        _adminPanelView.StartServerButtonState.Visible = true;
-        _adminPanelView.StopServerButtonState.Visible = false;
-        _adminPanelView.UpdateServerButtonState.Visible = true;
+        _adminPanelView.StartServerButtonVisible = true;
+        _adminPanelView.StopServerButtonVisible = false;
+        _adminPanelView.UpdateServerButtonVisible = true;
 
         // TODO: Can we emit an event here and have something else handle discord output?
         // discord Output
@@ -212,18 +207,18 @@ public class AdminPanelPresenter
 
             EventAggregator.Instance.Publish(new ServerInstallStartedMessage());
 
-            _adminPanelView.InstallServerButtonState.Visible = false;
-            _adminPanelView.UpdateServerButtonState.Visible = false;
-            _adminPanelView.StartServerButtonState.Visible = false;
+            _adminPanelView.InstallServerButtonVisible = false;
+            _adminPanelView.UpdateServerButtonVisible = false;
+            _adminPanelView.StartServerButtonVisible = false;
 
             _enshroudedServerService.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}", selectedProfileName);
 
-            _adminPanelView.UpdateServerButtonState.BorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfileName);
+            _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfileName);
 
             EventAggregator.Instance.Publish(new ServerInstallStoppedMessage());
 
-            _adminPanelView.UpdateServerButtonState.Visible = true;
-            _adminPanelView.StartServerButtonState.Visible = true;
+            _adminPanelView.UpdateServerButtonVisible = true;
+            _adminPanelView.StartServerButtonVisible = true;
         }
     }
 
@@ -267,18 +262,18 @@ public class AdminPanelPresenter
 
             EventAggregator.Instance.Publish(new ServerInstallStartedMessage());
 
-            _adminPanelView.InstallServerButtonState.Visible = false;
-            _adminPanelView.UpdateServerButtonState.Visible = false;
-            _adminPanelView.StartServerButtonState.Visible = false;
+            _adminPanelView.InstallServerButtonVisible = false;
+            _adminPanelView.UpdateServerButtonVisible = false;
+            _adminPanelView.StartServerButtonVisible = false;
 
             _enshroudedServerService.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}", selectedProfileName);
 
-            _adminPanelView.UpdateServerButtonState.BorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfileName);
+            _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfileName);
 
             EventAggregator.Instance.Publish(new ServerInstallStoppedMessage());
 
-            _adminPanelView.UpdateServerButtonState.Visible = true;
-            _adminPanelView.StartServerButtonState.Visible = true;
+            _adminPanelView.UpdateServerButtonVisible = true;
+            _adminPanelView.StartServerButtonVisible = true;
         }
     }
 
@@ -337,48 +332,45 @@ public class AdminPanelPresenter
         _selectedProfile = selectedProfile;
         RefreshServerButtonsVisibility(selectedProfile.Name);
         var color = await _versionManagementService.ServerUpdateCheck(selectedProfile.Name);
-        _adminPanelView.UpdateServerButtonState = _adminPanelView.UpdateServerButtonState with
-        {
-            BorderColor = color
-        };
+        _adminPanelView.UpdateServerButtonBorderColor = color;
     }
 
     private void RefreshServerButtonsVisibility(string selectedProfileName)
     {
         var gameServerExe = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName, Constants.Files.GAME_SERVER_EXE);
 
-        _adminPanelView.StopServerButtonState.Visible = false;
+        _adminPanelView.StopServerButtonVisible = false;
 
         if (_fileSystemService.FileExists(Constants.ProcessNames.STEAM_CMD_EXE))
         {
-            _adminPanelView.InstallServerButtonState.Visible = true;
-            _adminPanelView.StartServerButtonState.Visible = true;
+            _adminPanelView.InstallServerButtonVisible = true;
+            _adminPanelView.StartServerButtonVisible = true;
         }
 
         if (_fileSystemService.FileExists(gameServerExe))
         {
-            _adminPanelView.InstallServerButtonState.Visible = false;
-            _adminPanelView.UpdateServerButtonState.Visible = true;
+            _adminPanelView.InstallServerButtonVisible = false;
+            _adminPanelView.UpdateServerButtonVisible = true;
         }
         else
         {
-            _adminPanelView.InstallServerButtonState.Visible = true;
-            _adminPanelView.UpdateServerButtonState.Visible = false;
+            _adminPanelView.InstallServerButtonVisible = true;
+            _adminPanelView.UpdateServerButtonVisible = false;
         }
 
         if (!_fileSystemService.FileExists(Constants.ProcessNames.STEAM_CMD_EXE))
         {
-            _adminPanelView.InstallServerButtonState.Visible = false;
-            _adminPanelView.StartServerButtonState.Visible = false;
+            _adminPanelView.InstallServerButtonVisible = false;
+            _adminPanelView.StartServerButtonVisible = false;
         }
 
         try
         {
             if (_enshroudedServerService.IsRunning(selectedProfileName))
             {
-                _adminPanelView.StartServerButtonState.Visible = false;
-                _adminPanelView.StopServerButtonState.Visible = true;
-                _adminPanelView.UpdateServerButtonState.Visible = false;
+                _adminPanelView.StartServerButtonVisible = false;
+                _adminPanelView.StopServerButtonVisible = true;
+                _adminPanelView.UpdateServerButtonVisible = false;
             }
         }
         catch (Exception)

@@ -1,6 +1,4 @@
-﻿using Enshrouded_Server_Manager.Models;
-
-namespace Enshrouded_Server_Manager.Views.Interfaces;
+﻿namespace Enshrouded_Server_Manager.Views.Interfaces;
 public interface IAdminPanelView
 {
     event EventHandler InstallSteamCMDButtonClicked;
@@ -14,14 +12,34 @@ public interface IAdminPanelView
     event EventHandler OpenSavegameFolderButtonClicked;
     event EventHandler OpenLogFolderButtonClicked;
 
-    AdminButtonState InstallSteamCMDButtonState { get; set; }
-    AdminButtonState WindowsFirewallButtonState { get; set; }
-    AdminButtonState StartServerButtonState { get; set; }
-    AdminButtonState StopServerButtonState { get; set; }
-    AdminButtonState InstallServerButtonState { get; set; }
-    AdminButtonState UpdateServerButtonState { get; set; }
-    AdminButtonState SaveBackupButtonState { get; set; }
-    AdminButtonState OpenBackupFolderButtonState { get; set; }
-    AdminButtonState OpenSavegameFolderButtonState { get; set; }
-    AdminButtonState OpenLogFolderButtonState { get; set; }
+    bool InstallSteamCMDButtonEnabled { get; set; }
+    bool InstallSteamCMDButtonVisible { get; set; }
+
+    bool WindowsFirewallButtonEnabled { get; set; }
+    bool WindowsFirewallButtonVisible { get; set; }
+
+    bool StartServerButtonEnabled { get; set; }
+    bool StartServerButtonVisible { get; set; }
+
+    bool StopServerButtonVisible { get; set; }
+    bool StopServerButtonEnabled { get; set; }
+
+    bool InstallServerButtonVisible { get; set; }
+    bool InstallServerButtonEnabled { get; set; }
+
+    bool UpdateServerButtonVisible { get; set; }
+    bool UpdateServerButtonEnabled { get; set; }
+    Color UpdateServerButtonBorderColor { get; set; }
+
+    bool SaveBackupButtonVisible { get; set; }
+    bool SaveBackupButtonEnabled { get; set; }
+
+    bool OpenBackupFolderButtonVisible { get; set; }
+    bool OpenBackupFolderButtonEnabled { get; set; }
+
+    bool OpenSavegameFolderButtonVisible { get; set; }
+    bool OpenSavegameFolderButtonEnabled { get; set; }
+
+    bool OpenLogFolderButtonVisible { get; set; }
+    bool OpenLogFolderButtonEnabled { get; set; }
 }

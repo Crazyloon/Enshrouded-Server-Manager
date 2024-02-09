@@ -25,6 +25,7 @@ public partial class ExampleForm : Form
         var profileManager = new ProfileService(fileSystemManager);
         var enshroudedServer = new EnshroudedServerService(fileSystemManager);
         var versionManager = new VersionManagementService(fileSystemManager);
+        var backupService = new BackupService(fileSystemManager);
         var discordOutputService = new DiscordService();
         var processManager = new SystemProcessService();
         var messageBox = new MessageBoxService();
@@ -32,7 +33,7 @@ public partial class ExampleForm : Form
         var serverSettingsService = new ServerSettingsService(fileSystemManager, messageBox, enshroudedServer);
         var steamCMDInstaller = new SteamCMDInstallerService(fileSystemManager, processManager, messageBox, httpClient);
 
-        adminPanelView.Tag = new AdminPanelPresenter(steamCMDInstaller, fileSystemManager, versionManager, processManager, serverSettingsService, enshroudedServer, profileManager, discordOutputService, adminPanelView);
+        adminPanelView.Tag = new AdminPanelPresenter(steamCMDInstaller, fileSystemManager, versionManager, processManager, serverSettingsService, enshroudedServer, profileManager, discordOutputService, backupService, adminPanelView);
 
         // Load the profiles for each view the first time they are created
         var profiles = profileManager.LoadServerProfiles(JsonSettings.Default, true);

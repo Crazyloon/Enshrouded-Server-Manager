@@ -2,7 +2,7 @@
 
 namespace Enshrouded_Server_Manager.Events;
 
-internal class ProfileSelectedMessage : IApplicationEvent
+public class ProfileSelectedMessage : IApplicationEvent
 {
     public ProfileSelectedMessage(ServerProfile selectedProfile)
     {

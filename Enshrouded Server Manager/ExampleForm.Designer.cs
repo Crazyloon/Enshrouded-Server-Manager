@@ -30,16 +30,6 @@ partial class ExampleForm
     /// </summary>
     private void InitializeComponent()
     {
-        Models.AdminButtonState adminButtonState1 = new Models.AdminButtonState();
-        Models.AdminButtonState adminButtonState2 = new Models.AdminButtonState();
-        Models.AdminButtonState adminButtonState3 = new Models.AdminButtonState();
-        Models.AdminButtonState adminButtonState4 = new Models.AdminButtonState();
-        Models.AdminButtonState adminButtonState5 = new Models.AdminButtonState();
-        Models.AdminButtonState adminButtonState6 = new Models.AdminButtonState();
-        Models.AdminButtonState adminButtonState7 = new Models.AdminButtonState();
-        Models.AdminButtonState adminButtonState8 = new Models.AdminButtonState();
-        Models.AdminButtonState adminButtonState9 = new Models.AdminButtonState();
-        Models.AdminButtonState adminButtonState10 = new Models.AdminButtonState();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExampleForm));
         pbxFormHeader = new PictureBox();
         lblTitle = new Label();
@@ -206,51 +196,11 @@ partial class ExampleForm
         // adminPanelView
         // 
         adminPanelView.BackColor = Color.FromArgb(0, 0, 18);
-        adminPanelView.Dock = DockStyle.Fill;
-        adminButtonState1.BorderColor = Color.FromArgb(115, 115, 137);
-        adminButtonState1.Enabled = false;
-        adminButtonState1.Visible = false;
-        adminPanelView.InstallServerButtonState = adminButtonState1;
-        adminButtonState2.BorderColor = Color.FromArgb(115, 115, 137);
-        adminButtonState2.Enabled = false;
-        adminButtonState2.Visible = false;
-        adminPanelView.InstallSteamCMDButtonState = adminButtonState2;
+        adminPanelView.Dock = DockStyle.Fill;        
         adminPanelView.Location = new Point(10, 0);
-        adminPanelView.Name = "adminPanelView";
-        adminButtonState3.BorderColor = Color.FromArgb(115, 115, 137);
-        adminButtonState3.Enabled = false;
-        adminButtonState3.Visible = false;
-        adminPanelView.OpenBackupFolderButtonState = adminButtonState3;
-        adminButtonState4.BorderColor = Color.FromArgb(115, 115, 137);
-        adminButtonState4.Enabled = false;
-        adminButtonState4.Visible = false;
-        adminPanelView.OpenLogFolderButtonState = adminButtonState4;
-        adminButtonState5.BorderColor = Color.FromArgb(115, 115, 137);
-        adminButtonState5.Enabled = false;
-        adminButtonState5.Visible = false;
-        adminPanelView.OpenSavegameFolderButtonState = adminButtonState5;
-        adminButtonState6.BorderColor = Color.FromArgb(115, 115, 137);
-        adminButtonState6.Enabled = false;
-        adminButtonState6.Visible = false;
-        adminPanelView.SaveBackupButtonState = adminButtonState6;
+        adminPanelView.Name = "adminPanelView";        
         adminPanelView.Size = new Size(170, 443);
-        adminButtonState7.BorderColor = Color.FromArgb(115, 115, 137);
-        adminButtonState7.Enabled = false;
-        adminButtonState7.Visible = false;
-        adminPanelView.StartServerButtonState = adminButtonState7;
-        adminButtonState8.BorderColor = Color.FromArgb(115, 115, 137);
-        adminButtonState8.Enabled = false;
-        adminButtonState8.Visible = false;
-        adminPanelView.StopServerButtonState = adminButtonState8;
         adminPanelView.TabIndex = 39;
-        adminButtonState9.BorderColor = Color.FromArgb(115, 115, 137);
-        adminButtonState9.Enabled = false;
-        adminButtonState9.Visible = false;
-        adminPanelView.UpdateServerButtonState = adminButtonState9;
-        adminButtonState10.BorderColor = Color.FromArgb(115, 115, 137);
-        adminButtonState10.Enabled = false;
-        adminButtonState10.Visible = false;
-        adminPanelView.WindowsFirewallButtonState = adminButtonState10;
         // 
         // pnlRightPanel
         // 

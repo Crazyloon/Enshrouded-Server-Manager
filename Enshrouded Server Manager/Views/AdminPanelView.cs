@@ -1,22 +1,8 @@
-﻿using Enshrouded_Server_Manager.Models;
-using Enshrouded_Server_Manager.Views.Interfaces;
+﻿using Enshrouded_Server_Manager.Views.Interfaces;
 
 namespace Enshrouded_Server_Manager.Views;
 public partial class AdminPanelView : UserControl, IAdminPanelView
 {
-    #region PrivateMembers
-    private AdminButtonState _installSteamCMDButtonState;
-    private AdminButtonState _windowsFirewallButtonState;
-    private AdminButtonState _startServerButtonState;
-    private AdminButtonState _stopServerButtonState;
-    private AdminButtonState _installServerButtonState;
-    private AdminButtonState _updateServerButtonState;
-    private AdminButtonState _saveBackupButtonState;
-    private AdminButtonState _openBackupFolderButtonState;
-    private AdminButtonState _openSavegameFolderButtonState;
-    private AdminButtonState _openLogFolderButtonState;
-    #endregion PrivateMembers
-
     public AdminPanelView()
     {
         InitializeComponent();
@@ -76,115 +62,130 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
     #endregion EventHandlers
 
     #region ButtonStateProperties
-    public AdminButtonState InstallSteamCMDButtonState
+    public bool InstallSteamCMDButtonEnabled
     {
-        get => _installSteamCMDButtonState;
-        set
-        {
-            _installSteamCMDButtonState = value;
-            btnInstallSteamCMD.Enabled = value.Enabled;
-            btnInstallSteamCMD.Visible = value.Visible;
-            btnInstallSteamCMD.FlatAppearance.BorderColor = value.BorderColor;
-        }
+        get => btnInstallSteamCMD.Enabled;
+        set => btnInstallSteamCMD.Enabled = value;
     }
-    public AdminButtonState WindowsFirewallButtonState
+
+    public bool InstallSteamCMDButtonVisible
     {
-        get => _windowsFirewallButtonState;
-        set
-        {
-            _windowsFirewallButtonState = value;
-            btnWindowsFirewall.Enabled = value.Enabled;
-            btnWindowsFirewall.Visible = value.Visible;
-            btnWindowsFirewall.FlatAppearance.BorderColor = value.BorderColor;
-        }
+        get => btnInstallSteamCMD.Visible;
+        set => btnInstallSteamCMD.Visible = value;
     }
-    public AdminButtonState StartServerButtonState
+
+    public bool WindowsFirewallButtonEnabled
     {
-        get => _startServerButtonState;
-        set
-        {
-            _startServerButtonState = value;
-            btnStartServer.Enabled = value.Enabled;
-            btnStartServer.Visible = value.Visible;
-            btnStartServer.FlatAppearance.BorderColor = value.BorderColor;
-        }
+        get => btnWindowsFirewall.Enabled;
+        set => btnWindowsFirewall.Enabled = value;
     }
-    public AdminButtonState StopServerButtonState
+
+    public bool WindowsFirewallButtonVisible
     {
-        get => _stopServerButtonState;
-        set
-        {
-            _stopServerButtonState = value;
-            btnStopServer.Enabled = value.Enabled;
-            btnStopServer.Visible = value.Visible;
-            btnStopServer.FlatAppearance.BorderColor = value.BorderColor;
-        }
+        get => btnWindowsFirewall.Visible;
+        set => btnWindowsFirewall.Visible = value;
     }
-    public AdminButtonState InstallServerButtonState
+
+    public bool StartServerButtonEnabled
     {
-        get => _installServerButtonState;
-        set
-        {
-            _installServerButtonState = value;
-            btnInstallServer.Enabled = value.Enabled;
-            btnInstallServer.Visible = value.Visible;
-            btnInstallServer.FlatAppearance.BorderColor = value.BorderColor;
-        }
+        get => btnStartServer.Enabled;
+        set => btnStartServer.Enabled = value;
     }
-    public AdminButtonState UpdateServerButtonState
+
+    public bool StartServerButtonVisible
     {
-        get => _updateServerButtonState;
-        set
-        {
-            _updateServerButtonState = value;
-            btnUpdateServer.Enabled = value.Enabled;
-            btnUpdateServer.Visible = value.Visible;
-            btnUpdateServer.FlatAppearance.BorderColor = value.BorderColor;
-        }
+        get => btnStartServer.Visible;
+        set => btnStartServer.Visible = value;
     }
-    public AdminButtonState SaveBackupButtonState
+
+    public bool StopServerButtonVisible
     {
-        get => _saveBackupButtonState;
-        set
-        {
-            _saveBackupButtonState = value;
-            btnSaveBackup.Enabled = value.Enabled;
-            btnSaveBackup.Visible = value.Visible;
-            btnSaveBackup.FlatAppearance.BorderColor = value.BorderColor;
-        }
+        get => btnStopServer.Visible;
+        set => btnStopServer.Visible = value;
     }
-    public AdminButtonState OpenBackupFolderButtonState
+
+    public bool StopServerButtonEnabled
     {
-        get => _openBackupFolderButtonState;
-        set
-        {
-            _openBackupFolderButtonState = value;
-            btnOpenBackupFolder.Enabled = value.Enabled;
-            btnOpenBackupFolder.Visible = value.Visible;
-            btnOpenBackupFolder.FlatAppearance.BorderColor = value.BorderColor;
-        }
+        get => btnStopServer.Enabled;
+        set => btnStopServer.Enabled = value;
     }
-    public AdminButtonState OpenSavegameFolderButtonState
+
+    public bool InstallServerButtonVisible
     {
-        get => _openSavegameFolderButtonState;
-        set
-        {
-            _openSavegameFolderButtonState = value;
-            btnOpenSavegameFolder.Enabled = value.Enabled;
-            btnOpenSavegameFolder.Visible = value.Visible;
-            btnOpenSavegameFolder.FlatAppearance.BorderColor = value.BorderColor;
-        }
+        get => btnInstallServer.Visible;
+        set => btnInstallServer.Visible = value;
     }
-    public AdminButtonState OpenLogFolderButtonState
+
+    public bool InstallServerButtonEnabled
     {
-        get => _openLogFolderButtonState;
-        set
-        {
-            _openLogFolderButtonState = value;
-            btnOpenLogFolder.Enabled = value.Enabled;
-            btnOpenLogFolder.Visible = value.Visible;
-            btnOpenLogFolder.FlatAppearance.BorderColor = value.BorderColor;
-        }
+        get => btnInstallServer.Enabled;
+        set => btnInstallServer.Enabled = value;
+    }
+
+    public bool UpdateServerButtonVisible
+    {
+        get => btnUpdateServer.Visible;
+        set => btnUpdateServer.Visible = value;
+    }
+
+    public bool UpdateServerButtonEnabled
+    {
+        get => btnUpdateServer.Enabled;
+        set => btnUpdateServer.Enabled = value;
+    }
+
+    public Color UpdateServerButtonBorderColor
+    {
+        get => btnUpdateServer.FlatAppearance.BorderColor;
+        set => btnUpdateServer.FlatAppearance.BorderColor = value;
+    }
+
+    public bool SaveBackupButtonVisible
+    {
+        get => btnSaveBackup.Visible;
+        set => btnSaveBackup.Visible = value;
+    }
+
+    public bool SaveBackupButtonEnabled
+    {
+        get => btnSaveBackup.Enabled;
+        set => btnSaveBackup.Enabled = value;
+    }
+
+    public bool OpenBackupFolderButtonVisible
+    {
+        get => btnOpenBackupFolder.Visible;
+        set => btnOpenBackupFolder.Visible = value;
+    }
+
+    public bool OpenBackupFolderButtonEnabled
+    {
+        get => btnOpenBackupFolder.Enabled;
+        set => btnOpenBackupFolder.Enabled = value;
+    }
+
+    public bool OpenSavegameFolderButtonVisible
+    {
+        get => btnOpenSavegameFolder.Visible;
+        set => btnOpenSavegameFolder.Visible = value;
+    }
+
+    public bool OpenSavegameFolderButtonEnabled
+    {
+        get => btnOpenSavegameFolder.Enabled;
+        set => btnOpenSavegameFolder.Enabled = value;
+    }
+
+    public bool OpenLogFolderButtonVisible
+    {
+        get => btnOpenLogFolder.Visible;
+        set => btnOpenLogFolder.Visible = value;
+    }
+
+    public bool OpenLogFolderButtonEnabled
+    {
+        get => btnOpenLogFolder.Enabled;
+        set => btnOpenLogFolder.Enabled = value;
     }
     #endregion ButtonStateProperties
 
@@ -209,70 +210,40 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
 
     private void SetDefaultButtonStates()
     {
-        InstallSteamCMDButtonState = new AdminButtonState
-        {
-            Enabled = true,
-            Visible = true,
-            BorderColor = Constants.Colors.BUTTON_BORDER
-        };
-        WindowsFirewallButtonState = new AdminButtonState
-        {
-            Enabled = true,
-            Visible = true,
-            BorderColor = Constants.Colors.BUTTON_BORDER
-        };
-        StartServerButtonState = new AdminButtonState
-        {
-            Enabled = true,
-            Visible = false,
-            BorderColor = Constants.Colors.BUTTON_BORDER
-        };
-        StopServerButtonState = new AdminButtonState
-        {
-            Enabled = true,
-            Visible = false,
-            BorderColor = Constants.Colors.BUTTON_BORDER
-        };
-        InstallServerButtonState = new AdminButtonState
-        {
-            Enabled = true,
-            Visible = true,
-            BorderColor = Constants.Colors.BUTTON_BORDER
-        };
-        UpdateServerButtonState = new AdminButtonState
-        {
-            Enabled = true,
-            Visible = true,
-            BorderColor = Constants.Colors.BUTTON_BORDER
-        };
-        SaveBackupButtonState = new AdminButtonState
-        {
-            Enabled = true,
-            Visible = true,
-            BorderColor = Constants.Colors.BUTTON_BORDER
-        };
-        OpenBackupFolderButtonState = new AdminButtonState
-        {
-            Enabled = true,
-            Visible = true,
-            BorderColor = Constants.Colors.BUTTON_BORDER
-        };
-        OpenSavegameFolderButtonState = new AdminButtonState
-        {
-            Enabled = true,
-            Visible = true,
-            BorderColor = Constants.Colors.BUTTON_BORDER
-        };
-        OpenLogFolderButtonState = new AdminButtonState
-        {
-            Enabled = true,
-            Visible = true,
-            BorderColor = Constants.Colors.BUTTON_BORDER
-        };
+        InstallSteamCMDButtonEnabled = true;
+        InstallSteamCMDButtonVisible = true;
+
+        WindowsFirewallButtonEnabled = true;
+        WindowsFirewallButtonVisible = true;
+
+        StartServerButtonEnabled = true;
+        StartServerButtonVisible = true;
+
+        StopServerButtonEnabled = true;
+        StopServerButtonVisible = true;
+
+        InstallServerButtonEnabled = true;
+        InstallServerButtonVisible = true;
+
+        UpdateServerButtonEnabled = true;
+        UpdateServerButtonVisible = false;
+        UpdateServerButtonBorderColor = Constants.Colors.BUTTON_BORDER;
+
+        SaveBackupButtonEnabled = true;
+        SaveBackupButtonVisible = true;
+
+        OpenBackupFolderButtonEnabled = true;
+        OpenBackupFolderButtonVisible = true;
+
+        OpenSavegameFolderButtonEnabled = true;
+        OpenSavegameFolderButtonVisible = true;
+
+        OpenLogFolderButtonEnabled = true;
+        OpenLogFolderButtonVisible = true;
     }
 
     private void AdminPanelView_Load(object sender, EventArgs e)
     {
-        SetDefaultButtonStates();
+        //SetDefaultButtonStates();
     }
 }
