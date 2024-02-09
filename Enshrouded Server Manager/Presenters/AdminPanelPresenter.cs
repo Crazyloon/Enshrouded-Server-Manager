@@ -3,7 +3,6 @@ using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Model;
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services;
-using Enshrouded_Server_Manager.Services.Interfaces;
 using Enshrouded_Server_Manager.Views.Interfaces;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -19,7 +18,7 @@ public class AdminPanelPresenter
     private readonly IServerSettingsService _serverSettingsService;
     private readonly IEnshroudedServerService _enshroudedServerService;
     private readonly IProfileService _profileService;
-    private readonly IDiscordOutputService _discordOutputService;
+    private readonly IDiscordService _discordOutputService;
     private readonly IBackupService _backupService;
 
     private ServerProfile _selectedProfile;
@@ -32,7 +31,7 @@ public class AdminPanelPresenter
         IServerSettingsService serverSettingsService,
         IEnshroudedServerService server,
         IProfileService profileService,
-        IDiscordOutputService discordOutputService,
+        IDiscordService discordOutputService,
         IAdminPanelView adminPanelView)
     {
         _steamCMDInstaller = steamCMDInstaller;
@@ -63,8 +62,8 @@ public class AdminPanelPresenter
     {
         _steamCMDInstaller.Install();
 
-        _adminPanelView.StartServerButtonState.SetVisible(true);
-        _adminPanelView.InstallServerButtonState.SetVisible(true);
+        _adminPanelView.StartServerButtonState.Visible = true;
+        _adminPanelView.InstallServerButtonState.Visible = true;
 
         _steamCMDInstaller.Start();
     }
@@ -118,12 +117,12 @@ public class AdminPanelPresenter
 
             if (_enshroudedServerService.IsRunning(selectedProfileName))
             {
-                _adminPanelView.StartServerButtonState.SetVisible(false);
-                _adminPanelView.StopServerButtonState.SetVisible(true);
+                _adminPanelView.StartServerButtonState.Visible = false;
+                _adminPanelView.StopServerButtonState.Visible = true;
 
                 // TODO: Instead of hiding the button, we can disable it
                 // Would need to set some styles for a disabled state for this to make sense
-                _adminPanelView.UpdateServerButtonState.SetVisible(false);
+                _adminPanelView.UpdateServerButtonState.Visible = false;
             }
 
             // discord Output
@@ -165,9 +164,9 @@ public class AdminPanelPresenter
         string selectedProfileName = _selectedProfile.Name;
         _enshroudedServerService.Stop(selectedProfileName);
 
-        _adminPanelView.StartServerButtonState.SetVisible(true);
-        _adminPanelView.StopServerButtonState.SetVisible(false);
-        _adminPanelView.UpdateServerButtonState.SetVisible(true);
+        _adminPanelView.StartServerButtonState.Visible = true;
+        _adminPanelView.StopServerButtonState.Visible = false;
+        _adminPanelView.UpdateServerButtonState.Visible = true;
 
         // TODO: Can we emit an event here and have something else handle discord output?
         // discord Output
@@ -213,18 +212,18 @@ public class AdminPanelPresenter
 
             EventAggregator.Instance.Publish(new ServerInstallStartedMessage());
 
-            _adminPanelView.InstallServerButtonState.SetVisible(false);
-            _adminPanelView.UpdateServerButtonState.SetVisible(false);
-            _adminPanelView.StartServerButtonState.SetVisible(false);
+            _adminPanelView.InstallServerButtonState.Visible = false;
+            _adminPanelView.UpdateServerButtonState.Visible = false;
+            _adminPanelView.StartServerButtonState.Visible = false;
 
             _enshroudedServerService.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}", selectedProfileName);
 
-            _adminPanelView.UpdateServerButtonState.SetBorderColor(await _versionManagementService.ServerUpdateCheck(selectedProfileName));
+            _adminPanelView.UpdateServerButtonState.BorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfileName);
 
             EventAggregator.Instance.Publish(new ServerInstallStoppedMessage());
 
-            _adminPanelView.UpdateServerButtonState.SetVisible(true);
-            _adminPanelView.StartServerButtonState.SetVisible(true);
+            _adminPanelView.UpdateServerButtonState.Visible = true;
+            _adminPanelView.StartServerButtonState.Visible = true;
         }
     }
 
@@ -268,18 +267,18 @@ public class AdminPanelPresenter
 
             EventAggregator.Instance.Publish(new ServerInstallStartedMessage());
 
-            _adminPanelView.InstallServerButtonState.SetVisible(false);
-            _adminPanelView.UpdateServerButtonState.SetVisible(false);
-            _adminPanelView.StartServerButtonState.SetVisible(false);
+            _adminPanelView.InstallServerButtonState.Visible = false;
+            _adminPanelView.UpdateServerButtonState.Visible = false;
+            _adminPanelView.StartServerButtonState.Visible = false;
 
             _enshroudedServerService.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}", selectedProfileName);
 
-            _adminPanelView.UpdateServerButtonState.SetBorderColor(await _versionManagementService.ServerUpdateCheck(selectedProfileName));
+            _adminPanelView.UpdateServerButtonState.BorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfileName);
 
             EventAggregator.Instance.Publish(new ServerInstallStoppedMessage());
 
-            _adminPanelView.UpdateServerButtonState.SetVisible(true);
-            _adminPanelView.StartServerButtonState.SetVisible(true);
+            _adminPanelView.UpdateServerButtonState.Visible = true;
+            _adminPanelView.StartServerButtonState.Visible = true;
         }
     }
 
@@ -348,38 +347,38 @@ public class AdminPanelPresenter
     {
         var gameServerExe = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName, Constants.Files.GAME_SERVER_EXE);
 
-        _adminPanelView.StopServerButtonState.SetVisible(false);
+        _adminPanelView.StopServerButtonState.Visible = false;
 
         if (_fileSystemService.FileExists(Constants.ProcessNames.STEAM_CMD_EXE))
         {
-            _adminPanelView.InstallServerButtonState.SetVisible(true);
-            _adminPanelView.StartServerButtonState.SetVisible(true);
+            _adminPanelView.InstallServerButtonState.Visible = true;
+            _adminPanelView.StartServerButtonState.Visible = true;
         }
 
         if (_fileSystemService.FileExists(gameServerExe))
         {
-            _adminPanelView.InstallServerButtonState.SetVisible(false);
-            _adminPanelView.UpdateServerButtonState.SetVisible(true);
+            _adminPanelView.InstallServerButtonState.Visible = false;
+            _adminPanelView.UpdateServerButtonState.Visible = true;
         }
         else
         {
-            _adminPanelView.InstallServerButtonState.SetVisible(true);
-            _adminPanelView.UpdateServerButtonState.SetVisible(false);
+            _adminPanelView.InstallServerButtonState.Visible = true;
+            _adminPanelView.UpdateServerButtonState.Visible = false;
         }
 
         if (!_fileSystemService.FileExists(Constants.ProcessNames.STEAM_CMD_EXE))
         {
-            _adminPanelView.InstallServerButtonState.SetVisible(false);
-            _adminPanelView.StartServerButtonState.SetVisible(false);
+            _adminPanelView.InstallServerButtonState.Visible = false;
+            _adminPanelView.StartServerButtonState.Visible = false;
         }
 
         try
         {
             if (_enshroudedServerService.IsRunning(selectedProfileName))
             {
-                _adminPanelView.StartServerButtonState.SetVisible(false);
-                _adminPanelView.StopServerButtonState.SetVisible(true);
-                _adminPanelView.UpdateServerButtonState.SetVisible(false);
+                _adminPanelView.StartServerButtonState.Visible = false;
+                _adminPanelView.StopServerButtonState.Visible = true;
+                _adminPanelView.UpdateServerButtonState.Visible = false;
             }
         }
         catch (Exception)

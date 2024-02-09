@@ -1,7 +1,7 @@
 ﻿using Enshrouded_Server_Manager.Models;
 using Newtonsoft.Json;
 
-namespace Enshrouded_Server_Manager.Services.Interfaces;
+namespace Enshrouded_Server_Manager.Services;
 
 public interface IProfileService
 {

@@ -1,5 +1,4 @@
-﻿using Enshrouded_Server_Manager.Services.Interfaces;
-using System.Net;
+﻿using System.Net;
 
 namespace Enshrouded_Server_Manager.Services;
 public class HttpClientService : IHttpClientService

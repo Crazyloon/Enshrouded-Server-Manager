@@ -1,7 +1,6 @@
 using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Model;
 using Enshrouded_Server_Manager.Models;
-using Enshrouded_Server_Manager.Services.Interfaces;
 using Newtonsoft.Json;
 using System.Diagnostics;
 
@@ -13,7 +12,7 @@ public class BackupService : IBackupService
     private readonly EnshroudedServerService _server; // TODO: Make this an interface
     private string _dateTimeString;
     private JsonSerializerSettings _jsonSerializerSettings;
-    private DiscordOutputService _discordOutput;
+    private DiscordService _discordOutput;
 
     public event EventHandler<AutoBackupSuccessEventArgs> AutoBackupSuccess;
 
@@ -92,7 +91,7 @@ public class BackupService : IBackupService
                     {
                         try
                         {
-                            _discordOutput = new DiscordOutputService();
+                            _discordOutput = new DiscordService();
                             _discordOutput.ServerBackup(name, discordUrl, discordProfile.EmbedEnabled, discordProfile.BackupMsg);
                         }
                         catch
@@ -196,7 +195,7 @@ public class BackupService : IBackupService
 
                 try
                 {
-                    _discordOutput = new DiscordOutputService();
+                    _discordOutput = new DiscordService();
                     await _discordOutput.ServerBackup(gameServerSettings.Name, discordProfile.DiscordUrl, discordProfile.EmbedEnabled, discordProfile.BackupMsg);
                 }
                 catch

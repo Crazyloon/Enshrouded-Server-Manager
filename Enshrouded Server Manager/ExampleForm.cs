@@ -25,7 +25,7 @@ public partial class ExampleForm : Form
         var profileManager = new ProfileService(fileSystemManager);
         var enshroudedServer = new EnshroudedServerService(fileSystemManager);
         var versionManager = new VersionManagementService(fileSystemManager);
-        var discordOutputService = new DiscordOutputService();
+        var discordOutputService = new DiscordService();
         var processManager = new SystemProcessService();
         var messageBox = new MessageBoxService();
         var httpClient = new HttpClientService(new WebClient());

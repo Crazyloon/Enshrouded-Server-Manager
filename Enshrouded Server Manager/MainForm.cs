@@ -24,7 +24,7 @@ public partial class MainForm : Form
     private ProfileService _profileManager;
     private VersionManagementService _versionManager;
     private JsonSerializerSettings _jsonSerializerSettings;
-    private DiscordOutputService _discordOutput;
+    private DiscordService _discordOutput;
 
 
     [DllImport("user32.dll")]
@@ -53,7 +53,7 @@ public partial class MainForm : Form
         _backup = new BackupService(_fileSystemService);
         _versionManager = new VersionManagementService(_fileSystemService);
         _profileManager = new ProfileService(_fileSystemService);
-        _discordOutput = new DiscordOutputService();
+        _discordOutput = new DiscordService();
 
         //Register Custom Events
         _backup.AutoBackupSuccess += Backup_AutoBackupSuccess;

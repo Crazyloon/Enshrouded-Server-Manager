@@ -252,6 +252,7 @@ partial class AdminPanelView
         Controls.Add(btnInstallSteamCMD);
         Name = "AdminPanelView";
         Size = new Size(170, 370);
+        Load += AdminPanelView_Load;
         gbxServerSpecificControls.ResumeLayout(false);
         ResumeLayout(false);
         PerformLayout();

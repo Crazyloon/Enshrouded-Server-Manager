@@ -3,7 +3,7 @@ using Discord.Webhook;
 
 namespace Enshrouded_Server_Manager.Services;
 
-public class DiscordOutputService : IDiscordOutputService
+public class DiscordService : IDiscordService
 {
     // send server is online status to webhook
     public async Task ServerOnline(string serverName, string Url, bool embedEnabled, string onlineMsg)

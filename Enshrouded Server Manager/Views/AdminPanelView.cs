@@ -20,7 +20,6 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
     public AdminPanelView()
     {
         InitializeComponent();
-        SetDefaultButtonStates();
     }
 
     #region EventHandlers
@@ -210,65 +209,70 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
 
     private void SetDefaultButtonStates()
     {
-        _installSteamCMDButtonState = new AdminButtonState
+        InstallSteamCMDButtonState = new AdminButtonState
         {
-            Enabled = btnInstallSteamCMD.Enabled,
-            Visible = btnInstallSteamCMD.Visible,
-            BorderColor = btnInstallSteamCMD.FlatAppearance.BorderColor
-        };
-        _windowsFirewallButtonState = new AdminButtonState
-        {
-            Enabled = btnWindowsFirewall.Enabled,
-            Visible = btnWindowsFirewall.Visible,
+            Enabled = true,
+            Visible = true,
             BorderColor = Constants.Colors.BUTTON_BORDER
         };
-        _startServerButtonState = new AdminButtonState
+        WindowsFirewallButtonState = new AdminButtonState
         {
-            Enabled = btnStartServer.Enabled,
-            Visible = btnStartServer.Visible,
+            Enabled = true,
+            Visible = true,
             BorderColor = Constants.Colors.BUTTON_BORDER
         };
-        _stopServerButtonState = new AdminButtonState
+        StartServerButtonState = new AdminButtonState
         {
-            Enabled = btnStopServer.Enabled,
-            Visible = btnStopServer.Visible,
+            Enabled = true,
+            Visible = false,
             BorderColor = Constants.Colors.BUTTON_BORDER
         };
-        _installServerButtonState = new AdminButtonState
+        StopServerButtonState = new AdminButtonState
         {
-            Enabled = btnInstallServer.Enabled,
-            Visible = btnInstallServer.Visible,
+            Enabled = true,
+            Visible = false,
             BorderColor = Constants.Colors.BUTTON_BORDER
         };
-        _updateServerButtonState = new AdminButtonState
+        InstallServerButtonState = new AdminButtonState
         {
-            Enabled = btnUpdateServer.Enabled,
-            Visible = btnUpdateServer.Visible,
+            Enabled = true,
+            Visible = true,
             BorderColor = Constants.Colors.BUTTON_BORDER
         };
-        _saveBackupButtonState = new AdminButtonState
+        UpdateServerButtonState = new AdminButtonState
         {
-            Enabled = btnSaveBackup.Enabled,
-            Visible = btnSaveBackup.Visible,
+            Enabled = true,
+            Visible = true,
             BorderColor = Constants.Colors.BUTTON_BORDER
         };
-        _openBackupFolderButtonState = new AdminButtonState
+        SaveBackupButtonState = new AdminButtonState
         {
-            Enabled = btnOpenBackupFolder.Enabled,
-            Visible = btnOpenBackupFolder.Visible,
+            Enabled = true,
+            Visible = true,
             BorderColor = Constants.Colors.BUTTON_BORDER
         };
-        _openSavegameFolderButtonState = new AdminButtonState
+        OpenBackupFolderButtonState = new AdminButtonState
         {
-            Enabled = btnOpenSavegameFolder.Enabled,
-            Visible = btnOpenSavegameFolder.Visible,
+            Enabled = true,
+            Visible = true,
             BorderColor = Constants.Colors.BUTTON_BORDER
         };
-        _openLogFolderButtonState = new AdminButtonState
+        OpenSavegameFolderButtonState = new AdminButtonState
         {
-            Enabled = btnOpenLogFolder.Enabled,
-            Visible = btnOpenLogFolder.Visible,
+            Enabled = true,
+            Visible = true,
             BorderColor = Constants.Colors.BUTTON_BORDER
         };
+        OpenLogFolderButtonState = new AdminButtonState
+        {
+            Enabled = true,
+            Visible = true,
+            BorderColor = Constants.Colors.BUTTON_BORDER
+        };
+    }
+
+    private void AdminPanelView_Load(object sender, EventArgs e)
+    {
+        SetDefaultButtonStates();
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Enshrouded_Server_Manager.Services;
 
-public interface IDiscordOutputService
+public interface IDiscordService
 {
     Task ServerOnline(string serverName, string Url, bool embedEnabled, string onlineMsg);
     Task ServerOffline(string serverName, string Url, bool embedEnabled, string offlineMsg);
