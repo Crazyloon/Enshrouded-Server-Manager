@@ -10,6 +10,7 @@ public interface IFileSystemService
     public void DeleteFile(string fileName);
     public void WriteFile(string fileName, string content);
     public string ReadFile(string fileName);
+    public IEnumerable<string> ReadLines(string fileName);
     public void CopyFile(string sourceFileName, string destFileName);
     public void CreateZipFromDirectory(string sourceDirectoryName, string destinationArchiveFileName);
     public void ExtractZipToDirectory(string sourceArchiveFileName, string destinationDirectoryName);

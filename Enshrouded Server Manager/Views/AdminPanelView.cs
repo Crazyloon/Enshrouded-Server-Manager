@@ -246,4 +246,21 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
     {
         //SetDefaultButtonStates();
     }
+
+    private void btnUpdateServer_EnabledChanged(object sender, EventArgs e)
+    {
+        var Sender = ((Button)sender);
+        Sender.BackColor = Sender.Enabled ? Constants.Colors.BUTTON_BACKGROUND : Constants.Colors.BUTTON_BACKGROUND_DISABLED;
+
+        // Reduce the opacity of the border color when the button is disabled
+        var currentColor = Sender.FlatAppearance.BorderColor;
+        var alpha = currentColor.A;
+        var red = currentColor.R;
+        var green = currentColor.G;
+        var blue = currentColor.B;
+
+        var disabledColor = Color.FromArgb((int)(alpha * 0.9f), red, green, blue);
+
+        Sender.FlatAppearance.BorderColor = Sender.Enabled ? currentColor : disabledColor;
+    }
 }

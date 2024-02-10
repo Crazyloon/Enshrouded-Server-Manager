@@ -57,6 +57,11 @@ public class FileSystemService : IFileSystemService
         return File.ReadAllText(fileName);
     }
 
+    public IEnumerable<string> ReadLines(string fileName)
+    {
+        return File.ReadLines(fileName);
+    }
+
     public void CopyFile(string sourceFileName, string destFileName)
     {
         File.Copy(sourceFileName, destFileName);

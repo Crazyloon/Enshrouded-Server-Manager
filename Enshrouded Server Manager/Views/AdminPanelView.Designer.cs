@@ -124,6 +124,7 @@ partial class AdminPanelView
         btnUpdateServer.UseCompatibleTextRendering = true;
         btnUpdateServer.UseVisualStyleBackColor = true;
         btnUpdateServer.Visible = false;
+        btnUpdateServer.EnabledChanged += btnUpdateServer_EnabledChanged;
         // 
         // btnSaveBackup
         // 

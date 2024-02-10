@@ -5,7 +5,6 @@ using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.Views.Interfaces;
 using Newtonsoft.Json;
-using System.Diagnostics;
 
 namespace Enshrouded_Server_Manager.Presenters;
 public class AdminPanelPresenter
@@ -120,6 +119,7 @@ public class AdminPanelPresenter
 
                 // TODO: Instead of hiding the button, we can disable it
                 // Would need to set some styles for a disabled state for this to make sense
+                //_adminPanelView.UpdateServerButtonEnabled = false;
                 _adminPanelView.UpdateServerButtonVisible = false;
             }
 
@@ -299,7 +299,7 @@ public class AdminPanelPresenter
 
             _fileSystemService.CreateDirectory(backupserverfolder);
 
-            Process.Start(Constants.ProcessNames.EXPLORER_EXE, backupserverfolder);
+            _systemProcessService.Start(Constants.ProcessNames.EXPLORER_EXE, backupserverfolder);
         }
     }
 

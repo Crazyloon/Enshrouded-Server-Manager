@@ -76,6 +76,9 @@ public class VersionManagementService : IVersionManagementService
         {
             try
             {
+                // TODO Refactor this into the HTTPClientService so the tests don't 
+                // have to send a real request to the server
+
                 // check file for actual version
                 string url = "https://api.steamcmd.net/v1/info/2278520";
                 HttpResponseMessage response = await Client.GetAsync(url);
@@ -95,7 +98,7 @@ public class VersionManagementService : IVersionManagementService
                 var file = Path.Join(steamappsPath, Constants.Files.APP_MANIFEST);
 
                 // check if file contains buildId
-                if (!File.ReadLines(file).Any(line => line.Contains($"\"buildid\"		\"{buildId}\"")))
+                if (!AppManifestContainsBuildId(file, buildId))
                 {
                     // change update server button border to red
                     return Color.Yellow;
@@ -110,6 +113,16 @@ public class VersionManagementService : IVersionManagementService
                 return Color.Red;
             }
         }
+    }
+
+    private bool AppManifestContainsBuildId(string manifestFile, string buildId)
+    {
+        string manifestBuildId = string.Empty;
+        var lines = _fileSystemService.ReadLines(manifestFile);
+        var buildIdLine = lines.FirstOrDefault(line => line.Contains("buildid"));
+        manifestBuildId = buildIdLine.Split("\t").Last().Replace("\"", string.Empty);
+
+        return buildId == manifestBuildId;
     }
 
 }
