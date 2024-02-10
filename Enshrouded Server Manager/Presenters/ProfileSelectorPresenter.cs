@@ -3,6 +3,7 @@ using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.Views.Interfaces;
+using System.ComponentModel;
 
 namespace Enshrouded_Server_Manager.Presenters;
 public class ProfileSelectorPresenter
@@ -11,9 +12,9 @@ public class ProfileSelectorPresenter
     private readonly IProfileService _profileManager;
     private readonly IFileSystemService _fileSystemService;
 
-    private List<ServerProfile>? _profiles;
+    private BindingList<ServerProfile>? _profiles;
 
-    public ProfileSelectorPresenter(IProfileSelectorView profileSelectorView, IProfileService profileManager, IFileSystemService fileSystemManager, List<ServerProfile>? serverProfiles)
+    public ProfileSelectorPresenter(IProfileSelectorView profileSelectorView, IProfileService profileManager, IFileSystemService fileSystemManager, BindingList<ServerProfile>? serverProfiles)
     {
         _profileSelectorView = profileSelectorView;
         _profileManager = profileManager;
@@ -29,7 +30,7 @@ public class ProfileSelectorPresenter
         EventAggregator.Instance.Publish(new ProfileSelectedMessage(_profileSelectorView.SelectedProfile));
     }
 
-    public void LoadProfiles(List<ServerProfile>? profiles)
+    private void LoadProfiles(BindingList<ServerProfile>? profiles)
     {
         if (profiles is not null && profiles.Any())
         {
@@ -37,7 +38,7 @@ public class ProfileSelectorPresenter
         }
         else
         {
-            _profiles = _profileManager.LoadServerProfiles(JsonSettings.Default);
+            _profiles = new BindingList<ServerProfile>(_profileManager.LoadServerProfiles(JsonSettings.Default));
         }
 
         if (_profiles is not null && _profiles.Any())

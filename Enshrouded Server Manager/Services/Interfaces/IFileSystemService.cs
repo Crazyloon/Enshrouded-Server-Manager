@@ -4,6 +4,7 @@ public interface IFileSystemService
 {
     public void CreateDirectory(string directoryName);
     public void DeleteDirectory(string directoryName);
+    public void MoveDirectory(string oldDirectoryName, string newDirectoryName);
     public bool RenameDirectory(string oldDirectoryName, string newDirectoryname);
     public bool DirectoryExists(string directoryName);
     public bool FileExists(string fileName);

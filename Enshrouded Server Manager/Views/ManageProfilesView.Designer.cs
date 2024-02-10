@@ -99,6 +99,7 @@ partial class ManageProfilesView
         btnSaveProfileName.Text = "Save Changes";
         btnSaveProfileName.UseCompatibleTextRendering = true;
         btnSaveProfileName.UseVisualStyleBackColor = true;
+        btnSaveProfileName.EnabledChanged += btnSaveProfileName_EnabledChanged;
         // 
         // txtEditProfileName
         // 

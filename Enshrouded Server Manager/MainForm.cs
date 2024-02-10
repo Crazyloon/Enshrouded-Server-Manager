@@ -52,7 +52,7 @@ public partial class MainForm : Form
         _server = new EnshroudedServerService(_fileSystemService);
         _backup = new BackupService(_fileSystemService);
         _versionManager = new VersionManagementService(_fileSystemService);
-        _profileManager = new ProfileService(_fileSystemService);
+        _profileManager = new ProfileService(_fileSystemService, _messageBox);
         _discordOutput = new DiscordService();
 
         //Register Custom Events

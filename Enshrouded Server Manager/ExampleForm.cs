@@ -1,7 +1,9 @@
 ﻿using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Helpers;
+using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Presenters;
 using Enshrouded_Server_Manager.Services;
+using System.ComponentModel;
 using System.Net;
 using System.Runtime.InteropServices;
 
@@ -21,14 +23,14 @@ public partial class ExampleForm : Form
         InitializeComponent();
 
         // initialize services
+        var messageBox = new MessageBoxService();
         var fileSystemManager = new FileSystemService();
-        var profileManager = new ProfileService(fileSystemManager);
         var enshroudedServer = new EnshroudedServerService(fileSystemManager);
         var versionManager = new VersionManagementService(fileSystemManager);
         var backupService = new BackupService(fileSystemManager);
+        var profileManager = new ProfileService(fileSystemManager, messageBox);
         var discordOutputService = new DiscordService();
         var processManager = new SystemProcessService();
-        var messageBox = new MessageBoxService();
         var httpClient = new HttpClientService(new WebClient());
         var serverSettingsService = new ServerSettingsService(fileSystemManager, messageBox, enshroudedServer);
         var steamCMDInstaller = new SteamCMDInstallerService(fileSystemManager, processManager, messageBox, httpClient);
@@ -36,10 +38,11 @@ public partial class ExampleForm : Form
         adminPanelView.Tag = new AdminPanelPresenter(adminPanelView, steamCMDInstaller, fileSystemManager, versionManager, processManager, serverSettingsService, enshroudedServer, profileManager, discordOutputService, backupService);
 
         // Load the profiles for each view the first time they are created
-        var profiles = profileManager.LoadServerProfiles(JsonSettings.Default, true);
+        BindingList<ServerProfile> profiles = new BindingList<ServerProfile>(profileManager.LoadServerProfiles(JsonSettings.Default, true));
 
         serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, serverSettingsService, fileSystemManager, enshroudedServer);
         profileSelectorView.Tag = new ProfileSelectorPresenter(profileSelectorView, profileManager, fileSystemManager, profiles);
+        manageProfilesView.Tag = new ManageProfilesPresenter(manageProfilesView, profileManager, serverSettingsService, fileSystemManager, messageBox, enshroudedServer, profiles);
 
         pnlUpdateServerfiles = new Panel();
         lblUpdateServerfiles = new Label();

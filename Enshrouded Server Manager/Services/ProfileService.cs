@@ -6,9 +6,11 @@ namespace Enshrouded_Server_Manager.Services;
 public class ProfileService : IProfileService
 {
     private readonly IFileSystemService _fileSystemService;
-    public ProfileService(IFileSystemService fsm)
+    private readonly IMessageBoxService _messageBoxService;
+    public ProfileService(IFileSystemService fsm, IMessageBoxService messageBoxService)
     {
         _fileSystemService = fsm;
+        _messageBoxService = messageBoxService;
     }
 
     public List<ServerProfile>? LoadServerProfiles(JsonSerializerSettings jsonSerializerSettings, bool firstCheck = false)
@@ -56,6 +58,24 @@ public class ProfileService : IProfileService
         }
 
         return true;
+    }
+
+    public void RenameServerSettings(string oldServerProfileName, string newServerProfileName)
+    {
+        try
+        {
+            var oldServerProfilePath = Path.Join(Constants.Paths.SERVER_PATH, oldServerProfileName);
+            var newServerProfilePath = Path.Join(Constants.Paths.SERVER_PATH, newServerProfileName);
+            _fileSystemService.MoveDirectory(oldServerProfilePath, $"{oldServerProfilePath}_temp");
+            _fileSystemService.MoveDirectory($"{oldServerProfilePath}_temp", newServerProfilePath);
+        }
+        catch (Exception ex)
+        {
+            _messageBoxService.Show(string.Format(Constants.Errors.PROFILE_NAME_CHANGE_ERROR_MESSAGE, ex.Message),
+                Constants.Errors.PROFILE_NAME_CHANGE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            return;
+        }
     }
 
     private void WriteDefaultProfileJson(string profilePath, JsonSerializerSettings settings)
