@@ -78,4 +78,10 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
     {
         Interactions.AnimateSaveChangesButton(btnSaveSettings, btnSaveSettings.Text, Constants.ButtonText.SAVED_SUCCESS);
     }
+
+    private void btnSaveSettings_EnabledChanged(object sender, EventArgs e)
+    {
+        var Sender = ((Button)sender);
+        Interactions.HandleEnabledChanged_PrimaryButton(Sender);
+    }
 }

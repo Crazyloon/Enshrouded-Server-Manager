@@ -23,6 +23,7 @@ public class AdminPanelPresenter
     private ServerProfile _selectedProfile;
 
     public AdminPanelPresenter(
+        IAdminPanelView adminPanelView,
         ISteamCMDInstallerService steamCMDInstaller,
         IFileSystemService fileSystemManager,
         IVersionManagementService versionManager,
@@ -31,8 +32,7 @@ public class AdminPanelPresenter
         IEnshroudedServerService server,
         IProfileService profileService,
         IDiscordService discordOutputService,
-        IBackupService backupService,
-        IAdminPanelView adminPanelView)
+        IBackupService backupService)
     {
         _steamCMDInstaller = steamCMDInstaller;
         _fileSystemService = fileSystemManager;

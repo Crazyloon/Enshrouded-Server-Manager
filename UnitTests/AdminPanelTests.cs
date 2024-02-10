@@ -44,7 +44,7 @@ public class AdminPanelTests
         _adminPanelView = Substitute.For<IAdminPanelView>();
         _eventAggregator = Substitute.For<IEventAggregator>();
 
-        _presenter = new AdminPanelPresenter(_steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _adminPanelView);
+        _presenter = new AdminPanelPresenter(_adminPanelView, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService);
 
         EventAggregator.Instance.Publish(new ProfileSelectedMessage(new ServerProfile() { Name = "TestServer" }));
     }

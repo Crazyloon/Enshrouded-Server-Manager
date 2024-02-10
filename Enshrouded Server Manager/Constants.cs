@@ -123,14 +123,16 @@ public static class Constants
 
     public static class Colors
     {
-        private static readonly Color DARK_BLUE = Color.FromArgb(255, 0, 0, 40);
-        private static readonly Color BLUE_GRAY = Color.FromArgb(255, 115, 115, 137);
+        private static readonly Color DARK_BLUE = Color.FromArgb(6, 6, 48);
+        private static readonly Color BLUE_GRAY = Color.FromArgb(115, 115, 137);
 
         public static readonly Color BUTTON_BACKGROUND = DARK_BLUE;
         public static readonly Color BUTTON_BACKGROUND_DISABLED = BLUE_GRAY;
         public static readonly Color BUTTON_BORDER = BLUE_GRAY;
         public static readonly Color BUTTON_BORDER_DISABLED = DARK_BLUE;
 
+        public static readonly Color BUTTON_TEXT = Color.FromArgb(0, 255, 185);
+        public static readonly Color BUTTON_TEXT_DISABLED = Color.FromArgb(0, 0, 18);
     }
 
     public static class Urls

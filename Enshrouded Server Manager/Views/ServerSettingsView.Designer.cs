@@ -202,6 +202,7 @@ partial class ServerSettingsView
         btnSaveSettings.Text = "Save Settings";
         btnSaveSettings.UseCompatibleTextRendering = true;
         btnSaveSettings.UseVisualStyleBackColor = true;
+        btnSaveSettings.EnabledChanged += btnSaveSettings_EnabledChanged;
         // 
         // ServerSettingsView
         // 

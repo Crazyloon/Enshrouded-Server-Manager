@@ -735,6 +735,7 @@ public partial class MainForm : Form
         var Sender = ((Button)sender);
         Sender.BackColor = Sender.Enabled ? Constants.Colors.BUTTON_BACKGROUND : Constants.Colors.BUTTON_BACKGROUND_DISABLED;
         Sender.FlatAppearance.BorderColor = Sender.Enabled ? Constants.Colors.BUTTON_BORDER : Constants.Colors.BUTTON_BORDER_DISABLED;
+        Sender.ForeColor = Sender.Enabled ? Constants.Colors.BUTTON_TEXT : Constants.Colors.BUTTON_TEXT_DISABLED;
     }
     #endregion ButtonEvents
 

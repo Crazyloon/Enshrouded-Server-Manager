@@ -33,7 +33,7 @@ public partial class ExampleForm : Form
         var serverSettingsService = new ServerSettingsService(fileSystemManager, messageBox, enshroudedServer);
         var steamCMDInstaller = new SteamCMDInstallerService(fileSystemManager, processManager, messageBox, httpClient);
 
-        adminPanelView.Tag = new AdminPanelPresenter(steamCMDInstaller, fileSystemManager, versionManager, processManager, serverSettingsService, enshroudedServer, profileManager, discordOutputService, backupService, adminPanelView);
+        adminPanelView.Tag = new AdminPanelPresenter(adminPanelView, steamCMDInstaller, fileSystemManager, versionManager, processManager, serverSettingsService, enshroudedServer, profileManager, discordOutputService, backupService);
 
         // Load the profiles for each view the first time they are created
         var profiles = profileManager.LoadServerProfiles(JsonSettings.Default, true);
