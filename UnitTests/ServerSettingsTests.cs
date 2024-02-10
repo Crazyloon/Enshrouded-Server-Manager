@@ -23,6 +23,20 @@ public class ServerSettingsTests
     private IEventAggregator _eventAggregator;
     private ServerSettingsPresenter _presenter;
 
+    private ServerProfile _serverProfile;
+    private ProfileSelectedMessage _profileSelectedMessage;
+    private ServerSettings _serverSettings = new ServerSettings
+    {
+        Name = "TestServerName",
+        Password = "123",
+        Ip = "0.0.0.0",
+        GamePort = 15636,
+        QueryPort = 15637,
+        SlotCount = 8,
+        LogDirectory = "./logs",
+        SaveDirectory = "./savegame"
+    };
+
 
     public ServerSettingsTests()
     {
@@ -41,6 +55,12 @@ public class ServerSettingsTests
         _eventAggregator = Substitute.For<IEventAggregator>();
 
         _presenter = new ServerSettingsPresenter(_serverSettingsView, _serverSettingsService, _fileSystemService, _enshroudedServerService);
+
+        // Setup for most tests requires a selected profile
+        _serverProfile = new ServerProfile() { Name = "TestServer" };
+        _profileSelectedMessage = new ProfileSelectedMessage(_serverProfile);
+        _serverSettingsService.LoadServerSettings(Arg.Any<string>()).Returns(_serverSettings);
+        EventAggregator.Instance.Publish(_profileSelectedMessage);
     }
 
     [TestMethod]
@@ -74,34 +94,33 @@ public class ServerSettingsTests
     [TestMethod]
     public void OnServerProfileSelected_ShouldLoadServerSettings_Success()
     {
-        // Arrange
-        var serverProfile = new ServerProfile() { Name = "TestServer" };
-        var serverSettings = new ServerSettings
-        {
-            Name = "TestServerName",
-            Password = "123",
-            Ip = "0.0.0.0",
-            GamePort = 15636,
-            QueryPort = 15637,
-            SlotCount = 8,
-            LogDirectory = "./logs",
-            SaveDirectory = "./savegame"
-        };
+        // Arrange // Done in constructor
+        //var serverSettings = new ServerSettings
+        //{
+        //    Name = "TestServerName",
+        //    Password = "123",
+        //    Ip = "0.0.0.0",
+        //    GamePort = 15636,
+        //    QueryPort = 15637,
+        //    SlotCount = 8,
+        //    LogDirectory = "./logs",
+        //    SaveDirectory = "./savegame"
+        //};
 
-        _serverSettingsService.LoadServerSettings(serverProfile.Name).Returns(serverSettings);
+        //_serverSettingsService.LoadServerSettings(Arg.Any<string>()).Returns(_serverSettings);
 
-        // Act
+        // Act // Done in constructor
         // TODO: This needs to be mocked somehow, running all tests at once causes failures, but succeeds in isolation
-        EventAggregator.Instance.Publish(new ProfileSelectedMessage(serverProfile));
+        //EventAggregator.Instance.Publish(_profileSelectedMessage);
 
         // Assert
-        _serverSettingsService.Received().LoadServerSettings(Arg.Is("TestServer"));
-        Assert.AreEqual(_serverSettingsView.ServerName, serverSettings.Name);
-        Assert.AreEqual(_serverSettingsView.Password, serverSettings.Password);
-        Assert.AreEqual(_serverSettingsView.IpAddress, serverSettings.Ip);
-        Assert.AreEqual(_serverSettingsView.GamePort, serverSettings.GamePort);
-        Assert.AreEqual(_serverSettingsView.QueryPort, serverSettings.QueryPort);
-        Assert.AreEqual(_serverSettingsView.MaxPlayers, serverSettings.SlotCount);
+        _serverSettingsService.Received().LoadServerSettings(Arg.Is(_serverProfile.Name));
+        Assert.AreEqual(_serverSettingsView.ServerName, _serverSettings.Name);
+        Assert.AreEqual(_serverSettingsView.Password, _serverSettings.Password);
+        Assert.AreEqual(_serverSettingsView.IpAddress, _serverSettings.Ip);
+        Assert.AreEqual(_serverSettingsView.GamePort, _serverSettings.GamePort);
+        Assert.AreEqual(_serverSettingsView.QueryPort, _serverSettings.QueryPort);
+        Assert.AreEqual(_serverSettingsView.MaxPlayers, _serverSettings.SlotCount);
     }
 
     [TestMethod]
@@ -144,25 +163,23 @@ public class ServerSettingsTests
         // Then the server settings should be saved
 
         // Arrange
-        var existingSettings = new ServerSettings
-        {
-            Name = "TestName",
-            Password = "111",
-            Ip = "1.2.3.4",
-            GamePort = 11,
-            QueryPort = 22,
-            SlotCount = 12,
-            SaveDirectory = Constants.Paths.ENSHROUDED_SAVE_GAME_DIRECTORY,
-            LogDirectory = Constants.Paths.ENSHROUDED_LOGS_DIRECTORY,
-        };
+        //var existingSettings = new ServerSettings
+        //{
+        //    Name = "TestName",
+        //    Password = "111",
+        //    Ip = "1.2.3.4",
+        //    GamePort = 11,
+        //    QueryPort = 22,
+        //    SlotCount = 12,
+        //    SaveDirectory = Constants.Paths.ENSHROUDED_SAVE_GAME_DIRECTORY,
+        //    LogDirectory = Constants.Paths.ENSHROUDED_LOGS_DIRECTORY,
+        //};
 
-        var serverProfile = new ServerProfile() { Name = "TestServer" };
-
-        _serverSettingsService.LoadServerSettings(serverProfile.Name).Returns(existingSettings);
+        //_serverSettingsService.LoadServerSettings(Arg.Any<string>()).Returns(_serverSettings); // Done in constructor
         _serverSettingsService.SaveServerSettings(Arg.Any<ServerSettings>(), Arg.Any<ServerProfile>()).Returns(true);
 
         // Act
-        EventAggregator.Instance.Publish(new ProfileSelectedMessage(serverProfile));
+        //EventAggregator.Instance.Publish(_profileSelectedMessage); // Done in constructor
 
         _serverSettingsView.ServerName = "RealServer";
         _serverSettingsView.Password = "123";
@@ -187,7 +204,7 @@ public class ServerSettingsTests
 
         // Assert
         //_serverSettingsService.Received().LoadServerSettings(Arg.Is("TestServer"));
-        _serverSettingsService.Received().SaveServerSettings(Arg.Is(savedSettings), Arg.Is(serverProfile));
+        _serverSettingsService.Received().SaveServerSettings(Arg.Is(savedSettings), Arg.Is(_serverProfile));
 
         // TODO: How to test  EventAggregator.Instance.Publish(new ServerSettingsSavedSuccess()); was called
     }
@@ -202,7 +219,9 @@ public class ServerSettingsTests
         // Then an error message should be shown
 
         // Arrange
+        // Act
 
-
+        // Assert
+        // TODO: Assert that the Publish method was not called
     }
 }
