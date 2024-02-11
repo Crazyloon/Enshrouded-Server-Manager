@@ -8,6 +8,12 @@ public partial class InfoPanelView : UserControl, IInfoPanelView
         InitializeComponent();
     }
 
+    public event EventHandler GithubLinkClicked
+    {
+        add => lblGitHubLink.Click += value;
+        remove => lblGitHubLink.Click -= value;
+    }
+
     public bool IsNewVersionAvailable
     {
         get => lblNewVersionAvailableNotification.Visible;

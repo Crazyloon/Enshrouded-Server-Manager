@@ -2,5 +2,7 @@
 
 public interface IInfoPanelView
 {
+    event EventHandler GithubLinkClicked;
+
     bool IsNewVersionAvailable { get; set; }
 }

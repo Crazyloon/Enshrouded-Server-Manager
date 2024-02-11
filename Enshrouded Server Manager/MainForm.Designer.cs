@@ -277,7 +277,6 @@ partial class MainForm
         infoPanelView.BackColor = Color.FromArgb(0, 0, 18);
         infoPanelView.Dock = DockStyle.Fill;
         infoPanelView.ForeColor = SystemColors.HighlightText;
-        infoPanelView.IsNewVersionAvailable = true;
         infoPanelView.Location = new Point(10, 0);
         infoPanelView.Name = "infoPanelView";
         infoPanelView.Size = new Size(227, 443);

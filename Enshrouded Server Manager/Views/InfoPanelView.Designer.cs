@@ -32,7 +32,7 @@ partial class InfoPanelView
         lblLogo = new Label();
         lblNewsText = new Label();
         lblNewVersionAvailableNotification = new Label();
-        GithubLabel = new Label();
+        lblGitHubLink = new Label();
         lblNews = new Label();
         SuspendLayout();
         // 
@@ -72,18 +72,19 @@ partial class InfoPanelView
         lblNewVersionAvailableNotification.Size = new Size(124, 15);
         lblNewVersionAvailableNotification.TabIndex = 60;
         lblNewVersionAvailableNotification.Text = "New version available!";
+        lblNewVersionAvailableNotification.Visible = false;
         // 
-        // GithubLabel
+        // lblGitHubLink
         // 
-        GithubLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-        GithubLabel.AutoSize = true;
-        GithubLabel.Cursor = Cursors.Hand;
-        GithubLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-        GithubLabel.Location = new Point(192, 425);
-        GithubLabel.Name = "GithubLabel";
-        GithubLabel.Size = new Size(45, 15);
-        GithubLabel.TabIndex = 59;
-        GithubLabel.Text = "Github";
+        lblGitHubLink.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        lblGitHubLink.AutoSize = true;
+        lblGitHubLink.Cursor = Cursors.Hand;
+        lblGitHubLink.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+        lblGitHubLink.Location = new Point(192, 425);
+        lblGitHubLink.Name = "lblGitHubLink";
+        lblGitHubLink.Size = new Size(45, 15);
+        lblGitHubLink.TabIndex = 59;
+        lblGitHubLink.Text = "Github";
         // 
         // lblNews
         // 
@@ -105,7 +106,7 @@ partial class InfoPanelView
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
         Controls.Add(lblNewVersionAvailableNotification);
-        Controls.Add(GithubLabel);
+        Controls.Add(lblGitHubLink);
         Controls.Add(lblNews);
         Controls.Add(lblNewsText);
         Controls.Add(lblLogo);
@@ -121,6 +122,6 @@ partial class InfoPanelView
     private Label lblLogo;
     private Label lblNewsText;
     private Label lblNewVersionAvailableNotification;
-    private Label GithubLabel;
+    private Label lblGitHubLink;
     private Label lblNews;
 }
