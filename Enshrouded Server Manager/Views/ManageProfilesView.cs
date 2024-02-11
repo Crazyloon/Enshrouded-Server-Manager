@@ -2,7 +2,6 @@
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.UI;
 using Enshrouded_Server_Manager.Views;
-using System.ComponentModel;
 
 namespace Enshrouded_Server_Manager;
 public partial class ManageProfilesView : UserControl, IManageProfilesView
@@ -14,43 +13,29 @@ public partial class ManageProfilesView : UserControl, IManageProfilesView
         EventAggregator.Instance.Subscribe<ProfileNameUpdated>(n => OnProfileNameUpdated());
     }
 
-    public event EventHandler AddProfileButtonClicked
-    {
-        add => btnAddNewProfile.Click += value;
-        remove => btnAddNewProfile.Click -= value;
-    }
-
-    public event EventHandler EditProfileButtonClicked
+    public event EventHandler SaveProfileNameButtonClicked
     {
         add => btnSaveProfileName.Click += value;
         remove => btnSaveProfileName.Click -= value;
     }
 
-    public event EventHandler DeleteProfileButtonClicked
-    {
-        add => btnDeleteProfile.Click += value;
-        remove => btnDeleteProfile.Click -= value;
-    }
-
-    public event EventHandler SelectedProfileChanged
-    {
-        add => lbxServerProfiles.SelectedIndexChanged += value;
-        remove => lbxServerProfiles.SelectedIndexChanged -= value;
-    }
-
-
-    public ServerProfile? SelectedProfile => (ServerProfile?)lbxServerProfiles.SelectedItem;
+    public ServerProfile? SelectedProfile { get; set; }
 
     public string EditProfileName
     {
         get => txtEditProfileName.Text;
         set => txtEditProfileName.Text = value;
     }
-
-    public void SetProfiles(BindingList<ServerProfile> profiles)
+    public bool IsVisible
     {
-        lbxServerProfiles.DataSource = profiles;
-        lbxServerProfiles.DisplayMember = Constants.PropertyName.NAME;
+        get => this.Visible;
+        set => this.Visible = value;
+    }
+
+    public Point Position
+    {
+        get => this.Location;
+        set => this.Location = value;
     }
 
     private void OnProfileNameUpdated()

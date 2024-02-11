@@ -4,11 +4,13 @@ using System.ComponentModel;
 namespace Enshrouded_Server_Manager.Views;
 public interface IProfileSelectorView
 {
+    event EventHandler SelectedProfileChanged;
+    event EventHandler AddProfileButtonClicked;
+    event EventHandler DeleteProfileButtonClicked;
+    event EventHandler RenameProfileButtonClicked;
+
+    string RenameButtonText { get; set; }
     ServerProfile SelectedProfile { get; }
 
     void SetProfiles(BindingList<ServerProfile> profiles);
-    void SetSelectedProfile(ServerProfile profileName);
-
-    event EventHandler SelectedProfileChanged;
-
 }

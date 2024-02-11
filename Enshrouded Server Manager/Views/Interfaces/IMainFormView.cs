@@ -3,4 +3,6 @@ public interface IMainFormView
 {
     event EventHandler ViewCreditsButtonClicked;
     string CurrentVersionText { get; set; }
+
+    void ToggleCredits();
 }

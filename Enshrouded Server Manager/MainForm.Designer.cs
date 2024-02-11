@@ -43,14 +43,14 @@ partial class MainForm
         pnlLeftPanel = new Panel();
         adminPanelView = new AdminPanelView();
         pnlRightPanel = new Panel();
+        manageProfilesView = new ManageProfilesView();
         profileSelectorView = new ProfileSelectorView();
         pnlInfoPanel = new Panel();
         infoPanelView = new InfoPanelView();
+        creditsPanelView = new CreditsPanelView();
         tabsServerTabs = new TabControl();
         tabServerSettings = new TabPage();
         serverSettingsView = new ServerSettingsView();
-        tabManageProfiles = new TabPage();
-        manageProfilesView = new ManageProfilesView();
         tabAutoBackup = new TabPage();
         autoBackupView = new AutoBackupView();
         tabDiscord = new TabPage();
@@ -70,7 +70,6 @@ partial class MainForm
         pnlInfoPanel.SuspendLayout();
         tabsServerTabs.SuspendLayout();
         tabServerSettings.SuspendLayout();
-        tabManageProfiles.SuspendLayout();
         tabAutoBackup.SuspendLayout();
         tabDiscord.SuspendLayout();
         pnlBottomBorder.SuspendLayout();
@@ -227,6 +226,7 @@ partial class MainForm
         // 
         // pnlRightPanel
         // 
+        pnlRightPanel.Controls.Add(manageProfilesView);
         pnlRightPanel.Controls.Add(profileSelectorView);
         pnlRightPanel.Controls.Add(pnlInfoPanel);
         pnlRightPanel.Controls.Add(tabsServerTabs);
@@ -236,18 +236,34 @@ partial class MainForm
         pnlRightPanel.Size = new Size(706, 443);
         pnlRightPanel.TabIndex = 50;
         // 
+        // manageProfilesView
+        // 
+        manageProfilesView.BackColor = Color.FromArgb(0, 0, 18);
+        manageProfilesView.EditProfileName = "";
+        manageProfilesView.ForeColor = SystemColors.ButtonHighlight;
+        manageProfilesView.IsVisible = true;
+        manageProfilesView.Location = new Point(708, 3);
+        manageProfilesView.Name = "manageProfilesView";
+        manageProfilesView.Position = new Point(708, 3);
+        manageProfilesView.SelectedProfile = null;
+        manageProfilesView.Size = new Size(243, 151);
+        manageProfilesView.TabIndex = 0;
+        manageProfilesView.Visible = false;
+        // 
         // profileSelectorView
         // 
         profileSelectorView.BackColor = Color.FromArgb(0, 0, 18);
         profileSelectorView.Dock = DockStyle.Top;
         profileSelectorView.Location = new Point(0, 0);
         profileSelectorView.Name = "profileSelectorView";
+        profileSelectorView.RenameButtonText = "Rename";
         profileSelectorView.Size = new Size(459, 45);
         profileSelectorView.TabIndex = 1;
         // 
         // pnlInfoPanel
         // 
         pnlInfoPanel.Controls.Add(infoPanelView);
+        pnlInfoPanel.Controls.Add(creditsPanelView);
         pnlInfoPanel.Controls.Add(pbxRightBorder);
         pnlInfoPanel.Controls.Add(pbxInnerRightBorder);
         pnlInfoPanel.Dock = DockStyle.Right;
@@ -267,12 +283,24 @@ partial class MainForm
         infoPanelView.Size = new Size(227, 443);
         infoPanelView.TabIndex = 42;
         // 
+        // creditsPanelView
+        // 
+        creditsPanelView.BackColor = Color.FromArgb(0, 0, 18);
+        creditsPanelView.Dock = DockStyle.Fill;
+        creditsPanelView.ForeColor = SystemColors.Control;
+        creditsPanelView.Location = new Point(10, 0);
+        creditsPanelView.Name = "creditsPanelView";
+        creditsPanelView.Padding = new Padding(5);
+        creditsPanelView.Size = new Size(227, 443);
+        creditsPanelView.TabIndex = 43;
+        creditsPanelView.Visible = false;
+        // 
         // tabsServerTabs
         // 
         tabsServerTabs.Controls.Add(tabServerSettings);
-        tabsServerTabs.Controls.Add(tabManageProfiles);
         tabsServerTabs.Controls.Add(tabAutoBackup);
         tabsServerTabs.Controls.Add(tabDiscord);
+        tabsServerTabs.ItemSize = new Size(89, 20);
         tabsServerTabs.Location = new Point(-4, 43);
         tabsServerTabs.Name = "tabsServerTabs";
         tabsServerTabs.SelectedIndex = 0;
@@ -310,29 +338,6 @@ partial class MainForm
         serverSettingsView.Size = new Size(453, 378);
         serverSettingsView.TabIndex = 0;
         // 
-        // tabManageProfiles
-        // 
-        tabManageProfiles.BackColor = Color.FromArgb(0, 0, 18);
-        tabManageProfiles.Controls.Add(manageProfilesView);
-        tabManageProfiles.ForeColor = SystemColors.ControlLight;
-        tabManageProfiles.Location = new Point(4, 24);
-        tabManageProfiles.Name = "tabManageProfiles";
-        tabManageProfiles.Padding = new Padding(3);
-        tabManageProfiles.Size = new Size(459, 384);
-        tabManageProfiles.TabIndex = 1;
-        tabManageProfiles.Text = "Manage Profiles";
-        // 
-        // manageProfilesView
-        // 
-        manageProfilesView.BackColor = Color.FromArgb(0, 0, 18);
-        manageProfilesView.Dock = DockStyle.Fill;
-        manageProfilesView.EditProfileName = "";
-        manageProfilesView.ForeColor = SystemColors.ButtonHighlight;
-        manageProfilesView.Location = new Point(3, 3);
-        manageProfilesView.Name = "manageProfilesView";
-        manageProfilesView.Size = new Size(453, 378);
-        manageProfilesView.TabIndex = 0;
-        // 
         // tabAutoBackup
         // 
         tabAutoBackup.BackColor = Color.FromArgb(0, 0, 18);
@@ -357,6 +362,7 @@ partial class MainForm
         autoBackupView.Location = new Point(3, 3);
         autoBackupView.MaxAutoBackupCount = 0;
         autoBackupView.Name = "autoBackupView";
+        autoBackupView.SelectedProfile = null;
         autoBackupView.Size = new Size(453, 378);
         autoBackupView.TabIndex = 0;
         // 
@@ -469,7 +475,6 @@ partial class MainForm
         pnlInfoPanel.ResumeLayout(false);
         tabsServerTabs.ResumeLayout(false);
         tabServerSettings.ResumeLayout(false);
-        tabManageProfiles.ResumeLayout(false);
         tabAutoBackup.ResumeLayout(false);
         tabDiscord.ResumeLayout(false);
         pnlBottomBorder.ResumeLayout(false);
@@ -497,7 +502,6 @@ partial class MainForm
     private Panel pnlTopBorder;
     private TabControl tabsServerTabs;
     private TabPage tabServerSettings;
-    private TabPage tabManageProfiles;
     private TabPage tabAutoBackup;
     private TabPage tabDiscord;
     private AdminPanelView adminPanelView;
@@ -509,4 +513,5 @@ partial class MainForm
     private DiscordNotificationsView discordNotificationsView;
     private Label lblVersion;
     private Label btnOpenCredits;
+    private CreditsPanelView creditsPanelView;
 }

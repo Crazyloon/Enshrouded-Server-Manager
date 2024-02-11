@@ -37,12 +37,7 @@ public class AutoBackupPresenter
         EventAggregator.Instance.Subscribe<AutoBackupSuccessMessage>(n => OnAutoBackupSuccess(n.ProfileName));
         EventAggregator.Instance.Subscribe<ProfileSelectedMessage>(s => OnProfileSelected(s.SelectedProfile));
 
-        SetProfiles(serverProfiles);
-    }
-
-    private void OnSelectedProfileChanged()
-    {
-        throw new NotImplementedException();
+        //SetProfiles(serverProfiles);
     }
 
     private void OnAutoBackupSuccess(string profileName)
@@ -52,12 +47,10 @@ public class AutoBackupPresenter
 
     private void OnSaveAutoBackupSettingsClicked(object? sender, EventArgs e)
     {
-        var enabled = _autoBackupView.IsAutoBackupEnabled;
 
         if (_autoBackupView.SelectedProfile is not null)
         {
-            //Interactions.AnimateSaveChangesButton(btnSaveAutoBackup, btnSaveAutoBackup.Text, Constants.ButtonText.SAVED_SUCCESS);
-
+            var enabled = _autoBackupView.IsAutoBackupEnabled;
             var selectedProfile = _autoBackupView.SelectedProfile.Name;
             var profiles = _profileManager.LoadServerProfiles(JsonSettings.Default);
             var profile = profiles?.FirstOrDefault(x => x.Name == selectedProfile);
@@ -74,6 +67,8 @@ public class AutoBackupPresenter
                 var output = JsonConvert.SerializeObject(profiles, JsonSettings.Default);
                 var serverProfilesJson = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON);
                 _fileSystemService.WriteFile(serverProfilesJson, output);
+
+                EventAggregator.Instance.Publish(new AutoBackupSuccessMessage(profile.Name));
             }
         }
         else
@@ -82,16 +77,17 @@ public class AutoBackupPresenter
         }
     }
 
-    private void SetProfiles(BindingList<ServerProfile>? serverProfiles)
-    {
-        _autoBackupView.SetProfiles(serverProfiles);
-    }
+    //private void SetProfiles(BindingList<ServerProfile>? serverProfiles)
+    //{
+    //    _autoBackupView.SetProfiles(serverProfiles);
+    //}
 
     private void OnProfileSelected(ServerProfile selectedProfile)
     {
         // get selected item
         if (selectedProfile is not null)
         {
+            _autoBackupView.SelectedProfile = selectedProfile;
             var profileName = selectedProfile.Name;
             // load profile
             var profile = _profileManager.LoadServerProfiles(JsonSettings.Default).FirstOrDefault(x => x.Name == profileName);

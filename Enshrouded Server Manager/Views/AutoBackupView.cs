@@ -2,7 +2,6 @@
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.UI;
 using Enshrouded_Server_Manager.Views;
-using System.ComponentModel;
 
 namespace Enshrouded_Server_Manager;
 public partial class AutoBackupView : UserControl, IAutoBackupView
@@ -44,11 +43,11 @@ public partial class AutoBackupView : UserControl, IAutoBackupView
         set => nudBackupMaxCount.Value = value;
     }
 
-    public event EventHandler SelectedProfileChanged
-    {
-        add => lbxProfileSelectorAutoBackup.SelectedIndexChanged += value;
-        remove => lbxProfileSelectorAutoBackup.SelectedIndexChanged -= value;
-    }
+    //public event EventHandler SelectedProfileChanged
+    //{
+    //    add => lbxProfileSelectorAutoBackup.SelectedIndexChanged += value;
+    //    remove => lbxProfileSelectorAutoBackup.SelectedIndexChanged -= value;
+    //}
 
     public event EventHandler SaveAutoBackupSettingsClicked
     {
@@ -62,19 +61,19 @@ public partial class AutoBackupView : UserControl, IAutoBackupView
         remove => chkEnableBackups.CheckedChanged -= value;
     }
 
-    public ServerProfile? SelectedProfile => (ServerProfile?)lbxProfileSelectorAutoBackup.SelectedItem;
+    public ServerProfile? SelectedProfile { get; set; }
 
-    public void SetProfiles(BindingList<ServerProfile> profiles)
-    {
-        lbxProfileSelectorAutoBackup.DataSource = profiles;
-        lbxProfileSelectorAutoBackup.DisplayMember = Constants.PropertyName.NAME;
-    }
+    //public void SetProfiles(BindingList<ServerProfile> profiles)
+    //{
+    //    lbxProfileSelectorAutoBackup.DataSource = profiles;
+    //    lbxProfileSelectorAutoBackup.DisplayMember = Constants.PropertyName.NAME;
+    //}
 
     public void UpdateBackupInfo(string profileName, int backupCount, long diskConsumption)
     {
-        if (lbxProfileSelectorAutoBackup.InvokeRequired)
+        if (lblProfileBackupsStats.InvokeRequired)
         {
-            lbxProfileSelectorAutoBackup.BeginInvoke(() =>
+            lblProfileBackupsStats.BeginInvoke(() =>
             {
                 if (this.SelectedProfile is null || this.SelectedProfile.Name != profileName)
                 {

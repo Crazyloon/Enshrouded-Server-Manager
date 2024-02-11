@@ -39,7 +39,6 @@ partial class InfoPanelView
         // lblLogo
         // 
         lblLogo.BackColor = Color.Transparent;
-        lblLogo.Cursor = Cursors.Hand;
         lblLogo.Dock = DockStyle.Top;
         lblLogo.Font = new Font("Malgun Gothic", 60F, FontStyle.Bold, GraphicsUnit.Point);
         lblLogo.ForeColor = Color.FromArgb(0, 204, 204);

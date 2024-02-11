@@ -10,6 +10,30 @@ public partial class ProfileSelectorView : UserControl, IProfileSelectorView
         cbxProfileSelectionComboBox.SelectedIndexChanged += (sender, args) => SelectedProfileChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    public event EventHandler AddProfileButtonClicked
+    {
+        add => btnAddNewProfile.Click += value;
+        remove => btnAddNewProfile.Click -= value;
+    }
+
+    public event EventHandler DeleteProfileButtonClicked
+    {
+        add => btnDeleteProfile.Click += value;
+        remove => btnDeleteProfile.Click -= value;
+    }
+
+    public event EventHandler RenameProfileButtonClicked
+    {
+        add => btnRenameProfile.Click += value;
+        remove => btnRenameProfile.Click -= value;
+    }
+
+    public string RenameButtonText
+    {
+        get => btnRenameProfile.Text;
+        set => btnRenameProfile.Text = value;
+    }
+
     public event EventHandler SelectedProfileChanged;
     public ServerProfile SelectedProfile => (ServerProfile)cbxProfileSelectionComboBox.SelectedItem;
 
@@ -18,10 +42,5 @@ public partial class ProfileSelectorView : UserControl, IProfileSelectorView
         cbxProfileSelectionComboBox.DataSource = profiles;
         cbxProfileSelectionComboBox.DisplayMember = Constants.PropertyName.NAME;
         cbxProfileSelectionComboBox.SelectedIndex = 0;
-    }
-
-    public void SetSelectedProfile(ServerProfile profile)
-    {
-        cbxProfileSelectionComboBox.SelectedItem = profile;
     }
 }

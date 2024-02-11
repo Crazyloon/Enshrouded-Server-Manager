@@ -1,17 +1,13 @@
 ﻿using Enshrouded_Server_Manager.Models;
-using System.ComponentModel;
 
 namespace Enshrouded_Server_Manager.Views;
 
 public interface IManageProfilesView
 {
-    event EventHandler AddProfileButtonClicked;
-    event EventHandler EditProfileButtonClicked;
-    event EventHandler DeleteProfileButtonClicked;
-    event EventHandler SelectedProfileChanged;
+    event EventHandler SaveProfileNameButtonClicked;
 
-    ServerProfile? SelectedProfile { get; }
+    Point Position { get; set; }
+    ServerProfile? SelectedProfile { get; set; }
     public string EditProfileName { get; set; }
-
-    void SetProfiles(BindingList<ServerProfile> profiles);
+    public bool IsVisible { get; set; }
 }

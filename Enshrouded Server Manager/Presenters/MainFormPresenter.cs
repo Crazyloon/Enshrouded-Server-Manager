@@ -20,7 +20,7 @@ public class MainFormPresenter
 
     private void OnViewCreditsButtonClicked()
     {
-        // TODO: Show credits and hide the rest of the info
+        _mainFormView.ToggleCredits();
     }
 
     private void BeginApplicationVersionCheckTimer()

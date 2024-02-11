@@ -49,7 +49,7 @@ public partial class MainForm : Form, IMainFormView
         this.Tag = new MainFormPresenter(this, versionManager);
 
         // Profile Selector should be created last, because it publishes the selected profile on startup
-        profileSelectorView.Tag = new ProfileSelectorPresenter(profileSelectorView, profileManager, fileSystemManager, profiles);
+        profileSelectorView.Tag = new ProfileSelectorPresenter(profileSelectorView, manageProfilesView, profileManager, serverSettingsService, fileSystemManager, messageBox, enshroudedServer, profiles);
 
         _pnlUpdateServerfiles = new Panel();
         _lblUpdateServerfiles = new Label();
@@ -70,6 +70,12 @@ public partial class MainForm : Form, IMainFormView
     {
         get => lblVersion.Text;
         set => lblVersion.Text = value;
+    }
+
+    public void ToggleCredits()
+    {
+        creditsPanelView.Visible = !creditsPanelView.Visible;
+        infoPanelView.Visible = !infoPanelView.Visible;
     }
 
     private void OnServerInstallStopped()
