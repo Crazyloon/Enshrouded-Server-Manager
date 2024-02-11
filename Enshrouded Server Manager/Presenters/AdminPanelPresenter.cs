@@ -45,6 +45,7 @@ public class AdminPanelPresenter
         _backupService = backupService;
         _adminPanelView = adminPanelView;
 
+        adminPanelView.AdminPanelLoaded += (s, e) => OnAdminPanelLoaded();
         adminPanelView.InstallSteamCMDButtonClicked += (s, e) => OnInstallSteamCMDButtonClicked();
         adminPanelView.WindowsFirewallButtonClicked += (s, e) => OnWindowsFirewallButtonClicked();
         adminPanelView.StartServerButtonClicked += (s, e) => OnStartServerButtonClicked();
@@ -57,6 +58,23 @@ public class AdminPanelPresenter
         adminPanelView.OpenLogFolderButtonClicked += (s, e) => OnOpenLogFolderButtonClicked();
 
         EventAggregator.Instance.Subscribe<ProfileSelectedMessage>(p => OnProfileSelected(p.SelectedProfile));
+    }
+
+    private async void OnAdminPanelLoaded()
+    {
+        // Start a timer to check for server updates
+        int TIMER_INTERVAL_SERVER_UPDATE_CHECK = 5;
+
+        string selectedProfile = _selectedProfile.Name;
+        _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfile);
+
+        var timer = new PeriodicTimer(TimeSpan.FromMinutes(TIMER_INTERVAL_SERVER_UPDATE_CHECK));
+
+        while (await timer.WaitForNextTickAsync())
+        {
+            selectedProfile = _selectedProfile.Name;
+            _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfile);
+        }
     }
 
     private void OnInstallSteamCMDButtonClicked()

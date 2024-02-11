@@ -210,6 +210,7 @@ partial class DiscordNotificationsView
         btnSaveDiscordSettings.Text = "Save Changes";
         btnSaveDiscordSettings.UseCompatibleTextRendering = true;
         btnSaveDiscordSettings.UseVisualStyleBackColor = true;
+        btnSaveDiscordSettings.EnabledChanged += btnSaveDiscordSettings_EnabledChanged;
         // 
         // txtDiscordWebhookUrl
         // 

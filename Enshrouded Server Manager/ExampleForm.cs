@@ -44,6 +44,7 @@ public partial class ExampleForm : Form
         serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, serverSettingsService, fileSystemManager, enshroudedServer);
         manageProfilesView.Tag = new ManageProfilesPresenter(manageProfilesView, profileManager, serverSettingsService, fileSystemManager, messageBox, enshroudedServer, profiles);
         autoBackupView.Tag = new AutoBackupPresenter(autoBackupView, profileManager, fileSystemManager, messageBox, backupService, profiles);
+        discordNotificationsView.Tag = new DiscordNotificationsPresenter(discordNotificationsView, discordOutputService, messageBox, profileManager, fileSystemManager);
 
         // Profile Selector should be created last, because it publishes the selected profile on startup
         profileSelectorView.Tag = new ProfileSelectorPresenter(profileSelectorView, profileManager, fileSystemManager, profiles);

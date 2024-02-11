@@ -7,6 +7,11 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
     }
 
     #region EventHandlers
+    public event EventHandler AdminPanelLoaded
+    {
+        add => Load += value;
+        remove => Load -= value;
+    }
     public event EventHandler InstallSteamCMDButtonClicked
     {
         add => btnInstallSteamCMD.Click += value;
@@ -238,11 +243,6 @@ public partial class AdminPanelView : UserControl, IAdminPanelView
 
         OpenLogFolderButtonEnabled = true;
         OpenLogFolderButtonVisible = true;
-    }
-
-    private void AdminPanelView_Load(object sender, EventArgs e)
-    {
-        //SetDefaultButtonStates();
     }
 
     private void btnUpdateServer_EnabledChanged(object sender, EventArgs e)

@@ -1,6 +1,7 @@
 ﻿namespace Enshrouded_Server_Manager.Views;
 public interface IAdminPanelView
 {
+    event EventHandler AdminPanelLoaded;
     event EventHandler InstallSteamCMDButtonClicked;
     event EventHandler WindowsFirewallButtonClicked;
     event EventHandler StartServerButtonClicked;
