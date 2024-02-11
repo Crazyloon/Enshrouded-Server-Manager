@@ -348,10 +348,13 @@ public class AdminPanelPresenter
     private async void OnProfileSelected(ServerProfile selectedProfile)
     {
         _selectedProfile = selectedProfile;
-        RefreshServerButtonsVisibility(selectedProfile.Name);
-        // TODO: Could skip this work if we first check if the server is installed, since the update button doesn't show if it's not
-        var color = await _versionManagementService.ServerUpdateCheck(selectedProfile.Name);
-        _adminPanelView.UpdateServerButtonBorderColor = color;
+        if (_selectedProfile is not null)
+        {
+            RefreshServerButtonsVisibility(selectedProfile.Name);
+            // TODO: Could skip this work if we first check if the server is installed, since the update button doesn't show if it's not
+            var color = await _versionManagementService.ServerUpdateCheck(selectedProfile.Name);
+            _adminPanelView.UpdateServerButtonBorderColor = color;
+        }
     }
 
     private void RefreshServerButtonsVisibility(string selectedProfileName)

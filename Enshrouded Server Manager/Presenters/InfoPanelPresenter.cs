@@ -6,13 +6,13 @@ namespace Enshrouded_Server_Manager.Presenters;
 public class InfoPanelPresenter
 {
     private readonly IInfoPanelView _infoPanelView;
-    private readonly IVersionManagementService _versionManagementService;
+    private readonly ISystemProcessService _systemProcess;
 
     public InfoPanelPresenter(IInfoPanelView view,
-        IVersionManagementService versionManagementService)
+        ISystemProcessService systemProcess)
     {
         _infoPanelView = view;
-        _versionManagementService = versionManagementService;
+        _systemProcess = systemProcess;
 
         _infoPanelView.GithubLinkClicked += (s, e) => OnGithubLinkClicked();
         EventAggregator.Instance.Subscribe<NewVersionAvailableMessage>(n => OnNewVersionAvailable());
@@ -20,7 +20,7 @@ public class InfoPanelPresenter
 
     private void OnGithubLinkClicked()
     {
-
+        _systemProcess.Start(Constants.ProcessNames.EXPLORER_EXE, Constants.Urls.ESM_GITHUB_LINK);
     }
 
     private void OnNewVersionAvailable()

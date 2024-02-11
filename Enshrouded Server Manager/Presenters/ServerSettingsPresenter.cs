@@ -42,8 +42,11 @@ public class ServerSettingsPresenter
     private void OnServerProfileSelected(ServerProfile serverProfile)
     {
         _serverProfile = serverProfile;
-        var settings = _serverSettingsService.LoadServerSettings(serverProfile.Name);
-        SetServerSettings(settings);
+        if (serverProfile is not null)
+        {
+            var settings = _serverSettingsService.LoadServerSettings(serverProfile.Name);
+            SetServerSettings(settings);
+        }
     }
 
     private void TogglePasswordVisiblity()

@@ -4,6 +4,7 @@ public interface IDiscordNotificationsView
 {
     event EventHandler SaveDiscordNotificationsSettingsClicked;
     event EventHandler TestDiscordMessageClicked;
+    event EventHandler Load;
 
     bool IsDiscordNotificationsEnabled { get; set; }
     bool IsEmbedsEnabled { get; set; }

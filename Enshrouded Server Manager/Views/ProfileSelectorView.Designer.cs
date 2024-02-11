@@ -86,8 +86,8 @@ partial class ProfileSelectorView
         btnDeleteProfile.BackgroundImageLayout = ImageLayout.None;
         btnDeleteProfile.Cursor = Cursors.Hand;
         btnDeleteProfile.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
-        btnDeleteProfile.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
-        btnDeleteProfile.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
+        btnDeleteProfile.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 51, 51);
+        btnDeleteProfile.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 77, 77);
         btnDeleteProfile.FlatStyle = FlatStyle.Flat;
         btnDeleteProfile.Font = new Font("Consolas", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
         btnDeleteProfile.ForeColor = SystemColors.ButtonHighlight;

@@ -24,6 +24,12 @@ public partial class DiscordNotificationsView : UserControl, IDiscordNotificatio
         remove => btnTestDiscord.Click -= value;
     }
 
+    public event EventHandler Load
+    {
+        add => Load += value;
+        remove => Load -= value;
+    }
+
     public bool IsDiscordNotificationsEnabled
     {
         get => chkEnableDiscord.Checked;

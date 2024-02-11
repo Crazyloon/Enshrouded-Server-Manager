@@ -46,6 +46,7 @@ public partial class MainForm : Form, IMainFormView
         manageProfilesView.Tag = new ManageProfilesPresenter(manageProfilesView, profileManager, serverSettingsService, fileSystemManager, messageBox, enshroudedServer, profiles);
         autoBackupView.Tag = new AutoBackupPresenter(autoBackupView, profileManager, fileSystemManager, messageBox, backupService, profiles);
         discordNotificationsView.Tag = new DiscordNotificationsPresenter(discordNotificationsView, discordOutputService, messageBox, profileManager, fileSystemManager);
+        infoPanelView.Tag = new InfoPanelPresenter(infoPanelView, processManager);
         this.Tag = new MainFormPresenter(this, versionManager);
 
         // Profile Selector should be created last, because it publishes the selected profile on startup

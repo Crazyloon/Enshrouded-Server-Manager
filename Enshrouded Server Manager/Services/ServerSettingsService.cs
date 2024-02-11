@@ -36,6 +36,11 @@ public class ServerSettingsService : IServerSettingsService
 
     public bool SaveServerSettings(ServerSettings serverSettings, ServerProfile selectedProfile)
     {
+        if (selectedProfile is null)
+        {
+            return false;
+        }
+
         if (_server.IsRunning(selectedProfile.Name))
         {
             _messageBox.Show(Constants.Errors.SERVER_RUNNING_ERROR_MESSAGE, Constants.Errors.SERVER_RUNNING_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
