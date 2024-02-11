@@ -2,7 +2,6 @@
 
 public interface IVersionManagementService
 {
-    void ManagerUpdate(string currentVersionText, Label lblNewVersionText);
-    void CheckManagerVersion(string currentVersionText, Label lblNewVersionText);
+    void ManagerUpdate(string currentVersionText);
     Task<Color> ServerUpdateCheck(string selectedProfileName);
 }

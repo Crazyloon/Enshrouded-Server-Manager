@@ -59,6 +59,6 @@ internal static class Program
         //    discordNotificationsView)
         //);
 
-        Application.Run(new ExampleForm());
+        Application.Run(new MainForm());
     }
 }

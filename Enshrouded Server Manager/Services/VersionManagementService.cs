@@ -1,4 +1,5 @@
-﻿using Enshrouded_Server_Manager.Models;
+﻿using Enshrouded_Server_Manager.Events;
+using Enshrouded_Server_Manager.Models;
 using Newtonsoft.Json;
 using System.Net;
 
@@ -15,19 +16,19 @@ public class VersionManagementService : IVersionManagementService
         _fileSystemService = fsm;
     }
 
-    public async void ManagerUpdate(string currentVersionText, Label lblNewVersionText)
+    public async void ManagerUpdate(string currentVersionText)
     {
-        CheckManagerVersion(currentVersionText, lblNewVersionText);
+        CheckManagerVersion(currentVersionText);
 
         var timer = new PeriodicTimer(TimeSpan.FromMinutes(TIMER_INTERVAL));
 
         while (await timer.WaitForNextTickAsync())
         {
-            CheckManagerVersion(currentVersionText, lblNewVersionText);
+            CheckManagerVersion(currentVersionText);
         }
     }
 
-    public void CheckManagerVersion(string currentVersionText, Label lblNewVersionText)
+    private void CheckManagerVersion(string currentVersionText)
     {
         using (WebClient Client = new WebClient())
         {
@@ -54,17 +55,7 @@ public class VersionManagementService : IVersionManagementService
 
         if (githubversion != currentVersionText)
         {
-            if (lblNewVersionText.InvokeRequired)
-            {
-                lblNewVersionText.BeginInvoke(() =>
-                {
-                    lblNewVersionText.Visible = true;
-                });
-            }
-            else
-            {
-                lblNewVersionText.Visible = true;
-            }
+            EventAggregator.Instance.Publish(new NewVersionAvailableMessage());
         }
 
         _fileSystemService.DeleteFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON);
