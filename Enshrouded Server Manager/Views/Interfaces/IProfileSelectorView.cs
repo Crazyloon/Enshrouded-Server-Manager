@@ -1,7 +1,7 @@
 ﻿using Enshrouded_Server_Manager.Models;
 using System.ComponentModel;
 
-namespace Enshrouded_Server_Manager.Views.Interfaces;
+namespace Enshrouded_Server_Manager.Views;
 public interface IProfileSelectorView
 {
     ServerProfile SelectedProfile { get; }

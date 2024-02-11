@@ -14,5 +14,4 @@ public interface IManageProfilesView
     public string EditProfileName { get; set; }
 
     void SetProfiles(BindingList<ServerProfile> profiles);
-    void SetSelectedProfile(ServerProfile profileName);
 }

@@ -1,4 +1,5 @@
 using Enshrouded_Server_Manager.Events;
+using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Model;
 using Enshrouded_Server_Manager.Models;
 using Newtonsoft.Json;
@@ -11,7 +12,6 @@ public class BackupService : IBackupService
     private readonly IFileSystemService _fileSystemService;
     private readonly EnshroudedServerService _server; // TODO: Make this an interface
     private string _dateTimeString;
-    private JsonSerializerSettings _jsonSerializerSettings;
     private DiscordService _discordOutput;
 
     public event EventHandler<AutoBackupSuccessEventArgs> AutoBackupSuccess;
@@ -73,14 +73,14 @@ public class BackupService : IBackupService
         if (_fileSystemService.FileExists(discordSettingsFile))
         {
             var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
-            DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
+            DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
             string discordUrl = discordProfile.DiscordUrl;
 
             var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, profileName);
             var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
 
             var gameServerConfigText = _fileSystemService.ReadFile(gameServerConfig);
-            ServerSettings gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, _jsonSerializerSettings);
+            ServerSettings gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, JsonSettings.Default);
             string name = gameServerSettings.Name;
 
             if (discordProfile.Enabled)
@@ -137,10 +137,10 @@ public class BackupService : IBackupService
         if (_fileSystemService.FileExists(discordSettingsFile) && _fileSystemService.FileExists(gameServerConfig))
         {
             var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
-            discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, _jsonSerializerSettings);
+            discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
 
             var gameServerConfigText = _fileSystemService.ReadFile(gameServerConfig);
-            gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, _jsonSerializerSettings);
+            gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, JsonSettings.Default);
         }
 
         while (await timer.WaitForNextTickAsync())
@@ -181,7 +181,7 @@ public class BackupService : IBackupService
                 }
 
                 DeleteOldestBackup(profileAutoBackupDirectory, maximumBackups);
-                OnAutoBackupSuccess(new AutoBackupSuccessEventArgs { ProfileName = profileName });
+                EventAggregator.Instance.Publish(new AutoBackupSuccessMessage(profileName));
             }
             catch (Exception ex)
             {
@@ -256,10 +256,5 @@ public class BackupService : IBackupService
                 oldestZip.Delete();
             }
         }
-    }
-
-    protected virtual void OnAutoBackupSuccess(AutoBackupSuccessEventArgs e)
-    {
-        AutoBackupSuccess?.Invoke(this, e);
     }
 }

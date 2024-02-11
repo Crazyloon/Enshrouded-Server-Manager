@@ -148,11 +148,6 @@ public class ManageProfilesPresenter
         _manageProfilesView.SetProfiles(profiles);
     }
 
-    public void SetSelectedProfile(ServerProfile profile)
-    {
-        _manageProfilesView.SetSelectedProfile(profile);
-    }
-
     public void OnAddProfileClicked()
     {
         // Generate a new Server name semi-randomly, avoiding duplicates

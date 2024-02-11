@@ -1,6 +1,6 @@
 ﻿using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.UI;
-using Enshrouded_Server_Manager.Views.Interfaces;
+using Enshrouded_Server_Manager.Views;
 
 namespace Enshrouded_Server_Manager;
 public partial class ServerSettingsView : UserControl, IServerSettingsView
@@ -81,7 +81,7 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
 
     private void btnSaveSettings_EnabledChanged(object sender, EventArgs e)
     {
-        var Sender = ((Button)sender);
-        Interactions.HandleEnabledChanged_PrimaryButton(Sender);
+        var button = ((Button)sender);
+        Interactions.HandleEnabledChanged_PrimaryButton(button);
     }
 }

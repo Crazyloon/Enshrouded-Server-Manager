@@ -3,7 +3,7 @@ using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Model;
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services;
-using Enshrouded_Server_Manager.Views.Interfaces;
+using Enshrouded_Server_Manager.Views;
 using Newtonsoft.Json;
 
 namespace Enshrouded_Server_Manager.Presenters;
@@ -331,6 +331,7 @@ public class AdminPanelPresenter
     {
         _selectedProfile = selectedProfile;
         RefreshServerButtonsVisibility(selectedProfile.Name);
+        // TODO: Could skip this work if we first check if the server is installed, since the update button doesn't show if it's not
         var color = await _versionManagementService.ServerUpdateCheck(selectedProfile.Name);
         _adminPanelView.UpdateServerButtonBorderColor = color;
     }

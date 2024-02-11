@@ -67,6 +67,7 @@ partial class AutoBackupView
         btnSaveAutoBackup.Text = "Save Changes";
         btnSaveAutoBackup.UseCompatibleTextRendering = true;
         btnSaveAutoBackup.UseVisualStyleBackColor = true;
+        btnSaveAutoBackup.EnabledChanged += btnSaveAutoBackup_EnabledChanged;
         // 
         // chkEnableBackups
         // 

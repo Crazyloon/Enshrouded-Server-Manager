@@ -22,7 +22,7 @@ public partial class ExampleForm : Form
     {
         InitializeComponent();
 
-        // initialize services
+        // Initialize Services
         var messageBox = new MessageBoxService();
         var fileSystemManager = new FileSystemService();
         var enshroudedServer = new EnshroudedServerService(fileSystemManager);
@@ -40,9 +40,13 @@ public partial class ExampleForm : Form
         // Load the profiles for each view the first time they are created
         BindingList<ServerProfile> profiles = new BindingList<ServerProfile>(profileManager.LoadServerProfiles(JsonSettings.Default, true));
 
+        // Initialize Presenters
         serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, serverSettingsService, fileSystemManager, enshroudedServer);
-        profileSelectorView.Tag = new ProfileSelectorPresenter(profileSelectorView, profileManager, fileSystemManager, profiles);
         manageProfilesView.Tag = new ManageProfilesPresenter(manageProfilesView, profileManager, serverSettingsService, fileSystemManager, messageBox, enshroudedServer, profiles);
+        autoBackupView.Tag = new AutoBackupPresenter(autoBackupView, profileManager, fileSystemManager, messageBox, backupService, profiles);
+
+        // Profile Selector should be created last, because it publishes the selected profile on startup
+        profileSelectorView.Tag = new ProfileSelectorPresenter(profileSelectorView, profileManager, fileSystemManager, profiles);
 
         pnlUpdateServerfiles = new Panel();
         lblUpdateServerfiles = new Label();

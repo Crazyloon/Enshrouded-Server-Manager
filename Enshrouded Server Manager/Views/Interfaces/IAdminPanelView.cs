@@ -1,4 +1,4 @@
-﻿namespace Enshrouded_Server_Manager.Views.Interfaces;
+﻿namespace Enshrouded_Server_Manager.Views;
 public interface IAdminPanelView
 {
     event EventHandler InstallSteamCMDButtonClicked;

@@ -56,7 +56,7 @@ public partial class MainForm : Form
         _discordOutput = new DiscordService();
 
         //Register Custom Events
-        _backup.AutoBackupSuccess += Backup_AutoBackupSuccess;
+        //_backup.AutoBackupSuccess += Backup_AutoBackupSuccess;
     }
 
     private void InitializePanelPositions()

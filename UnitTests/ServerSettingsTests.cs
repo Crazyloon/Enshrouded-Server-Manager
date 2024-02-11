@@ -2,7 +2,7 @@
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Presenters;
 using Enshrouded_Server_Manager.Services;
-using Enshrouded_Server_Manager.Views.Interfaces;
+using Enshrouded_Server_Manager.Views;
 using NSubstitute;
 
 namespace Enshrouded_Server_Manager.UnitTests;

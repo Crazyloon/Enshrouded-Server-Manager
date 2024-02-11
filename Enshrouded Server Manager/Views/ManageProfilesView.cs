@@ -53,10 +53,6 @@ public partial class ManageProfilesView : UserControl, IManageProfilesView
         lbxServerProfiles.DisplayMember = Constants.PropertyName.NAME;
     }
 
-    public void SetSelectedProfile(ServerProfile profileName)
-    {
-        lbxServerProfiles.SelectedItem = profileName;
-    }
     private void OnProfileNameUpdated()
     {
         Interactions.AnimateSaveChangesButton(btnSaveProfileName, btnSaveProfileName.Text, Constants.ButtonText.SAVED_SUCCESS);

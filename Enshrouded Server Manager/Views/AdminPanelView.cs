@@ -1,6 +1,4 @@
-﻿using Enshrouded_Server_Manager.Views.Interfaces;
-
-namespace Enshrouded_Server_Manager.Views;
+﻿namespace Enshrouded_Server_Manager.Views;
 public partial class AdminPanelView : UserControl, IAdminPanelView
 {
     public AdminPanelView()

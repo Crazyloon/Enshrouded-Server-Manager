@@ -1,5 +1,4 @@
 ﻿using Enshrouded_Server_Manager.Models;
-using Enshrouded_Server_Manager.Views.Interfaces;
 using System.ComponentModel;
 
 namespace Enshrouded_Server_Manager.Views;
