@@ -56,9 +56,9 @@ partial class MainForm
         tabDiscord = new TabPage();
         discordNotificationsView = new DiscordNotificationsView();
         pnlBottomBorder = new Panel();
-        pnlTopBorder = new Panel();
-        lblVersion = new Label();
         btnOpenCredits = new Label();
+        lblVersion = new Label();
+        pnlTopBorder = new Panel();
         ((System.ComponentModel.ISupportInitialize)pbxFormHeader).BeginInit();
         ((System.ComponentModel.ISupportInitialize)pbxLeftBorder).BeginInit();
         ((System.ComponentModel.ISupportInitialize)pbxInnerLeftBorder).BeginInit();
@@ -261,6 +261,7 @@ partial class MainForm
         infoPanelView.BackColor = Color.FromArgb(0, 0, 18);
         infoPanelView.Dock = DockStyle.Fill;
         infoPanelView.ForeColor = SystemColors.HighlightText;
+        infoPanelView.IsNewVersionAvailable = true;
         infoPanelView.Location = new Point(10, 0);
         infoPanelView.Name = "infoPanelView";
         infoPanelView.Size = new Size(227, 443);
@@ -403,30 +404,6 @@ partial class MainForm
         pnlBottomBorder.Size = new Size(896, 21);
         pnlBottomBorder.TabIndex = 1;
         // 
-        // pnlTopBorder
-        // 
-        pnlTopBorder.Controls.Add(lblMinimizeTrayButton);
-        pnlTopBorder.Controls.Add(lblCloseButton);
-        pnlTopBorder.Controls.Add(lblTitle);
-        pnlTopBorder.Controls.Add(pbxFormHeader);
-        pnlTopBorder.Dock = DockStyle.Top;
-        pnlTopBorder.Location = new Point(0, 0);
-        pnlTopBorder.Name = "pnlTopBorder";
-        pnlTopBorder.Size = new Size(896, 40);
-        pnlTopBorder.TabIndex = 51;
-        // 
-        // lblVersion
-        // 
-        lblVersion.AutoSize = true;
-        lblVersion.BackColor = Color.FromArgb(64, 64, 64);
-        lblVersion.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
-        lblVersion.ForeColor = Color.FromArgb(0, 204, 204);
-        lblVersion.Location = new Point(8, 4);
-        lblVersion.Name = "lblVersion";
-        lblVersion.Size = new Size(39, 13);
-        lblVersion.TabIndex = 56;
-        lblVersion.Text = "v.0.4.2";
-        // 
         // btnOpenCredits
         // 
         btnOpenCredits.AutoSize = true;
@@ -441,7 +418,31 @@ partial class MainForm
         btnOpenCredits.Text = "Credits";
         btnOpenCredits.TextAlign = ContentAlignment.BottomLeft;
         // 
-        // ExampleForm
+        // lblVersion
+        // 
+        lblVersion.AutoSize = true;
+        lblVersion.BackColor = Color.FromArgb(64, 64, 64);
+        lblVersion.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
+        lblVersion.ForeColor = Color.FromArgb(0, 204, 204);
+        lblVersion.Location = new Point(8, 4);
+        lblVersion.Name = "lblVersion";
+        lblVersion.Size = new Size(39, 13);
+        lblVersion.TabIndex = 56;
+        lblVersion.Text = "v.0.4.2";
+        // 
+        // pnlTopBorder
+        // 
+        pnlTopBorder.Controls.Add(lblMinimizeTrayButton);
+        pnlTopBorder.Controls.Add(lblCloseButton);
+        pnlTopBorder.Controls.Add(lblTitle);
+        pnlTopBorder.Controls.Add(pbxFormHeader);
+        pnlTopBorder.Dock = DockStyle.Top;
+        pnlTopBorder.Location = new Point(0, 0);
+        pnlTopBorder.Name = "pnlTopBorder";
+        pnlTopBorder.Size = new Size(896, 40);
+        pnlTopBorder.TabIndex = 51;
+        // 
+        // MainForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
@@ -455,7 +456,7 @@ partial class MainForm
         ForeColor = SystemColors.ButtonHighlight;
         FormBorderStyle = FormBorderStyle.None;
         Icon = (Icon)resources.GetObject("$this.Icon");
-        Name = "ExampleForm";
+        Name = "MainForm";
         Text = "Form1";
         ((System.ComponentModel.ISupportInitialize)pbxFormHeader).EndInit();
         ((System.ComponentModel.ISupportInitialize)pbxLeftBorder).EndInit();

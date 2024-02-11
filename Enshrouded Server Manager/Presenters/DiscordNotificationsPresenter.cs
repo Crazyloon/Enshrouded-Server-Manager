@@ -33,12 +33,11 @@ public class DiscordNotificationsPresenter
     private void OnTestDiscordMessageClicked(object? sender, EventArgs e)
     {
         var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
-        if (_fileSystemService.FileExists(discordSettingsFile)) ;
-        var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
-        DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
-        string DiscordUrl = discordProfile.DiscordUrl;
         if (_fileSystemService.FileExists(discordSettingsFile))
         {
+            var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
+            DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
+            string DiscordUrl = discordProfile.DiscordUrl;
             _discordService.TestMsg(DiscordUrl, discordProfile.EmbedEnabled);
         }
     }

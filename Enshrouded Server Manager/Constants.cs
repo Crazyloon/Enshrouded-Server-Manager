@@ -123,7 +123,7 @@ public static class Constants
 
     public static class Colors
     {
-        private static readonly Color DARK_BLUE = Color.FromArgb(6, 6, 48);
+        private static readonly Color DARK_BLUE = Color.FromArgb(0, 0, 18);
         private static readonly Color BLUE_GRAY = Color.FromArgb(115, 115, 137);
 
         public static readonly Color BUTTON_BACKGROUND = DARK_BLUE;

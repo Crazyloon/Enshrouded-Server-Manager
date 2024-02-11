@@ -45,6 +45,7 @@ partial class InfoPanelView
         lblLogo.ForeColor = Color.FromArgb(0, 204, 204);
         lblLogo.Location = new Point(0, 0);
         lblLogo.Name = "lblLogo";
+        lblLogo.Padding = new Padding(5);
         lblLogo.Size = new Size(240, 106);
         lblLogo.TabIndex = 49;
         lblLogo.Text = "ESM";
@@ -56,8 +57,8 @@ partial class InfoPanelView
         lblNewsText.Dock = DockStyle.Top;
         lblNewsText.Location = new Point(0, 106);
         lblNewsText.Name = "lblNewsText";
-        lblNewsText.Padding = new Padding(4);
-        lblNewsText.Size = new Size(225, 203);
+        lblNewsText.Padding = new Padding(5);
+        lblNewsText.Size = new Size(227, 205);
         lblNewsText.TabIndex = 54;
         lblNewsText.Text = resources.GetString("lblNewsText.Text");
         // 
