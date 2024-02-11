@@ -14,8 +14,13 @@ public class InfoPanelPresenter
         _infoPanelView = view;
         _versionManagementService = versionManagementService;
 
-
+        _infoPanelView.GithubLinkClicked += (s, e) => OnGithubLinkClicked();
         EventAggregator.Instance.Subscribe<NewVersionAvailableMessage>(n => OnNewVersionAvailable());
+    }
+
+    private void OnGithubLinkClicked()
+    {
+
     }
 
     private void OnNewVersionAvailable()
