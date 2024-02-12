@@ -33,11 +33,9 @@ public class AutoBackupPresenter
         _profiles = serverProfiles;
 
         _autoBackupView.SaveAutoBackupSettingsClicked += OnSaveAutoBackupSettingsClicked;
-        //_autoBackupView.SelectedProfileChanged += (sender, e) => OnProfileSelected(SelectedProfile);
+
         EventAggregator.Instance.Subscribe<AutoBackupSuccessMessage>(n => OnAutoBackupSuccess(n.ProfileName));
         EventAggregator.Instance.Subscribe<ProfileSelectedMessage>(s => OnProfileSelected(s.SelectedProfile));
-
-        //SetProfiles(serverProfiles);
     }
 
     private void OnAutoBackupSuccess(string profileName)
@@ -50,37 +48,26 @@ public class AutoBackupPresenter
 
         if (_autoBackupView.SelectedProfile is not null)
         {
-            var enabled = _autoBackupView.IsAutoBackupEnabled;
-            var selectedProfile = _autoBackupView.SelectedProfile.Name;
-            var profiles = _profileManager.LoadServerProfiles(JsonSettings.Default);
-            var profile = profiles?.FirstOrDefault(x => x.Name == selectedProfile);
-            if (profile is not null)
+
+            _autoBackupView.SelectedProfile.AutoBackup = new AutoBackup()
             {
-                profile.AutoBackup = new AutoBackup()
-                {
-                    Interval = _autoBackupView.BackupInterval,
-                    MaxiumBackups = _autoBackupView.MaxAutoBackupCount,
-                    Enabled = enabled
-                };
+                Interval = _autoBackupView.BackupInterval,
+                MaxiumBackups = _autoBackupView.MaxAutoBackupCount,
+                Enabled = _autoBackupView.IsAutoBackupEnabled
+            };
 
-                // write the new profile to the json file
-                var output = JsonConvert.SerializeObject(profiles, JsonSettings.Default);
-                var serverProfilesJson = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON);
-                _fileSystemService.WriteFile(serverProfilesJson, output);
+            // write the new profile to the json file
+            _fileSystemService.WriteFile(
+                Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON),
+                JsonConvert.SerializeObject(_profiles, JsonSettings.Default));
 
-                EventAggregator.Instance.Publish(new AutoBackupSuccessMessage(profile.Name));
-            }
+            EventAggregator.Instance.Publish(new AutoBackupSuccessMessage(_autoBackupView.SelectedProfile.Name));
         }
         else
         {
-            _messageBox.Show(Constants.Errors.BACKUP_CONFIGURATION_ERROR_MESSAGE, Constants.Errors.BACKUP_CONFIGURATION_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            _messageBox.Show(Constants.Errors.NO_PROFILE_SELECTED_ERROR_MESSAGE, Constants.Errors.NO_PROFILE_SELECTED_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
-
-    //private void SetProfiles(BindingList<ServerProfile>? serverProfiles)
-    //{
-    //    _autoBackupView.SetProfiles(serverProfiles);
-    //}
 
     private void OnProfileSelected(ServerProfile selectedProfile)
     {
@@ -88,37 +75,32 @@ public class AutoBackupPresenter
         if (selectedProfile is not null)
         {
             _autoBackupView.SelectedProfile = selectedProfile;
-            var profileName = selectedProfile.Name;
-            // load profile
-            var profile = _profileManager.LoadServerProfiles(JsonSettings.Default).FirstOrDefault(x => x.Name == profileName);
-            if (profile is not null)
-            {
-                // load auto backup settings
-                if (profile.AutoBackup is null)
-                {
-                    // create new auto backup settings
-                    profile.AutoBackup = new AutoBackup()
-                    {
-                        Interval = 0,
-                        MaxiumBackups = 0,
-                        Enabled = false
-                    };
-                }
 
-                // set values
-                _autoBackupView.IsAutoBackupEnabled = profile.AutoBackup.Enabled;
-                _autoBackupView.BackupInterval = profile.AutoBackup.Interval;
-                _autoBackupView.MaxAutoBackupCount = profile.AutoBackup.MaxiumBackups;
+            // load auto backup settings
+            if (selectedProfile.AutoBackup is null)
+            {
+                // create new auto backup settings
+                selectedProfile.AutoBackup = new AutoBackup()
+                {
+                    Interval = 0,
+                    MaxiumBackups = 0,
+                    Enabled = false
+                };
             }
 
-            var totalBackups = _backupService.GetBackupCount(profileName);
-            var diskConsumption = _backupService.GetDiskConsumption(profileName);
+            // set values
+            _autoBackupView.IsAutoBackupEnabled = selectedProfile.AutoBackup.Enabled;
+            _autoBackupView.BackupInterval = selectedProfile.AutoBackup.Interval;
+            _autoBackupView.MaxAutoBackupCount = selectedProfile.AutoBackup.MaxiumBackups;
 
-            _autoBackupView.UpdateBackupInfo(profileName, _backupService.GetBackupCount(profileName), _backupService.GetDiskConsumption(profileName));
+            _autoBackupView.UpdateBackupInfo(selectedProfile.Name, _backupService.GetBackupCount(selectedProfile.Name), _backupService.GetDiskConsumption(selectedProfile.Name));
         }
         else
         {
             _autoBackupView.IsAutoBackupStatsVisible = false;
+            _autoBackupView.IsAutoBackupEnabled = false;
+            _autoBackupView.BackupInterval = 0;
+            _autoBackupView.MaxAutoBackupCount = 0;
         }
     }
 }

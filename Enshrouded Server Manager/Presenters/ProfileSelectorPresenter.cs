@@ -66,98 +66,101 @@ public class ProfileSelectorPresenter
         });
 
         // write the new profile to the json file
-        var output = JsonConvert.SerializeObject(_profiles, JsonSettings.Default);
-        var serverProfilesJson = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON);
-        _fileSystemService.WriteFile(serverProfilesJson, output);
+        _fileSystemService.WriteFile(
+            Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON),
+            JsonConvert.SerializeObject(_profiles, JsonSettings.Default));
 
         // Create the server profile directory and load it's settings
         _serverSettingsService.LoadServerSettings(profileName);
+
+        EventAggregator.Instance.Publish(new ProfileSelectedMessage(_profileSelectorView.SelectedProfile));
     }
 
     private void OnDeleteProfileClicked()
     {
         if (_profileSelectorView.SelectedProfile is not null)
         {
-            // get the selected profile
-            string selectedServerProfile = _profileSelectorView.SelectedProfile.Name;
-
-            if (_server.IsRunning(selectedServerProfile))
+            if (_server.IsRunning(_profileSelectorView.SelectedProfile.Name))
             {
                 _messageBox.Show(Constants.Errors.SERVER_RUNNING_ERROR_MESSAGE, Constants.Errors.SERVER_RUNNING_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             var result = _messageBox.Show(Constants.Warnings.DELETE_PROFILE_WARNING_MESSAGE, Constants.Warnings.DELETE_PROFILE_WARNING, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
             if (result != DialogResult.Yes)
             {
                 return;
             }
 
-            // Load Server Profiles
-            var serverProfile = _profiles.FirstOrDefault(x => x.Name == selectedServerProfile);
-            if (serverProfile is not null)
+            var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, _profileSelectorView.SelectedProfile.Name);
+            var autoBackupPath = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, _profileSelectorView.SelectedProfile.Name);
+            var backupPath = Path.Join(Constants.Paths.BACKUPS_FOLDER, _profileSelectorView.SelectedProfile.Name);
+
+            // rename directory to check if in use
+            try
             {
-                var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedServerProfile);
-                var autoBackupPath = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, selectedServerProfile);
-                var backupPath = Path.Join(Constants.Paths.BACKUPS_FOLDER, selectedServerProfile);
-
-                // rename directory to check if in use
-                try
+                if (_fileSystemService.DirectoryExists(serverProfilePath))
                 {
-                    if (_fileSystemService.DirectoryExists(serverProfilePath))
-                    {
-                        _fileSystemService.MoveDirectory(serverProfilePath, $"{serverProfilePath}_delete");
-                    }
-                    if (_fileSystemService.DirectoryExists(autoBackupPath))
-                    {
-                        _fileSystemService.MoveDirectory(autoBackupPath, $"{autoBackupPath}_delete");
-                    }
-                    if (_fileSystemService.DirectoryExists(backupPath))
-                    {
-                        _fileSystemService.MoveDirectory(backupPath, $"{backupPath}_delete");
-                    }
-
+                    _fileSystemService.MoveDirectory(serverProfilePath, $"{serverProfilePath}_delete");
                 }
-                catch (Exception ex)
+                if (_fileSystemService.DirectoryExists(autoBackupPath))
                 {
-                    _messageBox.Show(string.Format(Constants.Errors.DELETE_PROFILE_ERROR_MESSAGE, ex.Message),
-                        Constants.Errors.DELETE_PROFILE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                    return;
+                    _fileSystemService.MoveDirectory(autoBackupPath, $"{autoBackupPath}_delete");
+                }
+                if (_fileSystemService.DirectoryExists(backupPath))
+                {
+                    _fileSystemService.MoveDirectory(backupPath, $"{backupPath}_delete");
                 }
 
-                if (_fileSystemService.DirectoryExists($"{autoBackupPath}_delete"))
+            }
+            catch (Exception ex)
+            {
+                _messageBox.Show(string.Format(Constants.Errors.DELETE_PROFILE_ERROR_MESSAGE, ex.Message),
+                    Constants.Errors.DELETE_PROFILE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+
+            if (_fileSystemService.DirectoryExists($"{autoBackupPath}_delete"))
+            {
+                _fileSystemService.DeleteDirectory($"{autoBackupPath}_delete");
+            }
+            if (_fileSystemService.DirectoryExists($"{backupPath}_delete"))
+            {
+                _fileSystemService.DeleteDirectory($"{backupPath}_delete");
+            }
+
+            if (_fileSystemService.DirectoryExists($"{serverProfilePath}_delete"))
+            {
+                // Delete the server folder
+                _fileSystemService.DeleteDirectory($"{serverProfilePath}_delete");
+
+                // remove the profile
+                // if the deleted profile is not last, need to select the next profile
+                var index = _profiles.IndexOf(_profileSelectorView.SelectedProfile);
+                var nextProfile = _profiles.ElementAtOrDefault(index + 1);
+
+                _profiles.Remove(_profileSelectorView.SelectedProfile);
+
+                // write the new profile to the json file
+                _fileSystemService.WriteFile(
+                    Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON),
+                    JsonConvert.SerializeObject(_profiles, JsonSettings.Default));
+
+                //clear cache pid file
+                var pidJsonFile = $"{Constants.Paths.CACHE_DIRECTORY}{_profileSelectorView.SelectedProfile}{Constants.Files.PID_JSON}";
+
+                if (_fileSystemService.FileExists(pidJsonFile))
                 {
-                    _fileSystemService.DeleteDirectory($"{autoBackupPath}_delete");
+                    _fileSystemService.DeleteFile(pidJsonFile);
                 }
-                if (_fileSystemService.DirectoryExists($"{backupPath}_delete"))
+
+                if (nextProfile is not null)
                 {
-                    _fileSystemService.DeleteDirectory($"{backupPath}_delete");
-                }
-
-                if (_fileSystemService.DirectoryExists($"{serverProfilePath}_delete"))
-                {
-                    // Delete the server folder
-                    _fileSystemService.DeleteDirectory($"{serverProfilePath}_delete");
-
-                    // remove the profile
-                    _profiles.Remove(serverProfile);
-
-                    // write the new profile to the json file
-                    var output = JsonConvert.SerializeObject(_profiles, JsonSettings.Default);
-                    var serverProfilesJson = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON);
-                    _fileSystemService.WriteFile(serverProfilesJson, output);
-
-                    //clear cache pid file
-                    var pidJsonFile = $"{Constants.Paths.CACHE_DIRECTORY}{selectedServerProfile}{Constants.Files.PID_JSON}";
-
-                    if (_fileSystemService.FileExists(pidJsonFile))
-                    {
-                        _fileSystemService.DeleteFile(pidJsonFile);
-                    }
+                    EventAggregator.Instance.Publish(new ProfileSelectedMessage(nextProfile));
                 }
             }
+
         }
     }
 

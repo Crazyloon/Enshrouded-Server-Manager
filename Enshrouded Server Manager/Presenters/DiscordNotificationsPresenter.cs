@@ -24,10 +24,37 @@ public class DiscordNotificationsPresenter
         _discordService = discordService;
         _messageBoxService = messageBoxService;
         _profileService = profileService;
+        _fileSystemService = fileSystemService;
 
+        _discordNotificationsView.DiscordSettingsLoad += OnLoad;
         _discordNotificationsView.SaveDiscordNotificationsSettingsClicked += OnSaveDiscordNotificationsSettingsClicked;
         _discordNotificationsView.TestDiscordMessageClicked += OnTestDiscordMessageClicked;
-        _fileSystemService = fileSystemService;
+    }
+
+    private void OnLoad(object? sender, EventArgs e)
+    {
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        if (!_fileSystemService.FileExists(discordSettingsFile))
+        {
+            return;
+        }
+
+        var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
+        DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
+
+        _discordNotificationsView.IsDiscordNotificationsEnabled = discordProfile.Enabled;
+        _discordNotificationsView.IsNotifyOnStartEnabled = discordProfile.StartEnabled;
+        _discordNotificationsView.IsNotifyOnStopEnabled = discordProfile.StopEnabled;
+        _discordNotificationsView.IsNotifyOnUpdateEnabled = discordProfile.UpdatingEnabled;
+        _discordNotificationsView.IsNotifyOnBackupEnabled = discordProfile.BackupEnabled;
+        _discordNotificationsView.WebhookUrl = discordProfile.DiscordUrl;
+        _discordNotificationsView.ServerStartedMessage = discordProfile.ServerStartedMsg;
+        _discordNotificationsView.ServerStoppedMessage = discordProfile.ServerStoppedMsg;
+        _discordNotificationsView.ServerUpdatingMessage = discordProfile.ServerUpdatingMsg;
+        _discordNotificationsView.BackupCreatedMessage = discordProfile.BackupMsg;
+        _discordNotificationsView.IsEmbedsEnabled = discordProfile.EmbedEnabled;
+
+
     }
 
     private void OnTestDiscordMessageClicked(object? sender, EventArgs e)
@@ -65,7 +92,7 @@ public class DiscordNotificationsPresenter
             UpdatingEnabled = updatingEnabled,
             BackupEnabled = backupEnabled,
             EmbedEnabled = embedEnabled,
-            ServerOnlineMsg = serverOnlineMsg,
+            ServerStartedMsg = serverOnlineMsg,
             ServerStoppedMsg = serverStoppedMsg,
             ServerUpdatingMsg = serverUpdatingMsg,
             BackupMsg = backupMsg

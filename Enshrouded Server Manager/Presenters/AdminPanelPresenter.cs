@@ -62,18 +62,18 @@ public class AdminPanelPresenter
 
     private async void OnAdminPanelLoaded()
     {
-        // Start a timer to check for server updates
-        int TIMER_INTERVAL_SERVER_UPDATE_CHECK = 5;
+        if (_selectedProfile is not null)
+        {
+            _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(_selectedProfile.Name);
+        }
 
-        string selectedProfile = _selectedProfile.Name;
-        _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfile);
-
-        var timer = new PeriodicTimer(TimeSpan.FromMinutes(TIMER_INTERVAL_SERVER_UPDATE_CHECK));
-
+        var timer = new PeriodicTimer(TimeSpan.FromMinutes(Constants.TIMER_INTERVAL_SERVER_UPDATE_CHECK));
         while (await timer.WaitForNextTickAsync())
         {
-            selectedProfile = _selectedProfile.Name;
-            _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfile);
+            if (_selectedProfile is not null)
+            {
+                _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(_selectedProfile.Name);
+            }
         }
     }
 
@@ -94,14 +94,9 @@ public class AdminPanelPresenter
 
     private void OnStartServerButtonClicked()
     {
-        // Display the Server Settings tab when they click Start Server
-        // TODO: Dispatch a ServerStartedMessage so the main form can change the tab
-
         if (_selectedProfile is not null)
         {
-            string selectedProfileName = _selectedProfile.Name;
-
-            var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
+            var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, _selectedProfile.Name);
             _fileSystemService.CreateDirectory(serverProfilePath);
 
             var gameServerExe = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_EXE);
@@ -112,25 +107,19 @@ public class AdminPanelPresenter
                 return;
             }
 
-            // TODO: Do we need to handle the case where the server is running? Generally the Start button
-            // would not be displayed, but the stop button would in this case.
-            _enshroudedServerService.Start(gameServerExe, selectedProfileName);
+            _enshroudedServerService.Start(gameServerExe, _selectedProfile.Name);
 
             // Begin AutoBackup after waiting 5 seconds to ensure the server process has started
-
-            if (_enshroudedServerService.IsRunning(selectedProfileName))
+            if (_enshroudedServerService.IsRunning(_selectedProfile.Name))
             {
-                var profiles = _profileService.LoadServerProfiles(JsonSettings.Default);
-                var profile = profiles?.FirstOrDefault(x => x.Name == selectedProfileName);
-                if (profile is not null && profile.AutoBackup is not null && profile.AutoBackup.Enabled)
+                if (_selectedProfile is not null && _selectedProfile.AutoBackup is not null && _selectedProfile.AutoBackup.Enabled)
                 {
                     var saveGameFolder = Path.Join(serverProfilePath, Constants.Paths.GAME_SERVER_SAVE_FOLDER);
-
-                    _backupService.StartAutoBackup(saveGameFolder, selectedProfileName, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
+                    _backupService.StartAutoBackup(saveGameFolder, _selectedProfile.Name, _selectedProfile.AutoBackup.Interval, _selectedProfile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
                 }
             }
 
-            if (_enshroudedServerService.IsRunning(selectedProfileName))
+            if (_enshroudedServerService.IsRunning(_selectedProfile.Name))
             {
                 _adminPanelView.StartServerButtonVisible = false;
                 _adminPanelView.StopServerButtonVisible = true;
@@ -160,7 +149,7 @@ public class AdminPanelPresenter
                     {
                         try
                         {
-                            _discordOutputService.ServerOnline(name, DiscordUrl, discordProfile.EmbedEnabled, discordProfile.ServerOnlineMsg);
+                            _discordOutputService.ServerOnline(name, DiscordUrl, discordProfile.EmbedEnabled, discordProfile.ServerStartedMsg);
                         }
                         catch
                         {
@@ -279,7 +268,6 @@ public class AdminPanelPresenter
             }
 
             EventAggregator.Instance.Publish(new ServerInstallStartedMessage());
-
             _adminPanelView.InstallServerButtonVisible = false;
             _adminPanelView.UpdateServerButtonVisible = false;
             _adminPanelView.StartServerButtonVisible = false;
@@ -287,9 +275,7 @@ public class AdminPanelPresenter
             _enshroudedServerService.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}", selectedProfileName);
 
             _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfileName);
-
             EventAggregator.Instance.Publish(new ServerInstallStoppedMessage());
-
             _adminPanelView.UpdateServerButtonVisible = true;
             _adminPanelView.StartServerButtonVisible = true;
         }

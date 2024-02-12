@@ -6,6 +6,7 @@ public static class Constants
     public const int CAPTION = 0x2;
     public const string STEAM_APP_ID = "2278520";
     public const string DATE_PATTERN = "yyyy-MM-dd-HH-mm-ss";
+    public const int TIMER_INTERVAL_SERVER_UPDATE_CHECK = 5;
 
     public static class Paths
     {
@@ -30,7 +31,7 @@ public static class Constants
         public const string DISCORD_JSON = "discord.json";
         public const string GAME_SERVER_EXE = "enshrouded_server.exe";
         public const string WINDOWS_FIREWALL = @"c:\windows\system32\wf.msc";
-        public const string APP_MANIFEST = $"appmanifest_{Constants.STEAM_APP_ID}.acf";
+        public const string APP_MANIFEST = $"appmanifest_{STEAM_APP_ID}.acf";
     }
 
     public static class ServerSettings
@@ -57,8 +58,8 @@ public static class Constants
         public const string DELETE_PROFILE_ERROR = "Error Deleting Server Profile";
         public const string DELETE_PROFILE_ERROR_MESSAGE = "The following error occured while deleting Server Profile: {0}";
 
-        public const string BACKUP_CONFIGURATION_ERROR = "No Server Profile Selected";
-        public const string BACKUP_CONFIGURATION_ERROR_MESSAGE = "Please select the profile you want to configure.";
+        public const string NO_PROFILE_SELECTED_ERROR = "No Server Profile";
+        public const string NO_PROFILE_SELECTED_ERROR_MESSAGE = "Please select the profile you want to configure.";
 
         public const string PROFILE_NAME_CHANGE_ERROR = "Error Changing Server Profile Name";
         public const string PROFILE_NAME_CHANGE_ERROR_MESSAGE = "The Following error occured while changing Server Profile name: {0}";
@@ -140,5 +141,6 @@ public static class Constants
         public const string ESM_GITHUB_LINK = "https://github.com/Crazyloon/Enshrouded-Server-Manager";
         public const string STEAM_CMD_CDN_URL = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip";
         public const string REMOTE_VERSION_FILE_URL = "https://raw.githubusercontent.com/Crazyloon/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json";
+        public const string STEAM_CMD_ENSHROUDED_SERVER_INFO = "https://api.steamcmd.net/v1/info/2278520";
     }
 }

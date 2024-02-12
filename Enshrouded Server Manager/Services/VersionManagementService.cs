@@ -71,8 +71,7 @@ public class VersionManagementService : IVersionManagementService
                 // have to send a real request to the server
 
                 // check file for actual version
-                string url = "https://api.steamcmd.net/v1/info/2278520";
-                HttpResponseMessage response = await Client.GetAsync(url);
+                HttpResponseMessage response = await Client.GetAsync(Constants.Urls.STEAM_CMD_ENSHROUDED_SERVER_INFO);
                 string jsonResponse = await response.Content.ReadAsStringAsync();
                 dynamic data = JsonConvert.DeserializeObject(jsonResponse);
 
@@ -91,7 +90,6 @@ public class VersionManagementService : IVersionManagementService
                 // check if file contains buildId
                 if (!AppManifestContainsBuildId(file, buildId))
                 {
-                    // change update server button border to red
                     return Color.Yellow;
                 }
                 else

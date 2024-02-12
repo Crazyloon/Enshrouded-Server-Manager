@@ -21,7 +21,7 @@ public class DiscordService : IDiscordService
             };
             await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
         }
-        if (embedEnabled == false)
+        else
         {
             await client.SendMessageAsync(text: $"ESM - {serverName} : {onlineMsg}");
         }
@@ -43,7 +43,7 @@ public class DiscordService : IDiscordService
             };
             await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
         }
-        if (embedEnabled == false)
+        else
         {
             await client.SendMessageAsync(text: $"ESM - {serverName} : {offlineMsg}");
         }
@@ -65,7 +65,7 @@ public class DiscordService : IDiscordService
             };
             await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
         }
-        if (embedEnabled == false)
+        else
         {
             await client.SendMessageAsync(text: $"ESM - {serverName} : {updatingMsg}");
         }
@@ -87,7 +87,7 @@ public class DiscordService : IDiscordService
             };
             await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
         }
-        if (embedEnabled == false)
+        else
         {
             await client.SendMessageAsync(text: $"ESM - {serverName} : {backupMsg}");
         }
@@ -109,7 +109,7 @@ public class DiscordService : IDiscordService
             };
             await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
         }
-        if (embedEnabled == false)
+        else
         {
             await client.SendMessageAsync(text: $"ESM - Test : Test");
         }

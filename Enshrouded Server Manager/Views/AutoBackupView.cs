@@ -43,12 +43,6 @@ public partial class AutoBackupView : UserControl, IAutoBackupView
         set => nudBackupMaxCount.Value = value;
     }
 
-    //public event EventHandler SelectedProfileChanged
-    //{
-    //    add => lbxProfileSelectorAutoBackup.SelectedIndexChanged += value;
-    //    remove => lbxProfileSelectorAutoBackup.SelectedIndexChanged -= value;
-    //}
-
     public event EventHandler SaveAutoBackupSettingsClicked
     {
         add => btnSaveAutoBackup.Click += value;
@@ -63,11 +57,6 @@ public partial class AutoBackupView : UserControl, IAutoBackupView
 
     public ServerProfile? SelectedProfile { get; set; }
 
-    //public void SetProfiles(BindingList<ServerProfile> profiles)
-    //{
-    //    lbxProfileSelectorAutoBackup.DataSource = profiles;
-    //    lbxProfileSelectorAutoBackup.DisplayMember = Constants.PropertyName.NAME;
-    //}
 
     public void UpdateBackupInfo(string profileName, int backupCount, long diskConsumption)
     {

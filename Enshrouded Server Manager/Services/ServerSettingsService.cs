@@ -45,7 +45,7 @@ public class ServerSettingsService : IServerSettingsService
         {
             _messageBox.Show(Constants.Errors.SERVER_RUNNING_ERROR_MESSAGE, Constants.Errors.SERVER_RUNNING_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            // Reset to original settings by reloading the profile data
+            // Reset to original settings by reloading the profile
             EventAggregator.Instance.Publish(new ProfileSelectedMessage(selectedProfile));
             return false;
         }

@@ -10,7 +10,7 @@ public class DiscordProfile
     public bool UpdatingEnabled { get; set; }
     public bool BackupEnabled { get; set; }
     public bool EmbedEnabled { get; set; }
-    public string ServerOnlineMsg { get; set; }
+    public string ServerStartedMsg { get; set; }
     public string ServerStoppedMsg { get; set; }
     public string ServerUpdatingMsg { get; set; }
     public string BackupMsg { get; set; }

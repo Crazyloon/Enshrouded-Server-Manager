@@ -24,7 +24,7 @@ public partial class DiscordNotificationsView : UserControl, IDiscordNotificatio
         remove => btnTestDiscord.Click -= value;
     }
 
-    public event EventHandler Load
+    public event EventHandler DiscordSettingsLoad
     {
         add => Load += value;
         remove => Load -= value;
