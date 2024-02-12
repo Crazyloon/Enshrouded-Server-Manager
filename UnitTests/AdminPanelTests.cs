@@ -27,6 +27,7 @@ public class AdminPanelTests
     private IEventAggregator _eventAggregator;
 
     private AdminPanelPresenter _presenter;
+    private ServerProfile _serverProfileUnderTest;
 
     public AdminPanelTests()
     {
@@ -46,7 +47,8 @@ public class AdminPanelTests
 
         _presenter = new AdminPanelPresenter(_adminPanelView, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService);
 
-        EventAggregator.Instance.Publish(new ProfileSelectedMessage(new ServerProfile() { Name = "TestServer" }));
+        _serverProfileUnderTest = new ServerProfile() { Name = "TestServer" };
+        EventAggregator.Instance.Publish(new ProfileSelectedMessage(_serverProfileUnderTest));
     }
 
     [TestMethod]
@@ -191,19 +193,11 @@ public class AdminPanelTests
         _adminPanelView.UpdateServerButtonVisible = true;
         _adminPanelView.InstallServerButtonVisible = false;
 
-
-        var profiles = new List<ServerProfile>()
+        _serverProfileUnderTest.AutoBackup = new AutoBackup()
         {
-            new ServerProfile
-            {
-                Name = "TestServer",
-                AutoBackup = new AutoBackup()
-                {
-                    Enabled = true,
-                    Interval = 0,
-                    MaxiumBackups = 0
-                }
-            }
+            Enabled = true,
+            Interval = 0,
+            MaxiumBackups = 0
         };
 
         var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
@@ -211,7 +205,6 @@ public class AdminPanelTests
         _fileSystemService.FileExists(Arg.Any<string>()).Returns(true);
         _fileSystemService.FileExists(discordSettingsFile).Returns(false);
         _enshroudedServerService.IsRunning(Arg.Any<string>()).Returns(true);
-        _profileService.LoadServerProfiles(Arg.Any<JsonSerializerSettings>()).Returns(profiles);
 
         // Act
         _adminPanelView.StartServerButtonClicked += Raise.Event();
