@@ -76,7 +76,7 @@ public class ServerSettingsPresenter
         if (_serverSettingsService.SaveServerSettings(json, _serverProfile))
         {
             // Used to update the button styles
-            EventAggregator.Instance.Publish(new ServerSettingsSavedSuccess());
+            EventAggregator.Instance.Publish(new ServerSettingsSavedSuccessMessage());
         }
     }
 }

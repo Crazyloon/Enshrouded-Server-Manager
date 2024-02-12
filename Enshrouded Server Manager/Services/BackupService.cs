@@ -14,8 +14,6 @@ public class BackupService : IBackupService
     private string _dateTimeString;
     private DiscordService _discordOutput;
 
-    public event EventHandler<AutoBackupSuccessEventArgs> AutoBackupSuccess;
-
     public BackupService(IFileSystemService fsm)
     {
         _fileSystemService = fsm;

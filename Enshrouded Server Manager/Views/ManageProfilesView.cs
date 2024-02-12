@@ -10,7 +10,7 @@ public partial class ManageProfilesView : UserControl, IManageProfilesView
     {
         InitializeComponent();
 
-        EventAggregator.Instance.Subscribe<ProfileNameUpdated>(n => OnProfileNameUpdated());
+        EventAggregator.Instance.Subscribe<ProfileNameUpdatedMessage>(n => OnProfileNameUpdated());
     }
 
     public event EventHandler SaveProfileNameButtonClicked

@@ -9,7 +9,7 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
     {
         InitializeComponent();
 
-        EventAggregator.Instance.Subscribe<ServerSettingsSavedSuccess>(s => OnSettingsSaved());
+        EventAggregator.Instance.Subscribe<ServerSettingsSavedSuccessMessage>(s => OnSettingsSaved());
     }
 
     public string ServerName
