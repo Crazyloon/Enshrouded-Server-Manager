@@ -277,6 +277,7 @@ partial class MainForm
         infoPanelView.BackColor = Color.FromArgb(0, 0, 18);
         infoPanelView.Dock = DockStyle.Fill;
         infoPanelView.ForeColor = SystemColors.HighlightText;
+        infoPanelView.IsNewVersionAvailable = false;
         infoPanelView.Location = new Point(10, 0);
         infoPanelView.Name = "infoPanelView";
         infoPanelView.Size = new Size(227, 443);
@@ -431,9 +432,9 @@ partial class MainForm
         lblVersion.ForeColor = Color.FromArgb(0, 204, 204);
         lblVersion.Location = new Point(8, 4);
         lblVersion.Name = "lblVersion";
-        lblVersion.Size = new Size(39, 13);
+        lblVersion.Size = new Size(37, 13);
         lblVersion.TabIndex = 56;
-        lblVersion.Text = "v.0.4.2";
+        lblVersion.Text = "v0.0.0";
         // 
         // pnlTopBorder
         // 

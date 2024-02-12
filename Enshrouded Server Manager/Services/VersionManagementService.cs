@@ -16,6 +16,21 @@ public class VersionManagementService : IVersionManagementService
         _fileSystemService = fsm;
     }
 
+    public string SyncVersionText()
+    {
+        try
+        {
+            var localVersionFilePath = Path.Join(Constants.Paths.MANAGER_VERSION_DIRECTORY, Constants.Files.LOCAL_GITHUB_VERSION_JSON);
+            var localVersionFile = _fileSystemService.ReadFile(localVersionFilePath);
+            LauncherVersion deserializedSettings = JsonConvert.DeserializeObject<LauncherVersion>(localVersionFile);
+            return deserializedSettings.Version;
+        }
+        catch (Exception)
+        {
+            return "v0.0.0";
+        }
+    }
+
     public async void ManagerUpdate(string currentVersionText)
     {
         CheckManagerVersion(currentVersionText);
@@ -84,7 +99,7 @@ public class VersionManagementService : IVersionManagementService
                 string buildId = publicData["buildid"];
 
                 // readout servers/selectedprofilename/steamapps/appmanifest_$AppID.acf
-                var steamappsPath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName, Constants.Paths.GAME_SERVER_STEAMAPPS_FOLDER);
+                var steamappsPath = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName, Constants.Paths.GAME_SERVER_STEAMAPPS_DIRECTORY);
                 var file = Path.Join(steamappsPath, Constants.Files.APP_MANIFEST);
 
                 // check if file contains buildId

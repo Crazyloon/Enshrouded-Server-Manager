@@ -10,16 +10,17 @@ public static class Constants
 
     public static class Paths
     {
-        public const string SERVER_PATH = "Servers";
-        public const string DEFAULT_PROFILES_PATH = "ServerProfiles";
-        public const string BACKUPS_FOLDER = "Backups";
+        public const string SERVER_DIRECTORY = "Servers";
+        public const string DEFAULT_PROFILES_DIRECTORY = "ServerProfiles";
+        public const string BACKUPS_DIRECTORY = "Backups";
         public const string CACHE_DIRECTORY = "cache";
-        public const string AUTOBACKUPS_FOLDER = @$"{BACKUPS_FOLDER}\AutoBackup";
+        public const string AUTOBACKUPS_DIRECTORY = @$"{BACKUPS_DIRECTORY}\AutoBackup";
         public const string ENSHROUDED_SAVE_GAME_DIRECTORY = "savegame";
         public const string ENSHROUDED_LOGS_DIRECTORY = "logs";
-        public const string GAME_SERVER_SAVE_FOLDER = "savegame";
-        public const string GAME_SERVER_LOGS_FOLDER = "logs";
-        public const string GAME_SERVER_STEAMAPPS_FOLDER = "steamapps";
+        public const string GAME_SERVER_SAVE_DIRECTORY = "savegame";
+        public const string GAME_SERVER_LOGS_DIRECTORY = "logs";
+        public const string GAME_SERVER_STEAMAPPS_DIRECTORY = "steamapps";
+        public const string MANAGER_VERSION_DIRECTORY = "Version";
     }
 
     public static class Files

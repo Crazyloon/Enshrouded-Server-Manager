@@ -25,6 +25,7 @@ public class MainFormPresenter
 
     private void BeginApplicationVersionCheckTimer()
     {
+        _mainFormView.CurrentVersionText = _versionManagementService.SyncVersionText();
         _versionManagementService.ManagerUpdate(_mainFormView.CurrentVersionText);
     }
 }

@@ -27,7 +27,7 @@ public class BackupService : IBackupService
     {
         _dateTimeString = DateTime.Now.ToString(Constants.DATE_PATTERN);
 
-        var profileBackupDirectory = Path.Join(Constants.Paths.BACKUPS_FOLDER, profileName);
+        var profileBackupDirectory = Path.Join(Constants.Paths.BACKUPS_DIRECTORY, profileName);
         var originalServerConfigFile = Path.Join(serverConfigDirectory, serverConfigFileName);
         var copyOfServerConfigFile = Path.Join(saveFileDirectory, serverConfigFileName);
 
@@ -67,14 +67,14 @@ public class BackupService : IBackupService
 
 
         // discord Output
-        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
         if (_fileSystemService.FileExists(discordSettingsFile))
         {
             var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
             DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
             string discordUrl = discordProfile.DiscordUrl;
 
-            var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, profileName);
+            var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, profileName);
             var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
 
             var gameServerConfigText = _fileSystemService.ReadFile(gameServerConfig);
@@ -109,7 +109,7 @@ public class BackupService : IBackupService
             return;
         }
 
-        var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, profileName);
+        var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_DIRECTORY, profileName);
         var originalServerConfigFile = Path.Join(serverConfigDirectory, serverConfigFileName);
         var copyOfServerConfigFile = Path.Join(saveFileDirectory, serverConfigFileName);
 
@@ -129,8 +129,8 @@ public class BackupService : IBackupService
 
         DiscordProfile discordProfile = null;
         ServerSettings gameServerSettings = null;
-        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
-        var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, profileName);
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
+        var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, profileName);
         var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
         if (_fileSystemService.FileExists(discordSettingsFile) && _fileSystemService.FileExists(gameServerConfig))
         {
@@ -207,7 +207,7 @@ public class BackupService : IBackupService
 
     public int GetBackupCount(string profileName)
     {
-        var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, profileName);
+        var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_DIRECTORY, profileName);
         if (!_fileSystemService.DirectoryExists(profileAutoBackupDirectory))
         {
             return 0;
@@ -222,7 +222,7 @@ public class BackupService : IBackupService
 
     public long GetDiskConsumption(string profileName)
     {
-        var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, profileName);
+        var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_DIRECTORY, profileName);
         if (!_fileSystemService.DirectoryExists(profileAutoBackupDirectory))
         {
             return 0;

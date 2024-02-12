@@ -58,7 +58,7 @@ public class AutoBackupPresenter
 
             // write the new profile to the json file
             _fileSystemService.WriteFile(
-                Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON),
+                Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON),
                 JsonConvert.SerializeObject(_profiles, JsonSettings.Default));
 
             EventAggregator.Instance.Publish(new AutoBackupSuccessMessage(_autoBackupView.SelectedProfile.Name));

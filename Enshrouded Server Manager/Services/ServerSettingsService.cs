@@ -21,7 +21,7 @@ public class ServerSettingsService : IServerSettingsService
 
     public ServerSettings? LoadServerSettings(string selectedProfileName)
     {
-        var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
+        var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName);
         var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
 
         if (!_fileSystemService.FileExists(gameServerConfig))
@@ -51,12 +51,12 @@ public class ServerSettingsService : IServerSettingsService
         }
 
         // create the server profile directory if it doesn't exist
-        var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfile.Name);
+        var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfile.Name);
         _fileSystemService.CreateDirectory(serverProfilePath);
 
         // serialize the data and write it to a file
         var output = JsonConvert.SerializeObject(serverSettings, JsonSettings.Default);
-        var gameServerConfig = Path.Join(Constants.Paths.SERVER_PATH, selectedProfile.Name, Constants.Files.GAME_SERVER_CONFIG_JSON);
+        var gameServerConfig = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfile.Name, Constants.Files.GAME_SERVER_CONFIG_JSON);
         _fileSystemService.WriteFile(gameServerConfig, output);
 
         return true;
@@ -77,7 +77,7 @@ public class ServerSettingsService : IServerSettingsService
         };
 
         var output = JsonConvert.SerializeObject(json, JsonSettings.Default);
-        var gameServerConfig = Path.Join(Constants.Paths.SERVER_PATH, profileName, Constants.Files.GAME_SERVER_CONFIG_JSON);
+        var gameServerConfig = Path.Join(Constants.Paths.SERVER_DIRECTORY, profileName, Constants.Files.GAME_SERVER_CONFIG_JSON);
 
         _fileSystemService.WriteFile(gameServerConfig, output);
     }

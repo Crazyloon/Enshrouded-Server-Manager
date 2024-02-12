@@ -15,11 +15,11 @@ public class ProfileService : IProfileService
 
     public List<ServerProfile>? LoadServerProfiles(JsonSerializerSettings jsonSerializerSettings, bool firstCheck = false)
     {
-        var serverProfilesJson = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON);
+        var serverProfilesJson = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON);
 
         if (!_fileSystemService.FileExists(serverProfilesJson))
         {
-            _fileSystemService.CreateDirectory(Constants.Paths.DEFAULT_PROFILES_PATH);
+            _fileSystemService.CreateDirectory(Constants.Paths.DEFAULT_PROFILES_DIRECTORY);
 
             // First time loading server profiles should, create default profile
             WriteDefaultProfileJson(serverProfilesJson, jsonSerializerSettings);
@@ -64,8 +64,8 @@ public class ProfileService : IProfileService
     {
         try
         {
-            var oldServerProfilePath = Path.Join(Constants.Paths.SERVER_PATH, oldServerProfileName);
-            var newServerProfilePath = Path.Join(Constants.Paths.SERVER_PATH, newServerProfileName);
+            var oldServerProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, oldServerProfileName);
+            var newServerProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, newServerProfileName);
             _fileSystemService.MoveDirectory(oldServerProfilePath, $"{oldServerProfilePath}_temp");
             _fileSystemService.MoveDirectory($"{oldServerProfilePath}_temp", newServerProfilePath);
         }

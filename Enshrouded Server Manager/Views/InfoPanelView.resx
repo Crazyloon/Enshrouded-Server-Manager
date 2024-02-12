@@ -119,19 +119,16 @@
   </resheader>
   <data name="lblNewsText.Text" xml:space="preserve">
     <value>Changes:
-
-
-v0.4.2
-- Fixed an issue with server names not
-   allowing spaces
-- Fixed an issue with button visibility
-   when updating a server
-
 v0.5.0
 - Moved profile management inline
    with the profile selector
 - Major background updates to the
    application design for testability
-</value>
+
+v0.4.2
+- Fixed an issue with server names not
+   allowing spaces
+- Fixed an issue with button visibility
+   when updating a server</value>
   </data>
 </root>

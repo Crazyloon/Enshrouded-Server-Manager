@@ -67,7 +67,7 @@ public class ProfileSelectorPresenter
 
         // write the new profile to the json file
         _fileSystemService.WriteFile(
-            Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON),
+            Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON),
             JsonConvert.SerializeObject(_profiles, JsonSettings.Default));
 
         // Create the server profile directory and load it's settings
@@ -92,9 +92,9 @@ public class ProfileSelectorPresenter
                 return;
             }
 
-            var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, _profileSelectorView.SelectedProfile.Name);
-            var autoBackupPath = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, _profileSelectorView.SelectedProfile.Name);
-            var backupPath = Path.Join(Constants.Paths.BACKUPS_FOLDER, _profileSelectorView.SelectedProfile.Name);
+            var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, _profileSelectorView.SelectedProfile.Name);
+            var autoBackupPath = Path.Join(Constants.Paths.AUTOBACKUPS_DIRECTORY, _profileSelectorView.SelectedProfile.Name);
+            var backupPath = Path.Join(Constants.Paths.BACKUPS_DIRECTORY, _profileSelectorView.SelectedProfile.Name);
 
             // rename directory to check if in use
             try
@@ -144,7 +144,7 @@ public class ProfileSelectorPresenter
 
                 // write the new profile to the json file
                 _fileSystemService.WriteFile(
-                    Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON),
+                    Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON),
                     JsonConvert.SerializeObject(_profiles, JsonSettings.Default));
 
                 //clear cache pid file

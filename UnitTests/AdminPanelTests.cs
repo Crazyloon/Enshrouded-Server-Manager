@@ -200,7 +200,7 @@ public class AdminPanelTests
             MaxiumBackups = 0
         };
 
-        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
 
         _fileSystemService.FileExists(Arg.Any<string>()).Returns(true);
         _fileSystemService.FileExists(discordSettingsFile).Returns(false);

@@ -52,7 +52,7 @@ public class ManageProfilesPresenter
         var reservedProfileNames = new string[] { "AutoBackup" };
         string editProfileName = _manageProfilesView.EditProfileName;
 
-        var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, editProfileName);
+        var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, editProfileName);
         if (_fileSystemService.DirectoryExists(serverProfilePath))
         {
             return;
@@ -97,13 +97,13 @@ public class ManageProfilesPresenter
 
             // write the new profile to the json file
             var output = JsonConvert.SerializeObject(_profiles, JsonSettings.Default);
-            var serverProfilesJson = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.SERVER_PROFILES_JSON);
+            var serverProfilesJson = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON);
 
             _fileSystemService.WriteFile(serverProfilesJson, output);
 
             // rename backup folder
-            var oldBackupFolder = Path.Join(Constants.Paths.BACKUPS_FOLDER, selectedServerProfile);
-            var newBackupFolder = Path.Join(Constants.Paths.BACKUPS_FOLDER, editProfileName);
+            var oldBackupFolder = Path.Join(Constants.Paths.BACKUPS_DIRECTORY, selectedServerProfile);
+            var newBackupFolder = Path.Join(Constants.Paths.BACKUPS_DIRECTORY, editProfileName);
             if (!_fileSystemService.DirectoryExists(oldBackupFolder))
             {
                 _fileSystemService.CreateDirectory(oldBackupFolder);
@@ -114,8 +114,8 @@ public class ManageProfilesPresenter
             }
 
             // rename autobackup folder
-            var oldAutoBackupFolder = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, selectedServerProfile);
-            var newAutoBackupFolder = Path.Join(Constants.Paths.AUTOBACKUPS_FOLDER, editProfileName);
+            var oldAutoBackupFolder = Path.Join(Constants.Paths.AUTOBACKUPS_DIRECTORY, selectedServerProfile);
+            var newAutoBackupFolder = Path.Join(Constants.Paths.AUTOBACKUPS_DIRECTORY, editProfileName);
             if (!_fileSystemService.DirectoryExists(oldAutoBackupFolder))
             {
                 _fileSystemService.CreateDirectory(oldAutoBackupFolder);

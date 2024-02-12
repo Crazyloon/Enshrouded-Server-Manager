@@ -96,7 +96,7 @@ public class AdminPanelPresenter
     {
         if (_selectedProfile is not null)
         {
-            var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, _selectedProfile.Name);
+            var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, _selectedProfile.Name);
             _fileSystemService.CreateDirectory(serverProfilePath);
 
             var gameServerExe = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_EXE);
@@ -114,7 +114,7 @@ public class AdminPanelPresenter
             {
                 if (_selectedProfile is not null && _selectedProfile.AutoBackup is not null && _selectedProfile.AutoBackup.Enabled)
                 {
-                    var saveGameFolder = Path.Join(serverProfilePath, Constants.Paths.GAME_SERVER_SAVE_FOLDER);
+                    var saveGameFolder = Path.Join(serverProfilePath, Constants.Paths.GAME_SERVER_SAVE_DIRECTORY);
                     _backupService.StartAutoBackup(saveGameFolder, _selectedProfile.Name, _selectedProfile.AutoBackup.Interval, _selectedProfile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
                 }
             }
@@ -131,7 +131,7 @@ public class AdminPanelPresenter
             }
 
             // discord Output
-            var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+            var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
             if (_fileSystemService.FileExists(discordSettingsFile))
             {
                 var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
@@ -172,14 +172,14 @@ public class AdminPanelPresenter
 
         // TODO: Can we emit an event here and have something else handle discord output?
         // discord Output
-        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
         if (_fileSystemService.FileExists(discordSettingsFile))
         {
             var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
             DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
             string DiscordUrl = discordProfile.DiscordUrl;
 
-            var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
+            var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName);
             var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
             var gameServerConfigText = _fileSystemService.ReadFile(gameServerConfig);
             ServerSettings gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, JsonSettings.Default);
@@ -210,7 +210,7 @@ public class AdminPanelPresenter
         if (_selectedProfile is not null)
         {
             string selectedProfileName = _selectedProfile.Name;
-            var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
+            var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName);
 
             EventAggregator.Instance.Publish(new ServerInstallStartedMessage());
 
@@ -234,11 +234,11 @@ public class AdminPanelPresenter
         if (_selectedProfile is not null)
         {
             string selectedProfileName = _selectedProfile.Name;
-            var serverProfilePath = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
+            var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName);
 
             // TODO: Move this into the discord service
             // discord Output
-            var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+            var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
             if (_fileSystemService.FileExists(discordSettingsFile))
             {
                 var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
@@ -287,8 +287,8 @@ public class AdminPanelPresenter
         {
             string selectedProfileName = _selectedProfile.Name;
 
-            var serverProfileDirectory = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName);
-            var saveGameDirectory = Path.Join(serverProfileDirectory, Constants.Paths.GAME_SERVER_SAVE_FOLDER);
+            var serverProfileDirectory = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName);
+            var saveGameDirectory = Path.Join(serverProfileDirectory, Constants.Paths.GAME_SERVER_SAVE_DIRECTORY);
 
             _backupService.Save(saveGameDirectory, selectedProfileName, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfileDirectory);
         }
@@ -299,7 +299,7 @@ public class AdminPanelPresenter
         if (_selectedProfile is not null)
         {
             string selectedProfileName = _selectedProfile.Name;
-            string backupserverfolder = Path.Join(Constants.Paths.BACKUPS_FOLDER, selectedProfileName);
+            string backupserverfolder = Path.Join(Constants.Paths.BACKUPS_DIRECTORY, selectedProfileName);
 
             _fileSystemService.CreateDirectory(backupserverfolder);
 
@@ -312,7 +312,7 @@ public class AdminPanelPresenter
         if (_selectedProfile is not null)
         {
             string selectedProfileName = _selectedProfile.Name;
-            string savegamefolder = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName, Constants.Paths.GAME_SERVER_SAVE_FOLDER);
+            string savegamefolder = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName, Constants.Paths.GAME_SERVER_SAVE_DIRECTORY);
             _fileSystemService.CreateDirectory(savegamefolder);
 
             _systemProcessService.Start(Constants.ProcessNames.EXPLORER_EXE, savegamefolder);
@@ -324,7 +324,7 @@ public class AdminPanelPresenter
         if (_selectedProfile is not null)
         {
             string selectedProfileName = _selectedProfile.Name;
-            string logfolder = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName, Constants.Paths.GAME_SERVER_LOGS_FOLDER);
+            string logfolder = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName, Constants.Paths.GAME_SERVER_LOGS_DIRECTORY);
             _fileSystemService.CreateDirectory(logfolder);
 
             _systemProcessService.Start(Constants.ProcessNames.EXPLORER_EXE, logfolder);
@@ -345,7 +345,7 @@ public class AdminPanelPresenter
 
     private void RefreshServerButtonsVisibility(string selectedProfileName)
     {
-        var gameServerExe = Path.Join(Constants.Paths.SERVER_PATH, selectedProfileName, Constants.Files.GAME_SERVER_EXE);
+        var gameServerExe = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName, Constants.Files.GAME_SERVER_EXE);
 
         _adminPanelView.StopServerButtonVisible = false;
 
@@ -364,6 +364,7 @@ public class AdminPanelPresenter
         {
             _adminPanelView.InstallServerButtonVisible = true;
             _adminPanelView.UpdateServerButtonVisible = false;
+            _adminPanelView.StartServerButtonVisible = false;
         }
 
         if (!_fileSystemService.FileExists(Constants.ProcessNames.STEAM_CMD_EXE))

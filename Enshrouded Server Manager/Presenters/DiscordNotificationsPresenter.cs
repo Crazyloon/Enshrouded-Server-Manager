@@ -33,7 +33,7 @@ public class DiscordNotificationsPresenter
 
     private void OnLoad(object? sender, EventArgs e)
     {
-        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
         if (!_fileSystemService.FileExists(discordSettingsFile))
         {
             return;
@@ -59,7 +59,7 @@ public class DiscordNotificationsPresenter
 
     private void OnTestDiscordMessageClicked(object? sender, EventArgs e)
     {
-        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
         if (_fileSystemService.FileExists(discordSettingsFile))
         {
             var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
@@ -100,7 +100,7 @@ public class DiscordNotificationsPresenter
 
         // write the new discord profile to the json file
         var discordProfileJson = JsonConvert.SerializeObject(discordProfile, JsonSettings.Default);
-        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_PATH, Constants.Files.DISCORD_JSON);
+        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
         _fileSystemService.WriteFile(discordSettingsFile, discordProfileJson);
 
         // notify the view that the settings have been saved
