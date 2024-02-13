@@ -11,5 +11,6 @@ public interface IManageProfilesView
     public string EditProfileName { get; set; }
     public bool IsVisible { get; set; }
 
-    void OnProfileNameUpdated();
+    void AnimateSaveButton();
+    void FocuseEditProfileName();
 }

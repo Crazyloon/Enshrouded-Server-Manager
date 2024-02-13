@@ -170,6 +170,7 @@ public class ProfileSelectorPresenter
     private void OnRenameProfileClicked()
     {
         _manageProfilesView.IsVisible = !_manageProfilesView.IsVisible;
+        _manageProfilesView.FocuseEditProfileName();
     }
 
     private void LoadProfiles(BindingList<ServerProfile>? profiles)

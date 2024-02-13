@@ -11,6 +11,7 @@ public class AutoBackupPresenter
 {
     private readonly IAutoBackupView _autoBackupView;
     private readonly IEventAggregator _eventAggregator;
+    private readonly ISystemProcessService _systemProcessService;
     private readonly IProfileService _profileManager;
     private readonly IFileSystemService _fileSystemService;
     private readonly IMessageBoxService _messageBox;
@@ -20,6 +21,7 @@ public class AutoBackupPresenter
 
     public AutoBackupPresenter(IAutoBackupView autoBackupView,
         IEventAggregator eventAggregator,
+        ISystemProcessService processService,
         IProfileService profileManager,
         IFileSystemService fileSystemManager,
         IMessageBoxService messageBox,
@@ -28,6 +30,7 @@ public class AutoBackupPresenter
     {
         _autoBackupView = autoBackupView;
         _eventAggregator = eventAggregator;
+        _systemProcessService = processService;
         _profileManager = profileManager;
         _fileSystemService = fileSystemManager;
         _messageBox = messageBox;
@@ -36,14 +39,20 @@ public class AutoBackupPresenter
         _profiles = serverProfiles;
 
         _autoBackupView.SaveAutoBackupSettingsClicked += OnSaveAutoBackupSettingsClicked;
+        _autoBackupView.OpenAutoBackupFolderClicked += (sender, e) => OnOpenBackupFolderClicked();
 
-        _eventAggregator.Subscribe<AutoBackupSuccessMessage>(n => OnAutoBackupSuccess(n.ProfileName));
+        _eventAggregator.Subscribe<AutoBackupSavedSuccessMessage>(n => OnAutoBackupSavedSuccess(n.ProfileName));
         _eventAggregator.Subscribe<ProfileSelectedMessage>(s => OnProfileSelected(s.SelectedProfile));
     }
 
-    private void OnAutoBackupSuccess(string profileName)
+    private void OnOpenBackupFolderClicked()
     {
-        _autoBackupView.OnAutoBackupSuccess();
+        var serverAutoBackupPath = Path.Join(Constants.Paths.AUTOBACKUPS_DIRECTORY, _autoBackupView.SelectedProfile.Name);
+        _systemProcessService.Start(Constants.ProcessNames.EXPLORER_EXE, serverAutoBackupPath);
+    }
+
+    private void OnAutoBackupSavedSuccess(string profileName)
+    {
         _autoBackupView.UpdateBackupInfo(profileName, _backupService.GetBackupCount(profileName), _backupService.GetDiskConsumption(profileName));
     }
 
@@ -65,7 +74,7 @@ public class AutoBackupPresenter
                 Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON),
                 JsonConvert.SerializeObject(_profiles, JsonSettings.Default));
 
-            _eventAggregator.Publish(new AutoBackupSuccessMessage(_autoBackupView.SelectedProfile.Name));
+            _autoBackupView.AnimateSaveButton();
         }
         else
         {

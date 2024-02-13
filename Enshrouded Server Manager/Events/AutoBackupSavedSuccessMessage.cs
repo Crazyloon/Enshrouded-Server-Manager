@@ -1,9 +1,9 @@
 ﻿namespace Enshrouded_Server_Manager.Events;
-internal class AutoBackupSuccessMessage : IApplicationEvent
+internal class AutoBackupSavedSuccessMessage : IApplicationEvent
 {
     public string ProfileName { get; }
 
-    public AutoBackupSuccessMessage(string profileName)
+    public AutoBackupSavedSuccessMessage(string profileName)
     {
         ProfileName = profileName;
     }

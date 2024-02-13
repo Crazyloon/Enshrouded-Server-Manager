@@ -6,10 +6,14 @@ namespace Enshrouded_Server_Manager.Services;
 public class DiscordService : IDiscordService
 {
     // send server is online status to webhook
-    public async Task ServerOnline(string serverName, string Url, bool embedEnabled, string onlineMsg)
+    public async Task ServerOnline(string serverName, string url, bool embedEnabled, string onlineMsg)
     {
+        if (string.IsNullOrEmpty(url))
+        {
+            return;
+        }
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
-        using var client = new DiscordWebhookClient(Url);
+        using var client = new DiscordWebhookClient(url);
 
         if (embedEnabled == true)
         {
@@ -28,10 +32,15 @@ public class DiscordService : IDiscordService
     }
 
     // send server is offline status to webhook
-    public async Task ServerOffline(string serverName, string Url, bool embedEnabled, string offlineMsg)
+    public async Task ServerOffline(string serverName, string url, bool embedEnabled, string offlineMsg)
     {
+        if (string.IsNullOrEmpty(url))
+        {
+            return;
+        }
+
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
-        using var client = new DiscordWebhookClient(Url);
+        using var client = new DiscordWebhookClient(url);
 
         if (embedEnabled == true)
         {
@@ -50,10 +59,15 @@ public class DiscordService : IDiscordService
     }
 
     // send server is updating status to webhook
-    public async Task ServerUpdating(string serverName, string Url, bool embedEnabled, string updatingMsg)
+    public async Task ServerUpdating(string serverName, string url, bool embedEnabled, string updatingMsg)
     {
+        if (string.IsNullOrEmpty(url))
+        {
+            return;
+        }
+
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
-        using var client = new DiscordWebhookClient(Url);
+        using var client = new DiscordWebhookClient(url);
 
         if (embedEnabled == true)
         {
@@ -72,10 +86,15 @@ public class DiscordService : IDiscordService
     }
 
     // send server backup has been created status to webhook
-    public async Task ServerBackup(string serverName, string Url, bool embedEnabled, string backupMsg)
+    public async Task ServerBackup(string serverName, string url, bool embedEnabled, string backupMsg)
     {
+        if (string.IsNullOrEmpty(url))
+        {
+            return;
+        }
+
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
-        using var client = new DiscordWebhookClient(Url);
+        using var client = new DiscordWebhookClient(url);
 
         if (embedEnabled == true)
         {
@@ -94,10 +113,15 @@ public class DiscordService : IDiscordService
     }
 
     // send test msg to webhook
-    public async Task TestMsg(string Url, bool embedEnabled)
+    public async Task TestMsg(string url, bool embedEnabled)
     {
+        if (string.IsNullOrEmpty(url))
+        {
+            return;
+        }
+
         // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
-        using var client = new DiscordWebhookClient(Url);
+        using var client = new DiscordWebhookClient(url);
 
         if (embedEnabled == true)
         {

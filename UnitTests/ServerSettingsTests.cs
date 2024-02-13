@@ -238,6 +238,6 @@ public class ServerSettingsTests
         _serverSettingsView.SaveChangesButtonClicked += Raise.Event();
 
         // Assert
-        _serverSettingsView.Received().OnSettingsSaved();
+        _serverSettingsView.Received().AnimateSaveButton();
     }
 }

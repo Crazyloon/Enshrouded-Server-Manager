@@ -5,7 +5,7 @@ namespace Enshrouded_Server_Manager.Views;
 public interface IAutoBackupView
 {
     event EventHandler SaveAutoBackupSettingsClicked;
-    //event EventHandler SelectedProfileChanged;
+    event EventHandler OpenAutoBackupFolderClicked;
     event EventHandler EnableAutoBackupChanged;
 
     string BackupStats { get; set; }
@@ -17,5 +17,5 @@ public interface IAutoBackupView
     ServerProfile? SelectedProfile { get; set; }
     //void SetProfiles(BindingList<ServerProfile> profiles);
     void UpdateBackupInfo(string profileName, int backupCount, long diskConsumption);
-    void OnAutoBackupSuccess();
+    void AnimateSaveButton();
 }

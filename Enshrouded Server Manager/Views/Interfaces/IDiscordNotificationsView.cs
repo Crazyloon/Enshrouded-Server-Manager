@@ -20,5 +20,5 @@ public interface IDiscordNotificationsView
 
     string WebhookUrl { get; set; }
 
-    void OnDiscordSettingsSaved();
+    void AnimateSaveButton();
 }

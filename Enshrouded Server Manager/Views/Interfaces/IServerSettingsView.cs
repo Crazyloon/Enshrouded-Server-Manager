@@ -15,5 +15,5 @@ public interface IServerSettingsView
     event EventHandler ShowPasswordButtonClicked;
     event EventHandler SaveChangesButtonClicked;
 
-    public void OnSettingsSaved();
+    public void AnimateSaveButton();
 }

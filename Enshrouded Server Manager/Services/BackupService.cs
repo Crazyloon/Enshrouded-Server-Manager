@@ -123,6 +123,7 @@ public class BackupService : IBackupService
         _fileSystemService.CreateDirectory(profileAutoBackupDirectory);
 
         var timer = new PeriodicTimer(TimeSpan.FromMinutes(interval));
+        //var timer = new PeriodicTimer(TimeSpan.FromSeconds(interval));
         if (!_server.IsRunning(profileName))
         {
             timer.Dispose();
@@ -185,7 +186,7 @@ public class BackupService : IBackupService
                 }
 
                 DeleteOldestBackup(profileAutoBackupDirectory, maximumBackups);
-                _eventAggregator.Publish(new AutoBackupSuccessMessage(profileName));
+                _eventAggregator.Publish(new AutoBackupSavedSuccessMessage(profileName));
             }
             catch (Exception ex)
             {

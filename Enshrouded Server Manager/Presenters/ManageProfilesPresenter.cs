@@ -39,7 +39,7 @@ public class ManageProfilesPresenter
 
         _profiles = serverProfiles;
 
-        _manageProfilesView.SaveProfileNameButtonClicked += (sender, args) => OnEditProfileClicked();
+        _manageProfilesView.SaveProfileNameButtonClicked += (sender, args) => OnSaveProfileNameClicked();
 
         _eventAggregator.Subscribe<ProfileSelectedMessage>(m => OnProfileSelected(m.SelectedProfile));
     }
@@ -50,7 +50,7 @@ public class ManageProfilesPresenter
         _manageProfilesView.EditProfileName = _manageProfilesView.SelectedProfile?.Name;
     }
 
-    public void OnEditProfileClicked()
+    public void OnSaveProfileNameClicked()
     {
         var reservedProfileNames = new string[] { "AutoBackup" };
         string editProfileName = _manageProfilesView.EditProfileName;

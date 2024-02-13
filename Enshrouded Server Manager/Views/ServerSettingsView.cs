@@ -71,7 +71,7 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
         remove => btnSaveSettings.Click -= value;
     }
 
-    public void OnSettingsSaved()
+    public void AnimateSaveButton()
     {
         Interactions.AnimateSaveChangesButton(btnSaveSettings, btnSaveSettings.Text, Constants.ButtonText.SAVED_SUCCESS);
     }

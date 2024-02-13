@@ -119,6 +119,7 @@
   </resheader>
   <data name="lblNewsText.Text" xml:space="preserve">
     <value>Changes:
+
 v0.5.0
 - Moved profile management inline
    with the profile selector

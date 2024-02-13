@@ -46,6 +46,12 @@ public partial class AutoBackupView : UserControl, IAutoBackupView
         remove => btnSaveAutoBackup.Click -= value;
     }
 
+    public event EventHandler OpenAutoBackupFolderClicked
+    {
+        add => btnOpenAutobackupFolder.Click += value;
+        remove => btnOpenAutobackupFolder.Click -= value;
+    }
+
     public event EventHandler EnableAutoBackupChanged
     {
         add => chkEnableBackups.CheckedChanged += value;
@@ -76,7 +82,7 @@ public partial class AutoBackupView : UserControl, IAutoBackupView
 
     }
 
-    public void OnAutoBackupSuccess()
+    public void AnimateSaveButton()
     {
         Interactions.AnimateSaveChangesButton(btnSaveAutoBackup, btnSaveAutoBackup.Text, Constants.ButtonText.SAVED_SUCCESS);
     }

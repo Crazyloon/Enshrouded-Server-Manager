@@ -35,9 +35,14 @@ public partial class ManageProfilesView : UserControl, IManageProfilesView
         set => this.Location = value;
     }
 
-    public void OnProfileNameUpdated()
+    public void AnimateSaveButton()
     {
         Interactions.AnimateSaveChangesButton(btnSaveProfileName, btnSaveProfileName.Text, Constants.ButtonText.SAVED_SUCCESS);
+    }
+
+    public void FocuseEditProfileName()
+    {
+        txtEditProfileName.Focus();
     }
 
     private void btnSaveProfileName_EnabledChanged(object sender, EventArgs e)

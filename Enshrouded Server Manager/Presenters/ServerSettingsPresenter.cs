@@ -78,8 +78,7 @@ public class ServerSettingsPresenter
 
         if (_serverSettingsService.SaveServerSettings(json, _serverProfile))
         {
-            // notify the view to animate the save button
-            _serverSettingsView.OnSettingsSaved();
+            _serverSettingsView.AnimateSaveButton();
         }
     }
 }

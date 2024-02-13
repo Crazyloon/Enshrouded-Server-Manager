@@ -107,6 +107,6 @@ public class DiscordNotificationsPresenter
         _fileSystemService.WriteFile(discordSettingsFile, discordProfileJson);
 
         // notify the view that the settings have been saved
-        _discordNotificationsView.OnDiscordSettingsSaved();
+        _discordNotificationsView.AnimateSaveButton();
     }
 }

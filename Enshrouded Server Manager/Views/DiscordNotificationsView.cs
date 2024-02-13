@@ -93,7 +93,7 @@ public partial class DiscordNotificationsView : UserControl, IDiscordNotificatio
         set => txtDiscordWebhookUrl.Text = value;
     }
 
-    public void OnDiscordSettingsSaved()
+    public void AnimateSaveButton()
     {
         Interactions.AnimateSaveChangesButton(btnSaveDiscordSettings, btnSaveDiscordSettings.Text, Constants.ButtonText.SAVED_SUCCESS);
     }

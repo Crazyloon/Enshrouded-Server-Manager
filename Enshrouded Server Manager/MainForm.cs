@@ -48,7 +48,7 @@ public partial class MainForm : Form, IMainFormView
         // Initialize Presenters
         serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, eventAggregator, serverSettingsService, fileSystemManager, enshroudedServer);
         manageProfilesView.Tag = new ManageProfilesPresenter(manageProfilesView, eventAggregator, profileManager, serverSettingsService, fileSystemManager, messageBox, enshroudedServer, profiles);
-        autoBackupView.Tag = new AutoBackupPresenter(autoBackupView, eventAggregator, profileManager, fileSystemManager, messageBox, backupService, profiles);
+        autoBackupView.Tag = new AutoBackupPresenter(autoBackupView, eventAggregator, processManager, profileManager, fileSystemManager, messageBox, backupService, profiles);
         discordNotificationsView.Tag = new DiscordNotificationsPresenter(discordNotificationsView, eventAggregator, discordOutputService, messageBox, profileManager, fileSystemManager);
         infoPanelView.Tag = new InfoPanelPresenter(infoPanelView, eventAggregator, processManager);
         this.Tag = new MainFormPresenter(this, versionManager);
