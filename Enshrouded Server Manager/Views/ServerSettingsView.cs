@@ -1,5 +1,4 @@
-﻿using Enshrouded_Server_Manager.Events;
-using Enshrouded_Server_Manager.UI;
+﻿using Enshrouded_Server_Manager.UI;
 using Enshrouded_Server_Manager.Views;
 
 namespace Enshrouded_Server_Manager;
@@ -8,8 +7,6 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
     public ServerSettingsView()
     {
         InitializeComponent();
-
-        EventAggregator.Instance.Subscribe<ServerSettingsSavedSuccessMessage>(s => OnSettingsSaved());
     }
 
     public string ServerName

@@ -10,4 +10,6 @@ public interface IManageProfilesView
     ServerProfile? SelectedProfile { get; set; }
     public string EditProfileName { get; set; }
     public bool IsVisible { get; set; }
+
+    void OnProfileNameUpdated();
 }

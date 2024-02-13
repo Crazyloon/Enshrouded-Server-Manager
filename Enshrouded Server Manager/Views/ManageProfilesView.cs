@@ -1,5 +1,4 @@
-﻿using Enshrouded_Server_Manager.Events;
-using Enshrouded_Server_Manager.Models;
+﻿using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.UI;
 using Enshrouded_Server_Manager.Views;
 
@@ -9,8 +8,6 @@ public partial class ManageProfilesView : UserControl, IManageProfilesView
     public ManageProfilesView()
     {
         InitializeComponent();
-
-        EventAggregator.Instance.Subscribe<ProfileNameUpdatedMessage>(n => OnProfileNameUpdated());
     }
 
     public event EventHandler SaveProfileNameButtonClicked
@@ -38,7 +35,7 @@ public partial class ManageProfilesView : UserControl, IManageProfilesView
         set => this.Location = value;
     }
 
-    private void OnProfileNameUpdated()
+    public void OnProfileNameUpdated()
     {
         Interactions.AnimateSaveChangesButton(btnSaveProfileName, btnSaveProfileName.Text, Constants.ButtonText.SAVED_SUCCESS);
     }

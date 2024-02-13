@@ -10,14 +10,21 @@ namespace Enshrouded_Server_Manager.Services;
 public class BackupService : IBackupService
 {
     private readonly IFileSystemService _fileSystemService;
-    private readonly EnshroudedServerService _server; // TODO: Make this an interface
-    private string _dateTimeString;
-    private DiscordService _discordOutput;
+    private readonly IEventAggregator _eventAggregator;
+    private readonly IEnshroudedServerService _server;
+    private readonly IDiscordService _discordService;
 
-    public BackupService(IFileSystemService fsm)
+    private string _dateTimeString;
+
+    public BackupService(IFileSystemService fsm,
+        IEnshroudedServerService server,
+        IEventAggregator eventAggregator,
+        IDiscordService discordService)
     {
         _fileSystemService = fsm;
-        _server = new EnshroudedServerService(fsm); // TODO: Inject this dependency
+        _server = server;
+        _eventAggregator = eventAggregator;
+        _discordService = discordService;
     }
 
     /// <summary>
@@ -89,8 +96,7 @@ public class BackupService : IBackupService
                     {
                         try
                         {
-                            _discordOutput = new DiscordService();
-                            _discordOutput.ServerBackup(name, discordUrl, discordProfile.EmbedEnabled, discordProfile.BackupMsg);
+                            _discordService.ServerBackup(name, discordUrl, discordProfile.EmbedEnabled, discordProfile.BackupMsg);
                         }
                         catch
                         {
@@ -179,7 +185,7 @@ public class BackupService : IBackupService
                 }
 
                 DeleteOldestBackup(profileAutoBackupDirectory, maximumBackups);
-                EventAggregator.Instance.Publish(new AutoBackupSuccessMessage(profileName));
+                _eventAggregator.Publish(new AutoBackupSuccessMessage(profileName));
             }
             catch (Exception ex)
             {
@@ -193,8 +199,7 @@ public class BackupService : IBackupService
 
                 try
                 {
-                    _discordOutput = new DiscordService();
-                    await _discordOutput.ServerBackup(gameServerSettings.Name, discordProfile.DiscordUrl, discordProfile.EmbedEnabled, discordProfile.BackupMsg);
+                    await _discordService.ServerBackup(gameServerSettings.Name, discordProfile.DiscordUrl, discordProfile.EmbedEnabled, discordProfile.BackupMsg);
                 }
                 catch
                 {

@@ -10,6 +10,7 @@ namespace Enshrouded_Server_Manager.Presenters;
 public class AutoBackupPresenter
 {
     private readonly IAutoBackupView _autoBackupView;
+    private readonly IEventAggregator _eventAggregator;
     private readonly IProfileService _profileManager;
     private readonly IFileSystemService _fileSystemService;
     private readonly IMessageBoxService _messageBox;
@@ -18,6 +19,7 @@ public class AutoBackupPresenter
     private BindingList<ServerProfile>? _profiles;
 
     public AutoBackupPresenter(IAutoBackupView autoBackupView,
+        IEventAggregator eventAggregator,
         IProfileService profileManager,
         IFileSystemService fileSystemManager,
         IMessageBoxService messageBox,
@@ -25,6 +27,7 @@ public class AutoBackupPresenter
         BindingList<ServerProfile>? serverProfiles)
     {
         _autoBackupView = autoBackupView;
+        _eventAggregator = eventAggregator;
         _profileManager = profileManager;
         _fileSystemService = fileSystemManager;
         _messageBox = messageBox;
@@ -34,12 +37,13 @@ public class AutoBackupPresenter
 
         _autoBackupView.SaveAutoBackupSettingsClicked += OnSaveAutoBackupSettingsClicked;
 
-        EventAggregator.Instance.Subscribe<AutoBackupSuccessMessage>(n => OnAutoBackupSuccess(n.ProfileName));
-        EventAggregator.Instance.Subscribe<ProfileSelectedMessage>(s => OnProfileSelected(s.SelectedProfile));
+        _eventAggregator.Subscribe<AutoBackupSuccessMessage>(n => OnAutoBackupSuccess(n.ProfileName));
+        _eventAggregator.Subscribe<ProfileSelectedMessage>(s => OnProfileSelected(s.SelectedProfile));
     }
 
     private void OnAutoBackupSuccess(string profileName)
     {
+        _autoBackupView.OnAutoBackupSuccess();
         _autoBackupView.UpdateBackupInfo(profileName, _backupService.GetBackupCount(profileName), _backupService.GetDiskConsumption(profileName));
     }
 
@@ -61,7 +65,7 @@ public class AutoBackupPresenter
                 Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON),
                 JsonConvert.SerializeObject(_profiles, JsonSettings.Default));
 
-            EventAggregator.Instance.Publish(new AutoBackupSuccessMessage(_autoBackupView.SelectedProfile.Name));
+            _eventAggregator.Publish(new AutoBackupSuccessMessage(_autoBackupView.SelectedProfile.Name));
         }
         else
         {

@@ -21,7 +21,6 @@ public class ServerSettingsTests
     private IDiscordService _discordService;
     private IBackupService _backupService;
     private IEventAggregator _eventAggregator;
-    private ServerSettingsPresenter _presenter;
 
     private ServerProfile _serverProfile;
     private ProfileSelectedMessage _profileSelectedMessage;
@@ -54,19 +53,20 @@ public class ServerSettingsTests
         _backupService = Substitute.For<IBackupService>();
         _eventAggregator = Substitute.For<IEventAggregator>();
 
-        _presenter = new ServerSettingsPresenter(_serverSettingsView, _serverSettingsService, _fileSystemService, _enshroudedServerService);
-
         // Setup for most tests requires a selected profile
         _serverProfile = new ServerProfile() { Name = "TestServer" };
         _profileSelectedMessage = new ProfileSelectedMessage(_serverProfile);
         _serverSettingsService.LoadServerSettings(Arg.Any<string>()).Returns(_serverSettings);
-        EventAggregator.Instance.Publish(_profileSelectedMessage);
+        _eventAggregator.Publish(_profileSelectedMessage);
     }
 
     [TestMethod]
     public void SetServerSettings_ShouldSetServerSettingsInView_Success()
     {
         // Arrange
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService);
+        presenter.OnServerProfileSelected(_serverProfile);
+
         var serverSettings = new ServerSettings
         {
             Name = "TestServer",
@@ -80,7 +80,7 @@ public class ServerSettingsTests
         };
 
         // Act
-        _presenter.SetServerSettings(serverSettings);
+        presenter.SetServerSettings(serverSettings);
 
         // Assert
         Assert.AreEqual(_serverSettingsView.ServerName, serverSettings.Name);
@@ -94,7 +94,9 @@ public class ServerSettingsTests
     [TestMethod]
     public void OnServerProfileSelected_ShouldLoadServerSettings_Success()
     {
-        // Arrange // Done in constructor
+        // Arrange
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService);
+
         //var serverSettings = new ServerSettings
         //{
         //    Name = "TestServerName",
@@ -110,8 +112,7 @@ public class ServerSettingsTests
         //_serverSettingsService.LoadServerSettings(Arg.Any<string>()).Returns(_serverSettings);
 
         // Act // Done in constructor
-        // TODO: This needs to be mocked somehow, running all tests at once causes failures, but succeeds in isolation
-        //EventAggregator.Instance.Publish(_profileSelectedMessage);
+        presenter.OnServerProfileSelected(_serverProfile);
 
         // Assert
         _serverSettingsService.Received().LoadServerSettings(Arg.Is(_serverProfile.Name));
@@ -127,6 +128,9 @@ public class ServerSettingsTests
     public void ClickingOnShowPasswordButton_ShouldTogglePasswordVisible_Success()
     {
         // Arrange
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService);
+        presenter.OnServerProfileSelected(_serverProfile);
+
         _serverSettingsView.ShowPasswordButtonText = Constants.ButtonText.SHOW_PASSWORD;
         _serverSettingsView.PasswordChar = '*';
 
@@ -142,6 +146,9 @@ public class ServerSettingsTests
     public void ClickingOnShowPasswordButton_ShouldTogglePasswordHidden_Success()
     {
         // Arrange
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService);
+        presenter.OnServerProfileSelected(_serverProfile);
+
         _serverSettingsView.ShowPasswordButtonText = Constants.ButtonText.HIDE_PASSWORD;
         _serverSettingsView.PasswordChar = '\0';
 
@@ -163,6 +170,9 @@ public class ServerSettingsTests
         // Then the server settings should be saved
 
         // Arrange
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService);
+        presenter.OnServerProfileSelected(_serverProfile);
+
         //var existingSettings = new ServerSettings
         //{
         //    Name = "TestName",
@@ -219,9 +229,15 @@ public class ServerSettingsTests
         // Then an error message should be shown
 
         // Arrange
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService);
+        presenter.OnServerProfileSelected(_serverProfile);
+
+        _serverSettingsService.SaveServerSettings(Arg.Any<ServerSettings>(), Arg.Any<ServerProfile>()).Returns(true);
+
         // Act
+        _serverSettingsView.SaveChangesButtonClicked += Raise.Event();
 
         // Assert
-        // TODO: Assert that the Publish method was not called
+        _serverSettingsView.Received().OnSettingsSaved();
     }
 }

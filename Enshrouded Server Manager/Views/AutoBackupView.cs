@@ -1,5 +1,4 @@
-﻿using Enshrouded_Server_Manager.Events;
-using Enshrouded_Server_Manager.Models;
+﻿using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.UI;
 using Enshrouded_Server_Manager.Views;
 
@@ -9,8 +8,6 @@ public partial class AutoBackupView : UserControl, IAutoBackupView
     public AutoBackupView()
     {
         InitializeComponent();
-
-        EventAggregator.Instance.Subscribe<AutoBackupSuccessMessage>(s => OnAutoBackupSuccess());
     }
 
     public string BackupStats
@@ -79,7 +76,7 @@ public partial class AutoBackupView : UserControl, IAutoBackupView
 
     }
 
-    private void OnAutoBackupSuccess()
+    public void OnAutoBackupSuccess()
     {
         Interactions.AnimateSaveChangesButton(btnSaveAutoBackup, btnSaveAutoBackup.Text, Constants.ButtonText.SAVED_SUCCESS);
     }

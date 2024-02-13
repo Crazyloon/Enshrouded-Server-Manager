@@ -7,14 +7,17 @@ namespace Enshrouded_Server_Manager.Services;
 public class ServerSettingsService : IServerSettingsService
 {
     private readonly IFileSystemService _fileSystemService;
+    private readonly IEventAggregator _eventAggregator;
     private readonly IMessageBoxService _messageBox;
     private readonly IEnshroudedServerService _server;
 
     public ServerSettingsService(IFileSystemService fileSystemManager,
+        IEventAggregator eventAggregator,
         IMessageBoxService messageBox,
         IEnshroudedServerService server)
     {
         _fileSystemService = fileSystemManager;
+        _eventAggregator = eventAggregator;
         _messageBox = messageBox;
         _server = server;
     }
@@ -46,7 +49,7 @@ public class ServerSettingsService : IServerSettingsService
             _messageBox.Show(Constants.Errors.SERVER_RUNNING_ERROR_MESSAGE, Constants.Errors.SERVER_RUNNING_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             // Reset to original settings by reloading the profile
-            EventAggregator.Instance.Publish(new ProfileSelectedMessage(selectedProfile));
+            _eventAggregator.Publish(new ProfileSelectedMessage(selectedProfile));
             return false;
         }
 

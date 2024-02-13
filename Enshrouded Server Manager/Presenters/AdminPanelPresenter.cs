@@ -10,6 +10,7 @@ namespace Enshrouded_Server_Manager.Presenters;
 public class AdminPanelPresenter
 {
     private readonly IAdminPanelView _adminPanelView;
+    private readonly IEventAggregator _eventAggregator;
     private readonly ISteamCMDInstallerService _steamCMDInstaller;
     private readonly IFileSystemService _fileSystemService;
     private readonly IVersionManagementService _versionManagementService;
@@ -24,6 +25,7 @@ public class AdminPanelPresenter
 
     public AdminPanelPresenter(
         IAdminPanelView adminPanelView,
+        IEventAggregator eventAggregator,
         ISteamCMDInstallerService steamCMDInstaller,
         IFileSystemService fileSystemManager,
         IVersionManagementService versionManager,
@@ -34,6 +36,8 @@ public class AdminPanelPresenter
         IDiscordService discordOutputService,
         IBackupService backupService)
     {
+        _adminPanelView = adminPanelView;
+        _eventAggregator = eventAggregator;
         _steamCMDInstaller = steamCMDInstaller;
         _fileSystemService = fileSystemManager;
         _versionManagementService = versionManager;
@@ -43,7 +47,6 @@ public class AdminPanelPresenter
         _enshroudedServerService = server;
         _discordOutputService = discordOutputService;
         _backupService = backupService;
-        _adminPanelView = adminPanelView;
 
         adminPanelView.AdminPanelLoaded += (s, e) => OnAdminPanelLoaded();
         adminPanelView.InstallSteamCMDButtonClicked += (s, e) => OnInstallSteamCMDButtonClicked();
@@ -57,7 +60,7 @@ public class AdminPanelPresenter
         adminPanelView.OpenSavegameFolderButtonClicked += (s, e) => OnOpenSavegameFolderButtonClicked();
         adminPanelView.OpenLogFolderButtonClicked += (s, e) => OnOpenLogFolderButtonClicked();
 
-        EventAggregator.Instance.Subscribe<ProfileSelectedMessage>(p => OnProfileSelected(p.SelectedProfile));
+        _eventAggregator.Subscribe<ProfileSelectedMessage>(p => OnProfileSelected(p.SelectedProfile));
     }
 
     private async void OnAdminPanelLoaded()
@@ -212,7 +215,7 @@ public class AdminPanelPresenter
             string selectedProfileName = _selectedProfile.Name;
             var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName);
 
-            EventAggregator.Instance.Publish(new ServerInstallStartedMessage());
+            _eventAggregator.Publish(new ServerInstallStartedMessage());
 
             _adminPanelView.InstallServerButtonVisible = false;
             _adminPanelView.UpdateServerButtonVisible = false;
@@ -222,7 +225,7 @@ public class AdminPanelPresenter
 
             _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfileName);
 
-            EventAggregator.Instance.Publish(new ServerInstallStoppedMessage());
+            _eventAggregator.Publish(new ServerInstallStoppedMessage());
 
             _adminPanelView.UpdateServerButtonVisible = true;
             _adminPanelView.StartServerButtonVisible = true;
@@ -267,7 +270,7 @@ public class AdminPanelPresenter
                 }
             }
 
-            EventAggregator.Instance.Publish(new ServerInstallStartedMessage());
+            _eventAggregator.Publish(new ServerInstallStartedMessage());
             _adminPanelView.InstallServerButtonVisible = false;
             _adminPanelView.UpdateServerButtonVisible = false;
             _adminPanelView.StartServerButtonVisible = false;
@@ -275,7 +278,7 @@ public class AdminPanelPresenter
             _enshroudedServerService.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}", selectedProfileName);
 
             _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfileName);
-            EventAggregator.Instance.Publish(new ServerInstallStoppedMessage());
+            _eventAggregator.Publish(new ServerInstallStoppedMessage());
             _adminPanelView.UpdateServerButtonVisible = true;
             _adminPanelView.StartServerButtonVisible = true;
         }
@@ -331,7 +334,7 @@ public class AdminPanelPresenter
         }
     }
 
-    private async void OnProfileSelected(ServerProfile selectedProfile)
+    public async void OnProfileSelected(ServerProfile selectedProfile)
     {
         _selectedProfile = selectedProfile;
         if (_selectedProfile is not null)

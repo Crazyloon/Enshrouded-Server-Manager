@@ -4,10 +4,12 @@ namespace Enshrouded_Server_Manager.Events;
 
 public class EventAggregator : IEventAggregator
 {
-    private static readonly IEventAggregator instance = new EventAggregator();
-    public static IEventAggregator Instance { get { return instance; } }
-
     private readonly ConcurrentDictionary<Type, List<object>> subscriptions = new ConcurrentDictionary<Type, List<object>>();
+
+    public EventAggregator()
+    {
+
+    }
 
     public void Publish<T>(T message) where T : IApplicationEvent
     {

@@ -12,13 +12,16 @@ public class ServerSettingsPresenter
     private readonly IMessageBoxService _messageBox;
     private readonly IEnshroudedServerService _server;
     private ServerProfile _serverProfile;
+    private readonly IEventAggregator _eventAggregator;
 
     public ServerSettingsPresenter(IServerSettingsView serverSettingsView,
+        IEventAggregator eventAggregator,
         IServerSettingsService serverSettingsService,
         IFileSystemService fileSystemManager,
         IEnshroudedServerService server)
     {
         _serverSettingsView = serverSettingsView;
+        _eventAggregator = eventAggregator;
         _serverSettingsService = serverSettingsService;
         _fileSystemService = fileSystemManager;
         _server = server;
@@ -26,7 +29,7 @@ public class ServerSettingsPresenter
         _serverSettingsView.ShowPasswordButtonClicked += (sender, e) => TogglePasswordVisiblity();
         _serverSettingsView.SaveChangesButtonClicked += (sender, e) => SaveServerSettings();
 
-        EventAggregator.Instance.Subscribe<ProfileSelectedMessage>(p => OnServerProfileSelected(p.SelectedProfile));
+        _eventAggregator.Subscribe<ProfileSelectedMessage>(p => OnServerProfileSelected(p.SelectedProfile));
     }
 
     public void SetServerSettings(ServerSettings serverSettings)
@@ -39,7 +42,7 @@ public class ServerSettingsPresenter
         _serverSettingsView.MaxPlayers = serverSettings.SlotCount;
     }
 
-    private void OnServerProfileSelected(ServerProfile serverProfile)
+    public void OnServerProfileSelected(ServerProfile serverProfile)
     {
         _serverProfile = serverProfile;
         if (serverProfile is not null)
@@ -75,8 +78,8 @@ public class ServerSettingsPresenter
 
         if (_serverSettingsService.SaveServerSettings(json, _serverProfile))
         {
-            // Used to update the button styles
-            EventAggregator.Instance.Publish(new ServerSettingsSavedSuccessMessage());
+            // notify the view to animate the save button
+            _serverSettingsView.OnSettingsSaved();
         }
     }
 }

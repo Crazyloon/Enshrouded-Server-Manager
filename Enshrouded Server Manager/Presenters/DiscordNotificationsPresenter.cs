@@ -9,18 +9,21 @@ namespace Enshrouded_Server_Manager.Presenters;
 public class DiscordNotificationsPresenter
 {
     private readonly IDiscordNotificationsView _discordNotificationsView;
+    private readonly IEventAggregator _eventAggregator;
     private readonly IDiscordService _discordService;
     private readonly IMessageBoxService _messageBoxService;
     private readonly IProfileService _profileService;
     private readonly IFileSystemService _fileSystemService;
 
     public DiscordNotificationsPresenter(IDiscordNotificationsView discordNotificationsView,
+        IEventAggregator eventAggregator,
         IDiscordService discordService,
         IMessageBoxService messageBoxService,
         IProfileService profileService,
         IFileSystemService fileSystemService)
     {
         _discordNotificationsView = discordNotificationsView;
+        _eventAggregator = eventAggregator;
         _discordService = discordService;
         _messageBoxService = messageBoxService;
         _profileService = profileService;
@@ -104,6 +107,6 @@ public class DiscordNotificationsPresenter
         _fileSystemService.WriteFile(discordSettingsFile, discordProfileJson);
 
         // notify the view that the settings have been saved
-        EventAggregator.Instance.Publish(new DiscordSettingsSavedMessage());
+        _discordNotificationsView.OnDiscordSettingsSaved();
     }
 }

@@ -7,13 +7,15 @@ namespace Enshrouded_Server_Manager.Services;
 public class VersionManagementService : IVersionManagementService
 {
     private readonly IFileSystemService _fileSystemService;
+    private readonly IEventAggregator _eventAggregator;
 
     // TODO: Use HTTPClient instead of WebClient
     private const int TIMER_INTERVAL = 10;
 
-    public VersionManagementService(IFileSystemService fsm)
+    public VersionManagementService(IFileSystemService fsm, IEventAggregator eventAggregator)
     {
         _fileSystemService = fsm;
+        _eventAggregator = eventAggregator;
     }
 
     public string SyncVersionText()
@@ -70,7 +72,7 @@ public class VersionManagementService : IVersionManagementService
 
         if (githubversion != currentVersionText)
         {
-            EventAggregator.Instance.Publish(new NewVersionAvailableMessage());
+            _eventAggregator.Publish(new NewVersionAvailableMessage());
         }
 
         _fileSystemService.DeleteFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON);

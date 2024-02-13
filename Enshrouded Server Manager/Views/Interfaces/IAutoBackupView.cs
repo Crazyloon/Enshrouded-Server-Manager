@@ -17,4 +17,5 @@ public interface IAutoBackupView
     ServerProfile? SelectedProfile { get; set; }
     //void SetProfiles(BindingList<ServerProfile> profiles);
     void UpdateBackupInfo(string profileName, int backupCount, long diskConsumption);
+    void OnAutoBackupSuccess();
 }

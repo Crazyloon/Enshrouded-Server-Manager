@@ -19,4 +19,6 @@ public interface IDiscordNotificationsView
     string BackupCreatedMessage { get; set; }
 
     string WebhookUrl { get; set; }
+
+    void OnDiscordSettingsSaved();
 }

@@ -11,6 +11,7 @@ public class ProfileSelectorPresenter
 {
     private readonly IProfileSelectorView _profileSelectorView;
     private readonly IManageProfilesView _manageProfilesView;
+    private readonly IEventAggregator _eventAggregator;
     private readonly IProfileService _profileManager;
     private readonly IServerSettingsService _serverSettingsService;
     private readonly IFileSystemService _fileSystemService;
@@ -21,6 +22,7 @@ public class ProfileSelectorPresenter
 
     public ProfileSelectorPresenter(IProfileSelectorView profileSelectorView,
         IManageProfilesView manageProfilesView,
+        IEventAggregator eventAggregator,
         IProfileService profileManager,
         IServerSettingsService serverSettingsService,
         IFileSystemService fileSystemManager,
@@ -30,6 +32,7 @@ public class ProfileSelectorPresenter
     {
         _profileSelectorView = profileSelectorView;
         _manageProfilesView = manageProfilesView;
+        _eventAggregator = eventAggregator;
         _profileManager = profileManager;
         _serverSettingsService = serverSettingsService;
         _fileSystemService = fileSystemManager;
@@ -48,7 +51,7 @@ public class ProfileSelectorPresenter
 
     private void OnSelectedProfileChanged()
     {
-        EventAggregator.Instance.Publish(new ProfileSelectedMessage(_profileSelectorView.SelectedProfile));
+        _eventAggregator.Publish(new ProfileSelectedMessage(_profileSelectorView.SelectedProfile));
     }
 
     private void OnAddProfileClicked()
@@ -73,7 +76,7 @@ public class ProfileSelectorPresenter
         // Create the server profile directory and load it's settings
         _serverSettingsService.LoadServerSettings(profileName);
 
-        EventAggregator.Instance.Publish(new ProfileSelectedMessage(_profileSelectorView.SelectedProfile));
+        _eventAggregator.Publish(new ProfileSelectedMessage(_profileSelectorView.SelectedProfile));
     }
 
     private void OnDeleteProfileClicked()
@@ -157,7 +160,7 @@ public class ProfileSelectorPresenter
 
                 if (nextProfile is not null)
                 {
-                    EventAggregator.Instance.Publish(new ProfileSelectedMessage(nextProfile));
+                    _eventAggregator.Publish(new ProfileSelectedMessage(nextProfile));
                 }
             }
 

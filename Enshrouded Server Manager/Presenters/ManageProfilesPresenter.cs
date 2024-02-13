@@ -10,6 +10,7 @@ namespace Enshrouded_Server_Manager.Presenters;
 public class ManageProfilesPresenter
 {
     private readonly IManageProfilesView _manageProfilesView;
+    private readonly IEventAggregator _eventAggregator;
     private readonly IProfileService _profileManager;
     private readonly IServerSettingsService _serverSettingsService;
     private readonly IFileSystemService _fileSystemService;
@@ -20,6 +21,7 @@ public class ManageProfilesPresenter
 
 
     public ManageProfilesPresenter(IManageProfilesView manageProfilesView,
+        IEventAggregator eventAggregator,
         IProfileService profileManager,
         IServerSettingsService serverSettingsService,
         IFileSystemService fileSystemManager,
@@ -28,6 +30,7 @@ public class ManageProfilesPresenter
         BindingList<ServerProfile>? serverProfiles)
     {
         _manageProfilesView = manageProfilesView;
+        _eventAggregator = eventAggregator;
         _profileManager = profileManager;
         _serverSettingsService = serverSettingsService;
         _fileSystemService = fileSystemManager;
@@ -38,7 +41,7 @@ public class ManageProfilesPresenter
 
         _manageProfilesView.SaveProfileNameButtonClicked += (sender, args) => OnEditProfileClicked();
 
-        EventAggregator.Instance.Subscribe<ProfileSelectedMessage>(m => OnProfileSelected(m.SelectedProfile));
+        _eventAggregator.Subscribe<ProfileSelectedMessage>(m => OnProfileSelected(m.SelectedProfile));
     }
 
     private void OnProfileSelected(ServerProfile selectedProfile)

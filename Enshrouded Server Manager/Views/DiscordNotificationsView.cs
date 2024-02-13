@@ -1,5 +1,4 @@
-﻿using Enshrouded_Server_Manager.Events;
-using Enshrouded_Server_Manager.UI;
+﻿using Enshrouded_Server_Manager.UI;
 using Enshrouded_Server_Manager.Views;
 
 namespace Enshrouded_Server_Manager;
@@ -8,8 +7,6 @@ public partial class DiscordNotificationsView : UserControl, IDiscordNotificatio
     public DiscordNotificationsView()
     {
         InitializeComponent();
-
-        EventAggregator.Instance.Subscribe<DiscordSettingsSavedMessage>(m => OnDiscordSettingsSaved());
     }
 
     public event EventHandler SaveDiscordNotificationsSettingsClicked
@@ -96,7 +93,7 @@ public partial class DiscordNotificationsView : UserControl, IDiscordNotificatio
         set => txtDiscordWebhookUrl.Text = value;
     }
 
-    private void OnDiscordSettingsSaved()
+    public void OnDiscordSettingsSaved()
     {
         Interactions.AnimateSaveChangesButton(btnSaveDiscordSettings, btnSaveDiscordSettings.Text, Constants.ButtonText.SAVED_SUCCESS);
     }
