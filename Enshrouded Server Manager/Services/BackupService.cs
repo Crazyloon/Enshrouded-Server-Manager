@@ -211,6 +211,56 @@ public class BackupService : IBackupService
         }
     }
 
+    public bool RestoreBackup(string profileName, string backupFilePath)
+    {
+        var saveDirectory = Path.Combine(Constants.Paths.SERVER_DIRECTORY, profileName, Constants.Paths.ENSHROUDED_SAVE_GAME_DIRECTORY);
+
+        if (backupFilePath.EndsWith(".zip"))
+        {
+            return RestoreBackupFromZip(backupFilePath, saveDirectory);
+        }
+
+        return RestoreBackupFromSaveFile(backupFilePath, saveDirectory);
+    }
+
+    private bool RestoreBackupFromSaveFile(string backupFilePath, string saveDirectory)
+    {
+        try
+        {
+            _fileSystemService.CopyFile(backupFilePath, saveDirectory, true);
+
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
+    private bool RestoreBackupFromZip(string backupFilePath, string saveDirectory)
+    {
+        try
+        {
+            // extract the zipped files to a temp directory
+            var tempDir = Path.Combine(saveDirectory, "temp");
+            _fileSystemService.ExtractZipToDirectory(backupFilePath, tempDir, true);
+
+            // copy the save file in the temp directory to the savegame directory
+            var tempFile = Path.Combine(tempDir, Constants.SaveSlots.SLOT1);
+            var saveFile = Path.Combine(saveDirectory, Constants.SaveSlots.SLOT1);
+            _fileSystemService.CopyFile(tempFile, saveFile, true);
+
+            // delete temp
+            _fileSystemService.DeleteDirectory(tempDir);
+
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
     public int GetBackupCount(string profileName)
     {
         var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_DIRECTORY, profileName);

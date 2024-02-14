@@ -102,6 +102,7 @@ public static class Constants
     public static class ButtonText
     {
         public const string SAVED_SUCCESS = "Saved!";
+        public const string RESTORED_SUCCESS = "Restored!";
         public const string SHOW_PASSWORD = "Show";
         public const string HIDE_PASSWORD = "Hide";
 
@@ -143,5 +144,19 @@ public static class Constants
         public const string STEAM_CMD_CDN_URL = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip";
         public const string REMOTE_VERSION_FILE_URL = "https://raw.githubusercontent.com/Crazyloon/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json";
         public const string STEAM_CMD_ENSHROUDED_SERVER_INFO = "https://api.steamcmd.net/v1/info/2278520";
+    }
+
+    public static class SaveSlots
+    {
+        public const string SLOT1 = "3ad85aea";
+        public const string SLOT2 = "3bd85c7d";
+        public const string SLOT3 = "38d857c4";
+        public const string SLOT4 = "39d85957";
+        public const string SLOT5 = "36d8549e";
+        public const string SLOT6 = "37d85631";
+        public const string SLOT7 = "34d85178";
+        public const string SLOT8 = "35d8530b";
+        public const string SLOT9 = "32d84e52";
+        public const string SLOT10 = "33d84fe5";
     }
 }

@@ -67,6 +67,11 @@ public class FileSystemService : IFileSystemService
         File.Copy(sourceFileName, destFileName);
     }
 
+    public void CopyFile(string sourceFileName, string destFileName, bool overwrite)
+    {
+        File.Copy(sourceFileName, destFileName, overwrite);
+    }
+
     public void CreateZipFromDirectory(string sourceDirectoryName, string destinationArchiveFileName)
     {
         ZipFile.CreateFromDirectory(sourceDirectoryName, destinationArchiveFileName);
@@ -75,5 +80,10 @@ public class FileSystemService : IFileSystemService
     public void ExtractZipToDirectory(string sourceArchiveFileName, string destinationDirectoryName)
     {
         ZipFile.ExtractToDirectory(sourceArchiveFileName, destinationDirectoryName);
+    }
+
+    public void ExtractZipToDirectory(string sourceArchiveFileName, string destinationDirectoryName, bool overwrite)
+    {
+        ZipFile.ExtractToDirectory(sourceArchiveFileName, destinationDirectoryName, overwrite);
     }
 }

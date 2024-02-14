@@ -53,12 +53,14 @@ partial class MainForm
         serverSettingsView = new ServerSettingsView();
         tabAutoBackup = new TabPage();
         autoBackupView = new AutoBackupView();
+        tabBackupRestore = new TabPage();
         tabDiscord = new TabPage();
         discordNotificationsView = new DiscordNotificationsView();
         pnlBottomBorder = new Panel();
         btnOpenCredits = new Label();
         lblVersion = new Label();
         pnlTopBorder = new Panel();
+        restoreBackupView = new RestoreBackupView();
         ((System.ComponentModel.ISupportInitialize)pbxFormHeader).BeginInit();
         ((System.ComponentModel.ISupportInitialize)pbxLeftBorder).BeginInit();
         ((System.ComponentModel.ISupportInitialize)pbxInnerLeftBorder).BeginInit();
@@ -71,6 +73,7 @@ partial class MainForm
         tabsServerTabs.SuspendLayout();
         tabServerSettings.SuspendLayout();
         tabAutoBackup.SuspendLayout();
+        tabBackupRestore.SuspendLayout();
         tabDiscord.SuspendLayout();
         pnlBottomBorder.SuspendLayout();
         pnlTopBorder.SuspendLayout();
@@ -299,6 +302,7 @@ partial class MainForm
         // 
         tabsServerTabs.Controls.Add(tabServerSettings);
         tabsServerTabs.Controls.Add(tabAutoBackup);
+        tabsServerTabs.Controls.Add(tabBackupRestore);
         tabsServerTabs.Controls.Add(tabDiscord);
         tabsServerTabs.ItemSize = new Size(89, 20);
         tabsServerTabs.Location = new Point(-4, 43);
@@ -365,6 +369,17 @@ partial class MainForm
         autoBackupView.SelectedProfile = null;
         autoBackupView.Size = new Size(453, 378);
         autoBackupView.TabIndex = 0;
+        // 
+        // tabBackupRestore
+        // 
+        tabBackupRestore.BackColor = Color.FromArgb(0, 0, 18);
+        tabBackupRestore.Controls.Add(restoreBackupView);
+        tabBackupRestore.Location = new Point(4, 24);
+        tabBackupRestore.Name = "tabBackupRestore";
+        tabBackupRestore.Padding = new Padding(3);
+        tabBackupRestore.Size = new Size(459, 384);
+        tabBackupRestore.TabIndex = 4;
+        tabBackupRestore.Text = "Restore Backup";
         // 
         // tabDiscord
         // 
@@ -448,6 +463,17 @@ partial class MainForm
         pnlTopBorder.Size = new Size(896, 40);
         pnlTopBorder.TabIndex = 51;
         // 
+        // restoreBackupView1
+        // 
+        restoreBackupView.BackColor = Color.FromArgb(0, 0, 18);
+        restoreBackupView.Dock = DockStyle.Fill;
+        restoreBackupView.ForeColor = SystemColors.ButtonHighlight;
+        restoreBackupView.Location = new Point(3, 3);
+        restoreBackupView.Name = "restoreBackupView1";
+        restoreBackupView.RestoreFilePath = "";
+        restoreBackupView.Size = new Size(453, 378);
+        restoreBackupView.TabIndex = 0;
+        // 
         // MainForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -476,6 +502,7 @@ partial class MainForm
         tabsServerTabs.ResumeLayout(false);
         tabServerSettings.ResumeLayout(false);
         tabAutoBackup.ResumeLayout(false);
+        tabBackupRestore.ResumeLayout(false);
         tabDiscord.ResumeLayout(false);
         pnlBottomBorder.ResumeLayout(false);
         pnlBottomBorder.PerformLayout();
@@ -514,4 +541,6 @@ partial class MainForm
     private Label lblVersion;
     private Label btnOpenCredits;
     private CreditsPanelView creditsPanelView;
+    private TabPage tabBackupRestore;
+    private RestoreBackupView restoreBackupView;
 }
