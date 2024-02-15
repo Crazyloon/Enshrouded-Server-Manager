@@ -10,15 +10,24 @@ public class RestoreBackupPresenter
     private readonly IEventAggregator _eventAggregator;
     private readonly IFileSystemService _fileSystemService;
     private readonly IBackupService _backupService;
+    private readonly IEnshroudedServerService _server;
+    private readonly IMessageBoxService _messageBox;
 
     private ServerProfile _selectedProfile;
 
-    public RestoreBackupPresenter(IRestoreBackupView view, IEventAggregator eventAggregator, IFileSystemService fileSystemService, IBackupService backupService)
+    public RestoreBackupPresenter(IRestoreBackupView view,
+        IEventAggregator eventAggregator,
+        IFileSystemService fileSystemService,
+        IBackupService backupService,
+        IEnshroudedServerService server,
+        IMessageBoxService messageBox)
     {
         _restoreBackupView = view;
         _eventAggregator = eventAggregator;
         _fileSystemService = fileSystemService;
         _backupService = backupService;
+        _server = server;
+        _messageBox = messageBox;
 
         _restoreBackupView.RestoreSelectedFileClicked += (sender, e) => RestoreSelectedFileClicked();
         _restoreBackupView.SelectFileToRestoreClicked += (sender, e) => SelectFileToRestoreClicked();
@@ -53,6 +62,12 @@ public class RestoreBackupPresenter
 
     private void RestoreSelectedFileClicked()
     {
+        if (_server.IsRunning(_selectedProfile.Name))
+        {
+            _messageBox.Show(Constants.Errors.SERVER_RUNNING_ERROR_MESSAGE, Constants.Errors.SERVER_RUNNING_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+
         if (_fileSystemService.FileExists(_restoreBackupView.RestoreFilePath))
         {
             _backupService.RestoreBackup(_selectedProfile.Name, _restoreBackupView.RestoreFilePath);

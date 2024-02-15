@@ -54,7 +54,7 @@ public static class Constants
         public const string AUTOBACKUP_ERROR_MESSAGE = "An error occured while creating the autobackup";
 
         public const string SERVER_RUNNING_ERROR = "Server is Running";
-        public const string SERVER_RUNNING_ERROR_MESSAGE = "This Server Profile is currently running, and cannot be changed.";
+        public const string SERVER_RUNNING_ERROR_MESSAGE = "This operation is forbidden while a server for this profile is running.";
 
         public const string DELETE_PROFILE_ERROR = "Error Deleting Server Profile";
         public const string DELETE_PROFILE_ERROR_MESSAGE = "The following error occured while deleting Server Profile: {0}";
