@@ -38,4 +38,10 @@
     <Folder Include="Version\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Version\githubversion.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

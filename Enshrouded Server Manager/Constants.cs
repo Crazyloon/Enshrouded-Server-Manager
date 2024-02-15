@@ -6,19 +6,21 @@ public static class Constants
     public const int CAPTION = 0x2;
     public const string STEAM_APP_ID = "2278520";
     public const string DATE_PATTERN = "yyyy-MM-dd-HH-mm-ss";
+    public const int TIMER_INTERVAL_SERVER_UPDATE_CHECK = 5;
 
     public static class Paths
     {
-        public const string SERVER_PATH = "Servers";
-        public const string DEFAULT_PROFILES_PATH = "ServerProfiles";
-        public const string BACKUPS_FOLDER = "Backups";
+        public const string SERVER_DIRECTORY = "Servers";
+        public const string DEFAULT_PROFILES_DIRECTORY = "ServerProfiles";
+        public const string BACKUPS_DIRECTORY = "Backups";
         public const string CACHE_DIRECTORY = "cache";
-        public const string AUTOBACKUPS_FOLDER = @$"{BACKUPS_FOLDER}\AutoBackup";
+        public const string AUTOBACKUPS_DIRECTORY = @$"{BACKUPS_DIRECTORY}\AutoBackup";
         public const string ENSHROUDED_SAVE_GAME_DIRECTORY = "savegame";
         public const string ENSHROUDED_LOGS_DIRECTORY = "logs";
-        public const string GAME_SERVER_SAVE_FOLDER = "savegame";
-        public const string GAME_SERVER_LOGS_FOLDER = "logs";
-        public const string GAME_SERVER_STEAMAPPS_FOLDER = "steamapps";
+        public const string GAME_SERVER_SAVE_DIRECTORY = "savegame";
+        public const string GAME_SERVER_LOGS_DIRECTORY = "logs";
+        public const string GAME_SERVER_STEAMAPPS_DIRECTORY = "steamapps";
+        public const string MANAGER_VERSION_DIRECTORY = "Version";
     }
 
     public static class Files
@@ -30,7 +32,7 @@ public static class Constants
         public const string DISCORD_JSON = "discord.json";
         public const string GAME_SERVER_EXE = "enshrouded_server.exe";
         public const string WINDOWS_FIREWALL = @"c:\windows\system32\wf.msc";
-        public const string APP_MANIFEST = $"appmanifest_{Constants.STEAM_APP_ID}.acf";
+        public const string APP_MANIFEST = $"appmanifest_{STEAM_APP_ID}.acf";
     }
 
     public static class ServerSettings
@@ -57,8 +59,8 @@ public static class Constants
         public const string DELETE_PROFILE_ERROR = "Error Deleting Server Profile";
         public const string DELETE_PROFILE_ERROR_MESSAGE = "The following error occured while deleting Server Profile: {0}";
 
-        public const string BACKUP_CONFIGURATION_ERROR = "No Server Profile Selected";
-        public const string BACKUP_CONFIGURATION_ERROR_MESSAGE = "Please select the profile you want to configure.";
+        public const string NO_PROFILE_SELECTED_ERROR = "No Server Profile";
+        public const string NO_PROFILE_SELECTED_ERROR_MESSAGE = "Please select the profile you want to configure.";
 
         public const string PROFILE_NAME_CHANGE_ERROR = "Error Changing Server Profile Name";
         public const string PROFILE_NAME_CHANGE_ERROR_MESSAGE = "The Following error occured while changing Server Profile name: {0}";
@@ -116,16 +118,23 @@ public static class Constants
         public const string AUTO_BACKCUP = "AutoBackup";
     }
 
+    public static class PropertyName
+    {
+        public const string NAME = "Name";
+    }
+
     public static class Colors
     {
-        private static readonly Color DARK_BLUE = Color.FromArgb(255, 0, 0, 40);
-        private static readonly Color BLUE_GRAY = Color.FromArgb(255, 115, 115, 137);
+        private static readonly Color DARK_BLUE = Color.FromArgb(0, 0, 18);
+        private static readonly Color BLUE_GRAY = Color.FromArgb(115, 115, 137);
 
         public static readonly Color BUTTON_BACKGROUND = DARK_BLUE;
         public static readonly Color BUTTON_BACKGROUND_DISABLED = BLUE_GRAY;
         public static readonly Color BUTTON_BORDER = BLUE_GRAY;
         public static readonly Color BUTTON_BORDER_DISABLED = DARK_BLUE;
 
+        public static readonly Color BUTTON_TEXT = Color.FromArgb(0, 255, 185);
+        public static readonly Color BUTTON_TEXT_DISABLED = Color.FromArgb(0, 0, 18);
     }
 
     public static class Urls
@@ -133,5 +142,6 @@ public static class Constants
         public const string ESM_GITHUB_LINK = "https://github.com/Crazyloon/Enshrouded-Server-Manager";
         public const string STEAM_CMD_CDN_URL = "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip";
         public const string REMOTE_VERSION_FILE_URL = "https://raw.githubusercontent.com/Crazyloon/Enshrouded-Server-Manager/master/Enshrouded%20Server%20Manager/Version/githubversion.json";
+        public const string STEAM_CMD_ENSHROUDED_SERVER_INFO = "https://api.steamcmd.net/v1/info/2278520";
     }
 }

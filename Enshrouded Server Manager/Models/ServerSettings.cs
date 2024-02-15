@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace Enshrouded_Server_Manager.Models;
 
-public class ServerSettings
+public record ServerSettings
 {
     [JsonPropertyName("name")]
     public string Name { get; set; }
