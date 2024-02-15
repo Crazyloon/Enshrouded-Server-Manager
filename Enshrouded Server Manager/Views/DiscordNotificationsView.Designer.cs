@@ -178,7 +178,7 @@ partial class DiscordNotificationsView
         btnTestDiscord.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnTestDiscord.FlatStyle = FlatStyle.Flat;
         btnTestDiscord.ForeColor = SystemColors.Control;
-        btnTestDiscord.Location = new Point(237, 301);
+        btnTestDiscord.Location = new Point(68, 301);
         btnTestDiscord.Name = "btnTestDiscord";
         btnTestDiscord.Size = new Size(128, 30);
         btnTestDiscord.TabIndex = 81;
@@ -203,7 +203,7 @@ partial class DiscordNotificationsView
         btnSaveDiscordSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnSaveDiscordSettings.FlatStyle = FlatStyle.Flat;
         btnSaveDiscordSettings.ForeColor = Color.FromArgb(0, 255, 185);
-        btnSaveDiscordSettings.Location = new Point(93, 301);
+        btnSaveDiscordSettings.Location = new Point(263, 301);
         btnSaveDiscordSettings.Name = "btnSaveDiscordSettings";
         btnSaveDiscordSettings.Size = new Size(128, 30);
         btnSaveDiscordSettings.TabIndex = 79;
@@ -217,9 +217,9 @@ partial class DiscordNotificationsView
         txtDiscordWebhookUrl.BackColor = Color.FromArgb(6, 6, 48);
         txtDiscordWebhookUrl.BorderStyle = BorderStyle.FixedSingle;
         txtDiscordWebhookUrl.ForeColor = SystemColors.Window;
-        txtDiscordWebhookUrl.Location = new Point(69, 268);
+        txtDiscordWebhookUrl.Location = new Point(68, 268);
         txtDiscordWebhookUrl.Name = "txtDiscordWebhookUrl";
-        txtDiscordWebhookUrl.Size = new Size(320, 23);
+        txtDiscordWebhookUrl.Size = new Size(323, 23);
         txtDiscordWebhookUrl.TabIndex = 78;
         // 
         // chkEnableDiscord

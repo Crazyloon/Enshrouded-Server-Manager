@@ -34,6 +34,7 @@ partial class RestoreBackupView
         btnSelectRestoreFile = new Button();
         txtRestoreFilePath = new TextBox();
         ofdBackupFileSelector = new OpenFileDialog();
+        chkRestoreBackupOnRestart = new CheckBox();
         SuspendLayout();
         // 
         // btnRestoreSaveFile
@@ -44,7 +45,7 @@ partial class RestoreBackupView
         btnRestoreSaveFile.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnRestoreSaveFile.FlatStyle = FlatStyle.Flat;
         btnRestoreSaveFile.ForeColor = Color.FromArgb(0, 255, 185);
-        btnRestoreSaveFile.Location = new Point(262, 301);
+        btnRestoreSaveFile.Location = new Point(263, 301);
         btnRestoreSaveFile.Name = "btnRestoreSaveFile";
         btnRestoreSaveFile.Size = new Size(128, 30);
         btnRestoreSaveFile.TabIndex = 35;
@@ -107,11 +108,22 @@ partial class RestoreBackupView
         // 
         ofdBackupFileSelector.FileName = "3ad85aea";
         // 
+        // chkRestoreBackupOnRestart
+        // 
+        chkRestoreBackupOnRestart.AutoSize = true;
+        chkRestoreBackupOnRestart.Location = new Point(68, 159);
+        chkRestoreBackupOnRestart.Name = "chkRestoreBackupOnRestart";
+        chkRestoreBackupOnRestart.Size = new Size(281, 19);
+        chkRestoreBackupOnRestart.TabIndex = 61;
+        chkRestoreBackupOnRestart.Text = "Auto Restore From Backup on Scheduled Restart";
+        chkRestoreBackupOnRestart.UseVisualStyleBackColor = true;
+        // 
         // RestoreBackupView
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
+        Controls.Add(chkRestoreBackupOnRestart);
         Controls.Add(txtRestoreFilePath);
         Controls.Add(btnSelectRestoreFile);
         Controls.Add(lblAutoBackupChangesInfo);
@@ -131,4 +143,5 @@ partial class RestoreBackupView
     private Button btnSelectRestoreFile;
     private TextBox txtRestoreFilePath;
     private OpenFileDialog ofdBackupFileSelector;
+    private CheckBox chkRestoreBackupOnRestart;
 }

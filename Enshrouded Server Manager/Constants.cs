@@ -85,6 +85,12 @@ public static class Constants
 
         public const string STEAM_CMD_INSTALL_ERROR = "Error Installing Steam CMD";
         public const string STEAM_CMD_INSTALL_ERROR_MESSAGE = "The following error appeared while installing SteamCMD: {0}";
+
+        public const string SCHEDULED_RESTARTS_STARTDATE_ERROR = "Invalid Start Date";
+        public const string SCHEDULED_RESTARTS_STARTDATE_ERROR_MESSAGE = "The Start Date must be in the future";
+
+        public const string SCHEDULED_RESTARTS_STARTTIME_ERROR = "Invalid Start Time";
+        public const string SCHEDULED_RESTARTS_STARTTIME_ERROR_MESSAGE = "The Start Time must be in the future";
     }
 
     public static class Warnings
