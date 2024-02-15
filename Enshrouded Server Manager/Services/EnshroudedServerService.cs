@@ -167,7 +167,6 @@ public class EnshroudedServerService : IEnshroudedServerService
         switch (autoRestart.RestartFrequency)
         {
             case RestartFrequency.Hourly:
-                //nextRestart = now.AddSeconds(autoRestart.RecurrenceInterval);
                 nextRestart = now.AddHours(autoRestart.RecurrenceInterval);
                 break;
             case RestartFrequency.Daily:

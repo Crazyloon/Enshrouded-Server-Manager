@@ -123,13 +123,11 @@
 v0.5.0
 - Moved profile management inline
    with the profile selector
-- Major background updates to the
-   application design for testability
-
-v0.4.2
-- Fixed an issue with server names not
-   allowing spaces
-- Fixed an issue with button visibility
-   when updating a server</value>
+- Added a feature to restore a backup
+   from either a .zip file or a world file
+- Added a feature to schedule restarts
+   with automatic backup restore
+- Major architecture changes to improve
+   testability and long term maintanence</value>
   </data>
 </root>
