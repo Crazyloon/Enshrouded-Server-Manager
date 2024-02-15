@@ -1,3 +1,5 @@
+using Enshrouded_Server_Manager.Enums;
+using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Models;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -8,11 +10,15 @@ namespace Enshrouded_Server_Manager.Services;
 public class EnshroudedServerService : IEnshroudedServerService
 {
     private readonly IFileSystemService _fileSystemService;
+    private readonly IEventAggregator _eventAggregator;
+
     private const string SERVER_PROCESS_NAME = "enshrouded_server";
 
-    public EnshroudedServerService(IFileSystemService fsm)
+    public EnshroudedServerService(IFileSystemService fsm,
+        IEventAggregator eventAggregator)
     {
         _fileSystemService = fsm;
+        _eventAggregator = eventAggregator;
     }
 
     [DllImport("user32.dll")]
@@ -74,6 +80,160 @@ public class EnshroudedServerService : IEnshroudedServerService
                 Constants.Errors.SERVER_START_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             return;
+        }
+    }
+
+    public CountDownTimer? StartScheduledRestarts(ServerProfile serverProfile)
+    {
+        // get the server profile auto restart settings
+        var autoRestart = serverProfile.ScheduleRestarts;
+        if (autoRestart is null || !autoRestart.Enabled)
+        {
+            return null;
+        }
+
+        // calculate TimeSpan from now until the start date and time
+        var now = DateTime.Now;
+        var startDate = new DateTime(autoRestart.StartDate.Year, autoRestart.StartDate.Month, autoRestart.StartDate.Day, autoRestart.StartTime.Hour, autoRestart.StartTime.Minute, 0);
+
+        if (startDate < now || serverProfile.ScheduleRestarts.RestartFrequency == RestartFrequency.None)
+        {
+            return null;
+        }
+
+        var nextRestart = startDate - now;
+
+        // start a countdown timer for the next restart
+        var timer = new CountDownTimer(nextRestart);
+        timer.CountDownFinished += OnCountDownFinished(serverProfile, timer);
+        timer.TimeChanged += () => _eventAggregator.Publish(new ServerResetTimerUpdatedMessage(serverProfile, timer.TimeLeftStr));
+
+        timer.Start();
+
+        return timer;
+    }
+
+    private Action OnCountDownFinished(ServerProfile profile, CountDownTimer timer)
+    {
+        return () =>
+        {
+            var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, profile.Name);
+            _fileSystemService.CreateDirectory(serverProfilePath);
+            var gameServerExe = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_EXE);
+
+            // Only restart the server if it's the right day of the week
+            if (profile.ScheduleRestarts.DaysOfWeek.Length > 0
+            && !profile.ScheduleRestarts.DaysOfWeek.Contains(DateTime.Now.DayOfWeek))
+            {
+                return;
+            }
+
+            Stop(profile.Name);
+
+            if (profile.RestoreBackup.RestoreOnScheduledRestart)
+            {
+                RestoreBackup(profile.Name, profile.RestoreBackup.BackupFilePath);
+            }
+
+            Start(gameServerExe, profile.Name);
+
+            // check the restart settings to see if it should begin the timer again
+            var nextRestart = CalculateNextRestart(profile.ScheduleRestarts);
+            var nextTimeSpan = nextRestart - DateTime.Now;
+
+            // if the nextTimeSpan is in the past, stop the timer and dispose
+            if (nextTimeSpan.TotalMilliseconds <= 0)
+            {
+                timer.EndTimer();
+                return;
+            }
+
+            // End existing timer and start a new one
+            timer.EndTimer();
+
+            timer = new CountDownTimer(nextTimeSpan);
+            timer.CountDownFinished += OnCountDownFinished(profile, timer);
+            timer.TimeChanged += () => _eventAggregator.Publish(new ServerResetTimerUpdatedMessage(profile, timer.TimeLeftStr));
+
+            timer.Start();
+        };
+    }
+
+    private DateTime CalculateNextRestart(ScheduleRestarts autoRestart)
+    {
+        var now = DateTime.Now;
+        var nextRestart = now;
+
+        switch (autoRestart.RestartFrequency)
+        {
+            case RestartFrequency.Hourly:
+                //nextRestart = now.AddSeconds(autoRestart.RecurrenceInterval);
+                nextRestart = now.AddHours(autoRestart.RecurrenceInterval);
+                break;
+            case RestartFrequency.Daily:
+                nextRestart = now.AddDays(autoRestart.RecurrenceInterval);
+                break;
+            case RestartFrequency.Weekly:
+                nextRestart = now.AddDays(7 * autoRestart.RecurrenceInterval);
+                break;
+            case RestartFrequency.Monthly:
+                nextRestart = now.AddMonths(autoRestart.RecurrenceInterval);
+                break;
+            default:
+                break;
+        }
+
+        return nextRestart;
+    }
+
+    private bool RestoreBackup(string profileName, string backupFilePath)
+    {
+        var saveDirectory = Path.Combine(Constants.Paths.SERVER_DIRECTORY, profileName, Constants.Paths.ENSHROUDED_SAVE_GAME_DIRECTORY);
+
+        if (backupFilePath.EndsWith(".zip"))
+        {
+            return RestoreBackupFromZip(backupFilePath, saveDirectory);
+        }
+
+        return RestoreBackupFromSaveFile(backupFilePath, saveDirectory);
+    }
+
+    private bool RestoreBackupFromSaveFile(string backupFilePath, string saveDirectory)
+    {
+        try
+        {
+            var saveFile = Path.Combine(saveDirectory, Constants.SaveSlots.SLOT1);
+            _fileSystemService.CopyFile(backupFilePath, saveFile, true);
+
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
+
+    private bool RestoreBackupFromZip(string backupFilePath, string saveDirectory)
+    {
+        try
+        {
+            // extract the zipped files to a temp directory
+            var tempDir = Path.Combine(saveDirectory, "temp");
+            _fileSystemService.ExtractZipToDirectory(backupFilePath, tempDir, true);
+
+            // copy the save file in the temp directory to the savegame directory
+            var tempFile = Path.Combine(tempDir, Constants.SaveSlots.SLOT1);
+            var saveFile = Path.Combine(saveDirectory, Constants.SaveSlots.SLOT1);
+            _fileSystemService.CopyFile(tempFile, saveFile, true);
+
+            // delete temp
+            _fileSystemService.DeleteDirectory(tempDir);
+
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
         }
     }
 

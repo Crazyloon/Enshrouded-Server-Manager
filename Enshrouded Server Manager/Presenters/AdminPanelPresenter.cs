@@ -22,6 +22,8 @@ public class AdminPanelPresenter
     private readonly IBackupService _backupService;
 
     private ServerProfile _selectedProfile;
+    private Dictionary<string, CountDownTimer> _autoRestartTimers = new();
+
 
     public AdminPanelPresenter(
         IAdminPanelView adminPanelView,
@@ -111,22 +113,23 @@ public class AdminPanelPresenter
             }
 
             _enshroudedServerService.Start(gameServerExe, _selectedProfile.Name);
+            var timer = _enshroudedServerService.StartScheduledRestarts(_selectedProfile);
+
+            _autoRestartTimers.Add(_selectedProfile.Name, timer);
 
             // Begin AutoBackup after waiting 5 seconds to ensure the server process has started
             if (_enshroudedServerService.IsRunning(_selectedProfile.Name))
             {
-                if (_selectedProfile is not null && _selectedProfile.AutoBackup is not null && _selectedProfile.AutoBackup.Enabled)
+                if (_selectedProfile is not null
+                    && _selectedProfile.AutoBackup is not null
+                    && _selectedProfile.AutoBackup.Enabled)
                 {
                     var saveGameFolder = Path.Join(serverProfilePath, Constants.Paths.GAME_SERVER_SAVE_DIRECTORY);
                     _backupService.StartAutoBackup(saveGameFolder, _selectedProfile.Name, _selectedProfile.AutoBackup.Interval, _selectedProfile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
                 }
-            }
 
-            if (_enshroudedServerService.IsRunning(_selectedProfile.Name))
-            {
                 _adminPanelView.StartServerButtonVisible = false;
                 _adminPanelView.StopServerButtonVisible = true;
-
                 // TODO: Instead of hiding the button, we can disable it
                 // Would need to set some styles for a disabled state for this to make sense
                 //_adminPanelView.UpdateServerButtonEnabled = false;
@@ -172,6 +175,11 @@ public class AdminPanelPresenter
         _adminPanelView.StartServerButtonVisible = true;
         _adminPanelView.StopServerButtonVisible = false;
         _adminPanelView.UpdateServerButtonVisible = true;
+
+        // Stop any running auto restart timers
+        _autoRestartTimers.TryGetValue(selectedProfileName, out var timer);
+        timer?.EndTimer();
+        _autoRestartTimers.Remove(selectedProfileName);
 
         // TODO: Can we emit an event here and have something else handle discord output?
         // discord Output

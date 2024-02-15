@@ -1,4 +1,5 @@
 ﻿using Enshrouded_Server_Manager.Enums;
+using Enshrouded_Server_Manager.UI;
 
 namespace Enshrouded_Server_Manager.Views;
 public partial class ScheduleRestartsView : UserControl, IScheduleRestartsView
@@ -67,6 +68,17 @@ public partial class ScheduleRestartsView : UserControl, IScheduleRestartsView
         remove { dtpStartTime.ValueChanged -= value; }
     }
 
+    public bool IsScheduledRestartEnabled
+    {
+        get => chkEnableScheduledRestarts.Checked;
+        set => chkEnableScheduledRestarts.Checked = value;
+    }
+
+    public string TimeLeft
+    {
+        get => lblTimeLeft.Text;
+        set => lblTimeLeft.Text = value;
+    }
 
     public RestartFrequency RestartFrequency
     {
@@ -98,18 +110,18 @@ public partial class ScheduleRestartsView : UserControl, IScheduleRestartsView
     {
         get
         {
-            return this.Controls.OfType<CheckBox>().Where(c => c.Checked).Select(c => (DayOfWeek)c.Tag).ToArray();
+            return this.Controls.OfType<CheckBox>().Where(c => c.Checked && c.Tag is not null).Select(c => (DayOfWeek)c.Tag).ToArray();
         }
         set
         {
-            foreach (var day in this.Controls.OfType<CheckBox>())
+            foreach (var day in this.Controls.OfType<CheckBox>().Where(c => c.Tag is not null))
             {
                 day.Checked = false;
             }
 
             foreach (var day in value)
             {
-                this.Controls.OfType<CheckBox>().FirstOrDefault(c => (DayOfWeek)c.Tag == day).Checked = true;
+                this.Controls.OfType<CheckBox>().Where(c => c.Tag is not null).FirstOrDefault(c => (DayOfWeek)c.Tag == day).Checked = true;
             }
         }
     }
@@ -135,5 +147,16 @@ public partial class ScheduleRestartsView : UserControl, IScheduleRestartsView
     {
         get => lblRecurUnit.Text;
         set => lblRecurUnit.Text = value;
+    }
+
+    public void AnimateSaveButton()
+    {
+        Interactions.AnimateSaveChangesButton(btnApplySettings, btnApplySettings.Text, Constants.ButtonText.SAVED_SUCCESS);
+    }
+
+    private void btnApplySettings_EnabledChanged(object sender, EventArgs e)
+    {
+        var button = ((Button)sender);
+        Interactions.HandleEnabledChanged_PrimaryButton(button);
     }
 }

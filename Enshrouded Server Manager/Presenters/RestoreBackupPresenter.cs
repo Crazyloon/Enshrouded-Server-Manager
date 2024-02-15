@@ -1,7 +1,10 @@
 ﻿using Enshrouded_Server_Manager.Events;
+using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.Views;
+using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace Enshrouded_Server_Manager.Presenters;
 public class RestoreBackupPresenter
@@ -13,6 +16,8 @@ public class RestoreBackupPresenter
     private readonly IEnshroudedServerService _server;
     private readonly IMessageBoxService _messageBox;
 
+    private BindingList<ServerProfile>? _profiles;
+
     private ServerProfile _selectedProfile;
 
     public RestoreBackupPresenter(IRestoreBackupView view,
@@ -20,7 +25,8 @@ public class RestoreBackupPresenter
         IFileSystemService fileSystemService,
         IBackupService backupService,
         IEnshroudedServerService server,
-        IMessageBoxService messageBox)
+        IMessageBoxService messageBox,
+        BindingList<ServerProfile>? profiles)
     {
         _restoreBackupView = view;
         _eventAggregator = eventAggregator;
@@ -28,17 +34,30 @@ public class RestoreBackupPresenter
         _backupService = backupService;
         _server = server;
         _messageBox = messageBox;
+        _profiles = profiles;
 
-        _restoreBackupView.RestoreSelectedFileClicked += (sender, e) => RestoreSelectedFileClicked();
-        _restoreBackupView.SelectFileToRestoreClicked += (sender, e) => SelectFileToRestoreClicked();
-        _restoreBackupView.FileToRestoreSelected += (sender, e) => FileToRestoreSelected();
+        _restoreBackupView.SelectFileToRestoreClicked += (sender, e) => OnSelectFileToRestoreClicked();
+        _restoreBackupView.FileToRestoreSelected += (sender, e) => OnFileToRestoreSelected();
+        _restoreBackupView.RestoreSelectedFileClicked += (sender, e) => OnRestoreSelectedFileClicked();
+        _restoreBackupView.SaveSettingsClicked += (sender, e) => OnSaveSettingsClicked();
 
         _eventAggregator.Subscribe<ProfileSelectedMessage>(p => OnProfileSelected(p.SelectedProfile));
-        _eventAggregator.Subscribe<BackupRestoredMessage>(p => OnBackupRestored());
     }
 
-    private void OnBackupRestored()
+    private void OnSaveSettingsClicked()
     {
+
+        _selectedProfile.RestoreBackup = new RestoreBackup()
+        {
+            BackupFilePath = _restoreBackupView.RestoreFilePath,
+            RestoreOnScheduledRestart = _restoreBackupView.IsRestoreOnScheduledRestartChecked
+        };
+
+        // write the updated profile to the json file
+        _fileSystemService.WriteFile(
+            Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON),
+            JsonConvert.SerializeObject(_profiles, JsonSettings.Default));
+
         _restoreBackupView.AnimateSaveButton();
     }
 
@@ -48,19 +67,31 @@ public class RestoreBackupPresenter
 
         var backupDirectory = Path.Join(Directory.GetCurrentDirectory(), Constants.Paths.BACKUPS_DIRECTORY, _selectedProfile.Name);
         _restoreBackupView.FileDialog.InitialDirectory = backupDirectory;
+
+        if (_selectedProfile.RestoreBackup is null)
+        {
+            _selectedProfile.RestoreBackup = new RestoreBackup()
+            {
+                BackupFilePath = "",
+                RestoreOnScheduledRestart = false
+            };
+        }
+
+        _restoreBackupView.RestoreFilePath = _selectedProfile.RestoreBackup.BackupFilePath;
+        _restoreBackupView.IsRestoreOnScheduledRestartChecked = _selectedProfile.RestoreBackup.RestoreOnScheduledRestart;
     }
 
-    private void FileToRestoreSelected()
+    private void OnFileToRestoreSelected()
     {
         _restoreBackupView.RestoreFilePath = _restoreBackupView.FileDialog.FileName;
     }
 
-    private void SelectFileToRestoreClicked()
+    private void OnSelectFileToRestoreClicked()
     {
         _restoreBackupView.FileDialog.ShowDialog();
     }
 
-    private void RestoreSelectedFileClicked()
+    private void OnRestoreSelectedFileClicked()
     {
         if (_server.IsRunning(_selectedProfile.Name))
         {
@@ -71,7 +102,7 @@ public class RestoreBackupPresenter
         if (_fileSystemService.FileExists(_restoreBackupView.RestoreFilePath))
         {
             _backupService.RestoreBackup(_selectedProfile.Name, _restoreBackupView.RestoreFilePath);
-            _restoreBackupView.AnimateSaveButton();
+            _restoreBackupView.AnimateRestoreButton();
         }
     }
 }

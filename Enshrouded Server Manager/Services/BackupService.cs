@@ -227,7 +227,8 @@ public class BackupService : IBackupService
     {
         try
         {
-            _fileSystemService.CopyFile(backupFilePath, saveDirectory, true);
+            var saveFile = Path.Combine(saveDirectory, Constants.SaveSlots.SLOT1);
+            _fileSystemService.CopyFile(backupFilePath, saveFile, true);
 
             return true;
         }

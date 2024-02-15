@@ -31,7 +31,7 @@ public partial class MainForm : Form, IMainFormView
         var messageBox = new MessageBoxService();
         var fileSystemManager = new FileSystemService();
         var discordOutputService = new DiscordService();
-        var enshroudedServer = new EnshroudedServerService(fileSystemManager);
+        var enshroudedServer = new EnshroudedServerService(fileSystemManager, eventAggregator);
         var versionManager = new VersionManagementService(fileSystemManager, eventAggregator);
         var backupService = new BackupService(fileSystemManager, enshroudedServer, eventAggregator, discordOutputService);
         var profileManager = new ProfileService(fileSystemManager, messageBox);
@@ -51,8 +51,8 @@ public partial class MainForm : Form, IMainFormView
         autoBackupView.Tag = new AutoBackupPresenter(autoBackupView, eventAggregator, processManager, profileManager, fileSystemManager, messageBox, backupService, profiles);
         discordNotificationsView.Tag = new DiscordNotificationsPresenter(discordNotificationsView, eventAggregator, discordOutputService, messageBox, profileManager, fileSystemManager);
         infoPanelView.Tag = new InfoPanelPresenter(infoPanelView, eventAggregator, processManager);
-        restoreBackupView.Tag = new RestoreBackupPresenter(restoreBackupView, eventAggregator, fileSystemManager, backupService, enshroudedServer, messageBox);
-        scheduleRestartsView.Tag = new ScheduleRestartsPresenter(scheduleRestartsView, eventAggregator, enshroudedServer, backupService, messageBox);
+        restoreBackupView.Tag = new RestoreBackupPresenter(restoreBackupView, eventAggregator, fileSystemManager, backupService, enshroudedServer, messageBox, profiles);
+        scheduleRestartsView.Tag = new ScheduleRestartsPresenter(scheduleRestartsView, eventAggregator, enshroudedServer, backupService, messageBox, fileSystemManager, profiles);
 
         this.Tag = new MainFormPresenter(this, versionManager);
 

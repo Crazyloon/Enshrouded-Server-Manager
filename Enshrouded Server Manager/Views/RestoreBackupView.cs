@@ -10,16 +10,16 @@ public partial class RestoreBackupView : UserControl, IRestoreBackupView
         InitializeComponent();
     }
 
-    public string RestoreFilePath
-    {
-        get => txtRestoreFilePath.Text;
-        set => txtRestoreFilePath.Text = value;
-    }
-
     public event EventHandler RestoreSelectedFileClicked
     {
         add => btnRestoreSaveFile.Click += value;
         remove => btnRestoreSaveFile.Click -= value;
+    }
+
+    public event EventHandler SaveSettingsClicked
+    {
+        add => btnSaveSettings.Click += value;
+        remove => btnSaveSettings.Click -= value;
     }
 
     public event EventHandler SelectFileToRestoreClicked
@@ -34,9 +34,26 @@ public partial class RestoreBackupView : UserControl, IRestoreBackupView
         remove => ofdBackupFileSelector.FileOk -= value;
     }
 
+    public string RestoreFilePath
+    {
+        get => txtRestoreFilePath.Text;
+        set => txtRestoreFilePath.Text = value;
+    }
+
+    public bool IsRestoreOnScheduledRestartChecked
+    {
+        get => chkRestoreBackupOnRestart.Checked;
+        set => chkRestoreBackupOnRestart.Checked = value;
+    }
+
     public OpenFileDialog FileDialog => ofdBackupFileSelector;
 
     public void AnimateSaveButton()
+    {
+        Interactions.AnimateSaveChangesButton(btnSaveSettings, btnSaveSettings.Text, Constants.ButtonText.SAVED_SUCCESS);
+    }
+
+    public void AnimateRestoreButton()
     {
         Interactions.AnimateSaveChangesButton(btnRestoreSaveFile, btnRestoreSaveFile.Text, Constants.ButtonText.RESTORED_SUCCESS);
     }

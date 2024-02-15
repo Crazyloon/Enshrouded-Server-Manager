@@ -10,10 +10,14 @@ public interface IScheduleRestartsView
     event EventHandler StartDateChanged;
     event EventHandler StartTimeChanged;
 
+    bool IsScheduledRestartEnabled { get; set; }
     RestartFrequency RestartFrequency { get; set; }
     DateOnly StartDate { get; set; }
     TimeOnly StartTime { get; set; }
     int RecurrenceInterval { get; set; }
     DayOfWeek[] DaysOfWeek { get; set; }
     string RecurrenceIntervalUnit { get; set; }
+    string TimeLeft { get; set; }
+
+    void AnimateSaveButton();
 }
