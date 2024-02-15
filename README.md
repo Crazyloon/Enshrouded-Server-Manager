@@ -4,7 +4,9 @@
 [version]: https://img.shields.io/github/v/release/crazyloon/Enshrouded-Server-Manager?logo=github
 [downloads]: https://img.shields.io/github/downloads/crazyloon/enshrouded-server-manager/total.svg
 
-This little tool is an experimental enshrouded server manager.
+This is a tool to help you manage your Dedicated Enshrouded servers.
+
+Check out [the 0.6.0 pre-release](https://github.com/Crazyloon/Enshrouded-Server-Manager/releases/tag/v0.6.0-prerelease) with scheduled-restarts and automatic backup-restore.
 
 ## Select a server profile, install the server, and start hosting.
 ![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/d7c6b539-5fc2-4722-ab5b-e9291a76cf35)
