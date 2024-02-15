@@ -122,7 +122,7 @@ partial class ScheduleRestartsView
         // dtpStartDate
         // 
         dtpStartDate.CalendarFont = new Font("Malgun Gothic", 9F, FontStyle.Regular, GraphicsUnit.Point);
-        dtpStartDate.CalendarForeColor = SystemColors.ButtonHighlight;
+        dtpStartDate.CalendarForeColor = SystemColors.ControlLight;
         dtpStartDate.CalendarMonthBackground = Color.FromArgb(0, 0, 18);
         dtpStartDate.CalendarTitleBackColor = Color.FromArgb(0, 255, 185);
         dtpStartDate.CalendarTitleForeColor = SystemColors.ButtonHighlight;
@@ -144,6 +144,8 @@ partial class ScheduleRestartsView
         // 
         // nudRecur
         // 
+        nudRecur.BackColor = Color.FromArgb(6, 6, 48);
+        nudRecur.ForeColor = SystemColors.Window;
         nudRecur.Location = new Point(250, 117);
         nudRecur.Name = "nudRecur";
         nudRecur.Size = new Size(39, 23);
