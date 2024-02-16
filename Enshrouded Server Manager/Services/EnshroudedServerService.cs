@@ -150,6 +150,7 @@ public class EnshroudedServerService : IEnshroudedServerService
 
             // End existing timer and start a new one
             timer.EndTimer();
+            timer = null;
 
             timer = new CountDownTimer(nextTimeSpan);
             timer.CountDownFinished += OnCountDownFinished(profile, timer);

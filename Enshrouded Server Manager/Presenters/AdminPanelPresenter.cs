@@ -179,6 +179,7 @@ public class AdminPanelPresenter
         // Stop any running auto restart timers
         _autoRestartTimers.TryGetValue(selectedProfileName, out var timer);
         timer?.EndTimer();
+        timer = null;
         _autoRestartTimers.Remove(selectedProfileName);
 
         // TODO: Can we emit an event here and have something else handle discord output?

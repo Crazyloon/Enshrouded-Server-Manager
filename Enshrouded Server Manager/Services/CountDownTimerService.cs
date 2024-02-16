@@ -92,6 +92,7 @@ public class CountDownTimer : IDisposable
         _stpWatch.Reset();
         _max = TimeSpan.FromMilliseconds(0);
 
+        timer.Enabled = false;
         TimeChanged?.Invoke();
 
         Dispose();
