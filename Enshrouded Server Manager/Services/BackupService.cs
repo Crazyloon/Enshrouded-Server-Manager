@@ -14,17 +14,20 @@ public class BackupService : IBackupService
     private readonly IEnshroudedServerService _server;
     private readonly IDiscordService _discordService;
 
+    Dictionary<string, CountDownTimer> _restartTimers;
     private string _dateTimeString;
 
     public BackupService(IFileSystemService fsm,
         IEnshroudedServerService server,
         IEventAggregator eventAggregator,
-        IDiscordService discordService)
+        IDiscordService discordService,
+        Dictionary<string, CountDownTimer> restartTimers)
     {
         _fileSystemService = fsm;
         _server = server;
         _eventAggregator = eventAggregator;
         _discordService = discordService;
+        _restartTimers = restartTimers;
     }
 
     /// <summary>

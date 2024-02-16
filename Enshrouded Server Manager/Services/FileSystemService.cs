@@ -47,6 +47,11 @@ public class FileSystemService : IFileSystemService
         return new FileInfo(fileName).Length;
     }
 
+    public FileInfo[] GetFiles(string directoryName)
+    {
+        return new DirectoryInfo(directoryName).GetFiles();
+    }
+
     public void DeleteFile(string fileName)
     {
         File.Delete(fileName);

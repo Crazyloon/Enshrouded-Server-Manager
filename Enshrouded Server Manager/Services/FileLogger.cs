@@ -3,6 +3,7 @@ public class FileLogger : IFileLogger
 {
     private readonly IFileSystemService _fileSystemService;
     private int MB_5 = (1024 ^ 2) * 5;
+    private int TWO_WEEKS = 14;
 
     public FileLogger(IFileSystemService fileSystemService)
     {
@@ -20,12 +21,12 @@ public class FileLogger : IFileLogger
 
     public void LogError(string errorMessage)
     {
-        string error = $"[{DateTime.Now.ToString("s")}] {errorMessage}";
+        string error = $"[{DateTime.Now.ToString("s")}] {errorMessage}\n";
         string fileName = GetLogFileName("error");
 
         try
         {
-            _fileSystemService.AppendAllText(Path.Join(ESMLogPath, fileName), error);
+            _fileSystemService.AppendAllText(fileName, error);
         }
         catch (Exception)
         {
@@ -35,12 +36,12 @@ public class FileLogger : IFileLogger
 
     public void LogInfo(string infoMessage)
     {
-        string log = $"[{DateTime.Now.ToString("s")}] {infoMessage}";
+        string log = $"[{DateTime.Now.ToString("s")}] {infoMessage}\n";
         string fileName = GetLogFileName("info");
 
         try
         {
-            _fileSystemService.AppendAllText(Path.Join(ESMLogPath, fileName), log);
+            _fileSystemService.AppendAllText(fileName, log);
         }
         catch (Exception)
         {
@@ -50,12 +51,12 @@ public class FileLogger : IFileLogger
 
     public void LogWarning(string warningMessage)
     {
-        string warning = $"[{DateTime.Now.ToString("s")}] {warningMessage}";
+        string warning = $"[{DateTime.Now.ToString("s")}] {warningMessage}\n";
         string fileName = GetLogFileName("warning");
 
         try
         {
-            _fileSystemService.AppendAllText(Path.Join(ESMLogPath, fileName), warning);
+            _fileSystemService.AppendAllText(fileName, warning);
         }
         catch (Exception)
         {
@@ -81,5 +82,17 @@ public class FileLogger : IFileLogger
         }
 
         return fileName;
+    }
+
+    private void DeleteOldLogs()
+    {
+        var files = _fileSystemService.GetFiles(ESMLogPath);
+        foreach (var file in files)
+        {
+            if (file.CreationTime < DateTime.Now.AddDays(-TWO_WEEKS))
+            {
+                _fileSystemService.DeleteFile(file.FullName);
+            }
+        }
     }
 }

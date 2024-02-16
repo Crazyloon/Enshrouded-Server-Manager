@@ -11,14 +11,20 @@ public class EnshroudedServerService : IEnshroudedServerService
 {
     private readonly IFileSystemService _fileSystemService;
     private readonly IEventAggregator _eventAggregator;
+    private readonly IFileLogger _logger;
+    Dictionary<string, CountDownTimer> _restartTimers;
 
     private const string SERVER_PROCESS_NAME = "enshrouded_server";
 
     public EnshroudedServerService(IFileSystemService fsm,
-        IEventAggregator eventAggregator)
+        IFileLogger fileLogger,
+        IEventAggregator eventAggregator,
+        Dictionary<string, CountDownTimer> restartTimers)
     {
         _fileSystemService = fsm;
+        _logger = fileLogger;
         _eventAggregator = eventAggregator;
+        _restartTimers = restartTimers;
     }
 
     [DllImport("user32.dll")]
@@ -103,13 +109,24 @@ public class EnshroudedServerService : IEnshroudedServerService
 
         var nextRestart = startDate - now;
 
+        // Make sure no timer for this server already exists
+        if (_restartTimers.ContainsKey(serverProfile.Name))
+        {
+            var dicTimer = _restartTimers[serverProfile.Name];
+            dicTimer.EndTimer();
+            dicTimer = null;
+            _restartTimers.Remove(serverProfile.Name);
+        }
+
         // start a countdown timer for the next restart
         var timer = new CountDownTimer(nextRestart);
         timer.CountDownFinished += OnCountDownFinished(serverProfile, timer);
         timer.TimeChanged += () => _eventAggregator.Publish(new ServerResetTimerUpdatedMessage(serverProfile, timer.TimeLeftStr));
 
+        timer.Tag = "TimerTag: Initial";
         timer.Start();
 
+        _restartTimers.Add(serverProfile.Name, timer);
         return timer;
     }
 
@@ -144,18 +161,24 @@ public class EnshroudedServerService : IEnshroudedServerService
             // if the nextTimeSpan is in the past, stop the timer and dispose
             if (nextTimeSpan.TotalMilliseconds <= 0)
             {
+                _logger.LogInfo("CountDownTimer: OnCountDownFinished: nextTimeSpan is in the past. Timer will not be restarted.");
                 timer.EndTimer();
                 return;
             }
 
             // End existing timer and start a new one
+            _restartTimers.Remove(profile.Name);
             timer.EndTimer();
             timer = null;
 
             timer = new CountDownTimer(nextTimeSpan);
             timer.CountDownFinished += OnCountDownFinished(profile, timer);
             timer.TimeChanged += () => _eventAggregator.Publish(new ServerResetTimerUpdatedMessage(profile, timer.TimeLeftStr));
+            timer.Tag = $"{DateTime.Now.ToString("dd/MM/yyyyThh:mm:ss")}-CountDownFinished";
 
+            _logger.LogInfo($"TimerTag: {timer.Tag}");
+
+            _restartTimers.Add(profile.Name, timer);
             timer.Start();
         };
     }

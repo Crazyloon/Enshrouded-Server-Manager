@@ -27,6 +27,7 @@ public class AdminPanelTests
     private IEventAggregator _eventAggregator;
     private IFileLogger _logger;
 
+    private Dictionary<string, CountDownTimer> restartTimers = new();
     private ServerProfile _serverProfileUnderTest;
 
     public AdminPanelTests()
@@ -60,7 +61,7 @@ public class AdminPanelTests
         // And the Install Server button should be visible
 
         // Arrange
-        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger);
+        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger, restartTimers);
         presenter.OnProfileSelected(_serverProfileUnderTest);
 
         bool expectedVisibility = true;
@@ -113,7 +114,7 @@ public class AdminPanelTests
             action.Invoke(new ProfileSelectedMessage(_serverProfileUnderTest));
         }));
 
-        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger);
+        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger, restartTimers);
 
         // Act
         presenter.OnProfileSelected(_serverProfileUnderTest);
@@ -134,7 +135,7 @@ public class AdminPanelTests
         // Then the Windows Firewall program should open
 
         // Arrange
-        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger);
+        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger, restartTimers);
         presenter.OnProfileSelected(_serverProfileUnderTest);
 
         // Act
@@ -165,7 +166,7 @@ public class AdminPanelTests
         _adminPanelView.UpdateServerButtonVisible = true;
         _adminPanelView.InstallServerButtonVisible = false;
 
-        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger);
+        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger, restartTimers);
         presenter.OnProfileSelected(_serverProfileUnderTest);
 
         var profiles = new List<ServerProfile>()
@@ -216,7 +217,7 @@ public class AdminPanelTests
             MaxiumBackups = 0
         };
 
-        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger);
+        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger, restartTimers);
         presenter.OnProfileSelected(_serverProfileUnderTest);
 
         var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
@@ -257,7 +258,7 @@ public class AdminPanelTests
         _adminPanelView.UpdateServerButtonVisible = true;
         _adminPanelView.InstallServerButtonVisible = false;
 
-        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger);
+        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger, restartTimers);
         presenter.OnProfileSelected(_serverProfileUnderTest);
 
         var profiles = new List<ServerProfile>()
@@ -319,7 +320,7 @@ public class AdminPanelTests
         // And the Update Server button should be visible
 
         // Arrange
-        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger);
+        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger, restartTimers);
         presenter.OnProfileSelected(_serverProfileUnderTest);
 
         _adminPanelView.StartServerButtonVisible = false;
@@ -352,7 +353,7 @@ public class AdminPanelTests
         // And the Update Server button should be visible with a green border
 
         // Arrange
-        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger);
+        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger, restartTimers);
         presenter.OnProfileSelected(_serverProfileUnderTest);
 
         _adminPanelView.StartServerButtonVisible = false;
@@ -399,7 +400,7 @@ public class AdminPanelTests
         // And the Update Server button should be visible with a green border
 
         // Arrange
-        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger);
+        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger, restartTimers);
         presenter.OnProfileSelected(_serverProfileUnderTest);
 
         _adminPanelView.StartServerButtonVisible = true;
@@ -434,7 +435,7 @@ public class AdminPanelTests
         // Then a backup should be saved
 
         // Arrange
-        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger);
+        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger, restartTimers);
         presenter.OnProfileSelected(_serverProfileUnderTest);
 
         // Act
@@ -452,7 +453,7 @@ public class AdminPanelTests
         // Then the backup folder should open
 
         // Arrange
-        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger);
+        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger, restartTimers);
         presenter.OnProfileSelected(_serverProfileUnderTest);
 
         // Act
@@ -471,7 +472,7 @@ public class AdminPanelTests
         // Then the savegame folder should open
 
         // Arrange
-        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger);
+        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger, restartTimers);
         presenter.OnProfileSelected(_serverProfileUnderTest);
 
         // Act
@@ -490,7 +491,7 @@ public class AdminPanelTests
         // Then the log folder should open
 
         // Arrange
-        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger);
+        var presenter = new AdminPanelPresenter(_adminPanelView, _eventAggregator, _steamCMDInstallerService, _fileSystemService, _versionManagementService, _systemProcessService, _serverSettingsService, _enshroudedServerService, _profileService, _discordService, _backupService, _logger, restartTimers);
         presenter.OnProfileSelected(_serverProfileUnderTest);
 
         // Act

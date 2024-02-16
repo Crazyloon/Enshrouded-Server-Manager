@@ -120,7 +120,11 @@
   <data name="lblNewsText.Text" xml:space="preserve">
     <value>Changes:
 
-v0.5.0
+v0.6.1
+- Added a logging service for info/errors
+- Fixed an issue with server reset timers
+
+v0.6.0
 - Moved profile management inline
    with the profile selector
 - Added a feature to restore a backup

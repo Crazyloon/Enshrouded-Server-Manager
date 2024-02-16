@@ -27,26 +27,28 @@ public partial class MainForm : Form, IMainFormView
         // There should only EVER be one instance of the EventAggregator (singleton)
         EventAggregator eventAggregator = new EventAggregator();
 
+        // Initialize shared timers
+        Dictionary<string, CountDownTimer> restartTimers = new();
+
         // Initialize Services
         var fileSystemManager = new FileSystemService();
         var messageBox = new MessageBoxService();
         var discordOutputService = new DiscordService();
         var logService = new FileLogger(fileSystemManager);
-        var enshroudedServer = new EnshroudedServerService(fileSystemManager, eventAggregator);
+        var enshroudedServer = new EnshroudedServerService(fileSystemManager, logService, eventAggregator, restartTimers);
         var versionManager = new VersionManagementService(fileSystemManager, eventAggregator);
-        var backupService = new BackupService(fileSystemManager, enshroudedServer, eventAggregator, discordOutputService);
+        var backupService = new BackupService(fileSystemManager, enshroudedServer, eventAggregator, discordOutputService, restartTimers);
         var profileManager = new ProfileService(fileSystemManager, messageBox);
         var processManager = new SystemProcessService();
         var httpClient = new HttpClientService(new WebClient());
         var serverSettingsService = new ServerSettingsService(fileSystemManager, eventAggregator, messageBox, enshroudedServer);
         var steamCMDInstaller = new SteamCMDInstallerService(fileSystemManager, processManager, messageBox, httpClient);
 
-        adminPanelView.Tag = new AdminPanelPresenter(adminPanelView, eventAggregator, steamCMDInstaller, fileSystemManager, versionManager, processManager, serverSettingsService, enshroudedServer, profileManager, discordOutputService, backupService, logService);
-
-        // Load the profiles for each view the first time they are created
+        // Initialize shared profiles
         BindingList<ServerProfile> profiles = new BindingList<ServerProfile>(profileManager.LoadServerProfiles(JsonSettings.Default, true));
 
         // Initialize Presenters
+        adminPanelView.Tag = new AdminPanelPresenter(adminPanelView, eventAggregator, steamCMDInstaller, fileSystemManager, versionManager, processManager, serverSettingsService, enshroudedServer, profileManager, discordOutputService, backupService, logService, restartTimers);
         serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, eventAggregator, serverSettingsService, fileSystemManager, enshroudedServer, logService);
         manageProfilesView.Tag = new ManageProfilesPresenter(manageProfilesView, eventAggregator, profileManager, serverSettingsService, fileSystemManager, messageBox, enshroudedServer, logService, profiles);
         autoBackupView.Tag = new AutoBackupPresenter(autoBackupView, eventAggregator, processManager, profileManager, fileSystemManager, messageBox, backupService, logService, profiles);

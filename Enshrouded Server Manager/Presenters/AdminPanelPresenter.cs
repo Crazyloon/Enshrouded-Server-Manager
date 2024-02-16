@@ -22,8 +22,8 @@ public class AdminPanelPresenter
     private readonly IBackupService _backupService;
     private readonly IFileLogger _logger;
 
+    Dictionary<string, CountDownTimer> _restartTimers;
     private ServerProfile _selectedProfile;
-    private Dictionary<string, CountDownTimer> _autoRestartTimers = new();
 
 
     public AdminPanelPresenter(
@@ -38,7 +38,8 @@ public class AdminPanelPresenter
         IProfileService profileService,
         IDiscordService discordOutputService,
         IBackupService backupService,
-        IFileLogger fileLogger)
+        IFileLogger fileLogger,
+        Dictionary<string, CountDownTimer> restartTimers)
     {
         _adminPanelView = adminPanelView;
         _eventAggregator = eventAggregator;
@@ -52,6 +53,7 @@ public class AdminPanelPresenter
         _discordOutputService = discordOutputService;
         _backupService = backupService;
         _logger = fileLogger;
+        _restartTimers = restartTimers;
 
         adminPanelView.AdminPanelLoaded += (s, e) => OnAdminPanelLoaded();
         adminPanelView.InstallSteamCMDButtonClicked += (s, e) => OnInstallSteamCMDButtonClicked();
@@ -116,9 +118,8 @@ public class AdminPanelPresenter
             }
 
             _enshroudedServerService.Start(gameServerExe, _selectedProfile.Name);
-            var timer = _enshroudedServerService.StartScheduledRestarts(_selectedProfile);
+            _enshroudedServerService.StartScheduledRestarts(_selectedProfile);
 
-            _autoRestartTimers.Add(_selectedProfile.Name, timer);
 
             // Begin AutoBackup after waiting 5 seconds to ensure the server process has started
             if (_enshroudedServerService.IsRunning(_selectedProfile.Name))
@@ -180,10 +181,14 @@ public class AdminPanelPresenter
         _adminPanelView.UpdateServerButtonVisible = true;
 
         // Stop any running auto restart timers
-        _autoRestartTimers.TryGetValue(selectedProfileName, out var timer);
-        timer?.EndTimer();
-        timer = null;
-        _autoRestartTimers.Remove(selectedProfileName);
+        _restartTimers.TryGetValue(selectedProfileName, out var timer);
+        if (timer is not null)
+        {
+            _logger.LogInfo($"AdminPanelPresenter: OnStopServerButtonClicked: Timer stopped for {_selectedProfile.Name}: TimerTag: {timer.Tag}");
+            timer?.EndTimer();
+            timer = null;
+            _restartTimers.Remove(selectedProfileName);
+        }
 
         // TODO: Can we emit an event here and have something else handle discord output?
         // discord Output
