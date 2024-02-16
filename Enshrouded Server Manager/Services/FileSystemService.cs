@@ -42,6 +42,11 @@ public class FileSystemService : IFileSystemService
         return File.Exists(fileName);
     }
 
+    public long GetFileSize(string fileName)
+    {
+        return new FileInfo(fileName).Length;
+    }
+
     public void DeleteFile(string fileName)
     {
         File.Delete(fileName);
@@ -50,6 +55,11 @@ public class FileSystemService : IFileSystemService
     public void WriteFile(string fileName, string content)
     {
         File.WriteAllText(fileName, content);
+    }
+
+    public void AppendAllText(string fileName, string content)
+    {
+        File.AppendAllText(fileName, content);
     }
 
     public string ReadFile(string fileName)

@@ -16,6 +16,7 @@ public class ManageProfilesPresenter
     private readonly IFileSystemService _fileSystemService;
     private readonly IMessageBoxService _messageBox;
     private readonly IEnshroudedServerService _server;
+    private readonly IFileLogger _logger;
 
     private BindingList<ServerProfile>? _profiles;
 
@@ -27,6 +28,7 @@ public class ManageProfilesPresenter
         IFileSystemService fileSystemManager,
         IMessageBoxService messageBox,
         IEnshroudedServerService server,
+        IFileLogger fileLogger,
         BindingList<ServerProfile>? serverProfiles)
     {
         _manageProfilesView = manageProfilesView;
@@ -36,6 +38,7 @@ public class ManageProfilesPresenter
         _fileSystemService = fileSystemManager;
         _messageBox = messageBox;
         _server = server;
+        _logger = fileLogger;
 
         _profiles = serverProfiles;
 

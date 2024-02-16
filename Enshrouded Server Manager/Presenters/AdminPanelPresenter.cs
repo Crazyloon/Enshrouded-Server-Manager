@@ -20,6 +20,7 @@ public class AdminPanelPresenter
     private readonly IProfileService _profileService;
     private readonly IDiscordService _discordOutputService;
     private readonly IBackupService _backupService;
+    private readonly IFileLogger _logger;
 
     private ServerProfile _selectedProfile;
     private Dictionary<string, CountDownTimer> _autoRestartTimers = new();
@@ -36,7 +37,8 @@ public class AdminPanelPresenter
         IEnshroudedServerService server,
         IProfileService profileService,
         IDiscordService discordOutputService,
-        IBackupService backupService)
+        IBackupService backupService,
+        IFileLogger fileLogger)
     {
         _adminPanelView = adminPanelView;
         _eventAggregator = eventAggregator;
@@ -49,6 +51,7 @@ public class AdminPanelPresenter
         _enshroudedServerService = server;
         _discordOutputService = discordOutputService;
         _backupService = backupService;
+        _logger = fileLogger;
 
         adminPanelView.AdminPanelLoaded += (s, e) => OnAdminPanelLoaded();
         adminPanelView.InstallSteamCMDButtonClicked += (s, e) => OnInstallSteamCMDButtonClicked();

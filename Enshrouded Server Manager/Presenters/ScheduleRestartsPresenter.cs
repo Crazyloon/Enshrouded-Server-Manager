@@ -16,6 +16,7 @@ public class ScheduleRestartsPresenter
     private readonly IBackupService _backupService;
     private readonly IMessageBoxService _messageBox;
     private readonly IFileSystemService _fileSystemService;
+    private readonly IFileLogger _logger;
 
     private ServerProfile _selectedProfile;
     private BindingList<ServerProfile>? _profiles;
@@ -27,6 +28,7 @@ public class ScheduleRestartsPresenter
         IBackupService backupService,
         IMessageBoxService messageBox,
         IFileSystemService fileSystemService,
+        IFileLogger fileLogger,
         BindingList<ServerProfile>? profiles)
     {
         _view = scheduleRestartsView;
@@ -35,6 +37,7 @@ public class ScheduleRestartsPresenter
         _backupService = backupService;
         _messageBox = messageBox;
         _fileSystemService = fileSystemService;
+        _logger = fileLogger;
         _profiles = profiles;
 
         _view.SaveSettings += (sender, e) => OnSaveSettingsClicked();

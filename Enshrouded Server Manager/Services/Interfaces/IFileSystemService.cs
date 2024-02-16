@@ -8,8 +8,10 @@ public interface IFileSystemService
     bool RenameDirectory(string oldDirectoryName, string newDirectoryname);
     bool DirectoryExists(string directoryName);
     bool FileExists(string fileName);
+    long GetFileSize(string fileName);
     void DeleteFile(string fileName);
     void WriteFile(string fileName, string content);
+    void AppendAllText(string fileName, string content);
     string ReadFile(string fileName);
     IEnumerable<string> ReadLines(string fileName);
     void CopyFile(string sourceFileName, string destFileName);

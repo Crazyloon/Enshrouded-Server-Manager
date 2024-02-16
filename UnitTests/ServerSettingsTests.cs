@@ -21,6 +21,7 @@ public class ServerSettingsTests
     private IDiscordService _discordService;
     private IBackupService _backupService;
     private IEventAggregator _eventAggregator;
+    private IFileLogger _logger;
 
     private ServerProfile _serverProfile;
     private ProfileSelectedMessage _profileSelectedMessage;
@@ -52,6 +53,7 @@ public class ServerSettingsTests
         _discordService = Substitute.For<IDiscordService>();
         _backupService = Substitute.For<IBackupService>();
         _eventAggregator = Substitute.For<IEventAggregator>();
+        _logger = Substitute.For<IFileLogger>();
 
         // Setup for most tests requires a selected profile
         _serverProfile = new ServerProfile() { Name = "TestServer" };
@@ -64,7 +66,7 @@ public class ServerSettingsTests
     public void SetServerSettings_ShouldSetServerSettingsInView_Success()
     {
         // Arrange
-        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService);
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
         presenter.OnServerProfileSelected(_serverProfile);
 
         var serverSettings = new ServerSettings
@@ -95,7 +97,7 @@ public class ServerSettingsTests
     public void OnServerProfileSelected_ShouldLoadServerSettings_Success()
     {
         // Arrange
-        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService);
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
 
         //var serverSettings = new ServerSettings
         //{
@@ -128,7 +130,7 @@ public class ServerSettingsTests
     public void ClickingOnShowPasswordButton_ShouldTogglePasswordVisible_Success()
     {
         // Arrange
-        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService);
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
         presenter.OnServerProfileSelected(_serverProfile);
 
         _serverSettingsView.ShowPasswordButtonText = Constants.ButtonText.SHOW_PASSWORD;
@@ -146,7 +148,7 @@ public class ServerSettingsTests
     public void ClickingOnShowPasswordButton_ShouldTogglePasswordHidden_Success()
     {
         // Arrange
-        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService);
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
         presenter.OnServerProfileSelected(_serverProfile);
 
         _serverSettingsView.ShowPasswordButtonText = Constants.ButtonText.HIDE_PASSWORD;
@@ -170,7 +172,7 @@ public class ServerSettingsTests
         // Then the server settings should be saved
 
         // Arrange
-        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService);
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
         presenter.OnServerProfileSelected(_serverProfile);
 
         //var existingSettings = new ServerSettings
@@ -229,7 +231,7 @@ public class ServerSettingsTests
         // Then an error message should be shown
 
         // Arrange
-        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService);
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
         presenter.OnServerProfileSelected(_serverProfile);
 
         _serverSettingsService.SaveServerSettings(Arg.Any<ServerSettings>(), Arg.Any<ServerProfile>()).Returns(true);
