@@ -74,6 +74,12 @@ public partial class ScheduleRestartsView : UserControl, IScheduleRestartsView
         set => chkEnableScheduledRestarts.Checked = value;
     }
 
+    public bool IsScheduledWithServerStart
+    {
+        get => chkStartWithServer.Checked;
+        set => chkStartWithServer.Checked = value;
+    }
+
     public string TimeLeft
     {
         get => lblTimeLeft.Text;

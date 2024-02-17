@@ -39,7 +39,17 @@ public class ScheduledRestartService : IScheduledRestartService
 
         // calculate TimeSpan from now until the start date and time
         var now = DateTime.Now;
-        var startDate = new DateTime(autoRestart.StartDate.Year, autoRestart.StartDate.Month, autoRestart.StartDate.Day, autoRestart.StartTime.Hour, autoRestart.StartTime.Minute, 0);
+        DateTime startDate;
+        if (autoRestart.StartScheduleWithServer)
+        {
+            startDate = CalculateNextRestart(autoRestart);
+        }
+        else
+        {
+            startDate = new DateTime(autoRestart.StartDate.Year, autoRestart.StartDate.Month, autoRestart.StartDate.Day,
+                autoRestart.StartTime.Hour, autoRestart.StartTime.Minute, autoRestart.StartTime.Second);
+        }
+
 
         if (startDate < now || serverProfile.ScheduleRestarts.RestartFrequency == RestartFrequency.None)
         {

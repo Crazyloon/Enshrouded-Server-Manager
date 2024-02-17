@@ -111,6 +111,7 @@ public class EnshroudedServerService : IEnshroudedServerService
         var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, profile.Name, Constants.Files.PID_JSON);
         if (!_fileSystemService.FileExists(pidJsonFile))
         {
+            _eventAggregator.Publish(new ServerStoppedMessage(profile));
             return;
         }
 
@@ -133,15 +134,15 @@ public class EnshroudedServerService : IEnshroudedServerService
                 Thread.Sleep(2000);
                 FreeConsole();
                 SetConsoleCtrlHandler(null, false);
-
-                _eventAggregator.Publish(new ServerStoppedMessage(profile));
             }
         }
         catch (ArgumentException)
         {
+            _eventAggregator.Publish(new ServerStoppedMessage(profile));
             return;
         }
 
+        _eventAggregator.Publish(new ServerStoppedMessage(profile));
         _fileSystemService.DeleteFile(pidJsonFile);
     }
 

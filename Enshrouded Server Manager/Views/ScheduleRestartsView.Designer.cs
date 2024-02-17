@@ -51,6 +51,8 @@ partial class ScheduleRestartsView
         lblServerMustBeStoppedMessage = new Label();
         chkEnableScheduledRestarts = new CheckBox();
         lblTimeLeft = new Label();
+        chkStartWithServer = new CheckBox();
+        lblOr = new Label();
         ((System.ComponentModel.ISupportInitialize)nudRecur).BeginInit();
         SuspendLayout();
         // 
@@ -113,11 +115,11 @@ partial class ScheduleRestartsView
         // lblStartDateTime
         // 
         lblStartDateTime.AutoSize = true;
-        lblStartDateTime.Location = new Point(170, 44);
+        lblStartDateTime.Location = new Point(205, 24);
         lblStartDateTime.Name = "lblStartDateTime";
-        lblStartDateTime.Size = new Size(34, 15);
+        lblStartDateTime.Size = new Size(127, 15);
         lblStartDateTime.TabIndex = 43;
-        lblStartDateTime.Text = "Start:";
+        lblStartDateTime.Text = "Start at Specified Time:";
         // 
         // dtpStartDate
         // 
@@ -128,7 +130,7 @@ partial class ScheduleRestartsView
         dtpStartDate.CalendarTitleForeColor = SystemColors.ButtonHighlight;
         dtpStartDate.CustomFormat = "";
         dtpStartDate.Format = DateTimePickerFormat.Short;
-        dtpStartDate.Location = new Point(170, 67);
+        dtpStartDate.Location = new Point(205, 42);
         dtpStartDate.Name = "dtpStartDate";
         dtpStartDate.Size = new Size(100, 23);
         dtpStartDate.TabIndex = 5;
@@ -136,7 +138,7 @@ partial class ScheduleRestartsView
         // lblRecur
         // 
         lblRecur.AutoSize = true;
-        lblRecur.Location = new Point(170, 119);
+        lblRecur.Location = new Point(205, 145);
         lblRecur.Name = "lblRecur";
         lblRecur.Size = new Size(71, 15);
         lblRecur.TabIndex = 46;
@@ -146,7 +148,7 @@ partial class ScheduleRestartsView
         // 
         nudRecur.BackColor = Color.FromArgb(6, 6, 48);
         nudRecur.ForeColor = SystemColors.Window;
-        nudRecur.Location = new Point(250, 117);
+        nudRecur.Location = new Point(285, 143);
         nudRecur.Name = "nudRecur";
         nudRecur.Size = new Size(39, 23);
         nudRecur.TabIndex = 7;
@@ -154,7 +156,7 @@ partial class ScheduleRestartsView
         // lblRecurUnit
         // 
         lblRecurUnit.AutoSize = true;
-        lblRecurUnit.Location = new Point(299, 119);
+        lblRecurUnit.Location = new Point(334, 145);
         lblRecurUnit.Name = "lblRecurUnit";
         lblRecurUnit.Size = new Size(39, 15);
         lblRecurUnit.TabIndex = 48;
@@ -276,7 +278,7 @@ partial class ScheduleRestartsView
         dtpStartTime.CalendarTitleForeColor = SystemColors.ButtonHighlight;
         dtpStartTime.CustomFormat = "";
         dtpStartTime.Format = DateTimePickerFormat.Time;
-        dtpStartTime.Location = new Point(290, 66);
+        dtpStartTime.Location = new Point(325, 42);
         dtpStartTime.Name = "dtpStartTime";
         dtpStartTime.ShowUpDown = true;
         dtpStartTime.Size = new Size(100, 23);
@@ -314,11 +316,33 @@ partial class ScheduleRestartsView
         lblTimeLeft.Text = "Next Restart: 00:00";
         lblTimeLeft.TextAlign = ContentAlignment.MiddleCenter;
         // 
+        // chkStartWithServer
+        // 
+        chkStartWithServer.AutoSize = true;
+        chkStartWithServer.Location = new Point(205, 96);
+        chkStartWithServer.Name = "chkStartWithServer";
+        chkStartWithServer.Size = new Size(183, 19);
+        chkStartWithServer.TabIndex = 62;
+        chkStartWithServer.Text = " Start Schedule on Server Start";
+        chkStartWithServer.UseVisualStyleBackColor = true;
+        // 
+        // lblOr
+        // 
+        lblOr.AutoSize = true;
+        lblOr.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+        lblOr.ForeColor = SystemColors.Info;
+        lblOr.Location = new Point(299, 74);
+        lblOr.Name = "lblOr";
+        lblOr.Size = new Size(23, 17);
+        lblOr.TabIndex = 63;
+        lblOr.Text = "Or";
+        // 
         // ScheduleRestartsView
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
+        Controls.Add(chkStartWithServer);
         Controls.Add(lblTimeLeft);
         Controls.Add(chkEnableScheduledRestarts);
         Controls.Add(lblServerMustBeStoppedMessage);
@@ -336,6 +360,7 @@ partial class ScheduleRestartsView
         Controls.Add(lblRecur);
         Controls.Add(dtpStartTime);
         Controls.Add(dtpStartDate);
+        Controls.Add(lblOr);
         Controls.Add(lblStartDateTime);
         Controls.Add(radMonthly);
         Controls.Add(radWeekly);
@@ -375,4 +400,6 @@ partial class ScheduleRestartsView
     private Label lblServerMustBeStoppedMessage;
     private CheckBox chkEnableScheduledRestarts;
     private Label lblTimeLeft;
+    private CheckBox chkStartWithServer;
+    private Label lblOr;
 }

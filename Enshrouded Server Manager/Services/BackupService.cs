@@ -223,7 +223,32 @@ public class BackupService : IBackupService
             return RestoreBackupFromZip(backupFilePath, saveDirectory);
         }
 
+        if (_fileSystemService.DirectoryExists(backupFilePath))
+        {
+            return RestoreBackupFromLatestZip(backupFilePath, saveDirectory);
+        }
+
         return RestoreBackupFromSaveFile(backupFilePath, saveDirectory);
+    }
+
+    private bool RestoreBackupFromLatestZip(string backupFilePath, string saveDirectory)
+    {
+        try
+        {
+            var directory = new DirectoryInfo(backupFilePath);
+            var files = directory.GetFiles("*.zip");
+            var newestFile = files.OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
+            if (newestFile != null)
+            {
+                return RestoreBackupFromZip(newestFile.FullName, saveDirectory);
+            }
+
+            return false;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
 
     private bool RestoreBackupFromSaveFile(string backupFilePath, string saveDirectory)

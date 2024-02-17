@@ -11,6 +11,7 @@ public interface IScheduleRestartsView
     event EventHandler StartTimeChanged;
 
     bool IsScheduledRestartEnabled { get; set; }
+    bool IsScheduledWithServerStart { get; set; }
     RestartFrequency RestartFrequency { get; set; }
     DateOnly StartDate { get; set; }
     TimeOnly StartTime { get; set; }
