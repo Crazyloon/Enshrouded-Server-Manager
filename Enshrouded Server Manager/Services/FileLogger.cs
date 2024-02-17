@@ -2,7 +2,7 @@
 public class FileLogger : IFileLogger
 {
     private readonly IFileSystemService _fileSystemService;
-    private int MB_5 = (1024 ^ 2) * 5;
+    private int MB_5 = (1024 * 1024) * 5;
     private int TWO_WEEKS = 14;
 
     public FileLogger(IFileSystemService fileSystemService)
@@ -75,6 +75,10 @@ public class FileLogger : IFileLogger
             while (fileSize > MB_5)
             {
                 fileName = Path.Join(ESMLogPath, $"{DateTime.Now.ToString("yyyy-MM-dd")}-{logType}{i}.txt");
+                if (!File.Exists(fileName))
+                {
+                    return fileName;
+                }
                 fileSize = _fileSystemService.GetFileSize(fileName);
 
                 i = i + 1;
