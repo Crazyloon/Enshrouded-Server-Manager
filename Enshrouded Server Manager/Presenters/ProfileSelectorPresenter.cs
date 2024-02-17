@@ -17,7 +17,7 @@ public class ProfileSelectorPresenter
     private readonly IFileSystemService _fileSystemService;
     private readonly IMessageBoxService _messageBox;
     private readonly IEnshroudedServerService _server;
-    private readonly IFileLogger _logger;
+    private readonly IFileLoggerService _logger;
 
     private BindingList<ServerProfile>? _profiles;
 
@@ -29,7 +29,7 @@ public class ProfileSelectorPresenter
         IFileSystemService fileSystemManager,
         IMessageBoxService messageBox,
         IEnshroudedServerService server,
-        IFileLogger fileLogger,
+        IFileLoggerService fileLogger,
         BindingList<ServerProfile>? serverProfiles)
     {
         _profileSelectorView = profileSelectorView;

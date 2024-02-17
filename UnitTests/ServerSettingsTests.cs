@@ -21,7 +21,7 @@ public class ServerSettingsTests
     private IDiscordService _discordService;
     private IBackupService _backupService;
     private IEventAggregator _eventAggregator;
-    private IFileLogger _logger;
+    private IFileLoggerService _logger;
 
     private ServerProfile _serverProfile;
     private ProfileSelectedMessage _profileSelectedMessage;
@@ -53,7 +53,7 @@ public class ServerSettingsTests
         _discordService = Substitute.For<IDiscordService>();
         _backupService = Substitute.For<IBackupService>();
         _eventAggregator = Substitute.For<IEventAggregator>();
-        _logger = Substitute.For<IFileLogger>();
+        _logger = Substitute.For<IFileLoggerService>();
 
         // Setup for most tests requires a selected profile
         _serverProfile = new ServerProfile() { Name = "TestServer" };

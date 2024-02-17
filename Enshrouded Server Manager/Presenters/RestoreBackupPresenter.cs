@@ -15,7 +15,7 @@ public class RestoreBackupPresenter
     private readonly IBackupService _backupService;
     private readonly IEnshroudedServerService _server;
     private readonly IMessageBoxService _messageBox;
-    private readonly IFileLogger _logger;
+    private readonly IFileLoggerService _logger;
 
     private BindingList<ServerProfile>? _profiles;
 
@@ -27,7 +27,7 @@ public class RestoreBackupPresenter
         IBackupService backupService,
         IEnshroudedServerService server,
         IMessageBoxService messageBox,
-        IFileLogger fileLogger,
+        IFileLoggerService fileLogger,
         BindingList<ServerProfile>? profiles)
     {
         _restoreBackupView = view;

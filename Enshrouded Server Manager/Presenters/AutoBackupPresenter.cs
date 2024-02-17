@@ -16,7 +16,7 @@ public class AutoBackupPresenter
     private readonly IFileSystemService _fileSystemService;
     private readonly IMessageBoxService _messageBox;
     private readonly IBackupService _backupService;
-    private readonly IFileLogger _logger;
+    private readonly IFileLoggerService _logger;
 
     private BindingList<ServerProfile>? _profiles;
 
@@ -27,7 +27,7 @@ public class AutoBackupPresenter
         IFileSystemService fileSystemManager,
         IMessageBoxService messageBox,
         IBackupService backupService,
-        IFileLogger fileLogger,
+        IFileLoggerService fileLogger,
         BindingList<ServerProfile>? serverProfiles)
     {
         _autoBackupView = autoBackupView;

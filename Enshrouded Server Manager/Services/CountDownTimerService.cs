@@ -8,7 +8,7 @@ namespace Enshrouded_Server_Manager.Services;
 public class CountDownTimer : IDisposable
 {
     // TODO: Add these as dependencies via constructor
-    private IFileLogger logger = new FileLogger(new FileSystemService());
+    private IFileLoggerService logger = new FileLogger(new FileSystemService());
 
     private Stopwatch _stpWatch = new Stopwatch();
     private System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();

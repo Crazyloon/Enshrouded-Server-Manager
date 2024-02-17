@@ -1,5 +1,5 @@
 ﻿namespace Enshrouded_Server_Manager.Services;
-public interface IFileLogger
+public interface IFileLoggerService
 {
     void LogInfo(string infoMessage);
     void LogWarning(string warningMessage);

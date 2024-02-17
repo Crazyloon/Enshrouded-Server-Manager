@@ -20,7 +20,8 @@ public class AdminPanelPresenter
     private readonly IProfileService _profileService;
     private readonly IDiscordService _discordOutputService;
     private readonly IBackupService _backupService;
-    private readonly IFileLogger _logger;
+    private readonly IFileLoggerService _logger;
+    private readonly IScheduledRestartService _scheduledRestartService;
 
     Dictionary<string, CountDownTimer> _restartTimers;
     private ServerProfile _selectedProfile;
@@ -38,7 +39,8 @@ public class AdminPanelPresenter
         IProfileService profileService,
         IDiscordService discordOutputService,
         IBackupService backupService,
-        IFileLogger fileLogger,
+        IFileLoggerService fileLogger,
+        IScheduledRestartService scheduledRestartService,
         Dictionary<string, CountDownTimer> restartTimers)
     {
         _adminPanelView = adminPanelView;
@@ -53,6 +55,7 @@ public class AdminPanelPresenter
         _discordOutputService = discordOutputService;
         _backupService = backupService;
         _logger = fileLogger;
+        _scheduledRestartService = scheduledRestartService;
         _restartTimers = restartTimers;
 
         adminPanelView.AdminPanelLoaded += (s, e) => OnAdminPanelLoaded();
@@ -68,6 +71,26 @@ public class AdminPanelPresenter
         adminPanelView.OpenLogFolderButtonClicked += (s, e) => OnOpenLogFolderButtonClicked();
 
         _eventAggregator.Subscribe<ProfileSelectedMessage>(p => OnProfileSelected(p.SelectedProfile));
+        _eventAggregator.Subscribe<ServerStartedMessage>(p => OnServerStarted(p.ServerProfile));
+        _eventAggregator.Subscribe<ServerStoppedMessage>(p => OnServerStopped(p.ServerProfile));
+    }
+
+    private void OnServerStarted(ServerProfile serverProfile)
+    {
+        // Handle button visibility
+        _adminPanelView.StartServerButtonVisible = false;
+        _adminPanelView.StopServerButtonVisible = true;
+        // TODO: Instead of hiding the button, we can disable it
+        // Would need to set some styles for a disabled state for this to make sense
+        //_adminPanelView.UpdateServerButtonEnabled = false;
+        _adminPanelView.UpdateServerButtonVisible = false;
+    }
+
+    private void OnServerStopped(ServerProfile serverProfile)
+    {
+        _adminPanelView.StartServerButtonVisible = true;
+        _adminPanelView.StopServerButtonVisible = false;
+        _adminPanelView.UpdateServerButtonVisible = true;
     }
 
     private async void OnAdminPanelLoaded()
@@ -117,27 +140,21 @@ public class AdminPanelPresenter
                 return;
             }
 
-            _enshroudedServerService.Start(gameServerExe, _selectedProfile.Name);
-            _enshroudedServerService.StartScheduledRestarts(_selectedProfile);
+            _enshroudedServerService.Start(gameServerExe, _selectedProfile);
+            _scheduledRestartService.StartScheduledRestarts(_selectedProfile);
 
 
-            // Begin AutoBackup after waiting 5 seconds to ensure the server process has started
             if (_enshroudedServerService.IsRunning(_selectedProfile.Name))
             {
-                if (_selectedProfile is not null
-                    && _selectedProfile.AutoBackup is not null
+                // Begin AutoBackup
+                if (_selectedProfile.AutoBackup is not null
                     && _selectedProfile.AutoBackup.Enabled)
                 {
                     var saveGameFolder = Path.Join(serverProfilePath, Constants.Paths.GAME_SERVER_SAVE_DIRECTORY);
                     _backupService.StartAutoBackup(saveGameFolder, _selectedProfile.Name, _selectedProfile.AutoBackup.Interval, _selectedProfile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
                 }
 
-                _adminPanelView.StartServerButtonVisible = false;
-                _adminPanelView.StopServerButtonVisible = true;
-                // TODO: Instead of hiding the button, we can disable it
-                // Would need to set some styles for a disabled state for this to make sense
-                //_adminPanelView.UpdateServerButtonEnabled = false;
-                _adminPanelView.UpdateServerButtonVisible = false;
+                _eventAggregator.Publish(new ServerStartedMessage(_selectedProfile));
             }
 
             // discord Output
@@ -174,11 +191,7 @@ public class AdminPanelPresenter
     private void OnStopServerButtonClicked()
     {
         string selectedProfileName = _selectedProfile.Name;
-        _enshroudedServerService.Stop(selectedProfileName);
-
-        _adminPanelView.StartServerButtonVisible = true;
-        _adminPanelView.StopServerButtonVisible = false;
-        _adminPanelView.UpdateServerButtonVisible = true;
+        _enshroudedServerService.Stop(_selectedProfile);
 
         // Stop any running auto restart timers
         _restartTimers.TryGetValue(selectedProfileName, out var timer);

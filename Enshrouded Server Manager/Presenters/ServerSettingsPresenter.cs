@@ -12,7 +12,7 @@ public class ServerSettingsPresenter
     private readonly IMessageBoxService _messageBox;
     private readonly IEnshroudedServerService _server;
     private readonly IEventAggregator _eventAggregator;
-    private readonly IFileLogger _logger;
+    private readonly IFileLoggerService _logger;
 
     private ServerProfile _serverProfile;
 
@@ -21,7 +21,7 @@ public class ServerSettingsPresenter
         IServerSettingsService serverSettingsService,
         IFileSystemService fileSystemManager,
         IEnshroudedServerService server,
-        IFileLogger fileLogger)
+        IFileLoggerService fileLogger)
     {
         _serverSettingsView = serverSettingsView;
         _eventAggregator = eventAggregator;

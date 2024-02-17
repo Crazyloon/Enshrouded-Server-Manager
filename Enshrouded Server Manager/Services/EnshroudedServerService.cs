@@ -1,4 +1,3 @@
-using Enshrouded_Server_Manager.Enums;
 using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Models;
 using Newtonsoft.Json;
@@ -11,20 +10,14 @@ public class EnshroudedServerService : IEnshroudedServerService
 {
     private readonly IFileSystemService _fileSystemService;
     private readonly IEventAggregator _eventAggregator;
-    private readonly IFileLogger _logger;
-    Dictionary<string, CountDownTimer> _restartTimers;
 
     private const string SERVER_PROCESS_NAME = "enshrouded_server";
 
     public EnshroudedServerService(IFileSystemService fsm,
-        IFileLogger fileLogger,
-        IEventAggregator eventAggregator,
-        Dictionary<string, CountDownTimer> restartTimers)
+        IEventAggregator eventAggregator)
     {
         _fileSystemService = fsm;
-        _logger = fileLogger;
         _eventAggregator = eventAggregator;
-        _restartTimers = restartTimers;
     }
 
     [DllImport("user32.dll")]
@@ -57,27 +50,29 @@ public class EnshroudedServerService : IEnshroudedServerService
     /// <summary>
     /// Start Gameserver
     /// </summary>
-    public void Start(string pathServerExe, string selectedProfileName)
+    public void Start(string pathServerExe, ServerProfile profile)
     {
 
         try
         {
             Process p = Process.Start(pathServerExe);
+
+            _eventAggregator.Publish(new ServerStartedMessage(profile));
             //Thread.Sleep(10000);
             //SetWindowText(p.MainWindowHandle, ServerName);
             int pid = p.Id;
 
-            var serverCachePath = Path.Join(Constants.Paths.CACHE_DIRECTORY, selectedProfileName);
+            var serverCachePath = Path.Join(Constants.Paths.CACHE_DIRECTORY, profile.Name);
 
             _fileSystemService.CreateDirectory(serverCachePath);
             EnshroudedServerProcess json = new EnshroudedServerProcess()
             {
                 Id = pid,
-                Profile = selectedProfileName
+                Profile = profile.Name
             };
 
             var output = JsonConvert.SerializeObject(json);
-            var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, selectedProfileName, Constants.Files.PID_JSON);
+            var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, profile.Name, Constants.Files.PID_JSON);
             _fileSystemService.WriteFile(pidJsonFile, output);
         }
         catch (Exception ex)
@@ -86,177 +81,6 @@ public class EnshroudedServerService : IEnshroudedServerService
                 Constants.Errors.SERVER_START_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             return;
-        }
-    }
-
-    public CountDownTimer? StartScheduledRestarts(ServerProfile serverProfile)
-    {
-        // get the server profile auto restart settings
-        var autoRestart = serverProfile.ScheduleRestarts;
-        if (autoRestart is null || !autoRestart.Enabled)
-        {
-            return null;
-        }
-
-        // calculate TimeSpan from now until the start date and time
-        var now = DateTime.Now;
-        var startDate = new DateTime(autoRestart.StartDate.Year, autoRestart.StartDate.Month, autoRestart.StartDate.Day, autoRestart.StartTime.Hour, autoRestart.StartTime.Minute, 0);
-
-        if (startDate < now || serverProfile.ScheduleRestarts.RestartFrequency == RestartFrequency.None)
-        {
-            return null;
-        }
-
-        var nextRestart = startDate - now;
-
-        // Make sure no timer for this server already exists
-        if (_restartTimers.ContainsKey(serverProfile.Name))
-        {
-            var dicTimer = _restartTimers[serverProfile.Name];
-            dicTimer.EndTimer();
-            dicTimer = null;
-            _restartTimers.Remove(serverProfile.Name);
-        }
-
-        // start a countdown timer for the next restart
-        var timer = new CountDownTimer(nextRestart);
-        timer.CountDownFinished += OnCountDownFinished(serverProfile, timer);
-        timer.TimeChanged += () => _eventAggregator.Publish(new ServerResetTimerUpdatedMessage(serverProfile, timer.TimeLeftStr));
-
-        timer.Tag = "TimerTag: Initial";
-        timer.Start();
-
-        _restartTimers.Add(serverProfile.Name, timer);
-        return timer;
-    }
-
-    private Action OnCountDownFinished(ServerProfile profile, CountDownTimer timer)
-    {
-        return () =>
-        {
-            var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, profile.Name);
-            _fileSystemService.CreateDirectory(serverProfilePath);
-            var gameServerExe = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_EXE);
-
-            // Only restart the server if it's the right day of the week
-            if (profile.ScheduleRestarts.DaysOfWeek.Length > 0
-            && !profile.ScheduleRestarts.DaysOfWeek.Contains(DateTime.Now.DayOfWeek))
-            {
-                return;
-            }
-
-            Stop(profile.Name);
-
-            if (profile.RestoreBackup.RestoreOnScheduledRestart)
-            {
-                RestoreBackup(profile.Name, profile.RestoreBackup.BackupFilePath);
-            }
-
-            Start(gameServerExe, profile.Name);
-
-            // check the restart settings to see if it should begin the timer again
-            var nextRestart = CalculateNextRestart(profile.ScheduleRestarts);
-            var nextTimeSpan = nextRestart - DateTime.Now;
-
-            // if the nextTimeSpan is in the past, stop the timer and dispose
-            if (nextTimeSpan.TotalMilliseconds <= 0)
-            {
-                _logger.LogInfo("CountDownTimer: OnCountDownFinished: nextTimeSpan is in the past. Timer will not be restarted.");
-                timer.EndTimer();
-                return;
-            }
-
-            // End existing timer and start a new one
-            _restartTimers.Remove(profile.Name);
-            timer.EndTimer();
-            timer = null;
-
-            timer = new CountDownTimer(nextTimeSpan);
-            timer.CountDownFinished += OnCountDownFinished(profile, timer);
-            timer.TimeChanged += () => _eventAggregator.Publish(new ServerResetTimerUpdatedMessage(profile, timer.TimeLeftStr));
-            timer.Tag = $"{DateTime.Now.ToString("dd/MM/yyyyThh:mm:ss")}-CountDownFinished";
-
-            _logger.LogInfo($"TimerTag: {timer.Tag}");
-
-            _restartTimers.Add(profile.Name, timer);
-            timer.Start();
-        };
-    }
-
-    private DateTime CalculateNextRestart(ScheduleRestarts autoRestart)
-    {
-        var now = DateTime.Now;
-        var nextRestart = now;
-
-        switch (autoRestart.RestartFrequency)
-        {
-            case RestartFrequency.Hourly:
-                nextRestart = now.AddHours(autoRestart.RecurrenceInterval);
-                break;
-            case RestartFrequency.Daily:
-                nextRestart = now.AddDays(autoRestart.RecurrenceInterval);
-                break;
-            case RestartFrequency.Weekly:
-                nextRestart = now.AddDays(7 * autoRestart.RecurrenceInterval);
-                break;
-            case RestartFrequency.Monthly:
-                nextRestart = now.AddMonths(autoRestart.RecurrenceInterval);
-                break;
-            default:
-                break;
-        }
-
-        return nextRestart;
-    }
-
-    private bool RestoreBackup(string profileName, string backupFilePath)
-    {
-        var saveDirectory = Path.Combine(Constants.Paths.SERVER_DIRECTORY, profileName, Constants.Paths.ENSHROUDED_SAVE_GAME_DIRECTORY);
-
-        if (backupFilePath.EndsWith(".zip"))
-        {
-            return RestoreBackupFromZip(backupFilePath, saveDirectory);
-        }
-
-        return RestoreBackupFromSaveFile(backupFilePath, saveDirectory);
-    }
-
-    private bool RestoreBackupFromSaveFile(string backupFilePath, string saveDirectory)
-    {
-        try
-        {
-            var saveFile = Path.Combine(saveDirectory, Constants.SaveSlots.SLOT1);
-            _fileSystemService.CopyFile(backupFilePath, saveFile, true);
-
-            return true;
-        }
-        catch (Exception)
-        {
-            return false;
-        }
-    }
-
-    private bool RestoreBackupFromZip(string backupFilePath, string saveDirectory)
-    {
-        try
-        {
-            // extract the zipped files to a temp directory
-            var tempDir = Path.Combine(saveDirectory, "temp");
-            _fileSystemService.ExtractZipToDirectory(backupFilePath, tempDir, true);
-
-            // copy the save file in the temp directory to the savegame directory
-            var tempFile = Path.Combine(tempDir, Constants.SaveSlots.SLOT1);
-            var saveFile = Path.Combine(saveDirectory, Constants.SaveSlots.SLOT1);
-            _fileSystemService.CopyFile(tempFile, saveFile, true);
-
-            // delete temp
-            _fileSystemService.DeleteDirectory(tempDir);
-
-            return true;
-        }
-        catch (Exception)
-        {
-            return false;
         }
     }
 
@@ -282,9 +106,9 @@ public class EnshroudedServerService : IEnshroudedServerService
     /// <summary>
     /// Stop Gameserver
     /// </summary>
-    public void Stop(string selectedProfileName)
+    public void Stop(ServerProfile profile)
     {
-        var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, selectedProfileName, Constants.Files.PID_JSON);
+        var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, profile.Name, Constants.Files.PID_JSON);
         if (!_fileSystemService.FileExists(pidJsonFile))
         {
             return;
@@ -309,6 +133,8 @@ public class EnshroudedServerService : IEnshroudedServerService
                 Thread.Sleep(2000);
                 FreeConsole();
                 SetConsoleCtrlHandler(null, false);
+
+                _eventAggregator.Publish(new ServerStoppedMessage(profile));
             }
         }
         catch (ArgumentException)

@@ -1,5 +1,5 @@
 ﻿namespace Enshrouded_Server_Manager.Services;
-public class FileLogger : IFileLogger
+public class FileLogger : IFileLoggerService
 {
     private readonly IFileSystemService _fileSystemService;
     private int MB_5 = (1024 * 1024) * 5;

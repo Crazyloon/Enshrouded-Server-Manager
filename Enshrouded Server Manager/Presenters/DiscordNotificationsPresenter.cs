@@ -14,7 +14,7 @@ public class DiscordNotificationsPresenter
     private readonly IMessageBoxService _messageBoxService;
     private readonly IProfileService _profileService;
     private readonly IFileSystemService _fileSystemService;
-    private readonly IFileLogger _logger;
+    private readonly IFileLoggerService _logger;
 
     public DiscordNotificationsPresenter(IDiscordNotificationsView discordNotificationsView,
         IEventAggregator eventAggregator,
@@ -22,7 +22,7 @@ public class DiscordNotificationsPresenter
         IMessageBoxService messageBoxService,
         IProfileService profileService,
         IFileSystemService fileSystemService,
-        IFileLogger fileLogger)
+        IFileLoggerService fileLogger)
     {
         _discordNotificationsView = discordNotificationsView;
         _eventAggregator = eventAggregator;
