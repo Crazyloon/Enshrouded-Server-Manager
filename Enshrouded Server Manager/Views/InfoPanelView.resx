@@ -123,6 +123,11 @@
 v0.6.2
 - Servers can now be configured for resets
    while the server is running
+- Restart Schedule can now be started
+   when the server starts
+- Restoring a backup from a directory
+   instead of a file will attempt to restore
+   from the latest zip file in that directory
 - Fixed an issue where creating new log 
    files would crash the applicaiton
 - Fixed display bugs with restart timer
