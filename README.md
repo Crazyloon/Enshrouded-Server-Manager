@@ -6,7 +6,7 @@
 
 This is a tool to help you manage your Dedicated Enshrouded servers.
 
-Check out [the 0.6.1 pre-release](https://github.com/Crazyloon/Enshrouded-Server-Manager/releases/tag/v0.6.1-PreRelease) with scheduled-restarts and automatic backup-restore.
+Check out [the 0.6.2 pre-release](https://github.com/Crazyloon/Enshrouded-Server-Manager/releases/tag/v0.6.2-PreRelease) with scheduled-restarts and automatic backup-restore.
 
 ## Select a server profile, install the server, and start hosting.
 ![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/d7c6b539-5fc2-4722-ab5b-e9291a76cf35)
