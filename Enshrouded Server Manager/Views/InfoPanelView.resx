@@ -120,16 +120,20 @@
   <data name="lblNewsText.Text" xml:space="preserve">
     <value>Changes:
 
-v0.5.0
-- Moved profile management inline
-   with the profile selector
-- Major background updates to the
-   application design for testability
+v0.6.2
+- Servers can now be configured for resets
+   while the server is running
+- Restart Schedule can now be started
+   when the server starts
+- Restoring a backup from a directory
+   instead of a file will attempt to restore
+   from the latest zip file in that directory
+- Fixed an issue where creating new log 
+   files would crash the applicaiton
+- Fixed display bugs with restart timer
 
-v0.4.2
-- Fixed an issue with server names not
-   allowing spaces
-- Fixed an issue with button visibility
-   when updating a server</value>
+v0.6.1
+- Added a logging service for info/error
+- Fixed an issue with server reset timers</value>
   </data>
 </root>

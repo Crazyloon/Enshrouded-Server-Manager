@@ -14,17 +14,20 @@ public class BackupService : IBackupService
     private readonly IEnshroudedServerService _server;
     private readonly IDiscordService _discordService;
 
+    Dictionary<string, CountDownTimer> _restartTimers;
     private string _dateTimeString;
 
     public BackupService(IFileSystemService fsm,
         IEnshroudedServerService server,
         IEventAggregator eventAggregator,
-        IDiscordService discordService)
+        IDiscordService discordService,
+        Dictionary<string, CountDownTimer> restartTimers)
     {
         _fileSystemService = fsm;
         _server = server;
         _eventAggregator = eventAggregator;
         _discordService = discordService;
+        _restartTimers = restartTimers;
     }
 
     /// <summary>
@@ -220,7 +223,32 @@ public class BackupService : IBackupService
             return RestoreBackupFromZip(backupFilePath, saveDirectory);
         }
 
+        if (_fileSystemService.DirectoryExists(backupFilePath))
+        {
+            return RestoreBackupFromLatestZip(backupFilePath, saveDirectory);
+        }
+
         return RestoreBackupFromSaveFile(backupFilePath, saveDirectory);
+    }
+
+    private bool RestoreBackupFromLatestZip(string backupFilePath, string saveDirectory)
+    {
+        try
+        {
+            var directory = new DirectoryInfo(backupFilePath);
+            var files = directory.GetFiles("*.zip");
+            var newestFile = files.OrderByDescending(f => f.LastWriteTime).FirstOrDefault();
+            if (newestFile != null)
+            {
+                return RestoreBackupFromZip(newestFile.FullName, saveDirectory);
+            }
+
+            return false;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
 
     private bool RestoreBackupFromSaveFile(string backupFilePath, string saveDirectory)

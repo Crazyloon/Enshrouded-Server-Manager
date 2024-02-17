@@ -14,13 +14,15 @@ public class DiscordNotificationsPresenter
     private readonly IMessageBoxService _messageBoxService;
     private readonly IProfileService _profileService;
     private readonly IFileSystemService _fileSystemService;
+    private readonly IFileLoggerService _logger;
 
     public DiscordNotificationsPresenter(IDiscordNotificationsView discordNotificationsView,
         IEventAggregator eventAggregator,
         IDiscordService discordService,
         IMessageBoxService messageBoxService,
         IProfileService profileService,
-        IFileSystemService fileSystemService)
+        IFileSystemService fileSystemService,
+        IFileLoggerService fileLogger)
     {
         _discordNotificationsView = discordNotificationsView;
         _eventAggregator = eventAggregator;
@@ -28,6 +30,7 @@ public class DiscordNotificationsPresenter
         _messageBoxService = messageBoxService;
         _profileService = profileService;
         _fileSystemService = fileSystemService;
+        _logger = fileLogger;
 
         _discordNotificationsView.DiscordSettingsLoad += OnLoad;
         _discordNotificationsView.SaveDiscordNotificationsSettingsClicked += OnSaveDiscordNotificationsSettingsClicked;

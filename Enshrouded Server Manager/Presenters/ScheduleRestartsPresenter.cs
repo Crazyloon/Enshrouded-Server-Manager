@@ -16,7 +16,10 @@ public class ScheduleRestartsPresenter
     private readonly IBackupService _backupService;
     private readonly IMessageBoxService _messageBox;
     private readonly IFileSystemService _fileSystemService;
+    private readonly IFileLoggerService _logger;
+    private readonly IScheduledRestartService _scheduledRestartService;
 
+    Dictionary<string, CountDownTimer> _restartTimers;
     private ServerProfile _selectedProfile;
     private BindingList<ServerProfile>? _profiles;
 
@@ -27,6 +30,9 @@ public class ScheduleRestartsPresenter
         IBackupService backupService,
         IMessageBoxService messageBox,
         IFileSystemService fileSystemService,
+        IFileLoggerService fileLogger,
+        IScheduledRestartService scheduledRestartService,
+        Dictionary<string, CountDownTimer> restartTimers,
         BindingList<ServerProfile>? profiles)
     {
         _view = scheduleRestartsView;
@@ -35,6 +41,9 @@ public class ScheduleRestartsPresenter
         _backupService = backupService;
         _messageBox = messageBox;
         _fileSystemService = fileSystemService;
+        _logger = fileLogger;
+        _scheduledRestartService = scheduledRestartService;
+        _restartTimers = restartTimers;
         _profiles = profiles;
 
         _view.SaveSettings += (sender, e) => OnSaveSettingsClicked();
@@ -47,7 +56,6 @@ public class ScheduleRestartsPresenter
 
     private void OnServerResetTimerUpdated(ServerProfile serverProfile, string timeLeft)
     {
-        _view.TimeLeft = "Next Restart: N/A";
         if (serverProfile == _selectedProfile)
         {
             _view.TimeLeft = $"Next Restart: {timeLeft}";
@@ -88,25 +96,30 @@ public class ScheduleRestartsPresenter
         _view.DaysOfWeek = new DayOfWeek[] { };
         _view.RecurrenceInterval = 0;
         _view.IsScheduledRestartEnabled = false;
+        _view.IsScheduledWithServerStart = false;
     }
 
     private void OnSaveSettingsClicked()
     {
         // Ensure valid settings
-        if (_view.StartDate < DateOnly.FromDateTime(DateTime.Now))
+        if (_view.IsScheduledRestartEnabled && !_view.IsScheduledWithServerStart)
         {
-            _messageBox.Show(Constants.Errors.SCHEDULED_RESTARTS_STARTDATE_ERROR_MESSAGE, Constants.Errors.SCHEDULED_RESTARTS_STARTDATE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            _view.StartDate = DateOnly.FromDateTime(DateTime.Now);
 
-            return;
-        }
+            if (_view.StartDate < DateOnly.FromDateTime(DateTime.Now))
+            {
+                _messageBox.Show(Constants.Errors.SCHEDULED_RESTARTS_STARTDATE_ERROR_MESSAGE, Constants.Errors.SCHEDULED_RESTARTS_STARTDATE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _view.StartDate = DateOnly.FromDateTime(DateTime.Now);
 
-        if (_view.StartTime < TimeOnly.FromDateTime(DateTime.Now))
-        {
-            _messageBox.Show(Constants.Errors.SCHEDULED_RESTARTS_STARTTIME_ERROR_MESSAGE, Constants.Errors.SCHEDULED_RESTARTS_STARTTIME_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            _view.StartTime = TimeOnly.FromDateTime(DateTime.Now);
+                return;
+            }
 
-            return;
+            if (_view.StartTime < TimeOnly.FromDateTime(DateTime.Now))
+            {
+                _messageBox.Show(Constants.Errors.SCHEDULED_RESTARTS_STARTTIME_ERROR_MESSAGE, Constants.Errors.SCHEDULED_RESTARTS_STARTTIME_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _view.StartTime = TimeOnly.FromDateTime(DateTime.Now);
+
+                return;
+            }
         }
 
         // Apply the settings to the profile
@@ -119,7 +132,8 @@ public class ScheduleRestartsPresenter
                 StartTime = TimeOnly.FromDateTime(DateTime.Now),
                 DaysOfWeek = new DayOfWeek[] { },
                 RecurrenceInterval = 0,
-                Enabled = false
+                Enabled = false,
+                StartScheduleWithServer = false
             };
         }
 
@@ -129,11 +143,16 @@ public class ScheduleRestartsPresenter
         _selectedProfile.ScheduleRestarts.DaysOfWeek = _view.DaysOfWeek;
         _selectedProfile.ScheduleRestarts.RecurrenceInterval = _view.RecurrenceInterval;
         _selectedProfile.ScheduleRestarts.Enabled = _view.IsScheduledRestartEnabled;
+        _selectedProfile.ScheduleRestarts.StartScheduleWithServer = _view.IsScheduledWithServerStart;
 
         // write the updated profile to the json file
-        _fileSystemService.WriteFile(
-                Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON),
+        _fileSystemService.WriteFile(Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON),
                 JsonConvert.SerializeObject(_profiles, JsonSettings.Default));
+
+        if (_server.IsRunning(_selectedProfile.Name))
+        {
+            _scheduledRestartService.StartScheduledRestarts(_selectedProfile);
+        }
 
         _view.AnimateSaveButton();
     }
@@ -162,5 +181,16 @@ public class ScheduleRestartsPresenter
         _view.DaysOfWeek = _selectedProfile.ScheduleRestarts.DaysOfWeek;
         _view.RecurrenceInterval = _selectedProfile.ScheduleRestarts.RecurrenceInterval;
         _view.IsScheduledRestartEnabled = _selectedProfile.ScheduleRestarts.Enabled;
+        _view.IsScheduledWithServerStart = _selectedProfile.ScheduleRestarts.StartScheduleWithServer;
+
+        // update the timer if necessary
+        if (_restartTimers.ContainsKey(_selectedProfile.Name))
+        {
+            _view.TimeLeft = $"Next Restart: {_restartTimers[_selectedProfile.Name].TimeLeftStr}";
+        }
+        else
+        {
+            _view.TimeLeft = "Next Restart: N/A";
+        }
     }
 }

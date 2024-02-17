@@ -7,6 +7,9 @@ namespace Enshrouded_Server_Manager.Services;
 
 public class CountDownTimer : IDisposable
 {
+    // TODO: Add these as dependencies via constructor
+    private IFileLoggerService logger = new FileLogger(new FileSystemService());
+
     private Stopwatch _stpWatch = new Stopwatch();
     private System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
     private TimeSpan _max = TimeSpan.FromMilliseconds(30000);
@@ -14,6 +17,7 @@ public class CountDownTimer : IDisposable
 
     public Action TimeChanged;
     public Action CountDownFinished;
+    public string Tag = "";
 
     public bool IsRunning => timer.Enabled;
 
@@ -35,6 +39,7 @@ public class CountDownTimer : IDisposable
 
         if (_mustStop)
         {
+            logger.LogInfo("CountDownTimer: TimerTick: CountDownFinished");
             CountDownFinished?.Invoke();
             _stpWatch.Stop();
             timer.Enabled = false;
@@ -43,18 +48,21 @@ public class CountDownTimer : IDisposable
 
     public CountDownTimer(int min, int sec)
     {
+        logger.LogInfo("CountDownTimer: Created");
         SetTime(min, sec);
         Init();
     }
 
     public CountDownTimer(TimeSpan ts)
     {
+        logger.LogInfo("CountDownTimer: Created");
         SetTime(ts);
         Init();
     }
 
     public CountDownTimer()
     {
+        logger.LogInfo("CountDownTimer: Created");
         Init();
     }
 
@@ -86,12 +94,15 @@ public class CountDownTimer : IDisposable
 
     public void EndTimer()
     {
+        logger.LogInfo("CountDownTimer: EndTimer");
+
         timer.Stop();
         _stpWatch.Stop();
 
         _stpWatch.Reset();
         _max = TimeSpan.FromMilliseconds(0);
 
+        timer.Enabled = false;
         TimeChanged?.Invoke();
 
         Dispose();

@@ -11,20 +11,24 @@ public class ServerSettingsPresenter
     private readonly IFileSystemService _fileSystemService;
     private readonly IMessageBoxService _messageBox;
     private readonly IEnshroudedServerService _server;
-    private ServerProfile _serverProfile;
     private readonly IEventAggregator _eventAggregator;
+    private readonly IFileLoggerService _logger;
+
+    private ServerProfile _serverProfile;
 
     public ServerSettingsPresenter(IServerSettingsView serverSettingsView,
         IEventAggregator eventAggregator,
         IServerSettingsService serverSettingsService,
         IFileSystemService fileSystemManager,
-        IEnshroudedServerService server)
+        IEnshroudedServerService server,
+        IFileLoggerService fileLogger)
     {
         _serverSettingsView = serverSettingsView;
         _eventAggregator = eventAggregator;
         _serverSettingsService = serverSettingsService;
         _fileSystemService = fileSystemManager;
         _server = server;
+        _logger = fileLogger;
 
         _serverSettingsView.ShowPasswordButtonClicked += (sender, e) => TogglePasswordVisiblity();
         _serverSettingsView.SaveChangesButtonClicked += (sender, e) => SaveServerSettings();

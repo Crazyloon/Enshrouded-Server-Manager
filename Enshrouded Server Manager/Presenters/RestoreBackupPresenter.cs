@@ -15,6 +15,7 @@ public class RestoreBackupPresenter
     private readonly IBackupService _backupService;
     private readonly IEnshroudedServerService _server;
     private readonly IMessageBoxService _messageBox;
+    private readonly IFileLoggerService _logger;
 
     private BindingList<ServerProfile>? _profiles;
 
@@ -26,6 +27,7 @@ public class RestoreBackupPresenter
         IBackupService backupService,
         IEnshroudedServerService server,
         IMessageBoxService messageBox,
+        IFileLoggerService fileLogger,
         BindingList<ServerProfile>? profiles)
     {
         _restoreBackupView = view;
@@ -35,6 +37,7 @@ public class RestoreBackupPresenter
         _server = server;
         _messageBox = messageBox;
         _profiles = profiles;
+        _logger = fileLogger;
 
         _restoreBackupView.SelectFileToRestoreClicked += (sender, e) => OnSelectFileToRestoreClicked();
         _restoreBackupView.FileToRestoreSelected += (sender, e) => OnFileToRestoreSelected();
@@ -99,7 +102,8 @@ public class RestoreBackupPresenter
             return;
         }
 
-        if (_fileSystemService.FileExists(_restoreBackupView.RestoreFilePath))
+        if (_fileSystemService.FileExists(_restoreBackupView.RestoreFilePath)
+            || _fileSystemService.DirectoryExists(_restoreBackupView.RestoreFilePath))
         {
             _backupService.RestoreBackup(_selectedProfile.Name, _restoreBackupView.RestoreFilePath);
             _restoreBackupView.AnimateRestoreButton();
