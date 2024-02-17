@@ -50,7 +50,6 @@ public class ScheduleRestartsPresenter
 
     private void OnServerResetTimerUpdated(ServerProfile serverProfile, string timeLeft)
     {
-        _view.TimeLeft = "Next Restart: N/A";
         if (serverProfile == _selectedProfile)
         {
             _view.TimeLeft = $"Next Restart: {timeLeft}";
