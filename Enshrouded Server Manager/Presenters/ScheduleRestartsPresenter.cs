@@ -144,6 +144,7 @@ public class ScheduleRestartsPresenter
                 JsonConvert.SerializeObject(_profiles, JsonSettings.Default));
 
         _scheduledRestartService.StartScheduledRestarts(_selectedProfile);
+
         _view.AnimateSaveButton();
     }
 
@@ -175,7 +176,11 @@ public class ScheduleRestartsPresenter
         // update the timer if necessary
         if (_restartTimers.ContainsKey(_selectedProfile.Name))
         {
-            _view.TimeLeft = $"Next Restart: {_restartTimers[_selectedProfile.Name].TimeLeft}";
+            _view.TimeLeft = $"Next Restart: {_restartTimers[_selectedProfile.Name].TimeLeftStr}";
+        }
+        else
+        {
+            _view.TimeLeft = "Next Restart: N/A";
         }
     }
 }

@@ -123,8 +123,9 @@
 v0.6.2
 - Servers can now be configured for resets
    while the server is running
-- Fixed an issue where creating new log files
-   crashed the applicaiton.
+- Fixed an issue where creating new log 
+   files would crash the applicaiton
+- Fixed display bugs with restart timer
 
 v0.6.1
 - Added a logging service for info/error

@@ -288,9 +288,9 @@ partial class ScheduleRestartsView
         lblServerMustBeStoppedMessage.ForeColor = SystemColors.Info;
         lblServerMustBeStoppedMessage.Location = new Point(91, 350);
         lblServerMustBeStoppedMessage.Name = "lblServerMustBeStoppedMessage";
-        lblServerMustBeStoppedMessage.Size = new Size(276, 15);
+        lblServerMustBeStoppedMessage.Size = new Size(7, 30);
         lblServerMustBeStoppedMessage.TabIndex = 59;
-        lblServerMustBeStoppedMessage.Text = "Server must be stopped to begin scheduled restarts\r\n";
+        lblServerMustBeStoppedMessage.Text = "\r\n\r\n";
         lblServerMustBeStoppedMessage.TextAlign = ContentAlignment.MiddleCenter;
         // 
         // chkEnableScheduledRestarts
