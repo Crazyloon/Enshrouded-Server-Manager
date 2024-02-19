@@ -288,7 +288,7 @@ partial class ScheduleRestartsView
         // 
         lblServerMustBeStoppedMessage.AutoSize = true;
         lblServerMustBeStoppedMessage.ForeColor = SystemColors.Info;
-        lblServerMustBeStoppedMessage.Location = new Point(91, 360);
+        lblServerMustBeStoppedMessage.Location = new Point(91, 355);
         lblServerMustBeStoppedMessage.Name = "lblServerMustBeStoppedMessage";
         lblServerMustBeStoppedMessage.Size = new Size(7, 30);
         lblServerMustBeStoppedMessage.TabIndex = 59;

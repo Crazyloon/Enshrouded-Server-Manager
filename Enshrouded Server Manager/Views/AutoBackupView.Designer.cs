@@ -48,7 +48,7 @@ partial class AutoBackupView
         // 
         lblAutoBackupChangesInfo.AutoSize = true;
         lblAutoBackupChangesInfo.ForeColor = SystemColors.Info;
-        lblAutoBackupChangesInfo.Location = new Point(100, 360);
+        lblAutoBackupChangesInfo.Location = new Point(100, 355);
         lblAutoBackupChangesInfo.Name = "lblAutoBackupChangesInfo";
         lblAutoBackupChangesInfo.Size = new Size(255, 15);
         lblAutoBackupChangesInfo.TabIndex = 36;

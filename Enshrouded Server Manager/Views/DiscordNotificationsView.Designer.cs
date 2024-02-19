@@ -30,6 +30,8 @@ partial class DiscordNotificationsView
     {
         lblDiscordChanges = new Label();
         gbxDiscordNotificationSettings = new GroupBox();
+        txtBackupRestoreMsg = new TextBox();
+        chkNotifiBackupRestore = new CheckBox();
         chkImminent = new CheckBox();
         chkSoon = new CheckBox();
         chkShort = new CheckBox();
@@ -51,8 +53,6 @@ partial class DiscordNotificationsView
         lblDiscordWebhookUrl = new Label();
         btnSaveDiscordSettings = new Button();
         txtDiscordWebhookUrl = new TextBox();
-        txtBackupRestoreMsg = new TextBox();
-        chkNotifiBackupRestore = new CheckBox();
         gbxDiscordNotificationSettings.SuspendLayout();
         SuspendLayout();
         // 
@@ -60,7 +60,7 @@ partial class DiscordNotificationsView
         // 
         lblDiscordChanges.AutoSize = true;
         lblDiscordChanges.ForeColor = SystemColors.Info;
-        lblDiscordChanges.Location = new Point(100, 360);
+        lblDiscordChanges.Location = new Point(100, 355);
         lblDiscordChanges.Name = "lblDiscordChanges";
         lblDiscordChanges.Size = new Size(0, 15);
         lblDiscordChanges.TabIndex = 83;
@@ -93,6 +93,27 @@ partial class DiscordNotificationsView
         gbxDiscordNotificationSettings.TabIndex = 82;
         gbxDiscordNotificationSettings.TabStop = false;
         gbxDiscordNotificationSettings.Text = "Notifications";
+        // 
+        // txtBackupRestoreMsg
+        // 
+        txtBackupRestoreMsg.BackColor = Color.FromArgb(6, 6, 48);
+        txtBackupRestoreMsg.BorderStyle = BorderStyle.FixedSingle;
+        txtBackupRestoreMsg.ForeColor = SystemColors.Window;
+        txtBackupRestoreMsg.Location = new Point(127, 163);
+        txtBackupRestoreMsg.Name = "txtBackupRestoreMsg";
+        txtBackupRestoreMsg.Size = new Size(245, 23);
+        txtBackupRestoreMsg.TabIndex = 84;
+        txtBackupRestoreMsg.Text = "Backup restored!";
+        // 
+        // chkNotifiBackupRestore
+        // 
+        chkNotifiBackupRestore.AutoSize = true;
+        chkNotifiBackupRestore.Location = new Point(12, 166);
+        chkNotifiBackupRestore.Name = "chkNotifiBackupRestore";
+        chkNotifiBackupRestore.Size = new Size(114, 19);
+        chkNotifiBackupRestore.TabIndex = 83;
+        chkNotifiBackupRestore.Text = "Backup Restored";
+        chkNotifiBackupRestore.UseVisualStyleBackColor = true;
         // 
         // chkImminent
         // 
@@ -325,27 +346,6 @@ partial class DiscordNotificationsView
         txtDiscordWebhookUrl.Name = "txtDiscordWebhookUrl";
         txtDiscordWebhookUrl.Size = new Size(323, 23);
         txtDiscordWebhookUrl.TabIndex = 78;
-        // 
-        // txtBackupRestoreMsg
-        // 
-        txtBackupRestoreMsg.BackColor = Color.FromArgb(6, 6, 48);
-        txtBackupRestoreMsg.BorderStyle = BorderStyle.FixedSingle;
-        txtBackupRestoreMsg.ForeColor = SystemColors.Window;
-        txtBackupRestoreMsg.Location = new Point(127, 163);
-        txtBackupRestoreMsg.Name = "txtBackupRestoreMsg";
-        txtBackupRestoreMsg.Size = new Size(245, 23);
-        txtBackupRestoreMsg.TabIndex = 84;
-        txtBackupRestoreMsg.Text = "Backup restored!";
-        // 
-        // chkNotifiBackupRestore
-        // 
-        chkNotifiBackupRestore.AutoSize = true;
-        chkNotifiBackupRestore.Location = new Point(12, 166);
-        chkNotifiBackupRestore.Name = "chkNotifiBackupRestore";
-        chkNotifiBackupRestore.Size = new Size(114, 19);
-        chkNotifiBackupRestore.TabIndex = 83;
-        chkNotifiBackupRestore.Text = "Backup Restored";
-        chkNotifiBackupRestore.UseVisualStyleBackColor = true;
         // 
         // DiscordNotificationsView
         // 

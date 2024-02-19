@@ -209,7 +209,7 @@ partial class ServerSettingsView
         // 
         lblServerMustBeStoppedMessage.AutoSize = true;
         lblServerMustBeStoppedMessage.ForeColor = SystemColors.Info;
-        lblServerMustBeStoppedMessage.Location = new Point(115, 360);
+        lblServerMustBeStoppedMessage.Location = new Point(115, 355);
         lblServerMustBeStoppedMessage.Name = "lblServerMustBeStoppedMessage";
         lblServerMustBeStoppedMessage.Size = new Size(229, 15);
         lblServerMustBeStoppedMessage.TabIndex = 60;
