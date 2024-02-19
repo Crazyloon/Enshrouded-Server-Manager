@@ -51,7 +51,7 @@ public partial class MainForm : Form, IMainFormView
         var messageBoxService = new MessageBoxService();
         var logService = new FileLogger(fileSystemService);
         var discordOutputService = new DiscordService(fileSystemService, logService);
-        var enshroudedServerService = new EnshroudedServerService(fileSystemService, eventAggregator);
+        var enshroudedServerService = new EnshroudedServerService(fileSystemService, eventAggregator, logService);
         var versionManager = new VersionManagementService(fileSystemService, eventAggregator);
         var backupService = new BackupService(fileSystemService, enshroudedServerService, eventAggregator, discordOutputService, restartTimers);
         var profileService = new ProfileService(fileSystemService, messageBoxService);
