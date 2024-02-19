@@ -1,3 +1,4 @@
+using Enshrouded_Server_Manager.Enums;
 using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Presenters;
@@ -183,8 +184,8 @@ public class AdminPanelTests
 
         // Assert
         _enshroudedServerService.Received().Start(Arg.Any<string>(), Arg.Any<ServerProfile>());
-        _backupService.DidNotReceive().StartAutoBackup(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>());
-        _discordService.DidNotReceive().ServerOnline(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<string>());
+        _backupService.DidNotReceive().StartAutoBackup(Arg.Any<string>(), Arg.Any<ServerProfile>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>());
+        _discordService.DidNotReceive().SendMessage(Arg.Any<ServerProfile>(), Arg.Any<DiscordMessageType>());
         _scheduledRestartService.Received().StartScheduledRestarts(Arg.Any<ServerProfile>());
     }
 
@@ -222,8 +223,8 @@ public class AdminPanelTests
 
         // Assert
         _enshroudedServerService.Received().Start(Arg.Any<string>(), Arg.Any<ServerProfile>());
-        _backupService.Received().StartAutoBackup(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>());
-        _discordService.DidNotReceive().ServerOnline(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<string>());
+        _backupService.Received().StartAutoBackup(Arg.Any<string>(), Arg.Any<ServerProfile>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>());
+        _discordService.DidNotReceive().SendMessage(Arg.Any<ServerProfile>(), Arg.Any<DiscordMessageType>());
         _scheduledRestartService.Received().StartScheduledRestarts(Arg.Any<ServerProfile>());
     }
 
@@ -282,8 +283,8 @@ public class AdminPanelTests
 
         // Assert
         _enshroudedServerService.Received().Start(Arg.Any<string>(), Arg.Any<ServerProfile>());
-        _backupService.DidNotReceive().StartAutoBackup(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>());
-        _discordService.Received().ServerOnline(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<bool>(), Arg.Any<string>());
+        _backupService.DidNotReceive().StartAutoBackup(Arg.Any<string>(), Arg.Any<ServerProfile>(), Arg.Any<int>(), Arg.Any<int>(), Arg.Any<string>(), Arg.Any<string>());
+        _discordService.Received().SendMessage(Arg.Any<ServerProfile>(), Arg.Any<DiscordMessageType>());
         _scheduledRestartService.Received().StartScheduledRestarts(Arg.Any<ServerProfile>());
     }
 
@@ -419,7 +420,7 @@ public class AdminPanelTests
         _adminPanelView.SaveBackupButtonClicked += Raise.Event();
 
         // Assert
-        _backupService.Received().Save(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>());
+        _backupService.Received().Save(Arg.Any<string>(), Arg.Any<ServerProfile>(), Arg.Any<string>(), Arg.Any<string>());
     }
 
     [TestMethod]

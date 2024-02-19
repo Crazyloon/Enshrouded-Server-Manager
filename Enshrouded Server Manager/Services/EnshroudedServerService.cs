@@ -10,14 +10,17 @@ public class EnshroudedServerService : IEnshroudedServerService
 {
     private readonly IFileSystemService _fileSystemService;
     private readonly IEventAggregator _eventAggregator;
+    private readonly IFileLoggerService _logger;
 
     private const string SERVER_PROCESS_NAME = "enshrouded_server";
 
     public EnshroudedServerService(IFileSystemService fsm,
-        IEventAggregator eventAggregator)
+        IEventAggregator eventAggregator,
+        IFileLoggerService logger)
     {
         _fileSystemService = fsm;
         _eventAggregator = eventAggregator;
+        _logger = logger;
     }
 
     [DllImport("user32.dll")]
@@ -131,14 +134,29 @@ public class EnshroudedServerService : IEnshroudedServerService
             {
                 SetConsoleCtrlHandler(null, true);
                 GenerateConsoleCtrlEvent(CtrlTypes.CTRL_C_EVENT, 0);
-                Thread.Sleep(2000);
                 FreeConsole();
                 SetConsoleCtrlHandler(null, false);
             }
+
+            var timeout = 30000;
+            var sleepTick = 200;
+            while (!p.HasExited)
+            {
+                Thread.Sleep(sleepTick);
+                timeout = timeout - sleepTick;
+
+                if (timeout <= 0)
+                {
+                    p.Kill();
+                    _logger.LogError($"Server Stop Failed for server {profile.Name}. Killing Process. Some progress may be lost.");
+                    break;
+                }
+            }
         }
-        catch (ArgumentException)
+        catch (Exception e)
         {
             _eventAggregator.Publish(new ServerStoppedMessage(profile));
+            _logger.LogError($"Server Stop Failed for server {profile.Name}. Error: {e.Message}");
             return;
         }
 

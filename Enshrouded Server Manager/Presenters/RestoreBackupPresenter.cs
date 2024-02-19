@@ -105,7 +105,7 @@ public class RestoreBackupPresenter
         if (_fileSystemService.FileExists(_restoreBackupView.RestoreFilePath)
             || _fileSystemService.DirectoryExists(_restoreBackupView.RestoreFilePath))
         {
-            _backupService.RestoreBackup(_selectedProfile.Name, _restoreBackupView.RestoreFilePath);
+            _backupService.RestoreBackup(_selectedProfile, _restoreBackupView.RestoreFilePath);
             _restoreBackupView.AnimateRestoreButton();
         }
     }

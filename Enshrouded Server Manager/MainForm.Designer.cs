@@ -390,6 +390,7 @@ partial class MainForm
         restoreBackupView.BackColor = Color.FromArgb(0, 0, 18);
         restoreBackupView.Dock = DockStyle.Fill;
         restoreBackupView.ForeColor = SystemColors.ButtonHighlight;
+        restoreBackupView.IsRestoreOnScheduledRestartChecked = false;
         restoreBackupView.Location = new Point(3, 3);
         restoreBackupView.Name = "restoreBackupView";
         restoreBackupView.RestoreFilePath = "";
@@ -410,15 +411,19 @@ partial class MainForm
         // 
         scheduleRestartsView.BackColor = Color.FromArgb(0, 0, 18);
         scheduleRestartsView.ForeColor = SystemColors.ButtonHighlight;
+        scheduleRestartsView.IsScheduledRestartEnabled = false;
+        scheduleRestartsView.IsScheduledWithServerStart = false;
         scheduleRestartsView.Location = new Point(3, 3);
         scheduleRestartsView.Name = "scheduleRestartsView";
         scheduleRestartsView.RecurrenceInterval = 0;
+        scheduleRestartsView.RecurrenceIntervalUnit = "Hours";
         scheduleRestartsView.RestartFrequency = Enums.RestartFrequency.OneTime;
         scheduleRestartsView.Size = new Size(459, 384);
         scheduleRestartsView.StartDate = new DateOnly(2024, 2, 14);
         scheduleRestartsView.StartTime = new TimeOnly(22, 1, 7, 0, 0);
         scheduleRestartsView.TabIndex = 0;
         scheduleRestartsView.Tag = "RestartFrequency.OneTime";
+        scheduleRestartsView.TimeLeft = "Next Restart: 00:00";
         // 
         // tabDiscord
         // 
@@ -440,12 +445,19 @@ partial class MainForm
         discordNotificationsView.ForeColor = SystemColors.ButtonHighlight;
         discordNotificationsView.IsDiscordNotificationsEnabled = false;
         discordNotificationsView.IsEmbedsEnabled = false;
+        discordNotificationsView.IsImminentResetMessageEnabled = false;
+        discordNotificationsView.IsLongResetMessageEnabled = false;
+        discordNotificationsView.IsMediumResetMessageEnabled = false;
         discordNotificationsView.IsNotifyOnBackupEnabled = false;
+        discordNotificationsView.IsNotifyOnServerRestartEnabled = false;
         discordNotificationsView.IsNotifyOnStartEnabled = false;
         discordNotificationsView.IsNotifyOnStopEnabled = false;
         discordNotificationsView.IsNotifyOnUpdateEnabled = false;
+        discordNotificationsView.IsShortResetMessageEnabled = false;
+        discordNotificationsView.IsSoonResetMessageEnabled = false;
         discordNotificationsView.Location = new Point(3, 3);
         discordNotificationsView.Name = "discordNotificationsView";
+        discordNotificationsView.ServerRestartMessage = "Server Reset In {TIME_LEFT}";
         discordNotificationsView.ServerStartedMessage = "Online!";
         discordNotificationsView.ServerStoppedMessage = "Offline!";
         discordNotificationsView.ServerUpdatingMessage = "Updating...";

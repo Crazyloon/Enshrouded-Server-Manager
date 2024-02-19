@@ -1,10 +1,8 @@
-﻿using Enshrouded_Server_Manager.Events;
-using Enshrouded_Server_Manager.Helpers;
-using Enshrouded_Server_Manager.Model;
+﻿using Enshrouded_Server_Manager.Enums;
+using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.Views;
-using Newtonsoft.Json;
 
 namespace Enshrouded_Server_Manager.Presenters;
 public class AdminPanelPresenter
@@ -151,40 +149,14 @@ public class AdminPanelPresenter
                     && _selectedProfile.AutoBackup.Enabled)
                 {
                     var saveGameFolder = Path.Join(serverProfilePath, Constants.Paths.GAME_SERVER_SAVE_DIRECTORY);
-                    _backupService.StartAutoBackup(saveGameFolder, _selectedProfile.Name, _selectedProfile.AutoBackup.Interval, _selectedProfile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
+                    _backupService.StartAutoBackup(saveGameFolder, _selectedProfile, _selectedProfile.AutoBackup.Interval, _selectedProfile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
                 }
 
                 _eventAggregator.Publish(new ServerStartedMessage(_selectedProfile));
             }
 
             // discord Output
-            var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
-            if (_fileSystemService.FileExists(discordSettingsFile))
-            {
-                var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
-                DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
-                string DiscordUrl = discordProfile.DiscordUrl;
-
-                var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
-                var gameServerConfigText = _fileSystemService.ReadFile(gameServerConfig);
-                ServerSettings serverSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, JsonSettings.Default);
-                string name = serverSettings.Name;
-
-                if (discordProfile.Enabled)
-                {
-                    if (discordProfile.StartEnabled)
-                    {
-                        try
-                        {
-                            _discordOutputService.ServerOnline(name, DiscordUrl, discordProfile.EmbedEnabled, discordProfile.ServerStartedMsg);
-                        }
-                        catch
-                        {
-                            // TODO: Raise an erorr event/Report an error message
-                        }
-                    }
-                }
-            }
+            _discordOutputService.SendMessage(_selectedProfile, DiscordMessageType.ServerStarted);
         }
     }
 
@@ -203,39 +175,7 @@ public class AdminPanelPresenter
             _restartTimers.Remove(selectedProfileName);
         }
 
-        // TODO: Can we emit an event here and have something else handle discord output?
-        // discord Output
-        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
-        if (_fileSystemService.FileExists(discordSettingsFile))
-        {
-            var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
-            DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
-            string DiscordUrl = discordProfile.DiscordUrl;
-
-            var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName);
-            var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
-            var gameServerConfigText = _fileSystemService.ReadFile(gameServerConfig);
-            ServerSettings gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, JsonSettings.Default);
-            string name = gameServerSettings.Name;
-
-            if (discordProfile.Enabled)
-            {
-                if (discordProfile.StopEnabled)
-                {
-                    Task.Factory.StartNew(async () =>
-                    {
-                        try
-                        {
-                            _discordOutputService.ServerOffline(name, DiscordUrl, discordProfile.EmbedEnabled, discordProfile.ServerStoppedMsg);
-                        }
-                        catch
-                        {
-
-                        }
-                    });
-                }
-            }
-        }
+        _discordOutputService.SendMessage(_selectedProfile, DiscordMessageType.ServerStopped);
     }
 
     private async void OnInstallServerButtonClicked()
@@ -267,44 +207,15 @@ public class AdminPanelPresenter
         if (_selectedProfile is not null)
         {
             string selectedProfileName = _selectedProfile.Name;
-            var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName);
 
-            // TODO: Move this into the discord service
-            // discord Output
-            var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
-            if (_fileSystemService.FileExists(discordSettingsFile))
-            {
-                var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
-                DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
-                string discordUrl = discordProfile.DiscordUrl;
-
-                var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
-                var gameServerConfigText = _fileSystemService.ReadFile(gameServerConfig);
-                ServerSettings gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, JsonSettings.Default);
-                string name = gameServerSettings.Name;
-
-                if (discordProfile.Enabled)
-                {
-                    if (discordProfile.UpdatingEnabled)
-                    {
-
-                        try
-                        {
-                            _discordOutputService.ServerUpdating(name, discordUrl, discordProfile.EmbedEnabled, discordProfile.ServerUpdatingMsg);
-                        }
-                        catch
-                        {
-
-                        }
-                    }
-                }
-            }
+            _discordOutputService.SendMessage(_selectedProfile, DiscordMessageType.ServerUpdating);
 
             _eventAggregator.Publish(new ServerInstallStartedMessage());
             _adminPanelView.InstallServerButtonVisible = false;
             _adminPanelView.UpdateServerButtonVisible = false;
             _adminPanelView.StartServerButtonVisible = false;
 
+            var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName);
             _enshroudedServerService.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}", selectedProfileName);
 
             _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfileName);
@@ -318,12 +229,10 @@ public class AdminPanelPresenter
     {
         if (_selectedProfile is not null)
         {
-            string selectedProfileName = _selectedProfile.Name;
-
-            var serverProfileDirectory = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName);
+            var serverProfileDirectory = Path.Join(Constants.Paths.SERVER_DIRECTORY, _selectedProfile.Name);
             var saveGameDirectory = Path.Join(serverProfileDirectory, Constants.Paths.GAME_SERVER_SAVE_DIRECTORY);
 
-            _backupService.Save(saveGameDirectory, selectedProfileName, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfileDirectory);
+            _backupService.Save(saveGameDirectory, _selectedProfile, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfileDirectory);
         }
     }
 

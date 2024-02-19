@@ -46,7 +46,7 @@ partial class RestoreBackupView
         btnSaveSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnSaveSettings.FlatStyle = FlatStyle.Flat;
         btnSaveSettings.ForeColor = Color.FromArgb(0, 255, 185);
-        btnSaveSettings.Location = new Point(263, 301);
+        btnSaveSettings.Location = new Point(263, 315);
         btnSaveSettings.Name = "btnSaveSettings";
         btnSaveSettings.Size = new Size(128, 30);
         btnSaveSettings.TabIndex = 45;
@@ -68,7 +68,7 @@ partial class RestoreBackupView
         // 
         lblAutoBackupChangesInfo.AutoSize = true;
         lblAutoBackupChangesInfo.ForeColor = SystemColors.Info;
-        lblAutoBackupChangesInfo.Location = new Point(112, 350);
+        lblAutoBackupChangesInfo.Location = new Point(112, 360);
         lblAutoBackupChangesInfo.Name = "lblAutoBackupChangesInfo";
         lblAutoBackupChangesInfo.Size = new Size(235, 15);
         lblAutoBackupChangesInfo.TabIndex = 36;
@@ -129,7 +129,7 @@ partial class RestoreBackupView
         btnRestoreSaveFile.FlatStyle = FlatStyle.Flat;
         btnRestoreSaveFile.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
         btnRestoreSaveFile.ForeColor = SystemColors.ControlLightLight;
-        btnRestoreSaveFile.Location = new Point(68, 301);
+        btnRestoreSaveFile.Location = new Point(68, 315);
         btnRestoreSaveFile.Margin = new Padding(0);
         btnRestoreSaveFile.Name = "btnRestoreSaveFile";
         btnRestoreSaveFile.Padding = new Padding(0, 2, 0, 0);
