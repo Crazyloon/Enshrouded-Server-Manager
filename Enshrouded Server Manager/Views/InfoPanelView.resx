@@ -120,9 +120,15 @@
   <data name="lblNewsText.Text" xml:space="preserve">
     <value>Changes:
 
+v0.6.3
+- Fixed servers not restarting if they took
+   longer than 2 seconds to shut down
+- Added Discord notification options for
+   Backup Restore and Server Restarting
+
 v0.6.2
-- Servers can now be configured for resets
-   while the server is running
+- Servers can now be configured to
+   reset while the server is running
 - Restart Schedule can now be started
    when the server starts
 - Restoring a backup from a directory
@@ -130,10 +136,6 @@ v0.6.2
    from the latest zip file in that directory
 - Fixed an issue where creating new log 
    files would crash the applicaiton
-- Fixed display bugs with restart timer
-
-v0.6.1
-- Added a logging service for info/error
-- Fixed an issue with server reset timers</value>
+- Fixed display bugs with restart timer</value>
   </data>
 </root>
