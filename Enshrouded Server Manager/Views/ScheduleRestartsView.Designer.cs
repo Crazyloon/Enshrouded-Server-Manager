@@ -242,7 +242,7 @@ partial class ScheduleRestartsView
         btnClearAll.FlatStyle = FlatStyle.Flat;
         btnClearAll.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
         btnClearAll.ForeColor = SystemColors.ControlLightLight;
-        btnClearAll.Location = new Point(68, 301);
+        btnClearAll.Location = new Point(68, 315);
         btnClearAll.Margin = new Padding(0);
         btnClearAll.Name = "btnClearAll";
         btnClearAll.Padding = new Padding(0, 2, 0, 0);
@@ -260,7 +260,7 @@ partial class ScheduleRestartsView
         btnApplySettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnApplySettings.FlatStyle = FlatStyle.Flat;
         btnApplySettings.ForeColor = Color.FromArgb(0, 255, 185);
-        btnApplySettings.Location = new Point(263, 301);
+        btnApplySettings.Location = new Point(263, 315);
         btnApplySettings.Name = "btnApplySettings";
         btnApplySettings.Size = new Size(128, 30);
         btnApplySettings.TabIndex = 15;
@@ -288,7 +288,7 @@ partial class ScheduleRestartsView
         // 
         lblServerMustBeStoppedMessage.AutoSize = true;
         lblServerMustBeStoppedMessage.ForeColor = SystemColors.Info;
-        lblServerMustBeStoppedMessage.Location = new Point(91, 350);
+        lblServerMustBeStoppedMessage.Location = new Point(91, 360);
         lblServerMustBeStoppedMessage.Name = "lblServerMustBeStoppedMessage";
         lblServerMustBeStoppedMessage.Size = new Size(7, 30);
         lblServerMustBeStoppedMessage.TabIndex = 59;

@@ -1,4 +1,5 @@
-﻿using Enshrouded_Server_Manager.Events;
+﻿using Enshrouded_Server_Manager.Enums;
+using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.Views;
@@ -148,14 +149,14 @@ public class AdminPanelPresenter
                     && _selectedProfile.AutoBackup.Enabled)
                 {
                     var saveGameFolder = Path.Join(serverProfilePath, Constants.Paths.GAME_SERVER_SAVE_DIRECTORY);
-                    _backupService.StartAutoBackup(saveGameFolder, _selectedProfile.Name, _selectedProfile.AutoBackup.Interval, _selectedProfile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
+                    _backupService.StartAutoBackup(saveGameFolder, _selectedProfile, _selectedProfile.AutoBackup.Interval, _selectedProfile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
                 }
 
                 _eventAggregator.Publish(new ServerStartedMessage(_selectedProfile));
             }
 
             // discord Output
-            _discordOutputService.SendMessageServerOnline(_selectedProfile);
+            _discordOutputService.SendMessage(_selectedProfile, DiscordMessageType.ServerStarted);
         }
     }
 
@@ -174,7 +175,7 @@ public class AdminPanelPresenter
             _restartTimers.Remove(selectedProfileName);
         }
 
-        _discordOutputService.SendMessageServerOffline(_selectedProfile);
+        _discordOutputService.SendMessage(_selectedProfile, DiscordMessageType.ServerStopped);
     }
 
     private async void OnInstallServerButtonClicked()
@@ -207,7 +208,7 @@ public class AdminPanelPresenter
         {
             string selectedProfileName = _selectedProfile.Name;
 
-            _discordOutputService.SendMessageServerUpdating(_selectedProfile);
+            _discordOutputService.SendMessage(_selectedProfile, DiscordMessageType.ServerUpdating);
 
             _eventAggregator.Publish(new ServerInstallStartedMessage());
             _adminPanelView.InstallServerButtonVisible = false;
@@ -228,12 +229,10 @@ public class AdminPanelPresenter
     {
         if (_selectedProfile is not null)
         {
-            string selectedProfileName = _selectedProfile.Name;
-
-            var serverProfileDirectory = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName);
+            var serverProfileDirectory = Path.Join(Constants.Paths.SERVER_DIRECTORY, _selectedProfile.Name);
             var saveGameDirectory = Path.Join(serverProfileDirectory, Constants.Paths.GAME_SERVER_SAVE_DIRECTORY);
 
-            _backupService.Save(saveGameDirectory, selectedProfileName, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfileDirectory);
+            _backupService.Save(saveGameDirectory, _selectedProfile, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfileDirectory);
         }
     }
 

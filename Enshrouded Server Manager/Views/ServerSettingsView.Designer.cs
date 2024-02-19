@@ -196,7 +196,7 @@ partial class ServerSettingsView
         btnSaveSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnSaveSettings.FlatStyle = FlatStyle.Flat;
         btnSaveSettings.ForeColor = Color.FromArgb(0, 255, 185);
-        btnSaveSettings.Location = new Point(263, 301);
+        btnSaveSettings.Location = new Point(263, 315);
         btnSaveSettings.Name = "btnSaveSettings";
         btnSaveSettings.Size = new Size(128, 30);
         btnSaveSettings.TabIndex = 53;
@@ -209,7 +209,7 @@ partial class ServerSettingsView
         // 
         lblServerMustBeStoppedMessage.AutoSize = true;
         lblServerMustBeStoppedMessage.ForeColor = SystemColors.Info;
-        lblServerMustBeStoppedMessage.Location = new Point(115, 350);
+        lblServerMustBeStoppedMessage.Location = new Point(115, 360);
         lblServerMustBeStoppedMessage.Name = "lblServerMustBeStoppedMessage";
         lblServerMustBeStoppedMessage.Size = new Size(229, 15);
         lblServerMustBeStoppedMessage.TabIndex = 60;

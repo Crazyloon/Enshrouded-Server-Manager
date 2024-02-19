@@ -44,7 +44,7 @@ public class AutoBackupPresenter
         _autoBackupView.SaveAutoBackupSettingsClicked += OnSaveAutoBackupSettingsClicked;
         _autoBackupView.OpenAutoBackupFolderClicked += (sender, e) => OnOpenBackupFolderClicked();
 
-        _eventAggregator.Subscribe<AutoBackupSavedSuccessMessage>(n => OnAutoBackupSavedSuccess(n.ProfileName));
+        _eventAggregator.Subscribe<AutoBackupSavedSuccessMessage>(p => OnAutoBackupSavedSuccess(p.Profile));
         _eventAggregator.Subscribe<ProfileSelectedMessage>(s => OnProfileSelected(s.SelectedProfile));
     }
 
@@ -54,9 +54,9 @@ public class AutoBackupPresenter
         _systemProcessService.Start(Constants.ProcessNames.EXPLORER_EXE, serverAutoBackupPath);
     }
 
-    private void OnAutoBackupSavedSuccess(string profileName)
+    private void OnAutoBackupSavedSuccess(ServerProfile profile)
     {
-        _autoBackupView.UpdateBackupInfo(profileName, _backupService.GetBackupCount(profileName), _backupService.GetDiskConsumption(profileName));
+        _autoBackupView.UpdateBackupInfo(profile.Name, _backupService.GetBackupCount(profile), _backupService.GetDiskConsumption(profile));
     }
 
     private void OnSaveAutoBackupSettingsClicked(object? sender, EventArgs e)
@@ -109,7 +109,7 @@ public class AutoBackupPresenter
             _autoBackupView.BackupInterval = selectedProfile.AutoBackup.Interval;
             _autoBackupView.MaxAutoBackupCount = selectedProfile.AutoBackup.MaxiumBackups;
 
-            _autoBackupView.UpdateBackupInfo(selectedProfile.Name, _backupService.GetBackupCount(selectedProfile.Name), _backupService.GetDiskConsumption(selectedProfile.Name));
+            _autoBackupView.UpdateBackupInfo(selectedProfile.Name, _backupService.GetBackupCount(selectedProfile), _backupService.GetDiskConsumption(selectedProfile));
         }
         else
         {

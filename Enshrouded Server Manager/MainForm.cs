@@ -50,16 +50,16 @@ public partial class MainForm : Form, IMainFormView
         var fileSystemService = new FileSystemService();
         var messageBoxService = new MessageBoxService();
         var logService = new FileLogger(fileSystemService);
-        var discordOutputService = new DiscordService(fileSystemService, logService);
+        var discordOutputService = new DiscordService(fileSystemService, logService, eventAggregator);
         var enshroudedServerService = new EnshroudedServerService(fileSystemService, eventAggregator, logService);
         var versionManager = new VersionManagementService(fileSystemService, eventAggregator);
-        var backupService = new BackupService(fileSystemService, enshroudedServerService, eventAggregator, discordOutputService, restartTimers);
+        var backupService = new BackupService(fileSystemService, enshroudedServerService, eventAggregator, discordOutputService, logService, restartTimers);
         var profileService = new ProfileService(fileSystemService, messageBoxService);
         var processManager = new SystemProcessService();
         var httpClient = new HttpClientService(new WebClient());
         var serverSettingsService = new ServerSettingsService(fileSystemService, eventAggregator, messageBoxService, enshroudedServerService);
         var steamCMDInstaller = new SteamCMDInstallerService(fileSystemService, processManager, messageBoxService, httpClient);
-        var restartScheduler = new ScheduledRestartService(fileSystemService, logService, backupService, enshroudedServerService, eventAggregator, restartTimers);
+        var restartScheduler = new ScheduledRestartService(fileSystemService, logService, backupService, enshroudedServerService, eventAggregator, discordOutputService, restartTimers);
 
         // Initialize shared profiles
         BindingList<ServerProfile> profiles = new BindingList<ServerProfile>(profileService.LoadServerProfiles(JsonSettings.Default, true));

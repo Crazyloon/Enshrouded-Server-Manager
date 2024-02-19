@@ -48,7 +48,7 @@ partial class AutoBackupView
         // 
         lblAutoBackupChangesInfo.AutoSize = true;
         lblAutoBackupChangesInfo.ForeColor = SystemColors.Info;
-        lblAutoBackupChangesInfo.Location = new Point(100, 350);
+        lblAutoBackupChangesInfo.Location = new Point(100, 360);
         lblAutoBackupChangesInfo.Name = "lblAutoBackupChangesInfo";
         lblAutoBackupChangesInfo.Size = new Size(255, 15);
         lblAutoBackupChangesInfo.TabIndex = 36;
@@ -62,7 +62,7 @@ partial class AutoBackupView
         btnSaveAutoBackup.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnSaveAutoBackup.FlatStyle = FlatStyle.Flat;
         btnSaveAutoBackup.ForeColor = Color.FromArgb(0, 255, 185);
-        btnSaveAutoBackup.Location = new Point(263, 301);
+        btnSaveAutoBackup.Location = new Point(263, 315);
         btnSaveAutoBackup.Name = "btnSaveAutoBackup";
         btnSaveAutoBackup.Size = new Size(128, 30);
         btnSaveAutoBackup.TabIndex = 35;
@@ -140,7 +140,7 @@ partial class AutoBackupView
         btnOpenAutobackupFolder.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnOpenAutobackupFolder.FlatStyle = FlatStyle.Flat;
         btnOpenAutobackupFolder.ForeColor = SystemColors.Control;
-        btnOpenAutobackupFolder.Location = new Point(68, 301);
+        btnOpenAutobackupFolder.Location = new Point(68, 315);
         btnOpenAutobackupFolder.Name = "btnOpenAutobackupFolder";
         btnOpenAutobackupFolder.Size = new Size(128, 30);
         btnOpenAutobackupFolder.TabIndex = 38;

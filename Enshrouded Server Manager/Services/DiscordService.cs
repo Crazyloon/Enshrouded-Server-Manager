@@ -1,5 +1,7 @@
 ﻿using Discord;
 using Discord.Webhook;
+using Enshrouded_Server_Manager.Enums;
+using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Model;
 using Enshrouded_Server_Manager.Models;
@@ -11,16 +13,18 @@ public class DiscordService : IDiscordService
 {
     private IFileSystemService _fileSystemService;
     private IFileLoggerService _logger;
-
+    private IEventAggregator _eventAggregator;
 
     public DiscordService(IFileSystemService fileSystemService,
-        IFileLoggerService logger)
+        IFileLoggerService logger,
+        IEventAggregator eventAggregator)
     {
         _fileSystemService = fileSystemService;
         _logger = logger;
+        _eventAggregator = eventAggregator;
     }
 
-    public async Task SendMessageServerOnline(ServerProfile profile)
+    public void SendMessage(ServerProfile profile, DiscordMessageType messageType, string? timeLeft = null)
     {
         var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, profile.Name);
         var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
@@ -41,80 +45,41 @@ public class DiscordService : IDiscordService
                 {
                     try
                     {
-                        ServerOnline(name, DiscordUrl, discordProfile.EmbedEnabled, discordProfile.ServerStartedMsg);
+                        SendMessage(name, DiscordUrl, discordProfile, messageType, timeLeft);
                     }
                     catch
                     {
-                        // TODO: Raise an erorr event/Report an error message
+                        _logger.LogError($"Unable to send Discord {messageType} message for {profile.Name}");
                     }
                 }
             }
         }
     }
 
-    public async Task SendMessageServerOffline(ServerProfile profile)
+    private void SendMessage(string name, string url, DiscordProfile discordProfile, DiscordMessageType messageType, string? timeLeft = null)
     {
-        // discord Output
-        var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, profile.Name);
-        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
-        if (_fileSystemService.FileExists(discordSettingsFile))
+        switch (messageType)
         {
-            var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
-            DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
-            string DiscordUrl = discordProfile.DiscordUrl;
-
-            var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
-            var gameServerConfigText = _fileSystemService.ReadFile(gameServerConfig);
-            ServerSettings gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, JsonSettings.Default);
-            string name = gameServerSettings.Name;
-
-            if (discordProfile.Enabled)
-            {
-                if (discordProfile.StopEnabled)
-                {
-                    try
-                    {
-                        ServerOffline(name, DiscordUrl, discordProfile.EmbedEnabled, discordProfile.ServerStoppedMsg);
-                    }
-                    catch
-                    {
-
-                    }
-                }
-            }
-        }
-    }
-
-    public async Task SendMessageServerUpdating(ServerProfile profile)
-    {
-        var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, profile.Name);
-        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
-        if (_fileSystemService.FileExists(discordSettingsFile))
-        {
-            var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
-            DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
-            string discordUrl = discordProfile.DiscordUrl;
-
-            var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
-            var gameServerConfigText = _fileSystemService.ReadFile(gameServerConfig);
-            ServerSettings gameServerSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, JsonSettings.Default);
-            string name = gameServerSettings.Name;
-
-            if (discordProfile.Enabled)
-            {
-                if (discordProfile.UpdatingEnabled)
-                {
-
-                    try
-                    {
-                        ServerUpdating(name, discordUrl, discordProfile.EmbedEnabled, discordProfile.ServerUpdatingMsg);
-                    }
-                    catch
-                    {
-
-                    }
-                }
-            }
+            case DiscordMessageType.ServerStarted:
+                ServerOnline(name, url, discordProfile.EmbedEnabled, discordProfile.ServerStartedMsg);
+                break;
+            case DiscordMessageType.ServerStopped:
+                ServerOffline(name, url, discordProfile.EmbedEnabled, discordProfile.ServerStoppedMsg);
+                break;
+            case DiscordMessageType.ServerUpdating:
+                ServerUpdating(name, url, discordProfile.EmbedEnabled, discordProfile.ServerUpdatingMsg);
+                break;
+            case DiscordMessageType.Backup:
+                ServerBackup(name, url, discordProfile.EmbedEnabled, discordProfile.BackupMsg);
+                break;
+            case DiscordMessageType.RestartImminent:
+                ServerRestartImminent(name, url, discordProfile.EmbedEnabled, discordProfile.RestartMsg, timeLeft);
+                break;
+            case DiscordMessageType.BackupRestored:
+                ServerBackup(name, url, discordProfile.EmbedEnabled, discordProfile.BackupRestoreMsg);
+                break;
+            default:
+                break;
         }
     }
 
@@ -145,7 +110,7 @@ public class DiscordService : IDiscordService
     }
 
     // send server is offline status to webhook
-    public async Task ServerOffline(string serverName, string url, bool embedEnabled, string offlineMsg)
+    private async Task ServerOffline(string serverName, string url, bool embedEnabled, string offlineMsg)
     {
         if (string.IsNullOrEmpty(url))
         {
@@ -172,7 +137,7 @@ public class DiscordService : IDiscordService
     }
 
     // send server is updating status to webhook
-    public async Task ServerUpdating(string serverName, string url, bool embedEnabled, string updatingMsg)
+    private async Task ServerUpdating(string serverName, string url, bool embedEnabled, string updatingMsg)
     {
         if (string.IsNullOrEmpty(url))
         {
@@ -199,7 +164,7 @@ public class DiscordService : IDiscordService
     }
 
     // send server backup has been created status to webhook
-    public async Task ServerBackup(string serverName, string url, bool embedEnabled, string backupMsg)
+    private async Task ServerBackup(string serverName, string url, bool embedEnabled, string backupMsg)
     {
         if (string.IsNullOrEmpty(url))
         {
@@ -222,6 +187,34 @@ public class DiscordService : IDiscordService
         else
         {
             await client.SendMessageAsync(text: $"ESM - {serverName} : {backupMsg}");
+        }
+    }
+
+    private async Task ServerRestartImminent(string serverName, string url, bool embedEnabled, string restartMsg, string? timeLeft)
+    {
+        if (string.IsNullOrEmpty(url))
+        {
+            return;
+        }
+
+        restartMsg = restartMsg.Replace("{TIME_LEFT}", timeLeft);
+
+        // The webhook url follows the format https://discord.com/api/webhooks/{id}/{token}
+        using var client = new DiscordWebhookClient(url);
+
+        if (embedEnabled == true)
+        {
+            var embed = new EmbedBuilder
+            {
+                Title = $"ESM - {serverName} : {restartMsg}",
+                Description = "",
+                Color = Discord.Color.Blue
+            };
+            await client.SendMessageAsync(text: "", embeds: new[] { embed.Build() });
+        }
+        else
+        {
+            await client.SendMessageAsync(text: $"ESM - {serverName} : {restartMsg}");
         }
     }
 

@@ -10,6 +10,7 @@ public class ScheduledRestartService : IScheduledRestartService
     private readonly IBackupService _backupService;
     private readonly IEnshroudedServerService _serverService;
     private readonly IEventAggregator _eventAggregator;
+    private readonly IDiscordService _discordService;
 
     Dictionary<string, CountDownTimer> _restartTimers;
 
@@ -18,6 +19,7 @@ public class ScheduledRestartService : IScheduledRestartService
         IBackupService backupService,
         IEnshroudedServerService enshroudedServerService,
         IEventAggregator eventAggregator,
+        IDiscordService discordService,
         Dictionary<string, CountDownTimer> restartTimers)
     {
         _fileSystemService = fileSystemService;
@@ -25,6 +27,7 @@ public class ScheduledRestartService : IScheduledRestartService
         _backupService = backupService;
         _serverService = enshroudedServerService;
         _eventAggregator = eventAggregator;
+        _discordService = discordService;
         _restartTimers = restartTimers;
     }
 
@@ -94,14 +97,17 @@ public class ScheduledRestartService : IScheduledRestartService
                 return;
             }
 
+
             _serverService.Stop(profile);
+            _discordService.SendMessage(profile, DiscordMessageType.ServerStopped);
 
             if (profile.RestoreBackup.RestoreOnScheduledRestart)
             {
-                _backupService.RestoreBackup(profile.Name, profile.RestoreBackup.BackupFilePath);
+                _backupService.RestoreBackup(profile, profile.RestoreBackup.BackupFilePath);
             }
 
             _serverService.Start(gameServerExe, profile);
+            _discordService.SendMessage(profile, DiscordMessageType.ServerStarted);
 
             // check the restart settings to see if it should begin the timer again
             var nextRestart = CalculateNextRestart(profile.ScheduleRestarts);
