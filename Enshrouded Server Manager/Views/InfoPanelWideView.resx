@@ -118,7 +118,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="lblNewsText.Text" xml:space="preserve">
-    <value>v0.6.3
+    <value>v.0.6.4
+- Changed the UI layout to use a menu bar instead of a tab selector
+- Added the server restart timer to the top bar next to the profile selector
+
+v0.6.3
 - Fixed servers not restarting if they took longer than 2 seconds to shut down
 - Added Discord notification options for Backup Restore and Server Restarting
 

@@ -38,10 +38,10 @@ partial class InfoPanelWideView
         // lblNewsText
         // 
         lblNewsText.AutoSize = true;
-        lblNewsText.Location = new Point(81, 173);
+        lblNewsText.Location = new Point(81, 153);
         lblNewsText.Name = "lblNewsText";
         lblNewsText.Padding = new Padding(5);
-        lblNewsText.Size = new Size(620, 160);
+        lblNewsText.Size = new Size(620, 220);
         lblNewsText.TabIndex = 54;
         lblNewsText.Text = resources.GetString("lblNewsText.Text");
         // 
@@ -61,7 +61,7 @@ partial class InfoPanelWideView
         // 
         lblChanges.AutoSize = true;
         lblChanges.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-        lblChanges.Location = new Point(81, 137);
+        lblChanges.Location = new Point(81, 117);
         lblChanges.Name = "lblChanges";
         lblChanges.Size = new Size(118, 25);
         lblChanges.TabIndex = 60;

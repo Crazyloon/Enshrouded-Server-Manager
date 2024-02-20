@@ -36,6 +36,7 @@ partial class CreditsPanelView
         lblCreditsContributors = new Label();
         lblCreditsMadeBy = new Label();
         lblCredits = new Label();
+        lnkGitHubSponsor = new Label();
         SuspendLayout();
         // 
         // lblCreditsSponsorsList
@@ -132,11 +133,24 @@ partial class CreditsPanelView
         lblCredits.TabIndex = 59;
         lblCredits.Text = "Credits";
         // 
+        // lnkGitHubSponsor
+        // 
+        lnkGitHubSponsor.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        lnkGitHubSponsor.AutoSize = true;
+        lnkGitHubSponsor.Cursor = Cursors.Hand;
+        lnkGitHubSponsor.ForeColor = Color.FromArgb(0, 255, 185);
+        lnkGitHubSponsor.Location = new Point(127, 420);
+        lnkGitHubSponsor.Name = "lnkGitHubSponsor";
+        lnkGitHubSponsor.Size = new Size(105, 15);
+        lnkGitHubSponsor.TabIndex = 60;
+        lnkGitHubSponsor.Text = "Become a Sponsor";
+        // 
         // CreditsPanelView
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
+        Controls.Add(lnkGitHubSponsor);
         Controls.Add(lblCredits);
         Controls.Add(lblCreditsSponsorsList);
         Controls.Add(lblHeadingSponsoredBy);
@@ -165,4 +179,5 @@ partial class CreditsPanelView
     private Label lblCreditsContributors;
     private Label lblCreditsMadeBy;
     private Label lblCredits;
+    private Label lnkGitHubSponsor;
 }

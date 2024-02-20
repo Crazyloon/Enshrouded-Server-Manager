@@ -89,7 +89,7 @@ partial class MainForm
         pbxFormHeader.Location = new Point(0, 0);
         pbxFormHeader.Margin = new Padding(0);
         pbxFormHeader.Name = "pbxFormHeader";
-        pbxFormHeader.Size = new Size(1140, 40);
+        pbxFormHeader.Size = new Size(1187, 40);
         pbxFormHeader.TabIndex = 23;
         pbxFormHeader.TabStop = false;
         pbxFormHeader.MouseDown += pbxFormHeader_MouseDown;
@@ -115,7 +115,7 @@ partial class MainForm
         lblMinimizeTrayButton.Cursor = Cursors.Hand;
         lblMinimizeTrayButton.Font = new Font("Malgun Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point);
         lblMinimizeTrayButton.ForeColor = Color.FromArgb(0, 255, 185);
-        lblMinimizeTrayButton.Location = new Point(1084, 6);
+        lblMinimizeTrayButton.Location = new Point(1131, 6);
         lblMinimizeTrayButton.Name = "lblMinimizeTrayButton";
         lblMinimizeTrayButton.Size = new Size(17, 21);
         lblMinimizeTrayButton.TabIndex = 30;
@@ -131,7 +131,7 @@ partial class MainForm
         lblCloseButton.Cursor = Cursors.Hand;
         lblCloseButton.Font = new Font("Malgun Gothic", 10F, FontStyle.Bold, GraphicsUnit.Point);
         lblCloseButton.ForeColor = Color.FromArgb(0, 255, 185);
-        lblCloseButton.Location = new Point(1112, 9);
+        lblCloseButton.Location = new Point(1159, 9);
         lblCloseButton.Name = "lblCloseButton";
         lblCloseButton.Size = new Size(18, 19);
         lblCloseButton.TabIndex = 29;
@@ -145,7 +145,7 @@ partial class MainForm
         pbxLeftBorder.Dock = DockStyle.Left;
         pbxLeftBorder.Location = new Point(0, 0);
         pbxLeftBorder.Name = "pbxLeftBorder";
-        pbxLeftBorder.Size = new Size(10, 505);
+        pbxLeftBorder.Size = new Size(10, 484);
         pbxLeftBorder.TabIndex = 31;
         pbxLeftBorder.TabStop = false;
         // 
@@ -155,7 +155,7 @@ partial class MainForm
         pbxInnerLeftBorder.Dock = DockStyle.Right;
         pbxInnerLeftBorder.Location = new Point(180, 0);
         pbxInnerLeftBorder.Name = "pbxInnerLeftBorder";
-        pbxInnerLeftBorder.Size = new Size(10, 505);
+        pbxInnerLeftBorder.Size = new Size(10, 484);
         pbxInnerLeftBorder.TabIndex = 38;
         pbxInnerLeftBorder.TabStop = false;
         // 
@@ -165,7 +165,7 @@ partial class MainForm
         pbxRightBorder.Dock = DockStyle.Right;
         pbxRightBorder.Location = new Point(237, 0);
         pbxRightBorder.Name = "pbxRightBorder";
-        pbxRightBorder.Size = new Size(10, 505);
+        pbxRightBorder.Size = new Size(10, 484);
         pbxRightBorder.TabIndex = 39;
         pbxRightBorder.TabStop = false;
         // 
@@ -175,7 +175,7 @@ partial class MainForm
         pbxInnerRightBorder.Dock = DockStyle.Left;
         pbxInnerRightBorder.Location = new Point(0, 0);
         pbxInnerRightBorder.Name = "pbxInnerRightBorder";
-        pbxInnerRightBorder.Size = new Size(10, 505);
+        pbxInnerRightBorder.Size = new Size(10, 484);
         pbxInnerRightBorder.TabIndex = 41;
         pbxInnerRightBorder.TabStop = false;
         // 
@@ -185,7 +185,7 @@ partial class MainForm
         pbxBottomBorder.Dock = DockStyle.Bottom;
         pbxBottomBorder.Location = new Point(0, 0);
         pbxBottomBorder.Name = "pbxBottomBorder";
-        pbxBottomBorder.Size = new Size(1140, 21);
+        pbxBottomBorder.Size = new Size(1187, 21);
         pbxBottomBorder.TabIndex = 42;
         pbxBottomBorder.TabStop = false;
         // 
@@ -197,7 +197,7 @@ partial class MainForm
         pnlLeftPanel.Dock = DockStyle.Left;
         pnlLeftPanel.Location = new Point(0, 40);
         pnlLeftPanel.Name = "pnlLeftPanel";
-        pnlLeftPanel.Size = new Size(190, 505);
+        pnlLeftPanel.Size = new Size(190, 484);
         pnlLeftPanel.TabIndex = 49;
         // 
         // adminPanelView
@@ -218,7 +218,7 @@ partial class MainForm
         adminPanelView.OpenSavegameFolderButtonVisible = true;
         adminPanelView.SaveBackupButtonEnabled = true;
         adminPanelView.SaveBackupButtonVisible = true;
-        adminPanelView.Size = new Size(170, 505);
+        adminPanelView.Size = new Size(170, 484);
         adminPanelView.StartServerButtonEnabled = true;
         adminPanelView.StartServerButtonVisible = false;
         adminPanelView.StopServerButtonEnabled = true;
@@ -239,7 +239,7 @@ partial class MainForm
         pnlRightPanel.Dock = DockStyle.Fill;
         pnlRightPanel.Location = new Point(190, 40);
         pnlRightPanel.Name = "pnlRightPanel";
-        pnlRightPanel.Size = new Size(950, 505);
+        pnlRightPanel.Size = new Size(997, 484);
         pnlRightPanel.TabIndex = 50;
         // 
         // manageProfilesView
@@ -263,7 +263,7 @@ partial class MainForm
         profileSelectorView.Location = new Point(0, 0);
         profileSelectorView.Name = "profileSelectorView";
         profileSelectorView.RenameButtonText = "Rename";
-        profileSelectorView.Size = new Size(703, 45);
+        profileSelectorView.Size = new Size(750, 45);
         profileSelectorView.TabIndex = 1;
         profileSelectorView.TimeLeft = "Next Restart: 00:00";
         profileSelectorView.TimeLeftVisible = false;
@@ -275,9 +275,9 @@ partial class MainForm
         pnlInfoPanel.Controls.Add(pbxRightBorder);
         pnlInfoPanel.Controls.Add(pbxInnerRightBorder);
         pnlInfoPanel.Dock = DockStyle.Right;
-        pnlInfoPanel.Location = new Point(703, 0);
+        pnlInfoPanel.Location = new Point(750, 0);
         pnlInfoPanel.Name = "pnlInfoPanel";
-        pnlInfoPanel.Size = new Size(247, 505);
+        pnlInfoPanel.Size = new Size(247, 484);
         pnlInfoPanel.TabIndex = 0;
         // 
         // infoPanelView
@@ -288,7 +288,7 @@ partial class MainForm
         infoPanelView.IsNewVersionAvailable = false;
         infoPanelView.Location = new Point(10, 0);
         infoPanelView.Name = "infoPanelView";
-        infoPanelView.Size = new Size(227, 505);
+        infoPanelView.Size = new Size(227, 484);
         infoPanelView.TabIndex = 42;
         // 
         // creditsPanelView
@@ -299,7 +299,7 @@ partial class MainForm
         creditsPanelView.Location = new Point(10, 0);
         creditsPanelView.Name = "creditsPanelView";
         creditsPanelView.Padding = new Padding(5);
-        creditsPanelView.Size = new Size(227, 505);
+        creditsPanelView.Size = new Size(227, 484);
         creditsPanelView.TabIndex = 43;
         creditsPanelView.Visible = false;
         // 
@@ -314,7 +314,7 @@ partial class MainForm
         tabsServerTabs.Location = new Point(-4, 43);
         tabsServerTabs.Name = "tabsServerTabs";
         tabsServerTabs.SelectedIndex = 0;
-        tabsServerTabs.Size = new Size(711, 466);
+        tabsServerTabs.Size = new Size(758, 445);
         tabsServerTabs.TabIndex = 2;
         // 
         // tabServerSettings
@@ -325,7 +325,7 @@ partial class MainForm
         tabServerSettings.Location = new Point(4, 24);
         tabServerSettings.Name = "tabServerSettings";
         tabServerSettings.Padding = new Padding(3);
-        tabServerSettings.Size = new Size(703, 438);
+        tabServerSettings.Size = new Size(750, 417);
         tabServerSettings.TabIndex = 0;
         tabServerSettings.Text = "Server Settings";
         // 
@@ -345,7 +345,7 @@ partial class MainForm
         serverSettingsView.QueryPort = 0;
         serverSettingsView.ServerName = "";
         serverSettingsView.ShowPasswordButtonText = "Show";
-        serverSettingsView.Size = new Size(697, 432);
+        serverSettingsView.Size = new Size(744, 411);
         serverSettingsView.TabIndex = 0;
         // 
         // tabAutoBackup
@@ -475,19 +475,20 @@ partial class MainForm
         pnlBottomBorder.Controls.Add(lblVersion);
         pnlBottomBorder.Controls.Add(pbxBottomBorder);
         pnlBottomBorder.Dock = DockStyle.Bottom;
-        pnlBottomBorder.Location = new Point(0, 545);
+        pnlBottomBorder.Location = new Point(0, 524);
         pnlBottomBorder.Name = "pnlBottomBorder";
-        pnlBottomBorder.Size = new Size(1140, 21);
+        pnlBottomBorder.Size = new Size(1187, 21);
         pnlBottomBorder.TabIndex = 1;
         // 
         // btnOpenCredits
         // 
+        btnOpenCredits.Anchor = AnchorStyles.Top | AnchorStyles.Right;
         btnOpenCredits.AutoSize = true;
         btnOpenCredits.BackColor = Color.FromArgb(64, 64, 64);
         btnOpenCredits.Cursor = Cursors.Hand;
         btnOpenCredits.Font = new Font("Segoe UI", 8F, FontStyle.Bold, GraphicsUnit.Point);
         btnOpenCredits.ForeColor = Color.FromArgb(0, 255, 185);
-        btnOpenCredits.Location = new Point(1090, 4);
+        btnOpenCredits.Location = new Point(1136, 4);
         btnOpenCredits.Name = "btnOpenCredits";
         btnOpenCredits.Size = new Size(43, 13);
         btnOpenCredits.TabIndex = 61;
@@ -515,7 +516,7 @@ partial class MainForm
         pnlTopBorder.Dock = DockStyle.Top;
         pnlTopBorder.Location = new Point(0, 0);
         pnlTopBorder.Name = "pnlTopBorder";
-        pnlTopBorder.Size = new Size(1140, 40);
+        pnlTopBorder.Size = new Size(1187, 40);
         pnlTopBorder.TabIndex = 51;
         // 
         // MainForm
@@ -523,7 +524,7 @@ partial class MainForm
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
-        ClientSize = new Size(1140, 566);
+        ClientSize = new Size(1187, 545);
         ControlBox = false;
         Controls.Add(pnlRightPanel);
         Controls.Add(pnlLeftPanel);

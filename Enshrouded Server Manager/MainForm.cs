@@ -73,7 +73,7 @@ public partial class MainForm : Form, IMainFormView
         infoPanelView.Tag = new InfoPanelPresenter(infoPanelView, eventAggregator, processManager);
         restoreBackupView.Tag = new RestoreBackupPresenter(restoreBackupView, eventAggregator, fileSystemService, backupService, enshroudedServerService, messageBoxService, logService, profiles);
         scheduleRestartsView.Tag = new ScheduleRestartsPresenter(scheduleRestartsView, eventAggregator, enshroudedServerService, backupService, messageBoxService, fileSystemService, logService, restartScheduler, restartTimers, profiles);
-
+        creditsPanelView.Tag = new CreditsPanelPresenter(creditsPanelView, processManager);
 
 
         this.Tag = new MainFormPresenter(this, versionManager);
