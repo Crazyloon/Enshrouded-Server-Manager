@@ -83,7 +83,6 @@ public class ScheduleRestartsPresenter
                 break;
 
             default:
-                _view.RecurrenceIntervalUnit = "Minute(s)";
                 break;
         }
     }
@@ -104,20 +103,12 @@ public class ScheduleRestartsPresenter
         // Ensure valid settings
         if (_view.IsScheduledRestartEnabled && !_view.IsScheduledWithServerStart)
         {
+            var startDateTime = new DateTime(_view.StartDate.Year, _view.StartDate.Month, _view.StartDate.Day,
+                               _view.StartTime.Hour, _view.StartTime.Minute, _view.StartTime.Second);
 
-            if (_view.StartDate < DateOnly.FromDateTime(DateTime.Now))
-            {
-                _messageBox.Show(Constants.Errors.SCHEDULED_RESTARTS_STARTDATE_ERROR_MESSAGE, Constants.Errors.SCHEDULED_RESTARTS_STARTDATE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                _view.StartDate = DateOnly.FromDateTime(DateTime.Now);
-
-                return;
-            }
-
-            if (_view.StartTime < TimeOnly.FromDateTime(DateTime.Now))
+            if (startDateTime < DateTime.Now)
             {
                 _messageBox.Show(Constants.Errors.SCHEDULED_RESTARTS_STARTTIME_ERROR_MESSAGE, Constants.Errors.SCHEDULED_RESTARTS_STARTTIME_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                _view.StartTime = TimeOnly.FromDateTime(DateTime.Now);
-
                 return;
             }
         }
