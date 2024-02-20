@@ -42,6 +42,7 @@ partial class ServerSettingsView
         lblQueryPort = new Label();
         lblMaxPlayers = new Label();
         btnSaveSettings = new Button();
+        lblServerMustBeStoppedMessage = new Label();
         ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
         ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
         ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
@@ -195,20 +196,32 @@ partial class ServerSettingsView
         btnSaveSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnSaveSettings.FlatStyle = FlatStyle.Flat;
         btnSaveSettings.ForeColor = Color.FromArgb(0, 255, 185);
-        btnSaveSettings.Location = new Point(168, 301);
+        btnSaveSettings.Location = new Point(263, 315);
         btnSaveSettings.Name = "btnSaveSettings";
-        btnSaveSettings.Size = new Size(124, 30);
+        btnSaveSettings.Size = new Size(128, 30);
         btnSaveSettings.TabIndex = 53;
         btnSaveSettings.Text = "Save Settings";
         btnSaveSettings.UseCompatibleTextRendering = true;
         btnSaveSettings.UseVisualStyleBackColor = true;
         btnSaveSettings.EnabledChanged += btnSaveSettings_EnabledChanged;
         // 
+        // lblServerMustBeStoppedMessage
+        // 
+        lblServerMustBeStoppedMessage.AutoSize = true;
+        lblServerMustBeStoppedMessage.ForeColor = SystemColors.Info;
+        lblServerMustBeStoppedMessage.Location = new Point(115, 355);
+        lblServerMustBeStoppedMessage.Name = "lblServerMustBeStoppedMessage";
+        lblServerMustBeStoppedMessage.Size = new Size(229, 15);
+        lblServerMustBeStoppedMessage.TabIndex = 60;
+        lblServerMustBeStoppedMessage.Text = "Server must be stopped to update settings\r\n";
+        lblServerMustBeStoppedMessage.TextAlign = ContentAlignment.MiddleCenter;
+        // 
         // ServerSettingsView
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
+        Controls.Add(lblServerMustBeStoppedMessage);
         Controls.Add(btnShowPassword);
         Controls.Add(txtIpAddress);
         Controls.Add(txtServerName);
@@ -249,4 +262,5 @@ partial class ServerSettingsView
     private Label lblQueryPort;
     private Label lblMaxPlayers;
     private Button btnSaveSettings;
+    private Label lblServerMustBeStoppedMessage;
 }

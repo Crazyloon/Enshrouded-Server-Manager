@@ -53,6 +53,10 @@ partial class MainForm
         serverSettingsView = new ServerSettingsView();
         tabAutoBackup = new TabPage();
         autoBackupView = new AutoBackupView();
+        tabBackupRestore = new TabPage();
+        restoreBackupView = new RestoreBackupView();
+        tabScheduleRestarts = new TabPage();
+        scheduleRestartsView = new ScheduleRestartsView();
         tabDiscord = new TabPage();
         discordNotificationsView = new DiscordNotificationsView();
         pnlBottomBorder = new Panel();
@@ -71,6 +75,8 @@ partial class MainForm
         tabsServerTabs.SuspendLayout();
         tabServerSettings.SuspendLayout();
         tabAutoBackup.SuspendLayout();
+        tabBackupRestore.SuspendLayout();
+        tabScheduleRestarts.SuspendLayout();
         tabDiscord.SuspendLayout();
         pnlBottomBorder.SuspendLayout();
         pnlTopBorder.SuspendLayout();
@@ -299,6 +305,8 @@ partial class MainForm
         // 
         tabsServerTabs.Controls.Add(tabServerSettings);
         tabsServerTabs.Controls.Add(tabAutoBackup);
+        tabsServerTabs.Controls.Add(tabBackupRestore);
+        tabsServerTabs.Controls.Add(tabScheduleRestarts);
         tabsServerTabs.Controls.Add(tabDiscord);
         tabsServerTabs.ItemSize = new Size(89, 20);
         tabsServerTabs.Location = new Point(-4, 43);
@@ -366,6 +374,57 @@ partial class MainForm
         autoBackupView.Size = new Size(453, 378);
         autoBackupView.TabIndex = 0;
         // 
+        // tabBackupRestore
+        // 
+        tabBackupRestore.BackColor = Color.FromArgb(0, 0, 18);
+        tabBackupRestore.Controls.Add(restoreBackupView);
+        tabBackupRestore.Location = new Point(4, 24);
+        tabBackupRestore.Name = "tabBackupRestore";
+        tabBackupRestore.Padding = new Padding(3);
+        tabBackupRestore.Size = new Size(459, 384);
+        tabBackupRestore.TabIndex = 4;
+        tabBackupRestore.Text = "Restore Backup";
+        // 
+        // restoreBackupView
+        // 
+        restoreBackupView.BackColor = Color.FromArgb(0, 0, 18);
+        restoreBackupView.Dock = DockStyle.Fill;
+        restoreBackupView.ForeColor = SystemColors.ButtonHighlight;
+        restoreBackupView.IsRestoreOnScheduledRestartChecked = false;
+        restoreBackupView.Location = new Point(3, 3);
+        restoreBackupView.Name = "restoreBackupView";
+        restoreBackupView.RestoreFilePath = "";
+        restoreBackupView.Size = new Size(453, 378);
+        restoreBackupView.TabIndex = 0;
+        // 
+        // tabScheduleRestarts
+        // 
+        tabScheduleRestarts.BackColor = Color.FromArgb(0, 0, 18);
+        tabScheduleRestarts.Controls.Add(scheduleRestartsView);
+        tabScheduleRestarts.Location = new Point(4, 24);
+        tabScheduleRestarts.Name = "tabScheduleRestarts";
+        tabScheduleRestarts.Size = new Size(459, 384);
+        tabScheduleRestarts.TabIndex = 5;
+        tabScheduleRestarts.Text = "Schedule Restarts";
+        // 
+        // scheduleRestartsView
+        // 
+        scheduleRestartsView.BackColor = Color.FromArgb(0, 0, 18);
+        scheduleRestartsView.ForeColor = SystemColors.ButtonHighlight;
+        scheduleRestartsView.IsScheduledRestartEnabled = false;
+        scheduleRestartsView.IsScheduledWithServerStart = false;
+        scheduleRestartsView.Location = new Point(3, 3);
+        scheduleRestartsView.Name = "scheduleRestartsView";
+        scheduleRestartsView.RecurrenceInterval = 0;
+        scheduleRestartsView.RecurrenceIntervalUnit = "Hours";
+        scheduleRestartsView.RestartFrequency = Enums.RestartFrequency.OneTime;
+        scheduleRestartsView.Size = new Size(459, 384);
+        scheduleRestartsView.StartDate = new DateOnly(2024, 2, 14);
+        scheduleRestartsView.StartTime = new TimeOnly(22, 1, 7, 0, 0);
+        scheduleRestartsView.TabIndex = 0;
+        scheduleRestartsView.Tag = "RestartFrequency.OneTime";
+        scheduleRestartsView.TimeLeft = "Next Restart: 00:00";
+        // 
         // tabDiscord
         // 
         tabDiscord.BackColor = Color.FromArgb(0, 0, 18);
@@ -386,12 +445,19 @@ partial class MainForm
         discordNotificationsView.ForeColor = SystemColors.ButtonHighlight;
         discordNotificationsView.IsDiscordNotificationsEnabled = false;
         discordNotificationsView.IsEmbedsEnabled = false;
+        discordNotificationsView.IsImminentResetMessageEnabled = false;
+        discordNotificationsView.IsLongResetMessageEnabled = false;
+        discordNotificationsView.IsMediumResetMessageEnabled = false;
         discordNotificationsView.IsNotifyOnBackupEnabled = false;
+        discordNotificationsView.IsNotifyOnServerRestartEnabled = false;
         discordNotificationsView.IsNotifyOnStartEnabled = false;
         discordNotificationsView.IsNotifyOnStopEnabled = false;
         discordNotificationsView.IsNotifyOnUpdateEnabled = false;
+        discordNotificationsView.IsShortResetMessageEnabled = false;
+        discordNotificationsView.IsSoonResetMessageEnabled = false;
         discordNotificationsView.Location = new Point(3, 3);
         discordNotificationsView.Name = "discordNotificationsView";
+        discordNotificationsView.ServerRestartMessage = "Server Reset In {TIME_LEFT}";
         discordNotificationsView.ServerStartedMessage = "Online!";
         discordNotificationsView.ServerStoppedMessage = "Offline!";
         discordNotificationsView.ServerUpdatingMessage = "Updating...";
@@ -476,6 +542,8 @@ partial class MainForm
         tabsServerTabs.ResumeLayout(false);
         tabServerSettings.ResumeLayout(false);
         tabAutoBackup.ResumeLayout(false);
+        tabBackupRestore.ResumeLayout(false);
+        tabScheduleRestarts.ResumeLayout(false);
         tabDiscord.ResumeLayout(false);
         pnlBottomBorder.ResumeLayout(false);
         pnlBottomBorder.PerformLayout();
@@ -514,4 +582,8 @@ partial class MainForm
     private Label lblVersion;
     private Label btnOpenCredits;
     private CreditsPanelView creditsPanelView;
+    private TabPage tabBackupRestore;
+    private RestoreBackupView restoreBackupView;
+    private TabPage tabScheduleRestarts;
+    private ScheduleRestartsView scheduleRestartsView;
 }

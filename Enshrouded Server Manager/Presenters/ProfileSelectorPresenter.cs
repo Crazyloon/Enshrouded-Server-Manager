@@ -17,6 +17,7 @@ public class ProfileSelectorPresenter
     private readonly IFileSystemService _fileSystemService;
     private readonly IMessageBoxService _messageBox;
     private readonly IEnshroudedServerService _server;
+    private readonly IFileLoggerService _logger;
 
     private BindingList<ServerProfile>? _profiles;
 
@@ -28,6 +29,7 @@ public class ProfileSelectorPresenter
         IFileSystemService fileSystemManager,
         IMessageBoxService messageBox,
         IEnshroudedServerService server,
+        IFileLoggerService fileLogger,
         BindingList<ServerProfile>? serverProfiles)
     {
         _profileSelectorView = profileSelectorView;
@@ -39,6 +41,7 @@ public class ProfileSelectorPresenter
         _messageBox = messageBox;
         _server = server;
         _profiles = serverProfiles;
+        _logger = fileLogger;
 
         profileSelectorView.SelectedProfileChanged += (sender, args) => OnSelectedProfileChanged();
         profileSelectorView.AddProfileButtonClicked += (sender, args) => OnAddProfileClicked();

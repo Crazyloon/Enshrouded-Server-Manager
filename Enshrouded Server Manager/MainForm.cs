@@ -19,7 +19,23 @@ public partial class MainForm : Form, IMainFormView
     private Panel _pnlUpdateServerfiles;
     private Label _lblUpdateServerfiles;
 
-    public MainForm()
+    public MainForm(
+        //IBackupService backupService,
+        //IDiscordService discordService,
+        //IEnshroudedServerService enshroudedServerService,
+        //IFileLoggerService logService,
+        //IFileSystemService fileSystemService,
+        //IMessageBoxService messageBoxService,
+        //IProfileService profileService,
+        //IServerSettingsService serverSettingsService,
+        //ISteamCMDInstallerService steamCMDInstallerService,
+        //ISystemProcessService systemProcessService,
+        //IVersionManagementService versionManagementService,
+        //IScheduledRestartService scheduledRestartService,
+        //IEventAggregator eventAggregator,
+        //Dictionary<string, CountDownTimer> restartTimers
+        )
+
     {
         InitializeComponent();
 
@@ -27,34 +43,43 @@ public partial class MainForm : Form, IMainFormView
         // There should only EVER be one instance of the EventAggregator (singleton)
         EventAggregator eventAggregator = new EventAggregator();
 
+        // Initialize shared timers
+        Dictionary<string, CountDownTimer> restartTimers = new();
+
         // Initialize Services
-        var messageBox = new MessageBoxService();
-        var fileSystemManager = new FileSystemService();
-        var discordOutputService = new DiscordService();
-        var enshroudedServer = new EnshroudedServerService(fileSystemManager);
-        var versionManager = new VersionManagementService(fileSystemManager, eventAggregator);
-        var backupService = new BackupService(fileSystemManager, enshroudedServer, eventAggregator, discordOutputService);
-        var profileManager = new ProfileService(fileSystemManager, messageBox);
+        var fileSystemService = new FileSystemService();
+        var messageBoxService = new MessageBoxService();
+        var logService = new FileLogger(fileSystemService);
+        var discordOutputService = new DiscordService(fileSystemService, logService, eventAggregator);
+        var enshroudedServerService = new EnshroudedServerService(fileSystemService, eventAggregator, logService);
+        var versionManager = new VersionManagementService(fileSystemService, eventAggregator);
+        var backupService = new BackupService(fileSystemService, enshroudedServerService, eventAggregator, discordOutputService, logService, restartTimers);
+        var profileService = new ProfileService(fileSystemService, messageBoxService);
         var processManager = new SystemProcessService();
         var httpClient = new HttpClientService(new WebClient());
-        var serverSettingsService = new ServerSettingsService(fileSystemManager, eventAggregator, messageBox, enshroudedServer);
-        var steamCMDInstaller = new SteamCMDInstallerService(fileSystemManager, processManager, messageBox, httpClient);
+        var serverSettingsService = new ServerSettingsService(fileSystemService, eventAggregator, messageBoxService, enshroudedServerService);
+        var steamCMDInstaller = new SteamCMDInstallerService(fileSystemService, processManager, messageBoxService, httpClient);
+        var restartScheduler = new ScheduledRestartService(fileSystemService, logService, backupService, enshroudedServerService, eventAggregator, discordOutputService, restartTimers);
 
-        adminPanelView.Tag = new AdminPanelPresenter(adminPanelView, eventAggregator, steamCMDInstaller, fileSystemManager, versionManager, processManager, serverSettingsService, enshroudedServer, profileManager, discordOutputService, backupService);
-
-        // Load the profiles for each view the first time they are created
-        BindingList<ServerProfile> profiles = new BindingList<ServerProfile>(profileManager.LoadServerProfiles(JsonSettings.Default, true));
+        // Initialize shared profiles
+        BindingList<ServerProfile> profiles = new BindingList<ServerProfile>(profileService.LoadServerProfiles(JsonSettings.Default, true));
 
         // Initialize Presenters
-        serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, eventAggregator, serverSettingsService, fileSystemManager, enshroudedServer);
-        manageProfilesView.Tag = new ManageProfilesPresenter(manageProfilesView, eventAggregator, profileManager, serverSettingsService, fileSystemManager, messageBox, enshroudedServer, profiles);
-        autoBackupView.Tag = new AutoBackupPresenter(autoBackupView, eventAggregator, processManager, profileManager, fileSystemManager, messageBox, backupService, profiles);
-        discordNotificationsView.Tag = new DiscordNotificationsPresenter(discordNotificationsView, eventAggregator, discordOutputService, messageBox, profileManager, fileSystemManager);
+        adminPanelView.Tag = new AdminPanelPresenter(adminPanelView, eventAggregator, steamCMDInstaller, fileSystemService, versionManager, processManager, serverSettingsService, enshroudedServerService, profileService, discordOutputService, backupService, logService, restartScheduler, restartTimers);
+        serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, eventAggregator, serverSettingsService, fileSystemService, enshroudedServerService, logService);
+        manageProfilesView.Tag = new ManageProfilesPresenter(manageProfilesView, eventAggregator, profileService, serverSettingsService, fileSystemService, messageBoxService, enshroudedServerService, logService, profiles);
+        autoBackupView.Tag = new AutoBackupPresenter(autoBackupView, eventAggregator, processManager, profileService, fileSystemService, messageBoxService, backupService, logService, profiles);
+        discordNotificationsView.Tag = new DiscordNotificationsPresenter(discordNotificationsView, eventAggregator, discordOutputService, messageBoxService, profileService, fileSystemService, logService);
         infoPanelView.Tag = new InfoPanelPresenter(infoPanelView, eventAggregator, processManager);
+        restoreBackupView.Tag = new RestoreBackupPresenter(restoreBackupView, eventAggregator, fileSystemService, backupService, enshroudedServerService, messageBoxService, logService, profiles);
+        scheduleRestartsView.Tag = new ScheduleRestartsPresenter(scheduleRestartsView, eventAggregator, enshroudedServerService, backupService, messageBoxService, fileSystemService, logService, restartScheduler, restartTimers, profiles);
+
+
+
         this.Tag = new MainFormPresenter(this, versionManager);
 
         // Profile Selector should be created last, because it publishes the selected profile on startup
-        profileSelectorView.Tag = new ProfileSelectorPresenter(profileSelectorView, manageProfilesView, eventAggregator, profileManager, serverSettingsService, fileSystemManager, messageBox, enshroudedServer, profiles);
+        profileSelectorView.Tag = new ProfileSelectorPresenter(profileSelectorView, manageProfilesView, eventAggregator, profileService, serverSettingsService, fileSystemService, messageBoxService, enshroudedServerService, logService, profiles);
 
         _pnlUpdateServerfiles = new Panel();
         _lblUpdateServerfiles = new Label();
@@ -63,6 +88,8 @@ public partial class MainForm : Form, IMainFormView
         eventAggregator.Subscribe<ServerInstallStoppedMessage>(m => OnServerInstallStopped());
 
         InitializeServerUpdateOverlay();
+
+        logService.LogInfo("Application started");
     }
 
     public event EventHandler ViewCreditsButtonClicked

@@ -69,8 +69,9 @@ public class VersionManagementService : IVersionManagementService
         LauncherVersion deserializedSettings = JsonConvert.DeserializeObject<LauncherVersion>(input);
 
         string githubversion = deserializedSettings.Version;
-
-        if (githubversion != currentVersionText)
+        int.TryParse(githubversion.Substring(1).Replace(".", ""), out int ghVersionInt);
+        int.TryParse(currentVersionText.Substring(1).Replace(".", ""), out int currentVersionInt);
+        if (ghVersionInt > currentVersionInt)
         {
             _eventAggregator.Publish(new NewVersionAvailableMessage());
         }

@@ -57,7 +57,7 @@ partial class InfoPanelView
         lblNewsText.Location = new Point(0, 106);
         lblNewsText.Name = "lblNewsText";
         lblNewsText.Padding = new Padding(5);
-        lblNewsText.Size = new Size(227, 205);
+        lblNewsText.Size = new Size(229, 295);
         lblNewsText.TabIndex = 54;
         lblNewsText.Text = resources.GetString("lblNewsText.Text");
         // 

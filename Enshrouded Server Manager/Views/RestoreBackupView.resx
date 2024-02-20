@@ -117,25 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblNewsText.Text" xml:space="preserve">
-    <value>Changes:
-
-v0.6.3
-- Fixed servers not restarting if they took
-   longer than 2 seconds to shut down
-- Added Discord notification options for
-   Backup Restore and Server Restarting
-
-v0.6.2
-- Servers can now be configured to
-   reset while the server is running
-- Restart Schedule can now be started
-   when the server starts
-- Restoring a backup from a directory
-   instead of a file will attempt to restore
-   from the latest zip file in that directory
-- Fixed an issue where creating new log 
-   files would crash the applicaiton
-- Fixed display bugs with restart timer</value>
-  </data>
+  <metadata name="ofdBackupFileSelector.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>114, 17</value>
+  </metadata>
 </root>

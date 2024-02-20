@@ -28,7 +28,6 @@ partial class AutoBackupView
     /// </summary>
     private void InitializeComponent()
     {
-        components = new System.ComponentModel.Container();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoBackupView));
         lblAutoBackupChangesInfo = new Label();
         btnSaveAutoBackup = new Button();
@@ -38,7 +37,6 @@ partial class AutoBackupView
         lblBackupMaxCount = new Label();
         lblBackupFrequency = new Label();
         nudBackupInterval = new NumericUpDown();
-        toolTip1 = new ToolTip(components);
         btnOpenAutobackupFolder = new Button();
         label3 = new Label();
         label1 = new Label();
@@ -50,7 +48,7 @@ partial class AutoBackupView
         // 
         lblAutoBackupChangesInfo.AutoSize = true;
         lblAutoBackupChangesInfo.ForeColor = SystemColors.Info;
-        lblAutoBackupChangesInfo.Location = new Point(100, 350);
+        lblAutoBackupChangesInfo.Location = new Point(100, 355);
         lblAutoBackupChangesInfo.Name = "lblAutoBackupChangesInfo";
         lblAutoBackupChangesInfo.Size = new Size(255, 15);
         lblAutoBackupChangesInfo.TabIndex = 36;
@@ -64,7 +62,7 @@ partial class AutoBackupView
         btnSaveAutoBackup.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnSaveAutoBackup.FlatStyle = FlatStyle.Flat;
         btnSaveAutoBackup.ForeColor = Color.FromArgb(0, 255, 185);
-        btnSaveAutoBackup.Location = new Point(262, 301);
+        btnSaveAutoBackup.Location = new Point(263, 315);
         btnSaveAutoBackup.Name = "btnSaveAutoBackup";
         btnSaveAutoBackup.Size = new Size(128, 30);
         btnSaveAutoBackup.TabIndex = 35;
@@ -142,7 +140,7 @@ partial class AutoBackupView
         btnOpenAutobackupFolder.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnOpenAutobackupFolder.FlatStyle = FlatStyle.Flat;
         btnOpenAutobackupFolder.ForeColor = SystemColors.Control;
-        btnOpenAutobackupFolder.Location = new Point(67, 301);
+        btnOpenAutobackupFolder.Location = new Point(68, 315);
         btnOpenAutobackupFolder.Name = "btnOpenAutobackupFolder";
         btnOpenAutobackupFolder.Size = new Size(128, 30);
         btnOpenAutobackupFolder.TabIndex = 38;
@@ -205,7 +203,6 @@ partial class AutoBackupView
     private Label lblBackupMaxCount;
     private Label lblBackupFrequency;
     private NumericUpDown nudBackupInterval;
-    private ToolTip toolTip1;
     private Button btnOpenAutobackupFolder;
     private Label label3;
     private Label label1;

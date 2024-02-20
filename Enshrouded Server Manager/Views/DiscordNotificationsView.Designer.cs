@@ -30,10 +30,20 @@ partial class DiscordNotificationsView
     {
         lblDiscordChanges = new Label();
         gbxDiscordNotificationSettings = new GroupBox();
+        txtBackupRestoreMsg = new TextBox();
+        chkNotifiBackupRestore = new CheckBox();
+        chkImminent = new CheckBox();
+        chkSoon = new CheckBox();
+        chkShort = new CheckBox();
+        chkMed = new CheckBox();
+        chkLong = new CheckBox();
+        txtRestartMsg = new TextBox();
+        chkNotifyRestart = new CheckBox();
         txtBackupMsg = new TextBox();
         txtServerUpdatingMsg = new TextBox();
         txtServerStoppedMsg = new TextBox();
         txtServerOnlineMsg = new TextBox();
+        chkEnableDiscord = new CheckBox();
         chkEmbed = new CheckBox();
         chkNotifiBackup = new CheckBox();
         chkNotifiServerUpdating = new CheckBox();
@@ -43,7 +53,6 @@ partial class DiscordNotificationsView
         lblDiscordWebhookUrl = new Label();
         btnSaveDiscordSettings = new Button();
         txtDiscordWebhookUrl = new TextBox();
-        chkEnableDiscord = new CheckBox();
         gbxDiscordNotificationSettings.SuspendLayout();
         SuspendLayout();
         // 
@@ -51,30 +60,136 @@ partial class DiscordNotificationsView
         // 
         lblDiscordChanges.AutoSize = true;
         lblDiscordChanges.ForeColor = SystemColors.Info;
-        lblDiscordChanges.Location = new Point(100, 350);
+        lblDiscordChanges.Location = new Point(100, 355);
         lblDiscordChanges.Name = "lblDiscordChanges";
-        lblDiscordChanges.Size = new Size(258, 15);
+        lblDiscordChanges.Size = new Size(0, 15);
         lblDiscordChanges.TabIndex = 83;
-        lblDiscordChanges.Text = "Changes will take effect on the next server start ";
         // 
         // gbxDiscordNotificationSettings
         // 
+        gbxDiscordNotificationSettings.Controls.Add(txtBackupRestoreMsg);
+        gbxDiscordNotificationSettings.Controls.Add(chkNotifiBackupRestore);
+        gbxDiscordNotificationSettings.Controls.Add(chkImminent);
+        gbxDiscordNotificationSettings.Controls.Add(chkSoon);
+        gbxDiscordNotificationSettings.Controls.Add(chkShort);
+        gbxDiscordNotificationSettings.Controls.Add(chkMed);
+        gbxDiscordNotificationSettings.Controls.Add(chkLong);
+        gbxDiscordNotificationSettings.Controls.Add(txtRestartMsg);
+        gbxDiscordNotificationSettings.Controls.Add(chkNotifyRestart);
         gbxDiscordNotificationSettings.Controls.Add(txtBackupMsg);
         gbxDiscordNotificationSettings.Controls.Add(txtServerUpdatingMsg);
         gbxDiscordNotificationSettings.Controls.Add(txtServerStoppedMsg);
         gbxDiscordNotificationSettings.Controls.Add(txtServerOnlineMsg);
+        gbxDiscordNotificationSettings.Controls.Add(chkEnableDiscord);
         gbxDiscordNotificationSettings.Controls.Add(chkEmbed);
         gbxDiscordNotificationSettings.Controls.Add(chkNotifiBackup);
         gbxDiscordNotificationSettings.Controls.Add(chkNotifiServerUpdating);
         gbxDiscordNotificationSettings.Controls.Add(chkNotifiServerStopped);
         gbxDiscordNotificationSettings.Controls.Add(chkNotifiServerStarted);
         gbxDiscordNotificationSettings.ForeColor = SystemColors.ControlLight;
-        gbxDiscordNotificationSettings.Location = new Point(69, 50);
+        gbxDiscordNotificationSettings.Location = new Point(37, 5);
         gbxDiscordNotificationSettings.Name = "gbxDiscordNotificationSettings";
-        gbxDiscordNotificationSettings.Size = new Size(320, 170);
+        gbxDiscordNotificationSettings.Size = new Size(384, 244);
         gbxDiscordNotificationSettings.TabIndex = 82;
         gbxDiscordNotificationSettings.TabStop = false;
         gbxDiscordNotificationSettings.Text = "Notifications";
+        // 
+        // txtBackupRestoreMsg
+        // 
+        txtBackupRestoreMsg.BackColor = Color.FromArgb(6, 6, 48);
+        txtBackupRestoreMsg.BorderStyle = BorderStyle.FixedSingle;
+        txtBackupRestoreMsg.ForeColor = SystemColors.Window;
+        txtBackupRestoreMsg.Location = new Point(127, 163);
+        txtBackupRestoreMsg.Name = "txtBackupRestoreMsg";
+        txtBackupRestoreMsg.Size = new Size(245, 23);
+        txtBackupRestoreMsg.TabIndex = 84;
+        txtBackupRestoreMsg.Text = "Backup restored!";
+        // 
+        // chkNotifiBackupRestore
+        // 
+        chkNotifiBackupRestore.AutoSize = true;
+        chkNotifiBackupRestore.Location = new Point(12, 166);
+        chkNotifiBackupRestore.Name = "chkNotifiBackupRestore";
+        chkNotifiBackupRestore.Size = new Size(114, 19);
+        chkNotifiBackupRestore.TabIndex = 83;
+        chkNotifiBackupRestore.Text = "Backup Restored";
+        chkNotifiBackupRestore.UseVisualStyleBackColor = true;
+        // 
+        // chkImminent
+        // 
+        chkImminent.AutoSize = true;
+        chkImminent.Location = new Point(280, 220);
+        chkImminent.Name = "chkImminent";
+        chkImminent.RightToLeft = RightToLeft.No;
+        chkImminent.Size = new Size(53, 19);
+        chkImminent.TabIndex = 82;
+        chkImminent.Text = "5min";
+        chkImminent.UseVisualStyleBackColor = true;
+        // 
+        // chkSoon
+        // 
+        chkSoon.AutoSize = true;
+        chkSoon.Location = new Point(215, 220);
+        chkSoon.Name = "chkSoon";
+        chkSoon.RightToLeft = RightToLeft.No;
+        chkSoon.Size = new Size(59, 19);
+        chkSoon.TabIndex = 81;
+        chkSoon.Text = "10min";
+        chkSoon.UseVisualStyleBackColor = true;
+        // 
+        // chkShort
+        // 
+        chkShort.AutoSize = true;
+        chkShort.Location = new Point(150, 220);
+        chkShort.Name = "chkShort";
+        chkShort.RightToLeft = RightToLeft.No;
+        chkShort.Size = new Size(59, 19);
+        chkShort.TabIndex = 80;
+        chkShort.Text = "30min";
+        chkShort.UseVisualStyleBackColor = true;
+        // 
+        // chkMed
+        // 
+        chkMed.AutoSize = true;
+        chkMed.Location = new Point(101, 220);
+        chkMed.Name = "chkMed";
+        chkMed.RightToLeft = RightToLeft.No;
+        chkMed.Size = new Size(43, 19);
+        chkMed.TabIndex = 79;
+        chkMed.Text = "1hr";
+        chkMed.UseVisualStyleBackColor = true;
+        // 
+        // chkLong
+        // 
+        chkLong.AutoSize = true;
+        chkLong.Location = new Point(52, 220);
+        chkLong.Name = "chkLong";
+        chkLong.RightToLeft = RightToLeft.No;
+        chkLong.Size = new Size(43, 19);
+        chkLong.TabIndex = 78;
+        chkLong.Text = "2hr";
+        chkLong.UseVisualStyleBackColor = true;
+        // 
+        // txtRestartMsg
+        // 
+        txtRestartMsg.BackColor = Color.FromArgb(6, 6, 48);
+        txtRestartMsg.BorderStyle = BorderStyle.FixedSingle;
+        txtRestartMsg.ForeColor = SystemColors.Window;
+        txtRestartMsg.Location = new Point(127, 192);
+        txtRestartMsg.Name = "txtRestartMsg";
+        txtRestartMsg.Size = new Size(245, 23);
+        txtRestartMsg.TabIndex = 73;
+        txtRestartMsg.Text = "Server Reset In {TIME_LEFT}";
+        // 
+        // chkNotifyRestart
+        // 
+        chkNotifyRestart.AutoSize = true;
+        chkNotifyRestart.Location = new Point(12, 195);
+        chkNotifyRestart.Name = "chkNotifyRestart";
+        chkNotifyRestart.Size = new Size(97, 19);
+        chkNotifyRestart.TabIndex = 72;
+        chkNotifyRestart.Text = "Server Restart";
+        chkNotifyRestart.UseVisualStyleBackColor = true;
         // 
         // txtBackupMsg
         // 
@@ -83,7 +198,7 @@ partial class DiscordNotificationsView
         txtBackupMsg.ForeColor = SystemColors.Window;
         txtBackupMsg.Location = new Point(127, 134);
         txtBackupMsg.Name = "txtBackupMsg";
-        txtBackupMsg.Size = new Size(184, 23);
+        txtBackupMsg.Size = new Size(245, 23);
         txtBackupMsg.TabIndex = 71;
         txtBackupMsg.Text = "Backup created!";
         // 
@@ -94,7 +209,7 @@ partial class DiscordNotificationsView
         txtServerUpdatingMsg.ForeColor = SystemColors.Window;
         txtServerUpdatingMsg.Location = new Point(127, 105);
         txtServerUpdatingMsg.Name = "txtServerUpdatingMsg";
-        txtServerUpdatingMsg.Size = new Size(184, 23);
+        txtServerUpdatingMsg.Size = new Size(245, 23);
         txtServerUpdatingMsg.TabIndex = 70;
         txtServerUpdatingMsg.Text = "Updating...";
         // 
@@ -105,7 +220,7 @@ partial class DiscordNotificationsView
         txtServerStoppedMsg.ForeColor = SystemColors.Window;
         txtServerStoppedMsg.Location = new Point(127, 76);
         txtServerStoppedMsg.Name = "txtServerStoppedMsg";
-        txtServerStoppedMsg.Size = new Size(184, 23);
+        txtServerStoppedMsg.Size = new Size(245, 23);
         txtServerStoppedMsg.TabIndex = 69;
         txtServerStoppedMsg.Text = "Offline!";
         // 
@@ -116,18 +231,28 @@ partial class DiscordNotificationsView
         txtServerOnlineMsg.ForeColor = SystemColors.Window;
         txtServerOnlineMsg.Location = new Point(127, 47);
         txtServerOnlineMsg.Name = "txtServerOnlineMsg";
-        txtServerOnlineMsg.Size = new Size(184, 23);
+        txtServerOnlineMsg.Size = new Size(245, 23);
         txtServerOnlineMsg.TabIndex = 68;
         txtServerOnlineMsg.Text = "Online!";
+        // 
+        // chkEnableDiscord
+        // 
+        chkEnableDiscord.AutoSize = true;
+        chkEnableDiscord.Location = new Point(12, 22);
+        chkEnableDiscord.Name = "chkEnableDiscord";
+        chkEnableDiscord.Size = new Size(175, 19);
+        chkEnableDiscord.TabIndex = 77;
+        chkEnableDiscord.Text = "Enable Discord Notifications";
+        chkEnableDiscord.UseVisualStyleBackColor = true;
         // 
         // chkEmbed
         // 
         chkEmbed.AutoSize = true;
-        chkEmbed.Location = new Point(12, 20);
+        chkEmbed.Location = new Point(233, 22);
         chkEmbed.Name = "chkEmbed";
-        chkEmbed.Size = new Size(117, 19);
+        chkEmbed.Size = new Size(139, 19);
         chkEmbed.TabIndex = 67;
-        chkEmbed.Text = "Embed Messages";
+        chkEmbed.Text = "Use Embed Messages";
         chkEmbed.UseVisualStyleBackColor = true;
         // 
         // chkNotifiBackup
@@ -178,7 +303,7 @@ partial class DiscordNotificationsView
         btnTestDiscord.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnTestDiscord.FlatStyle = FlatStyle.Flat;
         btnTestDiscord.ForeColor = SystemColors.Control;
-        btnTestDiscord.Location = new Point(237, 301);
+        btnTestDiscord.Location = new Point(68, 315);
         btnTestDiscord.Name = "btnTestDiscord";
         btnTestDiscord.Size = new Size(128, 30);
         btnTestDiscord.TabIndex = 81;
@@ -189,7 +314,7 @@ partial class DiscordNotificationsView
         // lblDiscordWebhookUrl
         // 
         lblDiscordWebhookUrl.AutoSize = true;
-        lblDiscordWebhookUrl.Location = new Point(165, 248);
+        lblDiscordWebhookUrl.Location = new Point(165, 266);
         lblDiscordWebhookUrl.Name = "lblDiscordWebhookUrl";
         lblDiscordWebhookUrl.Size = new Size(128, 15);
         lblDiscordWebhookUrl.TabIndex = 80;
@@ -203,7 +328,7 @@ partial class DiscordNotificationsView
         btnSaveDiscordSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnSaveDiscordSettings.FlatStyle = FlatStyle.Flat;
         btnSaveDiscordSettings.ForeColor = Color.FromArgb(0, 255, 185);
-        btnSaveDiscordSettings.Location = new Point(93, 301);
+        btnSaveDiscordSettings.Location = new Point(263, 315);
         btnSaveDiscordSettings.Name = "btnSaveDiscordSettings";
         btnSaveDiscordSettings.Size = new Size(128, 30);
         btnSaveDiscordSettings.TabIndex = 79;
@@ -217,20 +342,10 @@ partial class DiscordNotificationsView
         txtDiscordWebhookUrl.BackColor = Color.FromArgb(6, 6, 48);
         txtDiscordWebhookUrl.BorderStyle = BorderStyle.FixedSingle;
         txtDiscordWebhookUrl.ForeColor = SystemColors.Window;
-        txtDiscordWebhookUrl.Location = new Point(69, 268);
+        txtDiscordWebhookUrl.Location = new Point(68, 286);
         txtDiscordWebhookUrl.Name = "txtDiscordWebhookUrl";
-        txtDiscordWebhookUrl.Size = new Size(320, 23);
+        txtDiscordWebhookUrl.Size = new Size(323, 23);
         txtDiscordWebhookUrl.TabIndex = 78;
-        // 
-        // chkEnableDiscord
-        // 
-        chkEnableDiscord.AutoSize = true;
-        chkEnableDiscord.Location = new Point(142, 20);
-        chkEnableDiscord.Name = "chkEnableDiscord";
-        chkEnableDiscord.Size = new Size(175, 19);
-        chkEnableDiscord.TabIndex = 77;
-        chkEnableDiscord.Text = "Enable Discord Notifications";
-        chkEnableDiscord.UseVisualStyleBackColor = true;
         // 
         // DiscordNotificationsView
         // 
@@ -243,7 +358,6 @@ partial class DiscordNotificationsView
         Controls.Add(lblDiscordWebhookUrl);
         Controls.Add(btnSaveDiscordSettings);
         Controls.Add(txtDiscordWebhookUrl);
-        Controls.Add(chkEnableDiscord);
         ForeColor = SystemColors.ButtonHighlight;
         Name = "DiscordNotificationsView";
         Size = new Size(459, 384);
@@ -271,4 +385,13 @@ partial class DiscordNotificationsView
     private Button btnSaveDiscordSettings;
     private TextBox txtDiscordWebhookUrl;
     private CheckBox chkEnableDiscord;
+    private TextBox txtRestartMsg;
+    private CheckBox chkNotifyRestart;
+    private CheckBox chkSoon;
+    private CheckBox chkShort;
+    private CheckBox chkMed;
+    private CheckBox chkLong;
+    private CheckBox chkImminent;
+    private TextBox txtBackupRestoreMsg;
+    private CheckBox chkNotifiBackupRestore;
 }

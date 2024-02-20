@@ -16,6 +16,9 @@ public class ServerProfile : INotifyPropertyChanged
         }
     }
     public AutoBackup AutoBackup { get; set; }
+    public ScheduleRestarts ScheduleRestarts { get; set; }
+
+    public RestoreBackup RestoreBackup { get; set; }
 
     public event PropertyChangedEventHandler? PropertyChanged;
 

@@ -13,6 +13,7 @@ public class ProfileService : IProfileService
         _messageBoxService = messageBoxService;
     }
 
+
     public List<ServerProfile>? LoadServerProfiles(JsonSerializerSettings jsonSerializerSettings, bool firstCheck = false)
     {
         var serverProfilesJson = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON);

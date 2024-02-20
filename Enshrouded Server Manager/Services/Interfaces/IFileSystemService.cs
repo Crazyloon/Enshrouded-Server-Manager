@@ -2,17 +2,24 @@
 
 public interface IFileSystemService
 {
-    public void CreateDirectory(string directoryName);
-    public void DeleteDirectory(string directoryName);
-    public void MoveDirectory(string oldDirectoryName, string newDirectoryName);
-    public bool RenameDirectory(string oldDirectoryName, string newDirectoryname);
-    public bool DirectoryExists(string directoryName);
-    public bool FileExists(string fileName);
-    public void DeleteFile(string fileName);
-    public void WriteFile(string fileName, string content);
-    public string ReadFile(string fileName);
-    public IEnumerable<string> ReadLines(string fileName);
-    public void CopyFile(string sourceFileName, string destFileName);
-    public void CreateZipFromDirectory(string sourceDirectoryName, string destinationArchiveFileName);
-    public void ExtractZipToDirectory(string sourceArchiveFileName, string destinationDirectoryName);
+    void CreateDirectory(string directoryName);
+    void DeleteDirectory(string directoryName);
+    void MoveDirectory(string oldDirectoryName, string newDirectoryName);
+    bool RenameDirectory(string oldDirectoryName, string newDirectoryname);
+    bool DirectoryExists(string directoryName);
+
+    bool FileExists(string fileName);
+    long GetFileSize(string fileName);
+    FileInfo[] GetFiles(string directoryName);
+    void DeleteFile(string fileName);
+    void WriteFile(string fileName, string content);
+    void AppendAllText(string fileName, string content);
+    string ReadFile(string fileName);
+    IEnumerable<string> ReadLines(string fileName);
+    void CopyFile(string sourceFileName, string destFileName);
+    void CopyFile(string sourceFileName, string destFileName, bool overwrite);
+
+    void CreateZipFromDirectory(string sourceDirectoryName, string destinationArchiveFileName);
+    void ExtractZipToDirectory(string sourceArchiveFileName, string destinationDirectoryName);
+    void ExtractZipToDirectory(string sourceArchiveFileName, string destinationDirectoryName, bool overwrite);
 }
