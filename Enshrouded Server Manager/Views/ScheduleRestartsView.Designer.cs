@@ -60,7 +60,7 @@ partial class ScheduleRestartsView
         // 
         radOneTime.AutoSize = true;
         radOneTime.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-        radOneTime.Location = new Point(32, 45);
+        radOneTime.Location = new Point(176, 65);
         radOneTime.Name = "radOneTime";
         radOneTime.Size = new Size(71, 17);
         radOneTime.TabIndex = 0;
@@ -71,7 +71,7 @@ partial class ScheduleRestartsView
         // radHourly
         // 
         radHourly.AutoSize = true;
-        radHourly.Location = new Point(32, 70);
+        radHourly.Location = new Point(176, 90);
         radHourly.Name = "radHourly";
         radHourly.Size = new Size(61, 19);
         radHourly.TabIndex = 1;
@@ -82,7 +82,7 @@ partial class ScheduleRestartsView
         // radDaily
         // 
         radDaily.AutoSize = true;
-        radDaily.Location = new Point(32, 95);
+        radDaily.Location = new Point(176, 115);
         radDaily.Name = "radDaily";
         radDaily.Size = new Size(51, 19);
         radDaily.TabIndex = 2;
@@ -93,7 +93,7 @@ partial class ScheduleRestartsView
         // radWeekly
         // 
         radWeekly.AutoSize = true;
-        radWeekly.Location = new Point(32, 120);
+        radWeekly.Location = new Point(176, 140);
         radWeekly.Name = "radWeekly";
         radWeekly.Size = new Size(63, 19);
         radWeekly.TabIndex = 3;
@@ -104,7 +104,7 @@ partial class ScheduleRestartsView
         // radMonthly
         // 
         radMonthly.AutoSize = true;
-        radMonthly.Location = new Point(32, 145);
+        radMonthly.Location = new Point(176, 165);
         radMonthly.Name = "radMonthly";
         radMonthly.Size = new Size(70, 19);
         radMonthly.TabIndex = 4;
@@ -115,7 +115,7 @@ partial class ScheduleRestartsView
         // lblStartDateTime
         // 
         lblStartDateTime.AutoSize = true;
-        lblStartDateTime.Location = new Point(205, 24);
+        lblStartDateTime.Location = new Point(349, 44);
         lblStartDateTime.Name = "lblStartDateTime";
         lblStartDateTime.Size = new Size(127, 15);
         lblStartDateTime.TabIndex = 43;
@@ -130,7 +130,7 @@ partial class ScheduleRestartsView
         dtpStartDate.CalendarTitleForeColor = SystemColors.ButtonHighlight;
         dtpStartDate.CustomFormat = "";
         dtpStartDate.Format = DateTimePickerFormat.Short;
-        dtpStartDate.Location = new Point(205, 42);
+        dtpStartDate.Location = new Point(349, 62);
         dtpStartDate.Name = "dtpStartDate";
         dtpStartDate.Size = new Size(100, 23);
         dtpStartDate.TabIndex = 5;
@@ -138,7 +138,7 @@ partial class ScheduleRestartsView
         // lblRecur
         // 
         lblRecur.AutoSize = true;
-        lblRecur.Location = new Point(205, 145);
+        lblRecur.Location = new Point(349, 165);
         lblRecur.Name = "lblRecur";
         lblRecur.Size = new Size(71, 15);
         lblRecur.TabIndex = 46;
@@ -148,15 +148,17 @@ partial class ScheduleRestartsView
         // 
         nudRecur.BackColor = Color.FromArgb(6, 6, 48);
         nudRecur.ForeColor = SystemColors.Window;
-        nudRecur.Location = new Point(285, 143);
+        nudRecur.Location = new Point(429, 163);
+        nudRecur.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
         nudRecur.Name = "nudRecur";
         nudRecur.Size = new Size(39, 23);
         nudRecur.TabIndex = 7;
+        nudRecur.Value = new decimal(new int[] { 1, 0, 0, 0 });
         // 
         // lblRecurUnit
         // 
         lblRecurUnit.AutoSize = true;
-        lblRecurUnit.Location = new Point(334, 145);
+        lblRecurUnit.Location = new Point(478, 165);
         lblRecurUnit.Name = "lblRecurUnit";
         lblRecurUnit.Size = new Size(39, 15);
         lblRecurUnit.TabIndex = 48;
@@ -165,7 +167,7 @@ partial class ScheduleRestartsView
         // chkSunday
         // 
         chkSunday.AutoSize = true;
-        chkSunday.Location = new Point(55, 193);
+        chkSunday.Location = new Point(199, 219);
         chkSunday.Name = "chkSunday";
         chkSunday.Size = new Size(65, 19);
         chkSunday.TabIndex = 8;
@@ -175,7 +177,7 @@ partial class ScheduleRestartsView
         // chkMonday
         // 
         chkMonday.AutoSize = true;
-        chkMonday.Location = new Point(144, 193);
+        chkMonday.Location = new Point(288, 219);
         chkMonday.Name = "chkMonday";
         chkMonday.Size = new Size(70, 19);
         chkMonday.TabIndex = 9;
@@ -185,7 +187,7 @@ partial class ScheduleRestartsView
         // chkTuesday
         // 
         chkTuesday.AutoSize = true;
-        chkTuesday.Location = new Point(233, 193);
+        chkTuesday.Location = new Point(377, 219);
         chkTuesday.Name = "chkTuesday";
         chkTuesday.Size = new Size(69, 19);
         chkTuesday.TabIndex = 10;
@@ -195,7 +197,7 @@ partial class ScheduleRestartsView
         // chkWednesday
         // 
         chkWednesday.AutoSize = true;
-        chkWednesday.Location = new Point(322, 193);
+        chkWednesday.Location = new Point(466, 219);
         chkWednesday.Name = "chkWednesday";
         chkWednesday.Size = new Size(87, 19);
         chkWednesday.TabIndex = 11;
@@ -205,7 +207,7 @@ partial class ScheduleRestartsView
         // chkSaturday
         // 
         chkSaturday.AutoSize = true;
-        chkSaturday.Location = new Point(233, 228);
+        chkSaturday.Location = new Point(377, 254);
         chkSaturday.Name = "chkSaturday";
         chkSaturday.Size = new Size(72, 19);
         chkSaturday.TabIndex = 14;
@@ -215,7 +217,7 @@ partial class ScheduleRestartsView
         // chkFriday
         // 
         chkFriday.AutoSize = true;
-        chkFriday.Location = new Point(144, 228);
+        chkFriday.Location = new Point(288, 254);
         chkFriday.Name = "chkFriday";
         chkFriday.Size = new Size(58, 19);
         chkFriday.TabIndex = 13;
@@ -225,7 +227,7 @@ partial class ScheduleRestartsView
         // chkThursday
         // 
         chkThursday.AutoSize = true;
-        chkThursday.Location = new Point(55, 228);
+        chkThursday.Location = new Point(199, 254);
         chkThursday.Name = "chkThursday";
         chkThursday.Size = new Size(74, 19);
         chkThursday.TabIndex = 12;
@@ -242,7 +244,7 @@ partial class ScheduleRestartsView
         btnClearAll.FlatStyle = FlatStyle.Flat;
         btnClearAll.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
         btnClearAll.ForeColor = SystemColors.ControlLightLight;
-        btnClearAll.Location = new Point(68, 315);
+        btnClearAll.Location = new Point(207, 342);
         btnClearAll.Margin = new Padding(0);
         btnClearAll.Name = "btnClearAll";
         btnClearAll.Padding = new Padding(0, 2, 0, 0);
@@ -260,7 +262,7 @@ partial class ScheduleRestartsView
         btnApplySettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnApplySettings.FlatStyle = FlatStyle.Flat;
         btnApplySettings.ForeColor = Color.FromArgb(0, 255, 185);
-        btnApplySettings.Location = new Point(263, 315);
+        btnApplySettings.Location = new Point(410, 342);
         btnApplySettings.Name = "btnApplySettings";
         btnApplySettings.Size = new Size(128, 30);
         btnApplySettings.TabIndex = 15;
@@ -278,7 +280,7 @@ partial class ScheduleRestartsView
         dtpStartTime.CalendarTitleForeColor = SystemColors.ButtonHighlight;
         dtpStartTime.CustomFormat = "";
         dtpStartTime.Format = DateTimePickerFormat.Time;
-        dtpStartTime.Location = new Point(325, 42);
+        dtpStartTime.Location = new Point(469, 62);
         dtpStartTime.Name = "dtpStartTime";
         dtpStartTime.ShowUpDown = true;
         dtpStartTime.Size = new Size(100, 23);
@@ -288,7 +290,7 @@ partial class ScheduleRestartsView
         // 
         lblServerMustBeStoppedMessage.AutoSize = true;
         lblServerMustBeStoppedMessage.ForeColor = SystemColors.Info;
-        lblServerMustBeStoppedMessage.Location = new Point(91, 355);
+        lblServerMustBeStoppedMessage.Location = new Point(258, 385);
         lblServerMustBeStoppedMessage.Name = "lblServerMustBeStoppedMessage";
         lblServerMustBeStoppedMessage.Size = new Size(7, 30);
         lblServerMustBeStoppedMessage.TabIndex = 59;
@@ -298,7 +300,7 @@ partial class ScheduleRestartsView
         // chkEnableScheduledRestarts
         // 
         chkEnableScheduledRestarts.AutoSize = true;
-        chkEnableScheduledRestarts.Location = new Point(148, 265);
+        chkEnableScheduledRestarts.Location = new Point(292, 293);
         chkEnableScheduledRestarts.Name = "chkEnableScheduledRestarts";
         chkEnableScheduledRestarts.Size = new Size(163, 19);
         chkEnableScheduledRestarts.TabIndex = 60;
@@ -308,10 +310,11 @@ partial class ScheduleRestartsView
         // lblTimeLeft
         // 
         lblTimeLeft.AutoSize = true;
+        lblTimeLeft.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
         lblTimeLeft.ForeColor = Color.FromArgb(0, 204, 204);
-        lblTimeLeft.Location = new Point(32, 15);
+        lblTimeLeft.Location = new Point(176, 15);
         lblTimeLeft.Name = "lblTimeLeft";
-        lblTimeLeft.Size = new Size(104, 15);
+        lblTimeLeft.Size = new Size(118, 17);
         lblTimeLeft.TabIndex = 61;
         lblTimeLeft.Text = "Next Restart: 00:00";
         lblTimeLeft.TextAlign = ContentAlignment.MiddleCenter;
@@ -319,7 +322,7 @@ partial class ScheduleRestartsView
         // chkStartWithServer
         // 
         chkStartWithServer.AutoSize = true;
-        chkStartWithServer.Location = new Point(205, 96);
+        chkStartWithServer.Location = new Point(349, 116);
         chkStartWithServer.Name = "chkStartWithServer";
         chkStartWithServer.Size = new Size(183, 19);
         chkStartWithServer.TabIndex = 62;
@@ -331,7 +334,7 @@ partial class ScheduleRestartsView
         lblOr.AutoSize = true;
         lblOr.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
         lblOr.ForeColor = SystemColors.Info;
-        lblOr.Location = new Point(299, 74);
+        lblOr.Location = new Point(443, 94);
         lblOr.Name = "lblOr";
         lblOr.Size = new Size(23, 17);
         lblOr.TabIndex = 63;
@@ -369,7 +372,7 @@ partial class ScheduleRestartsView
         Controls.Add(radOneTime);
         ForeColor = SystemColors.ButtonHighlight;
         Name = "ScheduleRestartsView";
-        Size = new Size(459, 384);
+        Size = new Size(744, 411);
         ((System.ComponentModel.ISupportInitialize)nudRecur).EndInit();
         ResumeLayout(false);
         PerformLayout();

@@ -21,4 +21,7 @@ public interface IScheduleRestartsView
     string TimeLeft { get; set; }
 
     void AnimateSaveButton();
+    void ToggleDaysOfWeek(bool visible);
+    void ToggleStartWithServer(bool visible);
+    void ToggleRecurrenceInterval(bool visible);
 }

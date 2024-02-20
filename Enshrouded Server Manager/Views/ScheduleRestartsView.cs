@@ -86,6 +86,30 @@ public partial class ScheduleRestartsView : UserControl, IScheduleRestartsView
         set => lblTimeLeft.Text = value;
     }
 
+    public void ToggleDaysOfWeek(bool visible)
+    {
+        chkSunday.Visible = visible;
+        chkMonday.Visible = visible;
+        chkTuesday.Visible = visible;
+        chkWednesday.Visible = visible;
+        chkThursday.Visible = visible;
+        chkFriday.Visible = visible;
+        chkSaturday.Visible = visible;
+    }
+
+    public void ToggleStartWithServer(bool visible)
+    {
+        lblOr.Visible = visible;
+        chkStartWithServer.Visible = visible;
+    }
+
+    public void ToggleRecurrenceInterval(bool visible)
+    {
+        lblRecur.Visible = visible;
+        nudRecur.Visible = visible;
+        lblRecurUnit.Visible = visible;
+    }
+
     public RestartFrequency RestartFrequency
     {
         get

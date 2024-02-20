@@ -34,6 +34,18 @@ public partial class ProfileSelectorView : UserControl, IProfileSelectorView
         set => btnRenameProfile.Text = value;
     }
 
+    public string TimeLeft
+    {
+        get => lblTimeLeft.Text;
+        set => lblTimeLeft.Text = value;
+    }
+
+    public bool TimeLeftVisible
+    {
+        get => lblTimeLeft.Visible;
+        set => lblTimeLeft.Visible = value;
+    }
+
     public event EventHandler SelectedProfileChanged;
     public ServerProfile SelectedProfile => (ServerProfile)cbxProfileSelectionComboBox.SelectedItem;
 

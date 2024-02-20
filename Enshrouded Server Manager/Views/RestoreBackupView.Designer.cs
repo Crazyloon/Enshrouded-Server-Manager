@@ -36,6 +36,7 @@ partial class RestoreBackupView
         ofdBackupFileSelector = new OpenFileDialog();
         chkRestoreBackupOnRestart = new CheckBox();
         btnRestoreSaveFile = new Button();
+        lblAutoRestoreInfo = new Label();
         SuspendLayout();
         // 
         // btnSaveSettings
@@ -46,7 +47,7 @@ partial class RestoreBackupView
         btnSaveSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnSaveSettings.FlatStyle = FlatStyle.Flat;
         btnSaveSettings.ForeColor = Color.FromArgb(0, 255, 185);
-        btnSaveSettings.Location = new Point(263, 315);
+        btnSaveSettings.Location = new Point(410, 342);
         btnSaveSettings.Name = "btnSaveSettings";
         btnSaveSettings.Size = new Size(128, 30);
         btnSaveSettings.TabIndex = 45;
@@ -58,7 +59,7 @@ partial class RestoreBackupView
         // lblSelectRestoreFile
         // 
         lblSelectRestoreFile.AutoSize = true;
-        lblSelectRestoreFile.Location = new Point(66, 61);
+        lblSelectRestoreFile.Location = new Point(211, 61);
         lblSelectRestoreFile.Name = "lblSelectRestoreFile";
         lblSelectRestoreFile.Size = new Size(101, 15);
         lblSelectRestoreFile.TabIndex = 30;
@@ -68,7 +69,7 @@ partial class RestoreBackupView
         // 
         lblAutoBackupChangesInfo.AutoSize = true;
         lblAutoBackupChangesInfo.ForeColor = SystemColors.Info;
-        lblAutoBackupChangesInfo.Location = new Point(112, 355);
+        lblAutoBackupChangesInfo.Location = new Point(258, 385);
         lblAutoBackupChangesInfo.Name = "lblAutoBackupChangesInfo";
         lblAutoBackupChangesInfo.Size = new Size(235, 15);
         lblAutoBackupChangesInfo.TabIndex = 36;
@@ -85,7 +86,7 @@ partial class RestoreBackupView
         btnSelectRestoreFile.FlatStyle = FlatStyle.Flat;
         btnSelectRestoreFile.Font = new Font("Malgun Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
         btnSelectRestoreFile.ForeColor = SystemColors.ControlLightLight;
-        btnSelectRestoreFile.Location = new Point(68, 114);
+        btnSelectRestoreFile.Location = new Point(381, 110);
         btnSelectRestoreFile.Margin = new Padding(0);
         btnSelectRestoreFile.Name = "btnSelectRestoreFile";
         btnSelectRestoreFile.Padding = new Padding(0, 2, 0, 0);
@@ -100,9 +101,9 @@ partial class RestoreBackupView
         txtRestoreFilePath.BackColor = Color.FromArgb(6, 6, 48);
         txtRestoreFilePath.BorderStyle = BorderStyle.FixedSingle;
         txtRestoreFilePath.ForeColor = SystemColors.Window;
-        txtRestoreFilePath.Location = new Point(65, 79);
+        txtRestoreFilePath.Location = new Point(207, 79);
         txtRestoreFilePath.Name = "txtRestoreFilePath";
-        txtRestoreFilePath.Size = new Size(325, 23);
+        txtRestoreFilePath.Size = new Size(331, 23);
         txtRestoreFilePath.TabIndex = 42;
         // 
         // ofdBackupFileSelector
@@ -112,7 +113,7 @@ partial class RestoreBackupView
         // chkRestoreBackupOnRestart
         // 
         chkRestoreBackupOnRestart.AutoSize = true;
-        chkRestoreBackupOnRestart.Location = new Point(68, 159);
+        chkRestoreBackupOnRestart.Location = new Point(207, 157);
         chkRestoreBackupOnRestart.Name = "chkRestoreBackupOnRestart";
         chkRestoreBackupOnRestart.Size = new Size(281, 19);
         chkRestoreBackupOnRestart.TabIndex = 44;
@@ -129,7 +130,7 @@ partial class RestoreBackupView
         btnRestoreSaveFile.FlatStyle = FlatStyle.Flat;
         btnRestoreSaveFile.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
         btnRestoreSaveFile.ForeColor = SystemColors.ControlLightLight;
-        btnRestoreSaveFile.Location = new Point(68, 315);
+        btnRestoreSaveFile.Location = new Point(207, 342);
         btnRestoreSaveFile.Margin = new Padding(0);
         btnRestoreSaveFile.Name = "btnRestoreSaveFile";
         btnRestoreSaveFile.Padding = new Padding(0, 2, 0, 0);
@@ -140,11 +141,21 @@ partial class RestoreBackupView
         btnRestoreSaveFile.UseVisualStyleBackColor = true;
         btnRestoreSaveFile.EnabledChanged += btnSaveAutoBackup_EnabledChanged;
         // 
+        // lblAutoRestoreInfo
+        // 
+        lblAutoRestoreInfo.ForeColor = SystemColors.Info;
+        lblAutoRestoreInfo.Location = new Point(223, 179);
+        lblAutoRestoreInfo.Name = "lblAutoRestoreInfo";
+        lblAutoRestoreInfo.Size = new Size(236, 50);
+        lblAutoRestoreInfo.TabIndex = 47;
+        lblAutoRestoreInfo.Text = "If this profile restarts on a schedule, checking this box will ensure that it restores from a backup when it shuts down";
+        // 
         // RestoreBackupView
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
+        Controls.Add(lblAutoRestoreInfo);
         Controls.Add(btnRestoreSaveFile);
         Controls.Add(chkRestoreBackupOnRestart);
         Controls.Add(txtRestoreFilePath);
@@ -154,7 +165,7 @@ partial class RestoreBackupView
         Controls.Add(lblSelectRestoreFile);
         ForeColor = SystemColors.ButtonHighlight;
         Name = "RestoreBackupView";
-        Size = new Size(459, 384);
+        Size = new Size(744, 411);
         ResumeLayout(false);
         PerformLayout();
     }
@@ -168,4 +179,5 @@ partial class RestoreBackupView
     private OpenFileDialog ofdBackupFileSelector;
     private CheckBox chkRestoreBackupOnRestart;
     private Button btnRestoreSaveFile;
+    private Label lblAutoRestoreInfo;
 }

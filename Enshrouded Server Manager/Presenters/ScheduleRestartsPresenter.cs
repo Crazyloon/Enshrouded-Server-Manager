@@ -67,19 +67,38 @@ public class ScheduleRestartsPresenter
         switch (_view.RestartFrequency)
         {
             case RestartFrequency.None:
+                _view.ToggleDaysOfWeek(false);
+                _view.ToggleStartWithServer(false);
+                _view.ToggleRecurrenceInterval(false);
+                break;
             case RestartFrequency.OneTime:
+                _view.ToggleDaysOfWeek(false);
+                _view.ToggleStartWithServer(false);
+                _view.ToggleRecurrenceInterval(false);
                 break;
             case RestartFrequency.Hourly:
                 _view.RecurrenceIntervalUnit = "Hour(s)";
+                _view.ToggleDaysOfWeek(false);
+                _view.ToggleStartWithServer(true);
+                _view.ToggleRecurrenceInterval(true);
                 break;
             case RestartFrequency.Daily:
                 _view.RecurrenceIntervalUnit = "Day(s)";
+                _view.ToggleDaysOfWeek(false);
+                _view.ToggleStartWithServer(true);
+                _view.ToggleRecurrenceInterval(true);
                 break;
             case RestartFrequency.Weekly:
                 _view.RecurrenceIntervalUnit = "Week(s)";
+                _view.ToggleDaysOfWeek(true);
+                _view.ToggleStartWithServer(true);
+                _view.ToggleRecurrenceInterval(true);
                 break;
             case RestartFrequency.Monthly:
                 _view.RecurrenceIntervalUnit = "Month(s)";
+                _view.ToggleDaysOfWeek(false);
+                _view.ToggleStartWithServer(true);
+                _view.ToggleRecurrenceInterval(true);
                 break;
 
             default:
@@ -93,7 +112,7 @@ public class ScheduleRestartsPresenter
         _view.StartDate = DateOnly.FromDateTime(DateTime.Now);
         _view.StartTime = TimeOnly.FromDateTime(DateTime.Now);
         _view.DaysOfWeek = new DayOfWeek[] { };
-        _view.RecurrenceInterval = 0;
+        _view.RecurrenceInterval = 1;
         _view.IsScheduledRestartEnabled = false;
         _view.IsScheduledWithServerStart = false;
     }

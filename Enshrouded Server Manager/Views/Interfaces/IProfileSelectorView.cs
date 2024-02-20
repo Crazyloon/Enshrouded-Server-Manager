@@ -10,6 +10,8 @@ public interface IProfileSelectorView
     event EventHandler RenameProfileButtonClicked;
 
     string RenameButtonText { get; set; }
+    string TimeLeft { get; set; }
+    bool TimeLeftVisible { get; set; }
     ServerProfile SelectedProfile { get; }
 
     void SetProfiles(BindingList<ServerProfile> profiles);

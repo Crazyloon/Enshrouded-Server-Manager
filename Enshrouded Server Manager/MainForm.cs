@@ -79,7 +79,7 @@ public partial class MainForm : Form, IMainFormView
         this.Tag = new MainFormPresenter(this, versionManager);
 
         // Profile Selector should be created last, because it publishes the selected profile on startup
-        profileSelectorView.Tag = new ProfileSelectorPresenter(profileSelectorView, manageProfilesView, eventAggregator, profileService, serverSettingsService, fileSystemService, messageBoxService, enshroudedServerService, logService, profiles);
+        profileSelectorView.Tag = new ProfileSelectorPresenter(profileSelectorView, manageProfilesView, eventAggregator, profileService, serverSettingsService, fileSystemService, messageBoxService, enshroudedServerService, logService, restartTimers, profiles);
 
         _pnlUpdateServerfiles = new Panel();
         _lblUpdateServerfiles = new Label();

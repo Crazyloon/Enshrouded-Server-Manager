@@ -1,6 +1,8 @@
-﻿namespace Enshrouded_Server_Manager.Views;
+﻿using Enshrouded_Server_Manager.Enums;
 
-internal interface INavBarView
+namespace Enshrouded_Server_Manager.Views;
+
+public interface INavigationView
 {
     event EventHandler HomeClicked;
     event EventHandler ServerSettingsClicked;
@@ -10,4 +12,6 @@ internal interface INavBarView
     event EventHandler DiscordNotificationsClicked;
 
     string CurrentVersionText { get; set; }
+    bool IsNewVersionAvailable { get; set; }
+    ViewSelection SelectedView { get; set; }
 }

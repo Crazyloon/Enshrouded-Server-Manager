@@ -56,7 +56,7 @@ partial class ServerSettingsView
         btnShowPassword.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnShowPassword.FlatStyle = FlatStyle.Flat;
         btnShowPassword.ForeColor = SystemColors.Control;
-        btnShowPassword.Location = new Point(329, 98);
+        btnShowPassword.Location = new Point(472, 113);
         btnShowPassword.Name = "btnShowPassword";
         btnShowPassword.Size = new Size(48, 23);
         btnShowPassword.TabIndex = 54;
@@ -69,7 +69,7 @@ partial class ServerSettingsView
         txtIpAddress.BackColor = Color.FromArgb(6, 6, 48);
         txtIpAddress.BorderStyle = BorderStyle.FixedSingle;
         txtIpAddress.ForeColor = SystemColors.Window;
-        txtIpAddress.Location = new Point(153, 127);
+        txtIpAddress.Location = new Point(296, 142);
         txtIpAddress.Name = "txtIpAddress";
         txtIpAddress.Size = new Size(134, 23);
         txtIpAddress.TabIndex = 43;
@@ -79,7 +79,7 @@ partial class ServerSettingsView
         txtServerName.BackColor = Color.FromArgb(6, 6, 48);
         txtServerName.BorderStyle = BorderStyle.FixedSingle;
         txtServerName.ForeColor = SystemColors.Window;
-        txtServerName.Location = new Point(153, 69);
+        txtServerName.Location = new Point(296, 84);
         txtServerName.Name = "txtServerName";
         txtServerName.Size = new Size(170, 23);
         txtServerName.TabIndex = 41;
@@ -89,7 +89,7 @@ partial class ServerSettingsView
         txtServerPassword.BackColor = Color.FromArgb(6, 6, 48);
         txtServerPassword.BorderStyle = BorderStyle.FixedSingle;
         txtServerPassword.ForeColor = SystemColors.Window;
-        txtServerPassword.Location = new Point(153, 98);
+        txtServerPassword.Location = new Point(296, 113);
         txtServerPassword.Name = "txtServerPassword";
         txtServerPassword.PasswordChar = '*';
         txtServerPassword.Size = new Size(170, 23);
@@ -100,7 +100,7 @@ partial class ServerSettingsView
         nudGamePort.BackColor = Color.FromArgb(6, 6, 48);
         nudGamePort.BorderStyle = BorderStyle.FixedSingle;
         nudGamePort.ForeColor = SystemColors.Window;
-        nudGamePort.Location = new Point(153, 157);
+        nudGamePort.Location = new Point(296, 172);
         nudGamePort.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
         nudGamePort.Name = "nudGamePort";
         nudGamePort.Size = new Size(62, 23);
@@ -111,7 +111,7 @@ partial class ServerSettingsView
         nudQueryPort.BackColor = Color.FromArgb(6, 6, 48);
         nudQueryPort.BorderStyle = BorderStyle.FixedSingle;
         nudQueryPort.ForeColor = SystemColors.Window;
-        nudQueryPort.Location = new Point(153, 186);
+        nudQueryPort.Location = new Point(296, 201);
         nudQueryPort.Maximum = new decimal(new int[] { 99999, 0, 0, 0 });
         nudQueryPort.Name = "nudQueryPort";
         nudQueryPort.Size = new Size(62, 23);
@@ -122,7 +122,7 @@ partial class ServerSettingsView
         nudSlotCount.BackColor = Color.FromArgb(6, 6, 48);
         nudSlotCount.BorderStyle = BorderStyle.FixedSingle;
         nudSlotCount.ForeColor = SystemColors.Window;
-        nudSlotCount.Location = new Point(153, 215);
+        nudSlotCount.Location = new Point(296, 230);
         nudSlotCount.Maximum = new decimal(new int[] { 16, 0, 0, 0 });
         nudSlotCount.Name = "nudSlotCount";
         nudSlotCount.Size = new Size(35, 23);
@@ -132,7 +132,7 @@ partial class ServerSettingsView
         // 
         lblServername.AutoSize = true;
         lblServername.ForeColor = SystemColors.ButtonHighlight;
-        lblServername.Location = new Point(82, 72);
+        lblServername.Location = new Point(225, 87);
         lblServername.Name = "lblServername";
         lblServername.Size = new Size(69, 15);
         lblServername.TabIndex = 47;
@@ -142,7 +142,7 @@ partial class ServerSettingsView
         // 
         lblPassword.AutoSize = true;
         lblPassword.ForeColor = SystemColors.ButtonHighlight;
-        lblPassword.Location = new Point(94, 101);
+        lblPassword.Location = new Point(237, 116);
         lblPassword.Name = "lblPassword";
         lblPassword.Size = new Size(57, 15);
         lblPassword.TabIndex = 48;
@@ -152,7 +152,7 @@ partial class ServerSettingsView
         // 
         lblIpAddress.AutoSize = true;
         lblIpAddress.ForeColor = SystemColors.ButtonHighlight;
-        lblIpAddress.Location = new Point(89, 130);
+        lblIpAddress.Location = new Point(232, 145);
         lblIpAddress.Name = "lblIpAddress";
         lblIpAddress.Size = new Size(62, 15);
         lblIpAddress.TabIndex = 49;
@@ -162,7 +162,7 @@ partial class ServerSettingsView
         // 
         lblGamePort.AutoSize = true;
         lblGamePort.ForeColor = SystemColors.ButtonHighlight;
-        lblGamePort.Location = new Point(91, 159);
+        lblGamePort.Location = new Point(234, 174);
         lblGamePort.Name = "lblGamePort";
         lblGamePort.Size = new Size(60, 15);
         lblGamePort.TabIndex = 50;
@@ -172,7 +172,7 @@ partial class ServerSettingsView
         // 
         lblQueryPort.AutoSize = true;
         lblQueryPort.ForeColor = SystemColors.ButtonHighlight;
-        lblQueryPort.Location = new Point(90, 188);
+        lblQueryPort.Location = new Point(233, 203);
         lblQueryPort.Name = "lblQueryPort";
         lblQueryPort.Size = new Size(61, 15);
         lblQueryPort.TabIndex = 51;
@@ -182,7 +182,7 @@ partial class ServerSettingsView
         // 
         lblMaxPlayers.AutoSize = true;
         lblMaxPlayers.ForeColor = SystemColors.ButtonHighlight;
-        lblMaxPlayers.Location = new Point(84, 217);
+        lblMaxPlayers.Location = new Point(227, 232);
         lblMaxPlayers.Name = "lblMaxPlayers";
         lblMaxPlayers.Size = new Size(67, 15);
         lblMaxPlayers.TabIndex = 52;
@@ -196,7 +196,7 @@ partial class ServerSettingsView
         btnSaveSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnSaveSettings.FlatStyle = FlatStyle.Flat;
         btnSaveSettings.ForeColor = Color.FromArgb(0, 255, 185);
-        btnSaveSettings.Location = new Point(263, 315);
+        btnSaveSettings.Location = new Point(410, 342);
         btnSaveSettings.Name = "btnSaveSettings";
         btnSaveSettings.Size = new Size(128, 30);
         btnSaveSettings.TabIndex = 53;
@@ -209,7 +209,7 @@ partial class ServerSettingsView
         // 
         lblServerMustBeStoppedMessage.AutoSize = true;
         lblServerMustBeStoppedMessage.ForeColor = SystemColors.Info;
-        lblServerMustBeStoppedMessage.Location = new Point(115, 355);
+        lblServerMustBeStoppedMessage.Location = new Point(258, 385);
         lblServerMustBeStoppedMessage.Name = "lblServerMustBeStoppedMessage";
         lblServerMustBeStoppedMessage.Size = new Size(229, 15);
         lblServerMustBeStoppedMessage.TabIndex = 60;
@@ -238,7 +238,7 @@ partial class ServerSettingsView
         Controls.Add(btnSaveSettings);
         ForeColor = SystemColors.ButtonHighlight;
         Name = "ServerSettingsView";
-        Size = new Size(459, 384);
+        Size = new Size(744, 411);
         ((System.ComponentModel.ISupportInitialize)nudGamePort).EndInit();
         ((System.ComponentModel.ISupportInitialize)nudQueryPort).EndInit();
         ((System.ComponentModel.ISupportInitialize)nudSlotCount).EndInit();

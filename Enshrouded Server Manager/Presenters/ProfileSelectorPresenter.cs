@@ -19,7 +19,9 @@ public class ProfileSelectorPresenter
     private readonly IEnshroudedServerService _server;
     private readonly IFileLoggerService _logger;
 
+    private Dictionary<string, CountDownTimer> _restartTimers;
     private BindingList<ServerProfile>? _profiles;
+    private ServerProfile? _selectedProfile;
 
     public ProfileSelectorPresenter(IProfileSelectorView profileSelectorView,
         IManageProfilesView manageProfilesView,
@@ -30,6 +32,7 @@ public class ProfileSelectorPresenter
         IMessageBoxService messageBox,
         IEnshroudedServerService server,
         IFileLoggerService fileLogger,
+        Dictionary<string, CountDownTimer> restartTimers,
         BindingList<ServerProfile>? serverProfiles)
     {
         _profileSelectorView = profileSelectorView;
@@ -40,8 +43,11 @@ public class ProfileSelectorPresenter
         _fileSystemService = fileSystemManager;
         _messageBox = messageBox;
         _server = server;
-        _profiles = serverProfiles;
         _logger = fileLogger;
+        _restartTimers = restartTimers;
+        _profiles = serverProfiles;
+
+        _selectedProfile = _profileSelectorView.SelectedProfile;
 
         profileSelectorView.SelectedProfileChanged += (sender, args) => OnSelectedProfileChanged();
         profileSelectorView.AddProfileButtonClicked += (sender, args) => OnAddProfileClicked();
@@ -49,12 +55,35 @@ public class ProfileSelectorPresenter
         profileSelectorView.RenameProfileButtonClicked += (sender, args) => OnRenameProfileClicked();
 
         LoadProfiles(_profiles);
-        _manageProfilesView.Position = new Point(207, 40);
+        _manageProfilesView.IsVisible = false;
+
+        _eventAggregator.Subscribe<ServerResetTimerUpdatedMessage>(p => OnServerResetTimerUpdated(p.ServerProfile, p.TimeLeft));
+    }
+
+    private void OnServerResetTimerUpdated(ServerProfile serverProfile, string timeLeft)
+    {
+        if (serverProfile == _selectedProfile)
+        {
+            _profileSelectorView.TimeLeftVisible = true;
+            _profileSelectorView.TimeLeft = $"Next Restart: {timeLeft}";
+        }
     }
 
     private void OnSelectedProfileChanged()
     {
         _eventAggregator.Publish(new ProfileSelectedMessage(_profileSelectorView.SelectedProfile));
+        _selectedProfile = _profileSelectorView.SelectedProfile;
+
+        // update the timer if necessary
+        if (_restartTimers.ContainsKey(_profileSelectorView.SelectedProfile.Name))
+        {
+            _profileSelectorView.TimeLeftVisible = true;
+            _profileSelectorView.TimeLeft = $"Next Restart: {_restartTimers[_profileSelectorView.SelectedProfile.Name].TimeLeftStr}";
+        }
+        else
+        {
+            _profileSelectorView.TimeLeftVisible = false;
+        }
     }
 
     private void OnAddProfileClicked()

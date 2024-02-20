@@ -33,6 +33,11 @@ partial class ProfileSelectorView
         btnAddNewProfile = new Button();
         btnDeleteProfile = new Button();
         btnRenameProfile = new Button();
+        lblTimeLeft = new Label();
+        pnlRestartTimer = new Panel();
+        panel1 = new Panel();
+        pnlRestartTimer.SuspendLayout();
+        panel1.SuspendLayout();
         SuspendLayout();
         // 
         // cbxProfileSelectionComboBox
@@ -42,7 +47,7 @@ partial class ProfileSelectorView
         cbxProfileSelectionComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         cbxProfileSelectionComboBox.FlatStyle = FlatStyle.System;
         cbxProfileSelectionComboBox.FormattingEnabled = true;
-        cbxProfileSelectionComboBox.Location = new Point(109, 11);
+        cbxProfileSelectionComboBox.Location = new Point(230, 8);
         cbxProfileSelectionComboBox.Name = "cbxProfileSelectionComboBox";
         cbxProfileSelectionComboBox.Size = new Size(175, 23);
         cbxProfileSelectionComboBox.TabIndex = 2;
@@ -52,7 +57,7 @@ partial class ProfileSelectorView
         lblProfileSelectionLabel.Anchor = AnchorStyles.Top;
         lblProfileSelectionLabel.AutoSize = true;
         lblProfileSelectionLabel.ForeColor = SystemColors.ButtonHighlight;
-        lblProfileSelectionLabel.Location = new Point(29, 15);
+        lblProfileSelectionLabel.Location = new Point(150, 12);
         lblProfileSelectionLabel.Name = "lblProfileSelectionLabel";
         lblProfileSelectionLabel.Size = new Size(76, 15);
         lblProfileSelectionLabel.TabIndex = 3;
@@ -69,7 +74,7 @@ partial class ProfileSelectorView
         btnAddNewProfile.FlatStyle = FlatStyle.Flat;
         btnAddNewProfile.Font = new Font("Consolas", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
         btnAddNewProfile.ForeColor = Color.FromArgb(0, 255, 185);
-        btnAddNewProfile.Location = new Point(300, 5);
+        btnAddNewProfile.Location = new Point(421, 4);
         btnAddNewProfile.Margin = new Padding(0);
         btnAddNewProfile.Name = "btnAddNewProfile";
         btnAddNewProfile.Padding = new Padding(0, 2, 0, 0);
@@ -91,7 +96,7 @@ partial class ProfileSelectorView
         btnDeleteProfile.FlatStyle = FlatStyle.Flat;
         btnDeleteProfile.Font = new Font("Consolas", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
         btnDeleteProfile.ForeColor = SystemColors.ButtonHighlight;
-        btnDeleteProfile.Location = new Point(340, 5);
+        btnDeleteProfile.Location = new Point(461, 4);
         btnDeleteProfile.Margin = new Padding(0);
         btnDeleteProfile.Name = "btnDeleteProfile";
         btnDeleteProfile.Padding = new Padding(0, 2, 0, 0);
@@ -112,7 +117,7 @@ partial class ProfileSelectorView
         btnRenameProfile.FlatStyle = FlatStyle.Flat;
         btnRenameProfile.Font = new Font("Malgun Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
         btnRenameProfile.ForeColor = SystemColors.ControlLightLight;
-        btnRenameProfile.Location = new Point(384, 5);
+        btnRenameProfile.Location = new Point(505, 4);
         btnRenameProfile.Margin = new Padding(0);
         btnRenameProfile.Name = "btnRenameProfile";
         btnRenameProfile.Padding = new Padding(0, 2, 0, 0);
@@ -122,20 +127,55 @@ partial class ProfileSelectorView
         btnRenameProfile.UseCompatibleTextRendering = true;
         btnRenameProfile.UseVisualStyleBackColor = true;
         // 
+        // lblTimeLeft
+        // 
+        lblTimeLeft.AutoSize = true;
+        lblTimeLeft.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+        lblTimeLeft.ForeColor = Color.FromArgb(0, 204, 204);
+        lblTimeLeft.Location = new Point(18, 11);
+        lblTimeLeft.Name = "lblTimeLeft";
+        lblTimeLeft.Size = new Size(118, 17);
+        lblTimeLeft.TabIndex = 62;
+        lblTimeLeft.Text = "Next Restart: 00:00";
+        lblTimeLeft.TextAlign = ContentAlignment.MiddleCenter;
+        lblTimeLeft.Visible = false;
+        // 
+        // pnlRestartTimer
+        // 
+        pnlRestartTimer.Controls.Add(lblTimeLeft);
+        pnlRestartTimer.Dock = DockStyle.Left;
+        pnlRestartTimer.Location = new Point(0, 0);
+        pnlRestartTimer.Name = "pnlRestartTimer";
+        pnlRestartTimer.Size = new Size(200, 39);
+        pnlRestartTimer.TabIndex = 63;
+        // 
+        // panel1
+        // 
+        panel1.Controls.Add(lblProfileSelectionLabel);
+        panel1.Controls.Add(cbxProfileSelectionComboBox);
+        panel1.Controls.Add(btnRenameProfile);
+        panel1.Controls.Add(btnAddNewProfile);
+        panel1.Controls.Add(btnDeleteProfile);
+        panel1.Dock = DockStyle.Fill;
+        panel1.Location = new Point(200, 0);
+        panel1.Name = "panel1";
+        panel1.Size = new Size(742, 39);
+        panel1.TabIndex = 64;
+        // 
         // ProfileSelectorView
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
-        Controls.Add(btnRenameProfile);
-        Controls.Add(btnDeleteProfile);
-        Controls.Add(btnAddNewProfile);
-        Controls.Add(cbxProfileSelectionComboBox);
-        Controls.Add(lblProfileSelectionLabel);
+        Controls.Add(panel1);
+        Controls.Add(pnlRestartTimer);
         Name = "ProfileSelectorView";
-        Size = new Size(505, 40);
+        Size = new Size(942, 39);
+        pnlRestartTimer.ResumeLayout(false);
+        pnlRestartTimer.PerformLayout();
+        panel1.ResumeLayout(false);
+        panel1.PerformLayout();
         ResumeLayout(false);
-        PerformLayout();
     }
 
     #endregion
@@ -145,4 +185,7 @@ partial class ProfileSelectorView
     private Button btnAddNewProfile;
     private Button btnDeleteProfile;
     private Button btnRenameProfile;
+    private Label lblTimeLeft;
+    private Panel pnlRestartTimer;
+    private Panel panel1;
 }

@@ -1,7 +1,9 @@
-﻿namespace Enshrouded_Server_Manager.Views;
-public partial class NavBarView : UserControl, INavBarView
+﻿using Enshrouded_Server_Manager.Enums;
+
+namespace Enshrouded_Server_Manager.Views;
+public partial class NavigationView : UserControl, INavigationView
 {
-    public NavBarView()
+    public NavigationView()
     {
         InitializeComponent();
     }
@@ -9,12 +11,6 @@ public partial class NavBarView : UserControl, INavBarView
     {
         add => btnHome.Click += value;
         remove => btnHome.Click -= value;
-    }
-
-    public event EventHandler ProfileSettingsClicked
-    {
-        add => btnProfileSettings.Click += value;
-        remove => btnProfileSettings.Click -= value;
     }
 
     public event EventHandler ServerSettingsClicked
@@ -52,4 +48,12 @@ public partial class NavBarView : UserControl, INavBarView
         get => lblVersion.Text;
         set => lblVersion.Text = value;
     }
+
+    public bool IsNewVersionAvailable
+    {
+        get => lblNewVersion.Visible;
+        set => lblNewVersion.Visible = value;
+    }
+
+    public ViewSelection SelectedView { get; set; }
 }
