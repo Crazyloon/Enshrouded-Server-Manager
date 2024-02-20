@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <PackageReference Include="Discord.Net" Version="3.13.0" />
-    <!--<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />-->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
@@ -25,9 +24,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Views\RestoreBackupView.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Views\AdminPanelHorizontalView.cs">
       <SubType>UserControl</SubType>

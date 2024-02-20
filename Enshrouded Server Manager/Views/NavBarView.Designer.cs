@@ -28,36 +28,40 @@ partial class NavBarView
     /// </summary>
     private void InitializeComponent()
     {
-        btnDiscord = new Button();
+        btnDiscordNotifications = new Button();
         btnAutoBackup = new Button();
         lblVersion = new Label();
         lblLogo = new Label();
         btnServerSettings = new Button();
         btnProfileSettings = new Button();
         btnHome = new Button();
+        btnScheduleRestarts = new Button();
+        btnRestoreBackup = new Button();
         SuspendLayout();
         // 
-        // btnDiscord
+        // btnDiscordNotifications
         // 
-        btnDiscord.Dock = DockStyle.Top;
-        btnDiscord.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 18);
-        btnDiscord.FlatAppearance.BorderSize = 0;
-        btnDiscord.FlatAppearance.MouseDownBackColor = Color.FromArgb(0, 0, 58);
-        btnDiscord.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 0, 58);
-        btnDiscord.FlatStyle = FlatStyle.Flat;
-        btnDiscord.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-        btnDiscord.ForeColor = Color.White;
-        btnDiscord.Location = new Point(0, 245);
-        btnDiscord.Name = "btnDiscord";
-        btnDiscord.Padding = new Padding(30, 0, 0, 0);
-        btnDiscord.Size = new Size(200, 39);
-        btnDiscord.TabIndex = 70;
-        btnDiscord.Text = "Discord";
-        btnDiscord.TextAlign = ContentAlignment.MiddleLeft;
-        btnDiscord.UseVisualStyleBackColor = true;
+        btnDiscordNotifications.Cursor = Cursors.Hand;
+        btnDiscordNotifications.Dock = DockStyle.Top;
+        btnDiscordNotifications.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 18);
+        btnDiscordNotifications.FlatAppearance.BorderSize = 0;
+        btnDiscordNotifications.FlatAppearance.MouseDownBackColor = Color.FromArgb(0, 0, 58);
+        btnDiscordNotifications.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 0, 58);
+        btnDiscordNotifications.FlatStyle = FlatStyle.Flat;
+        btnDiscordNotifications.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+        btnDiscordNotifications.ForeColor = Color.White;
+        btnDiscordNotifications.Location = new Point(0, 323);
+        btnDiscordNotifications.Name = "btnDiscordNotifications";
+        btnDiscordNotifications.Padding = new Padding(30, 0, 0, 0);
+        btnDiscordNotifications.Size = new Size(200, 39);
+        btnDiscordNotifications.TabIndex = 70;
+        btnDiscordNotifications.Text = "Discord";
+        btnDiscordNotifications.TextAlign = ContentAlignment.MiddleLeft;
+        btnDiscordNotifications.UseVisualStyleBackColor = true;
         // 
         // btnAutoBackup
         // 
+        btnAutoBackup.Cursor = Cursors.Hand;
         btnAutoBackup.Dock = DockStyle.Top;
         btnAutoBackup.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 18);
         btnAutoBackup.FlatAppearance.BorderSize = 0;
@@ -105,6 +109,7 @@ partial class NavBarView
         // 
         // btnServerSettings
         // 
+        btnServerSettings.Cursor = Cursors.Hand;
         btnServerSettings.Dock = DockStyle.Top;
         btnServerSettings.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 18);
         btnServerSettings.FlatAppearance.BorderSize = 0;
@@ -124,6 +129,7 @@ partial class NavBarView
         // 
         // btnProfileSettings
         // 
+        btnProfileSettings.Cursor = Cursors.Hand;
         btnProfileSettings.Dock = DockStyle.Top;
         btnProfileSettings.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 18);
         btnProfileSettings.FlatAppearance.BorderSize = 0;
@@ -143,6 +149,7 @@ partial class NavBarView
         // 
         // btnHome
         // 
+        btnHome.Cursor = Cursors.Hand;
         btnHome.Dock = DockStyle.Top;
         btnHome.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 18);
         btnHome.FlatAppearance.BorderSize = 0;
@@ -160,12 +167,54 @@ partial class NavBarView
         btnHome.TextAlign = ContentAlignment.MiddleLeft;
         btnHome.UseVisualStyleBackColor = true;
         // 
+        // btnScheduleRestarts
+        // 
+        btnScheduleRestarts.Cursor = Cursors.Hand;
+        btnScheduleRestarts.Dock = DockStyle.Top;
+        btnScheduleRestarts.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 18);
+        btnScheduleRestarts.FlatAppearance.BorderSize = 0;
+        btnScheduleRestarts.FlatAppearance.MouseDownBackColor = Color.FromArgb(0, 0, 58);
+        btnScheduleRestarts.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 0, 58);
+        btnScheduleRestarts.FlatStyle = FlatStyle.Flat;
+        btnScheduleRestarts.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+        btnScheduleRestarts.ForeColor = Color.White;
+        btnScheduleRestarts.Location = new Point(0, 284);
+        btnScheduleRestarts.Name = "btnScheduleRestarts";
+        btnScheduleRestarts.Padding = new Padding(30, 0, 0, 0);
+        btnScheduleRestarts.Size = new Size(200, 39);
+        btnScheduleRestarts.TabIndex = 71;
+        btnScheduleRestarts.Text = "Schedule Restarts";
+        btnScheduleRestarts.TextAlign = ContentAlignment.MiddleLeft;
+        btnScheduleRestarts.UseVisualStyleBackColor = true;
+        // 
+        // btnRestoreBackup
+        // 
+        btnRestoreBackup.Cursor = Cursors.Hand;
+        btnRestoreBackup.Dock = DockStyle.Top;
+        btnRestoreBackup.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 18);
+        btnRestoreBackup.FlatAppearance.BorderSize = 0;
+        btnRestoreBackup.FlatAppearance.MouseDownBackColor = Color.FromArgb(0, 0, 58);
+        btnRestoreBackup.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 0, 58);
+        btnRestoreBackup.FlatStyle = FlatStyle.Flat;
+        btnRestoreBackup.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+        btnRestoreBackup.ForeColor = Color.White;
+        btnRestoreBackup.Location = new Point(0, 245);
+        btnRestoreBackup.Name = "btnRestoreBackup";
+        btnRestoreBackup.Padding = new Padding(30, 0, 0, 0);
+        btnRestoreBackup.Size = new Size(200, 39);
+        btnRestoreBackup.TabIndex = 72;
+        btnRestoreBackup.Text = "Restore Backup";
+        btnRestoreBackup.TextAlign = ContentAlignment.MiddleLeft;
+        btnRestoreBackup.UseVisualStyleBackColor = true;
+        // 
         // NavBarView
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
-        Controls.Add(btnDiscord);
+        Controls.Add(btnDiscordNotifications);
+        Controls.Add(btnScheduleRestarts);
+        Controls.Add(btnRestoreBackup);
         Controls.Add(btnAutoBackup);
         Controls.Add(lblVersion);
         Controls.Add(btnServerSettings);
@@ -181,11 +230,13 @@ partial class NavBarView
 
     #endregion
 
-    private Button btnDiscord;
+    private Button btnDiscordNotifications;
     private Button btnAutoBackup;
     private Label lblVersion;
     private Label lblLogo;
     private Button btnServerSettings;
     private Button btnProfileSettings;
     private Button btnHome;
+    private Button btnScheduleRestarts;
+    private Button btnRestoreBackup;
 }

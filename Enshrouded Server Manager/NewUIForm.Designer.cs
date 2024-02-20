@@ -35,8 +35,8 @@ partial class NewUIForm
         pnlAdminControls = new Panel();
         adminPanelHorizontalView = new Views.AdminPanelHorizontalView();
         pnlMain = new Panel();
-        creditsPanelView = new Views.CreditsPanelView();
         serverSettingsView = new ServerSettingsView();
+        creditsPanelView = new Views.CreditsPanelView();
         manageProfilesView = new ManageProfilesView();
         infoPanelView = new InfoPanelView();
         discordNotificationsView = new DiscordNotificationsView();
@@ -59,6 +59,7 @@ partial class NewUIForm
         // navBarView
         // 
         navBarView.BackColor = Color.FromArgb(0, 0, 18);
+        navBarView.BorderStyle = BorderStyle.FixedSingle;
         navBarView.Dock = DockStyle.Fill;
         navBarView.ForeColor = SystemColors.Control;
         navBarView.Location = new Point(0, 0);
@@ -68,6 +69,7 @@ partial class NewUIForm
         // 
         // pnlTopHeader
         // 
+        pnlTopHeader.BorderStyle = BorderStyle.FixedSingle;
         pnlTopHeader.Controls.Add(profileSelectorView);
         pnlTopHeader.Dock = DockStyle.Top;
         pnlTopHeader.Location = new Point(0, 0);
@@ -96,6 +98,7 @@ partial class NewUIForm
         // adminPanelHorizontalView
         // 
         adminPanelHorizontalView.BackColor = Color.FromArgb(0, 0, 18);
+        adminPanelHorizontalView.BorderStyle = BorderStyle.FixedSingle;
         adminPanelHorizontalView.Dock = DockStyle.Fill;
         adminPanelHorizontalView.InstallServerButtonEnabled = true;
         adminPanelHorizontalView.InstallServerButtonVisible = false;
@@ -137,20 +140,10 @@ partial class NewUIForm
         pnlMain.Size = new Size(744, 436);
         pnlMain.TabIndex = 3;
         // 
-        // creditsPanelView
-        // 
-        creditsPanelView.BackColor = Color.FromArgb(0, 0, 18);
-        creditsPanelView.Dock = DockStyle.Fill;
-        creditsPanelView.ForeColor = SystemColors.Control;
-        creditsPanelView.Location = new Point(0, 0);
-        creditsPanelView.Name = "creditsPanelView";
-        creditsPanelView.Padding = new Padding(5);
-        creditsPanelView.Size = new Size(744, 436);
-        creditsPanelView.TabIndex = 5;
-        // 
         // serverSettingsView
         // 
         serverSettingsView.BackColor = Color.FromArgb(0, 0, 18);
+        serverSettingsView.BorderStyle = BorderStyle.FixedSingle;
         serverSettingsView.Dock = DockStyle.Fill;
         serverSettingsView.ForeColor = SystemColors.ButtonHighlight;
         serverSettingsView.GamePort = 0;
@@ -166,6 +159,17 @@ partial class NewUIForm
         serverSettingsView.ShowPasswordButtonText = "Show";
         serverSettingsView.Size = new Size(744, 436);
         serverSettingsView.TabIndex = 4;
+        // 
+        // creditsPanelView
+        // 
+        creditsPanelView.BackColor = Color.FromArgb(0, 0, 18);
+        creditsPanelView.Dock = DockStyle.Fill;
+        creditsPanelView.ForeColor = SystemColors.Control;
+        creditsPanelView.Location = new Point(0, 0);
+        creditsPanelView.Name = "creditsPanelView";
+        creditsPanelView.Padding = new Padding(5);
+        creditsPanelView.Size = new Size(744, 436);
+        creditsPanelView.TabIndex = 5;
         // 
         // manageProfilesView
         // 
@@ -195,16 +199,25 @@ partial class NewUIForm
         // 
         discordNotificationsView.BackColor = Color.FromArgb(0, 0, 18);
         discordNotificationsView.BackupCreatedMessage = "Backup created!";
+        discordNotificationsView.BackupRestoredMessage = "Backup restored!";
         discordNotificationsView.Dock = DockStyle.Fill;
         discordNotificationsView.ForeColor = SystemColors.ButtonHighlight;
         discordNotificationsView.IsDiscordNotificationsEnabled = false;
         discordNotificationsView.IsEmbedsEnabled = false;
+        discordNotificationsView.IsImminentResetMessageEnabled = false;
+        discordNotificationsView.IsLongResetMessageEnabled = false;
+        discordNotificationsView.IsMediumResetMessageEnabled = false;
         discordNotificationsView.IsNotifyOnBackupEnabled = false;
+        discordNotificationsView.IsNotifyOnBackupRestoreEnabled = false;
+        discordNotificationsView.IsNotifyOnServerRestartEnabled = false;
         discordNotificationsView.IsNotifyOnStartEnabled = false;
         discordNotificationsView.IsNotifyOnStopEnabled = false;
         discordNotificationsView.IsNotifyOnUpdateEnabled = false;
+        discordNotificationsView.IsShortResetMessageEnabled = false;
+        discordNotificationsView.IsSoonResetMessageEnabled = false;
         discordNotificationsView.Location = new Point(0, 0);
         discordNotificationsView.Name = "discordNotificationsView";
+        discordNotificationsView.ServerRestartMessage = "Server Reset In {TIME_LEFT}";
         discordNotificationsView.ServerStartedMessage = "Online!";
         discordNotificationsView.ServerStoppedMessage = "Offline!";
         discordNotificationsView.ServerUpdatingMessage = "Updating...";
