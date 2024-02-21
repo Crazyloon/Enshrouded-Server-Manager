@@ -18,12 +18,18 @@ public class InfoPanelPresenter
         _systemProcess = systemProcess;
 
         _infoPanelView.GithubLinkClicked += (s, e) => OnGithubLinkClicked();
+        _infoPanelView.SupportLinkClicked += (s, e) => OnSupportLinkClicked();
         _eventAggregator.Subscribe<NewVersionAvailableMessage>(n => OnNewVersionAvailable());
     }
 
     private void OnGithubLinkClicked()
     {
         _systemProcess.Start(Constants.ProcessNames.EXPLORER_EXE, Constants.Urls.ESM_GITHUB_LINK);
+    }
+
+    private void OnSupportLinkClicked()
+    {
+        _systemProcess.Start(Constants.ProcessNames.EXPLORER_EXE, Constants.Urls.GITHUB_SPONSOR_LINK);
     }
 
     private void OnNewVersionAvailable()

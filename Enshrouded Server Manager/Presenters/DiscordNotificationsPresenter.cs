@@ -1,6 +1,8 @@
-﻿using Enshrouded_Server_Manager.Events;
+﻿using Enshrouded_Server_Manager.Enums;
+using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Model;
+using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.Views;
 using Newtonsoft.Json;
@@ -14,13 +16,17 @@ public class DiscordNotificationsPresenter
     private readonly IMessageBoxService _messageBoxService;
     private readonly IProfileService _profileService;
     private readonly IFileSystemService _fileSystemService;
+    private readonly IFileLoggerService _logger;
+
+    private DiscordProfile _discordProfile;
 
     public DiscordNotificationsPresenter(IDiscordNotificationsView discordNotificationsView,
         IEventAggregator eventAggregator,
         IDiscordService discordService,
         IMessageBoxService messageBoxService,
         IProfileService profileService,
-        IFileSystemService fileSystemService)
+        IFileSystemService fileSystemService,
+        IFileLoggerService fileLogger)
     {
         _discordNotificationsView = discordNotificationsView;
         _eventAggregator = eventAggregator;
@@ -28,14 +34,14 @@ public class DiscordNotificationsPresenter
         _messageBoxService = messageBoxService;
         _profileService = profileService;
         _fileSystemService = fileSystemService;
+        _logger = fileLogger;
 
         _discordNotificationsView.DiscordSettingsLoad += OnLoad;
         _discordNotificationsView.SaveDiscordNotificationsSettingsClicked += OnSaveDiscordNotificationsSettingsClicked;
         _discordNotificationsView.TestDiscordMessageClicked += OnTestDiscordMessageClicked;
-    }
 
-    private void OnLoad(object? sender, EventArgs e)
-    {
+        _eventAggregator.Subscribe<ServerResetTimerUpdatedMessage>(p => OnServerTimerUpdated(p.ServerProfile, p.TimeLeft));
+
         var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
         if (!_fileSystemService.FileExists(discordSettingsFile))
         {
@@ -43,66 +49,142 @@ public class DiscordNotificationsPresenter
         }
 
         var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
-        DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
+        _discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
+    }
+    private void OnServerTimerUpdated(ServerProfile profile, string timeRemaining)
+    {
+        // timeRemaining has the format d.hh:mm:ss
+        var realTime = TimeSpan.Parse(timeRemaining.Split('.')[1]);
 
-        _discordNotificationsView.IsDiscordNotificationsEnabled = discordProfile.Enabled;
-        _discordNotificationsView.IsNotifyOnStartEnabled = discordProfile.StartEnabled;
-        _discordNotificationsView.IsNotifyOnStopEnabled = discordProfile.StopEnabled;
-        _discordNotificationsView.IsNotifyOnUpdateEnabled = discordProfile.UpdatingEnabled;
-        _discordNotificationsView.IsNotifyOnBackupEnabled = discordProfile.BackupEnabled;
-        _discordNotificationsView.WebhookUrl = discordProfile.DiscordUrl;
-        _discordNotificationsView.ServerStartedMessage = discordProfile.ServerStartedMsg;
-        _discordNotificationsView.ServerStoppedMessage = discordProfile.ServerStoppedMsg;
-        _discordNotificationsView.ServerUpdatingMessage = discordProfile.ServerUpdatingMsg;
-        _discordNotificationsView.BackupCreatedMessage = discordProfile.BackupMsg;
-        _discordNotificationsView.IsEmbedsEnabled = discordProfile.EmbedEnabled;
+        // Hack an extra second in to make it easier to check for the time
+        // when resets are schedueld at exactly 2 hours or 1 hour
+        // because this method is called every second after the timer changes
+        // and the first change on a 2hr timer is 1:59:59
+        realTime = realTime.Add(TimeSpan.FromSeconds(1));
 
+        if (realTime <= TimeSpan.FromHours(2))
+        {
+            bool sendMessage = false;
+            string message = "";
+            switch (realTime)
+            {
+                case TimeSpan t when realTime == TimeSpan.FromHours(2):
+                    sendMessage = true;
+                    message = "2 Hours";
+                    break;
+                case TimeSpan t when realTime == TimeSpan.FromHours(1):
+                    sendMessage = true;
+                    message = "1 Hour";
+                    break;
+                case TimeSpan t when realTime == TimeSpan.FromMinutes(30):
+                    sendMessage = true;
+                    message = "30 Minutes";
+                    break;
+                case TimeSpan t when realTime == TimeSpan.FromMinutes(10):
+                    sendMessage = true;
+                    message = "10 Minutes";
+                    break;
+                case TimeSpan t when realTime == TimeSpan.FromMinutes(5):
+                    sendMessage = true;
+                    message = "5 Minutes";
+                    break;
+                default:
+                    break;
+            }
 
+            if (sendMessage)
+            {
+                _discordService.SendMessage(profile, DiscordMessageType.RestartImminent, message);
+            }
+        }
+
+    }
+
+    private void OnLoad(object? sender, EventArgs e)
+    {
+        if (_discordProfile is not null)
+        {
+            _discordNotificationsView.IsDiscordNotificationsEnabled = _discordProfile.Enabled;
+            _discordNotificationsView.IsNotifyOnStartEnabled = _discordProfile.StartEnabled;
+            _discordNotificationsView.IsNotifyOnStopEnabled = _discordProfile.StopEnabled;
+            _discordNotificationsView.IsNotifyOnUpdateEnabled = _discordProfile.UpdatingEnabled;
+            _discordNotificationsView.IsNotifyOnBackupEnabled = _discordProfile.BackupEnabled;
+            _discordNotificationsView.IsNotifyOnBackupRestoreEnabled = _discordProfile.BackupRestoreEnabled;
+            _discordNotificationsView.IsNotifyOnServerRestartEnabled = _discordProfile.RestartEnabled;
+            _discordNotificationsView.WebhookUrl = _discordProfile.DiscordUrl;
+            _discordNotificationsView.ServerStartedMessage = _discordProfile.ServerStartedMsg;
+            _discordNotificationsView.ServerStoppedMessage = _discordProfile.ServerStoppedMsg;
+            _discordNotificationsView.ServerUpdatingMessage = _discordProfile.ServerUpdatingMsg;
+            _discordNotificationsView.BackupCreatedMessage = _discordProfile.BackupMsg;
+            _discordNotificationsView.BackupRestoredMessage = _discordProfile.BackupRestoreMsg;
+            _discordNotificationsView.IsEmbedsEnabled = _discordProfile.EmbedEnabled;
+            _discordNotificationsView.IsLongResetMessageEnabled = _discordProfile.LongResetEnabled;
+            _discordNotificationsView.IsMediumResetMessageEnabled = _discordProfile.MediumResetEnabled;
+            _discordNotificationsView.IsShortResetMessageEnabled = _discordProfile.ShortResetEnabled;
+            _discordNotificationsView.IsSoonResetMessageEnabled = _discordProfile.SoonResetEnabled;
+            _discordNotificationsView.IsImminentResetMessageEnabled = _discordProfile.ImminentResetEnabled;
+        }
     }
 
     private void OnTestDiscordMessageClicked(object? sender, EventArgs e)
     {
-        var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
-        if (_fileSystemService.FileExists(discordSettingsFile))
+        if (_discordProfile is not null)
         {
-            var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
-            DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
-            string DiscordUrl = discordProfile.DiscordUrl;
-            _discordService.TestMsg(DiscordUrl, discordProfile.EmbedEnabled);
+            _discordService.TestMsg(_discordProfile.DiscordUrl, _discordProfile.EmbedEnabled);
         }
     }
 
     private void OnSaveDiscordNotificationsSettingsClicked(object? sender, EventArgs e)
     {
-        var enabled = _discordNotificationsView.IsDiscordNotificationsEnabled;
-        var startedEnabled = _discordNotificationsView.IsNotifyOnStartEnabled;
-        var stoppedEnabled = _discordNotificationsView.IsNotifyOnStopEnabled;
-        var updatingEnabled = _discordNotificationsView.IsNotifyOnUpdateEnabled;
-        var backupEnabled = _discordNotificationsView.IsNotifyOnBackupEnabled;
+        bool enabled = _discordNotificationsView.IsDiscordNotificationsEnabled;
+        bool startedEnabled = _discordNotificationsView.IsNotifyOnStartEnabled;
+        bool stoppedEnabled = _discordNotificationsView.IsNotifyOnStopEnabled;
+        bool updatingEnabled = _discordNotificationsView.IsNotifyOnUpdateEnabled;
+        bool backupEnabled = _discordNotificationsView.IsNotifyOnBackupEnabled;
+        bool restoreEnabled = _discordNotificationsView.IsNotifyOnBackupRestoreEnabled;
+        bool restartEnabled = _discordNotificationsView.IsNotifyOnServerRestartEnabled;
         string url = _discordNotificationsView.WebhookUrl;
         string serverOnlineMsg = _discordNotificationsView.ServerStartedMessage;
         string serverStoppedMsg = _discordNotificationsView.ServerStoppedMessage;
         string serverUpdatingMsg = _discordNotificationsView.ServerUpdatingMessage;
         string backupMsg = _discordNotificationsView.BackupCreatedMessage;
-        var embedEnabled = _discordNotificationsView.IsEmbedsEnabled;
+        string restoreMsg = _discordNotificationsView.BackupRestoredMessage;
+        string restartMessage = _discordNotificationsView.ServerRestartMessage;
+        bool embedEnabled = _discordNotificationsView.IsEmbedsEnabled;
 
-        DiscordProfile discordProfile = new DiscordProfile()
+        bool longResetEnabled = _discordNotificationsView.IsLongResetMessageEnabled;
+        bool mediumResetEnabled = _discordNotificationsView.IsMediumResetMessageEnabled;
+        bool shortResetEnabled = _discordNotificationsView.IsShortResetMessageEnabled;
+        bool soonResetEnabled = _discordNotificationsView.IsSoonResetMessageEnabled;
+        bool imminentResetEnabled = _discordNotificationsView.IsImminentResetMessageEnabled;
+
+
+        _discordProfile = new DiscordProfile()
         {
             DiscordUrl = url,
             Enabled = enabled,
+            EmbedEnabled = embedEnabled,
             StartEnabled = startedEnabled,
             StopEnabled = stoppedEnabled,
             UpdatingEnabled = updatingEnabled,
             BackupEnabled = backupEnabled,
-            EmbedEnabled = embedEnabled,
+            BackupRestoreEnabled = restoreEnabled,
+            RestartEnabled = restartEnabled,
             ServerStartedMsg = serverOnlineMsg,
             ServerStoppedMsg = serverStoppedMsg,
             ServerUpdatingMsg = serverUpdatingMsg,
-            BackupMsg = backupMsg
+            BackupMsg = backupMsg,
+            BackupRestoreMsg = restoreMsg,
+            RestartMsg = restartMessage,
+            LongResetEnabled = longResetEnabled,
+            MediumResetEnabled = mediumResetEnabled,
+            ShortResetEnabled = shortResetEnabled,
+            SoonResetEnabled = soonResetEnabled,
+            ImminentResetEnabled = imminentResetEnabled
         };
 
         // write the new discord profile to the json file
-        var discordProfileJson = JsonConvert.SerializeObject(discordProfile, JsonSettings.Default);
+        var discordProfileJson = JsonConvert.SerializeObject(_discordProfile, JsonSettings.Default);
         var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
         _fileSystemService.WriteFile(discordSettingsFile, discordProfileJson);
 

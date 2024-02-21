@@ -28,7 +28,6 @@ partial class AutoBackupView
     /// </summary>
     private void InitializeComponent()
     {
-        components = new System.ComponentModel.Container();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoBackupView));
         lblAutoBackupChangesInfo = new Label();
         btnSaveAutoBackup = new Button();
@@ -38,7 +37,6 @@ partial class AutoBackupView
         lblBackupMaxCount = new Label();
         lblBackupFrequency = new Label();
         nudBackupInterval = new NumericUpDown();
-        toolTip1 = new ToolTip(components);
         btnOpenAutobackupFolder = new Button();
         label3 = new Label();
         label1 = new Label();
@@ -50,7 +48,7 @@ partial class AutoBackupView
         // 
         lblAutoBackupChangesInfo.AutoSize = true;
         lblAutoBackupChangesInfo.ForeColor = SystemColors.Info;
-        lblAutoBackupChangesInfo.Location = new Point(100, 350);
+        lblAutoBackupChangesInfo.Location = new Point(258, 385);
         lblAutoBackupChangesInfo.Name = "lblAutoBackupChangesInfo";
         lblAutoBackupChangesInfo.Size = new Size(255, 15);
         lblAutoBackupChangesInfo.TabIndex = 36;
@@ -64,7 +62,7 @@ partial class AutoBackupView
         btnSaveAutoBackup.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnSaveAutoBackup.FlatStyle = FlatStyle.Flat;
         btnSaveAutoBackup.ForeColor = Color.FromArgb(0, 255, 185);
-        btnSaveAutoBackup.Location = new Point(262, 301);
+        btnSaveAutoBackup.Location = new Point(410, 342);
         btnSaveAutoBackup.Name = "btnSaveAutoBackup";
         btnSaveAutoBackup.Size = new Size(128, 30);
         btnSaveAutoBackup.TabIndex = 35;
@@ -76,7 +74,7 @@ partial class AutoBackupView
         // chkEnableBackups
         // 
         chkEnableBackups.AutoSize = true;
-        chkEnableBackups.Location = new Point(253, 107);
+        chkEnableBackups.Location = new Point(400, 124);
         chkEnableBackups.Name = "chkEnableBackups";
         chkEnableBackups.Size = new Size(108, 19);
         chkEnableBackups.TabIndex = 34;
@@ -87,7 +85,7 @@ partial class AutoBackupView
         // 
         lblProfileBackupsStats.AutoSize = true;
         lblProfileBackupsStats.ForeColor = Color.FromArgb(0, 255, 185);
-        lblProfileBackupsStats.Location = new Point(249, 45);
+        lblProfileBackupsStats.Location = new Point(396, 62);
         lblProfileBackupsStats.Name = "lblProfileBackupsStats";
         lblProfileBackupsStats.Size = new Size(147, 30);
         lblProfileBackupsStats.TabIndex = 33;
@@ -99,7 +97,7 @@ partial class AutoBackupView
         nudBackupMaxCount.BackColor = Color.FromArgb(6, 6, 48);
         nudBackupMaxCount.BorderStyle = BorderStyle.FixedSingle;
         nudBackupMaxCount.ForeColor = SystemColors.Window;
-        nudBackupMaxCount.Location = new Point(253, 212);
+        nudBackupMaxCount.Location = new Point(400, 229);
         nudBackupMaxCount.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
         nudBackupMaxCount.Name = "nudBackupMaxCount";
         nudBackupMaxCount.Size = new Size(63, 23);
@@ -108,7 +106,7 @@ partial class AutoBackupView
         // lblBackupMaxCount
         // 
         lblBackupMaxCount.AutoSize = true;
-        lblBackupMaxCount.Location = new Point(249, 194);
+        lblBackupMaxCount.Location = new Point(396, 211);
         lblBackupMaxCount.Name = "lblBackupMaxCount";
         lblBackupMaxCount.Size = new Size(170, 15);
         lblBackupMaxCount.TabIndex = 30;
@@ -117,7 +115,7 @@ partial class AutoBackupView
         // lblBackupFrequency
         // 
         lblBackupFrequency.AutoSize = true;
-        lblBackupFrequency.Location = new Point(249, 138);
+        lblBackupFrequency.Location = new Point(396, 155);
         lblBackupFrequency.Name = "lblBackupFrequency";
         lblBackupFrequency.Size = new Size(155, 15);
         lblBackupFrequency.TabIndex = 29;
@@ -128,7 +126,7 @@ partial class AutoBackupView
         nudBackupInterval.BackColor = Color.FromArgb(6, 6, 48);
         nudBackupInterval.BorderStyle = BorderStyle.FixedSingle;
         nudBackupInterval.ForeColor = SystemColors.Window;
-        nudBackupInterval.Location = new Point(253, 156);
+        nudBackupInterval.Location = new Point(400, 173);
         nudBackupInterval.Maximum = new decimal(new int[] { 1080, 0, 0, 0 });
         nudBackupInterval.Name = "nudBackupInterval";
         nudBackupInterval.Size = new Size(63, 23);
@@ -142,7 +140,7 @@ partial class AutoBackupView
         btnOpenAutobackupFolder.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnOpenAutobackupFolder.FlatStyle = FlatStyle.Flat;
         btnOpenAutobackupFolder.ForeColor = SystemColors.Control;
-        btnOpenAutobackupFolder.Location = new Point(67, 301);
+        btnOpenAutobackupFolder.Location = new Point(207, 342);
         btnOpenAutobackupFolder.Name = "btnOpenAutobackupFolder";
         btnOpenAutobackupFolder.Size = new Size(128, 30);
         btnOpenAutobackupFolder.TabIndex = 38;
@@ -154,7 +152,7 @@ partial class AutoBackupView
         // 
         label3.AutoSize = true;
         label3.Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-        label3.Location = new Point(32, 14);
+        label3.Location = new Point(179, 31);
         label3.Name = "label3";
         label3.Size = new Size(166, 21);
         label3.TabIndex = 39;
@@ -164,7 +162,7 @@ partial class AutoBackupView
         // 
         label1.AutoSize = true;
         label1.ForeColor = SystemColors.Info;
-        label1.Location = new Point(32, 45);
+        label1.Location = new Point(179, 62);
         label1.Name = "label1";
         label1.Size = new Size(199, 225);
         label1.TabIndex = 37;
@@ -188,7 +186,7 @@ partial class AutoBackupView
         Controls.Add(nudBackupInterval);
         ForeColor = SystemColors.ButtonHighlight;
         Name = "AutoBackupView";
-        Size = new Size(459, 384);
+        Size = new Size(744, 411);
         ((System.ComponentModel.ISupportInitialize)nudBackupMaxCount).EndInit();
         ((System.ComponentModel.ISupportInitialize)nudBackupInterval).EndInit();
         ResumeLayout(false);
@@ -205,7 +203,6 @@ partial class AutoBackupView
     private Label lblBackupMaxCount;
     private Label lblBackupFrequency;
     private NumericUpDown nudBackupInterval;
-    private ToolTip toolTip1;
     private Button btnOpenAutobackupFolder;
     private Label label3;
     private Label label1;

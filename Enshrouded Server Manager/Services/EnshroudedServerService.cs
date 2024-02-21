@@ -1,3 +1,4 @@
+using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Models;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -8,11 +9,18 @@ namespace Enshrouded_Server_Manager.Services;
 public class EnshroudedServerService : IEnshroudedServerService
 {
     private readonly IFileSystemService _fileSystemService;
+    private readonly IEventAggregator _eventAggregator;
+    private readonly IFileLoggerService _logger;
+
     private const string SERVER_PROCESS_NAME = "enshrouded_server";
 
-    public EnshroudedServerService(IFileSystemService fsm)
+    public EnshroudedServerService(IFileSystemService fsm,
+        IEventAggregator eventAggregator,
+        IFileLoggerService logger)
     {
         _fileSystemService = fsm;
+        _eventAggregator = eventAggregator;
+        _logger = logger;
     }
 
     [DllImport("user32.dll")]
@@ -45,27 +53,29 @@ public class EnshroudedServerService : IEnshroudedServerService
     /// <summary>
     /// Start Gameserver
     /// </summary>
-    public void Start(string pathServerExe, string selectedProfileName)
+    public void Start(string pathServerExe, ServerProfile profile)
     {
 
         try
         {
             Process p = Process.Start(pathServerExe);
+
+            _eventAggregator.Publish(new ServerStartedMessage(profile));
             //Thread.Sleep(10000);
             //SetWindowText(p.MainWindowHandle, ServerName);
             int pid = p.Id;
 
-            var serverCachePath = Path.Join(Constants.Paths.CACHE_DIRECTORY, selectedProfileName);
+            var serverCachePath = Path.Join(Constants.Paths.CACHE_DIRECTORY, profile.Name);
 
             _fileSystemService.CreateDirectory(serverCachePath);
             EnshroudedServerProcess json = new EnshroudedServerProcess()
             {
                 Id = pid,
-                Profile = selectedProfileName
+                Profile = profile.Name
             };
 
             var output = JsonConvert.SerializeObject(json);
-            var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, selectedProfileName, Constants.Files.PID_JSON);
+            var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, profile.Name, Constants.Files.PID_JSON);
             _fileSystemService.WriteFile(pidJsonFile, output);
         }
         catch (Exception ex)
@@ -99,11 +109,12 @@ public class EnshroudedServerService : IEnshroudedServerService
     /// <summary>
     /// Stop Gameserver
     /// </summary>
-    public void Stop(string selectedProfileName)
+    public void Stop(ServerProfile profile)
     {
-        var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, selectedProfileName, Constants.Files.PID_JSON);
+        var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, profile.Name, Constants.Files.PID_JSON);
         if (!_fileSystemService.FileExists(pidJsonFile))
         {
+            _eventAggregator.Publish(new ServerStoppedMessage(profile));
             return;
         }
 
@@ -123,16 +134,33 @@ public class EnshroudedServerService : IEnshroudedServerService
             {
                 SetConsoleCtrlHandler(null, true);
                 GenerateConsoleCtrlEvent(CtrlTypes.CTRL_C_EVENT, 0);
-                Thread.Sleep(2000);
                 FreeConsole();
                 SetConsoleCtrlHandler(null, false);
             }
+
+            var timeout = 30000;
+            var sleepTick = 200;
+            while (!p.HasExited)
+            {
+                Thread.Sleep(sleepTick);
+                timeout = timeout - sleepTick;
+
+                if (timeout <= 0)
+                {
+                    p.Kill();
+                    _logger.LogError($"Server Stop Failed for server {profile.Name}. Killing Process. Some progress may be lost.");
+                    break;
+                }
+            }
         }
-        catch (ArgumentException)
+        catch (Exception e)
         {
+            _eventAggregator.Publish(new ServerStoppedMessage(profile));
+            _logger.LogError($"Server Stop Failed for server {profile.Name}. Error: {e.Message}");
             return;
         }
 
+        _eventAggregator.Publish(new ServerStoppedMessage(profile));
         _fileSystemService.DeleteFile(pidJsonFile);
     }
 

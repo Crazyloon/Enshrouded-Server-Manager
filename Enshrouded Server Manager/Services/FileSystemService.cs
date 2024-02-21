@@ -42,6 +42,16 @@ public class FileSystemService : IFileSystemService
         return File.Exists(fileName);
     }
 
+    public long GetFileSize(string fileName)
+    {
+        return new FileInfo(fileName).Length;
+    }
+
+    public FileInfo[] GetFiles(string directoryName)
+    {
+        return new DirectoryInfo(directoryName).GetFiles();
+    }
+
     public void DeleteFile(string fileName)
     {
         File.Delete(fileName);
@@ -50,6 +60,11 @@ public class FileSystemService : IFileSystemService
     public void WriteFile(string fileName, string content)
     {
         File.WriteAllText(fileName, content);
+    }
+
+    public void AppendAllText(string fileName, string content)
+    {
+        File.AppendAllText(fileName, content);
     }
 
     public string ReadFile(string fileName)
@@ -67,6 +82,11 @@ public class FileSystemService : IFileSystemService
         File.Copy(sourceFileName, destFileName);
     }
 
+    public void CopyFile(string sourceFileName, string destFileName, bool overwrite)
+    {
+        File.Copy(sourceFileName, destFileName, overwrite);
+    }
+
     public void CreateZipFromDirectory(string sourceDirectoryName, string destinationArchiveFileName)
     {
         ZipFile.CreateFromDirectory(sourceDirectoryName, destinationArchiveFileName);
@@ -75,5 +95,10 @@ public class FileSystemService : IFileSystemService
     public void ExtractZipToDirectory(string sourceArchiveFileName, string destinationDirectoryName)
     {
         ZipFile.ExtractToDirectory(sourceArchiveFileName, destinationDirectoryName);
+    }
+
+    public void ExtractZipToDirectory(string sourceArchiveFileName, string destinationDirectoryName, bool overwrite)
+    {
+        ZipFile.ExtractToDirectory(sourceArchiveFileName, destinationDirectoryName, overwrite);
     }
 }

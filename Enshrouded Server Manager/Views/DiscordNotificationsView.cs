@@ -63,6 +63,48 @@ public partial class DiscordNotificationsView : UserControl, IDiscordNotificatio
         set => chkNotifiBackup.Checked = value;
     }
 
+    public bool IsNotifyOnBackupRestoreEnabled
+    {
+        get => chkNotifiBackupRestore.Checked;
+        set => chkNotifiBackupRestore.Checked = value;
+    }
+
+    public bool IsNotifyOnServerRestartEnabled
+    {
+        get => chkNotifyRestart.Checked;
+        set => chkNotifyRestart.Checked = value;
+    }
+
+    public bool IsLongResetMessageEnabled
+    {
+        get => chkLong.Checked;
+        set => chkLong.Checked = value;
+    }
+
+    public bool IsMediumResetMessageEnabled
+    {
+        get => chkMed.Checked;
+        set => chkMed.Checked = value;
+    }
+
+    public bool IsShortResetMessageEnabled
+    {
+        get => chkShort.Checked;
+        set => chkShort.Checked = value;
+    }
+
+    public bool IsSoonResetMessageEnabled
+    {
+        get => chkSoon.Checked;
+        set => chkSoon.Checked = value;
+    }
+
+    public bool IsImminentResetMessageEnabled
+    {
+        get => chkImminent.Checked;
+        set => chkImminent.Checked = value;
+    }
+
     public string ServerStartedMessage
     {
         get => txtServerOnlineMsg.Text;
@@ -85,6 +127,18 @@ public partial class DiscordNotificationsView : UserControl, IDiscordNotificatio
     {
         get => txtBackupMsg.Text;
         set => txtBackupMsg.Text = value;
+    }
+
+    public string BackupRestoredMessage
+    {
+        get => txtBackupRestoreMsg.Text;
+        set => txtBackupRestoreMsg.Text = value;
+    }
+
+    public string ServerRestartMessage
+    {
+        get => txtRestartMsg.Text;
+        set => txtRestartMsg.Text = value;
     }
 
     public string WebhookUrl
