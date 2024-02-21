@@ -54,7 +54,7 @@ public partial class MainForm : Form, IMainFormView
         var enshroudedServerService = new EnshroudedServerService(fileSystemService, eventAggregator, logService);
         var versionManager = new VersionManagementService(fileSystemService, eventAggregator);
         var backupService = new BackupService(fileSystemService, enshroudedServerService, eventAggregator, discordOutputService, logService, restartTimers);
-        var profileService = new ProfileService(fileSystemService, messageBoxService);
+        var profileService = new ProfileService(fileSystemService, messageBoxService, logService);
         var processManager = new SystemProcessService();
         var httpClient = new HttpClientService(new WebClient());
         var serverSettingsService = new ServerSettingsService(fileSystemService, eventAggregator, messageBoxService, enshroudedServerService);

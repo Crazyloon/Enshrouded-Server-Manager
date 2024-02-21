@@ -33,12 +33,13 @@ partial class InfoPanelWideView
         lblGitHubLink = new Label();
         lblChanges = new Label();
         lblTitle = new Label();
+        lblSupportLink = new Label();
         SuspendLayout();
         // 
         // lblNewsText
         // 
         lblNewsText.AutoSize = true;
-        lblNewsText.Location = new Point(81, 153);
+        lblNewsText.Location = new Point(81, 123);
         lblNewsText.Name = "lblNewsText";
         lblNewsText.Padding = new Padding(5);
         lblNewsText.Size = new Size(620, 220);
@@ -47,21 +48,22 @@ partial class InfoPanelWideView
         // 
         // lblGitHubLink
         // 
-        lblGitHubLink.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        lblGitHubLink.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
         lblGitHubLink.AutoSize = true;
         lblGitHubLink.Cursor = Cursors.Hand;
         lblGitHubLink.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-        lblGitHubLink.Location = new Point(696, 390);
+        lblGitHubLink.ForeColor = Color.FromArgb(0, 255, 185);
+        lblGitHubLink.Location = new Point(3, 391);
         lblGitHubLink.Name = "lblGitHubLink";
-        lblGitHubLink.Size = new Size(45, 15);
+        lblGitHubLink.Size = new Size(95, 15);
         lblGitHubLink.TabIndex = 59;
-        lblGitHubLink.Text = "Github";
+        lblGitHubLink.Text = "View on GitHub";
         // 
         // lblChanges
         // 
         lblChanges.AutoSize = true;
         lblChanges.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
-        lblChanges.Location = new Point(81, 117);
+        lblChanges.Location = new Point(81, 87);
         lblChanges.Name = "lblChanges";
         lblChanges.Size = new Size(118, 25);
         lblChanges.TabIndex = 60;
@@ -79,11 +81,25 @@ partial class InfoPanelWideView
         lblTitle.Text = "Enshrouded Server Manager";
         lblTitle.TextAlign = ContentAlignment.MiddleCenter;
         // 
+        // lblSupportLink
+        // 
+        lblSupportLink.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        lblSupportLink.AutoSize = true;
+        lblSupportLink.Cursor = Cursors.Hand;
+        lblSupportLink.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+        lblSupportLink.ForeColor = Color.FromArgb(0, 255, 185);
+        lblSupportLink.Location = new Point(612, 391);
+        lblSupportLink.Name = "lblSupportLink";
+        lblSupportLink.Size = new Size(132, 15);
+        lblSupportLink.TabIndex = 62;
+        lblSupportLink.Text = "Support Development";
+        // 
         // InfoPanelWideView
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
+        Controls.Add(lblSupportLink);
         Controls.Add(lblTitle);
         Controls.Add(lblChanges);
         Controls.Add(lblGitHubLink);
@@ -100,4 +116,5 @@ partial class InfoPanelWideView
     private Label lblGitHubLink;
     private Label lblChanges;
     private Label lblTitle;
+    private Label lblSupportLink;
 }

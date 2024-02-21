@@ -179,7 +179,7 @@ public class ScheduleRestartsPresenter
                 StartDate = DateOnly.FromDateTime(DateTime.Now),
                 StartTime = TimeOnly.FromDateTime(DateTime.Now),
                 DaysOfWeek = new DayOfWeek[] { },
-                RecurrenceInterval = 0,
+                RecurrenceInterval = 1,
                 Enabled = false
             };
         }

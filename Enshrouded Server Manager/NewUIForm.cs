@@ -38,7 +38,7 @@ public partial class NewUIForm : Form, INewUIFormView
         var enshroudedServerService = new EnshroudedServerService(fileSystemService, eventAggregator, logService);
         var versionManager = new VersionManagementService(fileSystemService, eventAggregator);
         var backupService = new BackupService(fileSystemService, enshroudedServerService, eventAggregator, discordOutputService, logService, restartTimers);
-        var profileService = new ProfileService(fileSystemService, messageBoxService);
+        var profileService = new ProfileService(fileSystemService, messageBoxService, logService);
         var processManager = new SystemProcessService();
         var httpClient = new HttpClientService(new WebClient());
         var serverSettingsService = new ServerSettingsService(fileSystemService, eventAggregator, messageBoxService, enshroudedServerService);
@@ -72,6 +72,7 @@ public partial class NewUIForm : Form, INewUIFormView
         eventAggregator.Subscribe<NavigationChangedMessage>(v => OnNavigationChanged(v.ViewSelection));
 
         //InitializeServerUpdateOverlay();
+        manageProfilesView.Location = new Point(630, 65);
     }
 
     private void OnNavigationChanged(ViewSelection viewSelection)

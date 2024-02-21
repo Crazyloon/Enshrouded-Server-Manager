@@ -48,49 +48,52 @@ public static class Constants
     public static class Errors
     {
         public const string BACKUP_ERROR = "Backup Failed";
-        public const string BACKUP_ERROR_MESSAGE = "An error occured while creating the backup";
+        public const string BACKUP_ERROR_MESSAGE = "An error occured while creating the backup.";
 
         public const string AUTOBACKUP_ERROR = "AutoBackup Failed";
-        public const string AUTOBACKUP_ERROR_MESSAGE = "An error occured while creating the autobackup";
+        public const string AUTOBACKUP_ERROR_MESSAGE = "An error occured while creating the autobackup.";
 
         public const string SERVER_RUNNING_ERROR = "Server is Running";
         public const string SERVER_RUNNING_ERROR_MESSAGE = "This operation is forbidden while a server for this profile is running.";
 
         public const string DELETE_PROFILE_ERROR = "Error Deleting Server Profile";
-        public const string DELETE_PROFILE_ERROR_MESSAGE = "The following error occured while deleting Server Profile: {0}";
+        public const string DELETE_PROFILE_ERROR_MESSAGE = "The following error occured while deleting Server Profile: {0}.";
 
         public const string NO_PROFILE_SELECTED_ERROR = "No Server Profile";
         public const string NO_PROFILE_SELECTED_ERROR_MESSAGE = "Please select the profile you want to configure.";
 
         public const string PROFILE_NAME_CHANGE_ERROR = "Error Changing Server Profile Name";
-        public const string PROFILE_NAME_CHANGE_ERROR_MESSAGE = "The Following error occured while changing Server Profile name: {0}";
+        public const string PROFILE_NAME_CHANGE_ERROR_MESSAGE = "The Following error occured while changing Server Profile name: {0}.";
 
         public const string SERVER_START_ERROR = "Error Starting Server";
-        public const string SERVER_START_ERROR_MESSAGE = "The following error occured while starting the server: {0}";
+        public const string SERVER_START_ERROR_MESSAGE = "The following error occured while starting the server: {0}.";
 
         public const string SERVER_UPDATE_ERROR = "Error Updating Server";
-        public const string SERVER_UPDATE_ERROR_MESSAGE = "The following error occured while updating the server: {0}";
+        public const string SERVER_UPDATE_ERROR_MESSAGE = "The following error occured while updating the server: {0}.";
 
         public const string SERVER_PROFILES_NOT_FOUND_ERROR = "Error Reading Profile Data";
         public const string SERVER_PROFILES_NOT_FOUND_ERROR_MESSAGE = "Unable to retrieve Server Profile data. The file may have been lost or moved. Please attempt to restore the file restart the application.";
 
         public const string SERVER_PROFILE_EMPTY_ERROR = "Profile Name Not Provided";
-        public const string SERVER_PROFILE_EMPTY_ERROR_MESSAGE = "The Server Profile name can not be empty";
+        public const string SERVER_PROFILE_EMPTY_ERROR_MESSAGE = "The Server Profile name can not be empty.";
 
         public const string SERVER_PROFILE_INVALID_CHARACTERS_ERROR = "Invalid Characters";
         public const string SERVER_PROFILE_INVALID_CHARACTERS_ERROR_MESSAGE = "The Server Profile name contains invalid characters. Use only those characters acceptable by the Windows File System";
 
         public const string STEAM_CMD_DOWNLOAD_ERROR = "Error Extracting Steam CMD";
-        public const string STEAM_CMD_DOWNLOAD_ERROR_MESSAGE = "The following error appeared while extracting: {0}";
+        public const string STEAM_CMD_DOWNLOAD_ERROR_MESSAGE = "The following error appeared while extracting: {0}.";
 
         public const string STEAM_CMD_INSTALL_ERROR = "Error Installing Steam CMD";
-        public const string STEAM_CMD_INSTALL_ERROR_MESSAGE = "The following error appeared while installing SteamCMD: {0}";
+        public const string STEAM_CMD_INSTALL_ERROR_MESSAGE = "The following error appeared while installing SteamCMD: {0}.";
 
         public const string SCHEDULED_RESTARTS_STARTDATE_ERROR = "Invalid Start Date";
-        public const string SCHEDULED_RESTARTS_STARTDATE_ERROR_MESSAGE = "The Start Date must be in the future";
+        public const string SCHEDULED_RESTARTS_STARTDATE_ERROR_MESSAGE = "The Start Date must be in the future.";
 
         public const string SCHEDULED_RESTARTS_STARTTIME_ERROR = "Invalid Start Time";
-        public const string SCHEDULED_RESTARTS_STARTTIME_ERROR_MESSAGE = "The Start Time must be in the future";
+        public const string SCHEDULED_RESTARTS_STARTTIME_ERROR_MESSAGE = "The Start Time must be in the future.";
+
+        public const string SERVER_PROFILE_RENAME_ERROR = "Unable to Rename All Directories";
+        public const string SERVER_PROFILE_RENAME_ERROR_MESSAGE = "An error occurred while renaming the old directories to the new name. Manual fixes may be required.";
     }
 
     public static class Warnings
@@ -102,7 +105,7 @@ public static class Constants
     public static class Success
     {
         public const string BACKUP_SAVED_SUCCESS = "Backup Saved";
-        public const string BACKUP_SAVED_SUCCESS_MESSAGE = @"Backup saved at: ""{0}""";
+        public const string BACKUP_SAVED_SUCCESS_MESSAGE = @"Backup saved at: ""{0}"".";
     }
 
     public static class ButtonText

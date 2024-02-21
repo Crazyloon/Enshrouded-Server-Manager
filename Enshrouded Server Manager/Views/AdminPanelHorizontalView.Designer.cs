@@ -42,13 +42,14 @@ partial class AdminPanelHorizontalView
         // 
         // btnStopServer
         // 
+        btnStopServer.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         btnStopServer.Cursor = Cursors.Hand;
         btnStopServer.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnStopServer.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
         btnStopServer.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnStopServer.FlatStyle = FlatStyle.Flat;
         btnStopServer.ForeColor = SystemColors.Control;
-        btnStopServer.Location = new Point(8, 3);
+        btnStopServer.Location = new Point(8, 4);
         btnStopServer.Name = "btnStopServer";
         btnStopServer.Size = new Size(80, 45);
         btnStopServer.TabIndex = 70;
@@ -59,13 +60,14 @@ partial class AdminPanelHorizontalView
         // 
         // btnOpenLogFolder
         // 
+        btnOpenLogFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         btnOpenLogFolder.Cursor = Cursors.Hand;
         btnOpenLogFolder.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnOpenLogFolder.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
         btnOpenLogFolder.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnOpenLogFolder.FlatStyle = FlatStyle.Flat;
         btnOpenLogFolder.ForeColor = SystemColors.Control;
-        btnOpenLogFolder.Location = new Point(656, 5);
+        btnOpenLogFolder.Location = new Point(656, 4);
         btnOpenLogFolder.Name = "btnOpenLogFolder";
         btnOpenLogFolder.Size = new Size(80, 45);
         btnOpenLogFolder.TabIndex = 65;
@@ -75,13 +77,14 @@ partial class AdminPanelHorizontalView
         // 
         // btnOpenSavegameFolder
         // 
+        btnOpenSavegameFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         btnOpenSavegameFolder.Cursor = Cursors.Hand;
         btnOpenSavegameFolder.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnOpenSavegameFolder.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
         btnOpenSavegameFolder.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnOpenSavegameFolder.FlatStyle = FlatStyle.Flat;
         btnOpenSavegameFolder.ForeColor = SystemColors.Control;
-        btnOpenSavegameFolder.Location = new Point(566, 5);
+        btnOpenSavegameFolder.Location = new Point(566, 4);
         btnOpenSavegameFolder.Name = "btnOpenSavegameFolder";
         btnOpenSavegameFolder.Size = new Size(80, 45);
         btnOpenSavegameFolder.TabIndex = 64;
@@ -91,13 +94,14 @@ partial class AdminPanelHorizontalView
         // 
         // btnOpenBackupFolder
         // 
+        btnOpenBackupFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         btnOpenBackupFolder.Cursor = Cursors.Hand;
         btnOpenBackupFolder.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnOpenBackupFolder.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
         btnOpenBackupFolder.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnOpenBackupFolder.FlatStyle = FlatStyle.Flat;
         btnOpenBackupFolder.ForeColor = SystemColors.Control;
-        btnOpenBackupFolder.Location = new Point(476, 5);
+        btnOpenBackupFolder.Location = new Point(476, 4);
         btnOpenBackupFolder.Name = "btnOpenBackupFolder";
         btnOpenBackupFolder.Size = new Size(80, 45);
         btnOpenBackupFolder.TabIndex = 63;
@@ -107,13 +111,14 @@ partial class AdminPanelHorizontalView
         // 
         // btnUpdateServer
         // 
+        btnUpdateServer.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         btnUpdateServer.Cursor = Cursors.Hand;
         btnUpdateServer.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnUpdateServer.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
         btnUpdateServer.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnUpdateServer.FlatStyle = FlatStyle.Flat;
         btnUpdateServer.ForeColor = SystemColors.Control;
-        btnUpdateServer.Location = new Point(98, 3);
+        btnUpdateServer.Location = new Point(98, 4);
         btnUpdateServer.Name = "btnUpdateServer";
         btnUpdateServer.Size = new Size(80, 45);
         btnUpdateServer.TabIndex = 60;
@@ -125,13 +130,14 @@ partial class AdminPanelHorizontalView
         // 
         // btnSaveBackup
         // 
+        btnSaveBackup.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         btnSaveBackup.Cursor = Cursors.Hand;
         btnSaveBackup.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnSaveBackup.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
         btnSaveBackup.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnSaveBackup.FlatStyle = FlatStyle.Flat;
         btnSaveBackup.ForeColor = SystemColors.Control;
-        btnSaveBackup.Location = new Point(386, 5);
+        btnSaveBackup.Location = new Point(386, 4);
         btnSaveBackup.Name = "btnSaveBackup";
         btnSaveBackup.Size = new Size(80, 45);
         btnSaveBackup.TabIndex = 62;
@@ -141,13 +147,14 @@ partial class AdminPanelHorizontalView
         // 
         // btnWindowsFirewall
         // 
+        btnWindowsFirewall.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         btnWindowsFirewall.Cursor = Cursors.Hand;
         btnWindowsFirewall.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnWindowsFirewall.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
         btnWindowsFirewall.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnWindowsFirewall.FlatStyle = FlatStyle.Flat;
         btnWindowsFirewall.ForeColor = SystemColors.Control;
-        btnWindowsFirewall.Location = new Point(282, 5);
+        btnWindowsFirewall.Location = new Point(282, 4);
         btnWindowsFirewall.Name = "btnWindowsFirewall";
         btnWindowsFirewall.Size = new Size(80, 45);
         btnWindowsFirewall.TabIndex = 67;
@@ -157,13 +164,14 @@ partial class AdminPanelHorizontalView
         // 
         // btnInstallSteamCMD
         // 
+        btnInstallSteamCMD.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         btnInstallSteamCMD.Cursor = Cursors.Hand;
         btnInstallSteamCMD.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnInstallSteamCMD.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
         btnInstallSteamCMD.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnInstallSteamCMD.FlatStyle = FlatStyle.Flat;
         btnInstallSteamCMD.ForeColor = SystemColors.Control;
-        btnInstallSteamCMD.Location = new Point(196, 5);
+        btnInstallSteamCMD.Location = new Point(196, 4);
         btnInstallSteamCMD.Name = "btnInstallSteamCMD";
         btnInstallSteamCMD.Size = new Size(80, 45);
         btnInstallSteamCMD.TabIndex = 61;
@@ -173,13 +181,14 @@ partial class AdminPanelHorizontalView
         // 
         // btnStartServer
         // 
+        btnStartServer.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         btnStartServer.Cursor = Cursors.Hand;
         btnStartServer.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnStartServer.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
         btnStartServer.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnStartServer.FlatStyle = FlatStyle.Flat;
         btnStartServer.ForeColor = SystemColors.Control;
-        btnStartServer.Location = new Point(8, 5);
+        btnStartServer.Location = new Point(8, 4);
         btnStartServer.Name = "btnStartServer";
         btnStartServer.Size = new Size(80, 45);
         btnStartServer.TabIndex = 71;
@@ -190,13 +199,14 @@ partial class AdminPanelHorizontalView
         // 
         // btnInstallServer
         // 
+        btnInstallServer.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
         btnInstallServer.Cursor = Cursors.Hand;
         btnInstallServer.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnInstallServer.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
         btnInstallServer.FlatAppearance.MouseOverBackColor = Color.FromArgb(10, 42, 73);
         btnInstallServer.FlatStyle = FlatStyle.Flat;
         btnInstallServer.ForeColor = SystemColors.Control;
-        btnInstallServer.Location = new Point(98, 5);
+        btnInstallServer.Location = new Point(98, 4);
         btnInstallServer.Name = "btnInstallServer";
         btnInstallServer.Size = new Size(80, 45);
         btnInstallServer.TabIndex = 72;
@@ -220,7 +230,7 @@ partial class AdminPanelHorizontalView
         Controls.Add(btnSaveBackup);
         Controls.Add(btnUpdateServer);
         Name = "AdminPanelHorizontalView";
-        Size = new Size(744, 55);
+        Size = new Size(744, 53);
         ResumeLayout(false);
     }
 

@@ -19,4 +19,6 @@ public partial class InfoPanelView : UserControl, IInfoPanelView
         get => lblNewVersionAvailableNotification.Visible;
         set => lblNewVersionAvailableNotification.Visible = value;
     }
+
+    public event EventHandler SupportLinkClicked;
 }
