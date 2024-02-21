@@ -159,10 +159,16 @@ public class ScheduleRestartsPresenter
         _fileSystemService.WriteFile(Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON),
                 JsonConvert.SerializeObject(_profiles, JsonSettings.Default));
 
-        if (_server.IsRunning(_selectedProfile.Name))
+        if (_server.IsRunning(_selectedProfile.Name) && _view.IsScheduledRestartEnabled)
         {
             _scheduledRestartService.StartScheduledRestarts(_selectedProfile);
         }
+        else if (_restartTimers.ContainsKey(_selectedProfile.Name))
+        {
+            _restartTimers[_selectedProfile.Name].EndTimer();
+            _restartTimers.Remove(_selectedProfile.Name);
+        }
+
 
         _view.AnimateSaveButton();
     }
