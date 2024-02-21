@@ -24,6 +24,7 @@ public class NavigationPresenter
         _view.RestoreBackupClicked += (sender, e) => OnViewSelectionChanged(ViewSelection.RestoreBackup);
         _view.ScheduleRestartsClicked += (sender, e) => OnViewSelectionChanged(ViewSelection.ScheduleRestarts);
         _view.DiscordNotificationsClicked += (sender, e) => OnViewSelectionChanged(ViewSelection.DiscordNotifications);
+        _view.CreditsClicked += (sender, e) => OnViewSelectionChanged(ViewSelection.Credits);
 
         _eventAggregator.Subscribe<NewVersionAvailableMessage>(n => OnNewVersionAvailable());
 

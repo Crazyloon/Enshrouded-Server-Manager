@@ -28,6 +28,9 @@
     <Compile Update="Views\AdminPanelHorizontalView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Views\CreditsPanelWideView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Views\InfoPanelWideView.cs">
       <SubType>UserControl</SubType>
     </Compile>
