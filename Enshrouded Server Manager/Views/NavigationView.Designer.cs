@@ -38,6 +38,7 @@ partial class NavigationView
         btnRestoreBackup = new Button();
         lblNewVersion = new Label();
         panel1 = new Panel();
+        btnCredits = new Button();
         panel1.SuspendLayout();
         SuspendLayout();
         // 
@@ -212,11 +213,32 @@ partial class NavigationView
         panel1.Size = new Size(200, 18);
         panel1.TabIndex = 74;
         // 
+        // btnCredits
+        // 
+        btnCredits.Cursor = Cursors.Hand;
+        btnCredits.Dock = DockStyle.Top;
+        btnCredits.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 18);
+        btnCredits.FlatAppearance.BorderSize = 0;
+        btnCredits.FlatAppearance.MouseDownBackColor = Color.FromArgb(0, 0, 58);
+        btnCredits.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 0, 40);
+        btnCredits.FlatStyle = FlatStyle.Flat;
+        btnCredits.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+        btnCredits.ForeColor = Color.White;
+        btnCredits.Location = new Point(0, 323);
+        btnCredits.Name = "btnCredits";
+        btnCredits.Padding = new Padding(20, 0, 0, 0);
+        btnCredits.Size = new Size(200, 39);
+        btnCredits.TabIndex = 75;
+        btnCredits.Text = "Credits";
+        btnCredits.TextAlign = ContentAlignment.MiddleLeft;
+        btnCredits.UseVisualStyleBackColor = true;
+        // 
         // NavigationView
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
+        Controls.Add(btnCredits);
         Controls.Add(panel1);
         Controls.Add(btnDiscordNotifications);
         Controls.Add(btnScheduleRestarts);
@@ -245,4 +267,5 @@ partial class NavigationView
     private Button btnRestoreBackup;
     private Label lblNewVersion;
     private Panel panel1;
+    private Button btnCredits;
 }

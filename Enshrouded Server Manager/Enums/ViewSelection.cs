@@ -6,5 +6,6 @@ public enum ViewSelection
     AutoBackup,
     RestoreBackup,
     ScheduleRestarts,
-    DiscordNotifications
+    DiscordNotifications,
+    Credits
 }

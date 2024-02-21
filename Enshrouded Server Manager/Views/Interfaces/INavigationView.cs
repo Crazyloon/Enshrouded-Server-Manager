@@ -10,6 +10,7 @@ public interface INavigationView
     event EventHandler RestoreBackupClicked;
     event EventHandler ScheduleRestartsClicked;
     event EventHandler DiscordNotificationsClicked;
+    event EventHandler CreditsClicked;
 
     string CurrentVersionText { get; set; }
     bool IsNewVersionAvailable { get; set; }

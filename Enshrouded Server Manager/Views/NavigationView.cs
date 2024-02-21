@@ -43,6 +43,12 @@ public partial class NavigationView : UserControl, INavigationView
         remove => btnDiscordNotifications.Click -= value;
     }
 
+    public event EventHandler CreditsClicked
+    {
+        add => btnCredits.Click += value;
+        remove => btnCredits.Click -= value;
+    }
+
     public string CurrentVersionText
     {
         get => lblVersion.Text;

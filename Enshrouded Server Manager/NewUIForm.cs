@@ -58,6 +58,7 @@ public partial class NewUIForm : Form, INewUIFormView
         scheduleRestartsView.Tag = new ScheduleRestartsPresenter(scheduleRestartsView, eventAggregator, enshroudedServerService, backupService, messageBoxService, fileSystemService, logService, restartScheduler, restartTimers, profiles);
         navBarView.Tag = new NavigationPresenter(navBarView, versionManager, eventAggregator);
         infoPanelWideView.Tag = new InfoPanelPresenter(infoPanelWideView, eventAggregator, processManager);
+        creditsPanelWideView.Tag = new CreditsPanelPresenter(creditsPanelWideView, processManager);
 
         this.Tag = new NewUIPresenter(this, versionManager);
 
@@ -96,6 +97,9 @@ public partial class NewUIForm : Form, INewUIFormView
                 break;
             case ViewSelection.DiscordNotifications:
                 discordNotificationsView.BringToFront();
+                break;
+            case ViewSelection.Credits:
+                creditsPanelWideView.BringToFront();
                 break;
             default:
                 break;

@@ -46,6 +46,7 @@ partial class NewUIForm
         pnlMenuBar = new Panel();
         lblMinimizeTrayButton = new Label();
         lblCloseButton = new Label();
+        creditsPanelWideView = new Views.CreditsPanelWideView();
         pnlNavBar.SuspendLayout();
         pnlProfileSelector.SuspendLayout();
         pnlAdminControls.SuspendLayout();
@@ -85,7 +86,7 @@ partial class NewUIForm
         pnlProfileSelector.Location = new Point(0, 25);
         pnlProfileSelector.Name = "pnlProfileSelector";
         pnlProfileSelector.Padding = new Padding(1, 0, 1, 1);
-        pnlProfileSelector.Size = new Size(946, 40);
+        pnlProfileSelector.Size = new Size(944, 40);
         pnlProfileSelector.TabIndex = 1;
         // 
         // profileSelectorView
@@ -95,7 +96,7 @@ partial class NewUIForm
         profileSelectorView.Location = new Point(1, 0);
         profileSelectorView.Name = "profileSelectorView";
         profileSelectorView.RenameButtonText = "Rename";
-        profileSelectorView.Size = new Size(944, 39);
+        profileSelectorView.Size = new Size(942, 39);
         profileSelectorView.TabIndex = 0;
         profileSelectorView.TimeLeft = "Next Restart: 00:00";
         profileSelectorView.TimeLeftVisible = false;
@@ -108,7 +109,7 @@ partial class NewUIForm
         pnlAdminControls.Location = new Point(200, 476);
         pnlAdminControls.Name = "pnlAdminControls";
         pnlAdminControls.Padding = new Padding(0, 1, 1, 1);
-        pnlAdminControls.Size = new Size(746, 55);
+        pnlAdminControls.Size = new Size(744, 55);
         pnlAdminControls.TabIndex = 2;
         // 
         // adminPanelHorizontalView
@@ -129,7 +130,7 @@ partial class NewUIForm
         adminPanelHorizontalView.OpenSavegameFolderButtonVisible = true;
         adminPanelHorizontalView.SaveBackupButtonEnabled = true;
         adminPanelHorizontalView.SaveBackupButtonVisible = true;
-        adminPanelHorizontalView.Size = new Size(745, 53);
+        adminPanelHorizontalView.Size = new Size(743, 53);
         adminPanelHorizontalView.StartServerButtonEnabled = true;
         adminPanelHorizontalView.StartServerButtonVisible = false;
         adminPanelHorizontalView.StopServerButtonEnabled = true;
@@ -145,6 +146,7 @@ partial class NewUIForm
         // 
         pnlMain.BackColor = Color.FromArgb(64, 64, 64);
         pnlMain.Controls.Add(infoPanelWideView);
+        pnlMain.Controls.Add(creditsPanelWideView);
         pnlMain.Controls.Add(restoreBackupView);
         pnlMain.Controls.Add(scheduleRestartsView);
         pnlMain.Controls.Add(serverSettingsView);
@@ -154,7 +156,7 @@ partial class NewUIForm
         pnlMain.Location = new Point(200, 65);
         pnlMain.Name = "pnlMain";
         pnlMain.Padding = new Padding(0, 0, 1, 0);
-        pnlMain.Size = new Size(746, 411);
+        pnlMain.Size = new Size(744, 411);
         pnlMain.TabIndex = 3;
         // 
         // infoPanelWideView
@@ -165,7 +167,7 @@ partial class NewUIForm
         infoPanelWideView.IsNewVersionAvailable = false;
         infoPanelWideView.Location = new Point(0, 0);
         infoPanelWideView.Name = "infoPanelWideView";
-        infoPanelWideView.Size = new Size(745, 411);
+        infoPanelWideView.Size = new Size(743, 411);
         infoPanelWideView.TabIndex = 9;
         // 
         // restoreBackupView
@@ -177,7 +179,7 @@ partial class NewUIForm
         restoreBackupView.Location = new Point(0, 0);
         restoreBackupView.Name = "restoreBackupView";
         restoreBackupView.RestoreFilePath = "";
-        restoreBackupView.Size = new Size(745, 411);
+        restoreBackupView.Size = new Size(743, 411);
         restoreBackupView.TabIndex = 8;
         // 
         // scheduleRestartsView
@@ -192,7 +194,7 @@ partial class NewUIForm
         scheduleRestartsView.RecurrenceInterval = 1;
         scheduleRestartsView.RecurrenceIntervalUnit = "Hours";
         scheduleRestartsView.RestartFrequency = Enums.RestartFrequency.None;
-        scheduleRestartsView.Size = new Size(745, 411);
+        scheduleRestartsView.Size = new Size(743, 411);
         scheduleRestartsView.StartDate = new DateOnly(2024, 2, 20);
         scheduleRestartsView.StartTime = new TimeOnly(7, 53, 27, 0, 0);
         scheduleRestartsView.TabIndex = 7;
@@ -214,7 +216,7 @@ partial class NewUIForm
         serverSettingsView.QueryPort = 0;
         serverSettingsView.ServerName = "";
         serverSettingsView.ShowPasswordButtonText = "Show";
-        serverSettingsView.Size = new Size(745, 411);
+        serverSettingsView.Size = new Size(743, 411);
         serverSettingsView.TabIndex = 4;
         // 
         // discordNotificationsView
@@ -243,7 +245,7 @@ partial class NewUIForm
         discordNotificationsView.ServerStartedMessage = "Online!";
         discordNotificationsView.ServerStoppedMessage = "Offline!";
         discordNotificationsView.ServerUpdatingMessage = "Updating...";
-        discordNotificationsView.Size = new Size(745, 411);
+        discordNotificationsView.Size = new Size(743, 411);
         discordNotificationsView.TabIndex = 1;
         discordNotificationsView.WebhookUrl = "";
         // 
@@ -260,7 +262,7 @@ partial class NewUIForm
         autoBackupView.MaxAutoBackupCount = 0;
         autoBackupView.Name = "autoBackupView";
         autoBackupView.SelectedProfile = null;
-        autoBackupView.Size = new Size(745, 411);
+        autoBackupView.Size = new Size(743, 411);
         autoBackupView.TabIndex = 0;
         // 
         // manageProfilesView
@@ -284,7 +286,7 @@ partial class NewUIForm
         pnlMenuBar.Dock = DockStyle.Top;
         pnlMenuBar.Location = new Point(0, 0);
         pnlMenuBar.Name = "pnlMenuBar";
-        pnlMenuBar.Size = new Size(946, 25);
+        pnlMenuBar.Size = new Size(944, 25);
         pnlMenuBar.TabIndex = 2;
         pnlMenuBar.MouseDown += pnlMenuBar_MouseDown;
         // 
@@ -317,6 +319,17 @@ partial class NewUIForm
         lblCloseButton.Text = "X";
         lblCloseButton.TextAlign = ContentAlignment.MiddleCenter;
         lblCloseButton.Click += lblCloseButton_Click;
+        // 
+        // creditsPanelWideView
+        // 
+        creditsPanelWideView.BackColor = Color.FromArgb(0, 0, 18);
+        creditsPanelWideView.Dock = DockStyle.Fill;
+        creditsPanelWideView.ForeColor = SystemColors.Control;
+        creditsPanelWideView.Location = new Point(0, 0);
+        creditsPanelWideView.Name = "creditsPanelWideView";
+        creditsPanelWideView.Padding = new Padding(5, 100, 5, 5);
+        creditsPanelWideView.Size = new Size(743, 411);
+        creditsPanelWideView.TabIndex = 10;
         // 
         // NewUIForm
         // 
@@ -363,4 +376,5 @@ partial class NewUIForm
     private Views.ScheduleRestartsView scheduleRestartsView;
     private RestoreBackupView restoreBackupView;
     private InfoPanelWideView infoPanelWideView;
+    private Views.CreditsPanelWideView creditsPanelWideView;
 }
