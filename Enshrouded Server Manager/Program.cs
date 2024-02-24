@@ -11,7 +11,7 @@ internal static class Program
 
         if (uiVersion is null)
         {
-            Application.Run(new NewUIForm());
+            Application.Run(new EnshroudedServerManager());
         }
         else
         {
@@ -22,7 +22,7 @@ internal static class Program
                 {
                     if (split[1] == "NEW")
                     {
-                        Application.Run(new NewUIForm());
+                        Application.Run(new EnshroudedServerManager());
                     }
                     else
                     {

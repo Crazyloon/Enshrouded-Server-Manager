@@ -39,44 +39,61 @@ public class DiscordService : IDiscordService
             ServerSettings serverSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, JsonSettings.Default);
             string name = serverSettings.Name;
 
-            if (discordProfile.Enabled)
+            try
             {
-                if (discordProfile.StartEnabled)
-                {
-                    try
-                    {
-                        SendMessage(name, DiscordUrl, discordProfile, messageType, timeLeft);
-                    }
-                    catch
-                    {
-                        _logger.LogError($"Unable to send Discord {messageType} message for {profile.Name}");
-                    }
-                }
+                SendMessage(name, DiscordUrl, discordProfile, messageType, timeLeft);
+            }
+            catch
+            {
+                _logger.LogError($"Unable to send Discord {messageType} message for {profile.Name}");
             }
         }
     }
 
     private void SendMessage(string name, string url, DiscordProfile discordProfile, DiscordMessageType messageType, string? timeLeft = null)
     {
+        if (!discordProfile.Enabled)
+        {
+            return;
+        }
+
         switch (messageType)
         {
             case DiscordMessageType.ServerStarted:
-                ServerOnline(name, url, discordProfile.EmbedEnabled, discordProfile.ServerStartedMsg);
+                if (discordProfile.StartEnabled)
+                {
+                    ServerOnline(name, url, discordProfile.EmbedEnabled, discordProfile.ServerStartedMsg);
+                }
                 break;
             case DiscordMessageType.ServerStopped:
-                ServerOffline(name, url, discordProfile.EmbedEnabled, discordProfile.ServerStoppedMsg);
+                if (discordProfile.StopEnabled)
+                {
+                    ServerOffline(name, url, discordProfile.EmbedEnabled, discordProfile.ServerStoppedMsg);
+                }
                 break;
             case DiscordMessageType.ServerUpdating:
-                ServerUpdating(name, url, discordProfile.EmbedEnabled, discordProfile.ServerUpdatingMsg);
+                if (discordProfile.UpdatingEnabled)
+                {
+                    ServerUpdating(name, url, discordProfile.EmbedEnabled, discordProfile.ServerUpdatingMsg);
+                }
                 break;
             case DiscordMessageType.Backup:
-                ServerBackup(name, url, discordProfile.EmbedEnabled, discordProfile.BackupMsg);
+                if (discordProfile.BackupEnabled)
+                {
+                    ServerBackup(name, url, discordProfile.EmbedEnabled, discordProfile.BackupMsg);
+                }
                 break;
             case DiscordMessageType.RestartImminent:
-                ServerRestartImminent(name, url, discordProfile.EmbedEnabled, discordProfile.RestartMsg, timeLeft);
+                if (discordProfile.RestartEnabled)
+                {
+                    ServerRestartImminent(name, url, discordProfile.EmbedEnabled, discordProfile.RestartMsg, timeLeft);
+                }
                 break;
             case DiscordMessageType.BackupRestored:
-                ServerBackup(name, url, discordProfile.EmbedEnabled, discordProfile.BackupRestoreMsg);
+                if (discordProfile.BackupRestoreEnabled)
+                {
+                    ServerBackup(name, url, discordProfile.EmbedEnabled, discordProfile.BackupRestoreMsg);
+                }
                 break;
             default:
                 break;

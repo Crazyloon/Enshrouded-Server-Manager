@@ -1,6 +1,6 @@
 ﻿namespace Enshrouded_Server_Manager;
 
-partial class NewUIForm
+partial class EnshroudedServerManager
 {
     /// <summary>
     /// Required designer variable.
@@ -28,7 +28,7 @@ partial class NewUIForm
     /// </summary>
     private void InitializeComponent()
     {
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewUIForm));
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EnshroudedServerManager));
         pnlNavBar = new Panel();
         navBarView = new Views.NavigationView();
         pnlProfileSelector = new Panel();

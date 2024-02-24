@@ -10,7 +10,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 
 namespace Enshrouded_Server_Manager;
-public partial class NewUIForm : Form, INewUIFormView
+public partial class EnshroudedServerManager : Form, INewUIFormView
 {
     [DllImport("user32.dll")]
     public static extern bool ReleaseCapture();
@@ -19,7 +19,7 @@ public partial class NewUIForm : Form, INewUIFormView
 
     private Panel _pnlUpdateServerfiles;
     private Label _lblUpdateServerfiles;
-    public NewUIForm()
+    public EnshroudedServerManager()
     {
         InitializeComponent();
 
