@@ -7,17 +7,24 @@
 This is a tool to help you manage your Dedicated Enshrouded servers.
 
 ## Select a server profile, install the server, and start hosting.
-![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/d7c6b539-5fc2-4722-ab5b-e9291a76cf35)
+![image](https://github.com/Crazyloon/Enshrouded-Server-Manager/assets/8146917/714d5977-bb7f-4951-9eff-f4440a3b3bff)
 
 ## Manage your server profiles by adding renaming and deleting them.
-![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/5182b41d-3d49-48bd-93b0-6b52f48451f3)
+![image](https://github.com/Crazyloon/Enshrouded-Server-Manager/assets/8146917/e0fd96a8-69df-4e44-8eb2-128f583c7435)
 
 ## Configure Automatic Backup to save your world files on an interval
-![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/a95ec730-bae0-4329-8225-bb9bee5a5919)
+![image](https://github.com/Crazyloon/Enshrouded-Server-Manager/assets/8146917/592ce4a1-c18e-4f87-b5f0-3b5153c69855)
+
+## Restore backups
+Backups can be restored from a zipped backup, zipped automatic backup or a world file. Alternatively, set the restore file path to your automatic backup directory to always restore from the latest automatic backup. Here you can also configure your scheduled restarts to restore from your selected backup location
+![image](https://github.com/Crazyloon/Enshrouded-Server-Manager/assets/8146917/c225f975-9406-49e8-8473-acc99d77c913)
+
+## Set an automatic restart schedule when your server starts, or at a specific date and time
+![image](https://github.com/Crazyloon/Enshrouded-Server-Manager/assets/8146917/9651943d-01d6-4e2f-8065-d03bf11311e9)
 
 ## Update your Discord with Server information
-![image](https://github.com/Crazyloon/Enshrouded-Server-Manager/assets/8146917/cfcb31bf-7884-47ec-b712-f4ddc8afbb2f)
-![image](https://github.com/ISpaikI/Enshrouded-Server-Manager/assets/8146917/106ff404-e5c0-4d71-86be-4f691214e7c7)
+![image](https://github.com/Crazyloon/Enshrouded-Server-Manager/assets/8146917/6d21899b-6c31-416f-8d4a-5c4f74a9a692)
+
 
 
 ## Download
