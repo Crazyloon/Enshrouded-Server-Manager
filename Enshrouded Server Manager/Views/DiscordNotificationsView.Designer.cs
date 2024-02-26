@@ -28,6 +28,7 @@ partial class DiscordNotificationsView
     /// </summary>
     private void InitializeComponent()
     {
+        components = new System.ComponentModel.Container();
         lblDiscordChanges = new Label();
         txtBackupRestoreMsg = new TextBox();
         chkNotifiBackupRestore = new CheckBox();
@@ -52,6 +53,7 @@ partial class DiscordNotificationsView
         lblDiscordWebhookUrl = new Label();
         btnSaveDiscordSettings = new Button();
         txtDiscordWebhookUrl = new TextBox();
+        ttpTimeLeftInfo = new ToolTip(components);
         SuspendLayout();
         // 
         // lblDiscordChanges
@@ -149,6 +151,7 @@ partial class DiscordNotificationsView
         txtRestartMsg.Size = new Size(245, 23);
         txtRestartMsg.TabIndex = 73;
         txtRestartMsg.Text = "Server Reset In {TIME_LEFT} minutes";
+        ttpTimeLeftInfo.SetToolTip(txtRestartMsg, "Use {TIME_LEFT} to display the number of minutes remaining in the message.");
         // 
         // chkNotifyRestart
         // 
@@ -316,6 +319,11 @@ partial class DiscordNotificationsView
         txtDiscordWebhookUrl.Size = new Size(331, 23);
         txtDiscordWebhookUrl.TabIndex = 78;
         // 
+        // ttpTimeLeftInfo
+        // 
+        ttpTimeLeftInfo.BackColor = Color.FromArgb(6, 6, 48);
+        ttpTimeLeftInfo.ForeColor = SystemColors.Info;
+        // 
         // DiscordNotificationsView
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -378,4 +386,5 @@ partial class DiscordNotificationsView
     private CheckBox chkImminent;
     private TextBox txtBackupRestoreMsg;
     private CheckBox chkNotifiBackupRestore;
+    private ToolTip ttpTimeLeftInfo;
 }

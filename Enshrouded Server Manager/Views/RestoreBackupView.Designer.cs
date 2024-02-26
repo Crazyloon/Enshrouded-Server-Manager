@@ -28,6 +28,7 @@ partial class RestoreBackupView
     /// </summary>
     private void InitializeComponent()
     {
+        components = new System.ComponentModel.Container();
         btnSaveSettings = new Button();
         lblSelectRestoreFile = new Label();
         lblAutoBackupChangesInfo = new Label();
@@ -37,6 +38,7 @@ partial class RestoreBackupView
         chkRestoreBackupOnRestart = new CheckBox();
         btnRestoreSaveFile = new Button();
         lblAutoRestoreInfo = new Label();
+        ttpToolTip = new ToolTip(components);
         SuspendLayout();
         // 
         // btnSaveSettings
@@ -105,6 +107,7 @@ partial class RestoreBackupView
         txtRestoreFilePath.Name = "txtRestoreFilePath";
         txtRestoreFilePath.Size = new Size(331, 23);
         txtRestoreFilePath.TabIndex = 42;
+        ttpToolTip.SetToolTip(txtRestoreFilePath, "Enter a directory to restore from the newest zip file in that directory");
         // 
         // ofdBackupFileSelector
         // 
@@ -137,6 +140,7 @@ partial class RestoreBackupView
         btnRestoreSaveFile.Size = new Size(128, 30);
         btnRestoreSaveFile.TabIndex = 46;
         btnRestoreSaveFile.Text = "Restore Selected File";
+        ttpToolTip.SetToolTip(btnRestoreSaveFile, "Copies the selected file to your savegame directory");
         btnRestoreSaveFile.UseCompatibleTextRendering = true;
         btnRestoreSaveFile.UseVisualStyleBackColor = true;
         btnRestoreSaveFile.EnabledChanged += btnSaveAutoBackup_EnabledChanged;
@@ -180,4 +184,5 @@ partial class RestoreBackupView
     private CheckBox chkRestoreBackupOnRestart;
     private Button btnRestoreSaveFile;
     private Label lblAutoRestoreInfo;
+    private ToolTip ttpToolTip;
 }

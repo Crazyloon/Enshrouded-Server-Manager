@@ -5,6 +5,8 @@ public interface IEnshroudedServerService
 {
     void Start(string pathServerExe, ServerProfile serverProfile);
     void Stop(ServerProfile serverProfile);
-    void InstallUpdate(string steamAppId, string serverProfilePath, string selectedProfileName);
+    void Install(string serverProfilePath);
+    void Update();
     bool IsRunning(string selectedProfileName);
+    Task<Color> ServerUpdateCheck(string selectedProfileName);
 }

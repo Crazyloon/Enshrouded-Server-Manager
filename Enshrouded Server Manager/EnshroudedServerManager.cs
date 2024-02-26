@@ -72,7 +72,7 @@ public partial class EnshroudedServerManager : Form, INewUIFormView
         eventAggregator.Subscribe<ServerInstallStoppedMessage>(m => OnServerInstallStopped());
         eventAggregator.Subscribe<NavigationChangedMessage>(v => OnNavigationChanged(v.ViewSelection));
 
-        //InitializeServerUpdateOverlay();
+        InitializeServerUpdateOverlay();
         manageProfilesView.Location = new Point(630, 65);
     }
 
@@ -121,11 +121,13 @@ public partial class EnshroudedServerManager : Form, INewUIFormView
     private void OnServerInstallStopped()
     {
         _pnlUpdateServerfiles.Visible = false;
+        _pnlUpdateServerfiles.SendToBack();
     }
 
     private void OnServerInstallStarted()
     {
         _pnlUpdateServerfiles.Visible = true;
+        _pnlUpdateServerfiles.BringToFront();
     }
 
     private void pnlMenuBar_MouseDown(object sender, MouseEventArgs e)
@@ -171,14 +173,13 @@ public partial class EnshroudedServerManager : Form, INewUIFormView
         _pnlUpdateServerfiles.BackColor = Color.FromArgb(0, 0, 18);
         _pnlUpdateServerfiles.Controls.Add(_lblUpdateServerfiles);
         _pnlUpdateServerfiles.Location = pnlMain.Location;
-        _pnlUpdateServerfiles.Size = pnlMain.Size;
+        _pnlUpdateServerfiles.Dock = DockStyle.Fill;
         _pnlUpdateServerfiles.Visible = true;
 
-        this.Controls.Add(_pnlUpdateServerfiles);
+        pnlMain.Controls.Add(_pnlUpdateServerfiles);
 
-        _pnlUpdateServerfiles.BringToFront();
+        _pnlUpdateServerfiles.SendToBack();
         _pnlUpdateServerfiles.ResumeLayout(false);
         _pnlUpdateServerfiles.PerformLayout();
-
     }
 }

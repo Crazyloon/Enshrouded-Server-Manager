@@ -28,6 +28,7 @@ partial class AdminPanelHorizontalView
     /// </summary>
     private void InitializeComponent()
     {
+        components = new System.ComponentModel.Container();
         btnStopServer = new Button();
         btnOpenLogFolder = new Button();
         btnOpenSavegameFolder = new Button();
@@ -38,6 +39,8 @@ partial class AdminPanelHorizontalView
         btnInstallSteamCMD = new Button();
         btnStartServer = new Button();
         btnInstallServer = new Button();
+        ttpUpdateServerInfo = new ToolTip(components);
+        ttpOpenFolder = new ToolTip(components);
         SuspendLayout();
         // 
         // btnStopServer
@@ -72,6 +75,7 @@ partial class AdminPanelHorizontalView
         btnOpenLogFolder.Size = new Size(80, 45);
         btnOpenLogFolder.TabIndex = 65;
         btnOpenLogFolder.Text = "Log\r\nFolder";
+        ttpOpenFolder.SetToolTip(btnOpenLogFolder, "Opens the Enshrouded logs folder for this profile");
         btnOpenLogFolder.UseCompatibleTextRendering = true;
         btnOpenLogFolder.UseVisualStyleBackColor = true;
         // 
@@ -89,6 +93,7 @@ partial class AdminPanelHorizontalView
         btnOpenSavegameFolder.Size = new Size(80, 45);
         btnOpenSavegameFolder.TabIndex = 64;
         btnOpenSavegameFolder.Text = "Savegame Folder";
+        ttpOpenFolder.SetToolTip(btnOpenSavegameFolder, "Opens the savegame folder for this profile");
         btnOpenSavegameFolder.UseCompatibleTextRendering = true;
         btnOpenSavegameFolder.UseVisualStyleBackColor = true;
         // 
@@ -106,6 +111,7 @@ partial class AdminPanelHorizontalView
         btnOpenBackupFolder.Size = new Size(80, 45);
         btnOpenBackupFolder.TabIndex = 63;
         btnOpenBackupFolder.Text = "Backup Folder";
+        ttpOpenFolder.SetToolTip(btnOpenBackupFolder, "Opens the backup folder for this profile");
         btnOpenBackupFolder.UseCompatibleTextRendering = true;
         btnOpenBackupFolder.UseVisualStyleBackColor = true;
         // 
@@ -123,6 +129,7 @@ partial class AdminPanelHorizontalView
         btnUpdateServer.Size = new Size(80, 45);
         btnUpdateServer.TabIndex = 60;
         btnUpdateServer.Text = "Update Server";
+        ttpUpdateServerInfo.SetToolTip(btnUpdateServer, "Border Color Meaning: Green - Up-to-date; Yellow - Update Available; Red - Unknown Error");
         btnUpdateServer.UseCompatibleTextRendering = true;
         btnUpdateServer.UseVisualStyleBackColor = true;
         btnUpdateServer.Visible = false;
@@ -245,4 +252,6 @@ partial class AdminPanelHorizontalView
     private Button btnInstallSteamCMD;
     private Button btnStartServer;
     private Button btnInstallServer;
+    private ToolTip ttpUpdateServerInfo;
+    private ToolTip ttpOpenFolder;
 }

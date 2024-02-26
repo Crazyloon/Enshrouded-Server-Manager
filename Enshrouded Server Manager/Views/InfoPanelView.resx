@@ -120,19 +120,20 @@
   <data name="lblNewsText.Text" xml:space="preserve">
     <value>Changes:
 
+v.0.6.6
+- Add tooltips to several controls
+- Fixed an bug where the Discord
+   restart msg was not loaded on startup
+- Updated the config file to use JSON
+   format for easier reading/writing
+- Servers will now start minimized
+
 v0.6.5
 - Fixed a bug where Discord messages
    were sent even when not configured
 
 v0.6.4
 - Changed the UI layout
-- Added a server restart timer at the top
-
-v0.6.3
-- Fixed servers not restarting if they took
-   longer than 2 seconds to shut down
-- Added Discord notification options for
-   Backup Restore and Server Restarting
-</value>
+- Added a server restart timer at the top</value>
   </data>
 </root>

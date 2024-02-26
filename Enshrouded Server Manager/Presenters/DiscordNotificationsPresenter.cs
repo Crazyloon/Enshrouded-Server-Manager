@@ -122,6 +122,7 @@ public class DiscordNotificationsPresenter
             _discordNotificationsView.ServerUpdatingMessage = _discordProfile.ServerUpdatingMsg;
             _discordNotificationsView.BackupCreatedMessage = _discordProfile.BackupMsg;
             _discordNotificationsView.BackupRestoredMessage = _discordProfile.BackupRestoreMsg;
+            _discordNotificationsView.ServerRestartMessage = _discordProfile.RestartMsg;
             _discordNotificationsView.IsEmbedsEnabled = _discordProfile.EmbedEnabled;
             _discordNotificationsView.IsLongResetMessageEnabled = _discordProfile.LongResetEnabled;
             _discordNotificationsView.IsMediumResetMessageEnabled = _discordProfile.MediumResetEnabled;

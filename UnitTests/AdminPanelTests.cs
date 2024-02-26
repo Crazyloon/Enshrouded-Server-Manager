@@ -106,7 +106,7 @@ public class AdminPanelTests
         _fileSystemService.FileExists(Arg.Any<string>()).Returns(true);
         _enshroudedServerService.IsRunning(Arg.Any<string>()).Returns(false);
 
-        _versionManagementService.ServerUpdateCheck(Arg.Any<string>()).ReturnsForAnyArgs(Color.Yellow);
+        _enshroudedServerService.ServerUpdateCheck(Arg.Any<string>()).ReturnsForAnyArgs(Color.Yellow);
         _adminPanelView.UpdateServerButtonBorderColor = Color.Yellow;
 
         bool subscriptionTriggered = false;
@@ -340,7 +340,7 @@ public class AdminPanelTests
         _adminPanelView.InstallServerButtonVisible = true;
 
         _fileSystemService.FileExists(Arg.Any<string>()).Returns(false);
-        _versionManagementService.ServerUpdateCheck(Arg.Any<string>()).Returns(Color.Green);
+        _enshroudedServerService.ServerUpdateCheck(Arg.Any<string>()).Returns(Color.Green);
 
 
         // Act
@@ -355,8 +355,8 @@ public class AdminPanelTests
         //EventAggregator.Instance.Received().Publish(Arg.Any<ServerInstallStoppedMessage>());
         //EventAggregator.Instance.Received().Publish(Arg.Any<ServerInstallStartedMessage>());
 
-        _enshroudedServerService.Received().InstallUpdate(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>());
-        _versionManagementService.Received().ServerUpdateCheck(Arg.Any<string>());
+        _enshroudedServerService.Received().Install(Arg.Any<string>());
+        _enshroudedServerService.Received().ServerUpdateCheck(Arg.Any<string>());
 
         _adminPanelView.StartServerButtonVisible.Should().BeTrue();
         _adminPanelView.StopServerButtonVisible.Should().BeFalse();
@@ -388,14 +388,14 @@ public class AdminPanelTests
         _adminPanelView.UpdateServerButtonBorderColor = Color.Yellow;
 
         _fileSystemService.FileExists(Arg.Any<string>()).Returns(false);
-        _versionManagementService.ServerUpdateCheck(Arg.Any<string>()).Returns(Color.Green);
+        _enshroudedServerService.ServerUpdateCheck(Arg.Any<string>()).Returns(Color.Green);
 
         // Act
         _adminPanelView.UpdateServerButtonClicked += Raise.Event();
 
         // Assert
-        _enshroudedServerService.Received().InstallUpdate(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>());
-        _versionManagementService.Received().ServerUpdateCheck(Arg.Any<string>());
+        _enshroudedServerService.Received().Update();
+        _enshroudedServerService.Received().ServerUpdateCheck(Arg.Any<string>());
 
         _adminPanelView.StartServerButtonVisible.Should().BeTrue();
         _adminPanelView.StopServerButtonVisible.Should().BeFalse();

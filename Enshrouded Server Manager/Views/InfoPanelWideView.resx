@@ -118,15 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="lblNewsText.Text" xml:space="preserve">
-    <value>v0.6.5
+    <value>v0.6.6
+- Add tooltips to several controls
+- Fixed an issue where the Discord restart msg was not loaded on startup
+- Changed the application's config file to use JSON format for easier reading/writing
+   (You may need to update this again if you want to use the old UI)
+- Server windows will now start minimized
+
+v0.6.5
 - Fixed a bug where Discord messages were sent even when they were unchecked
 
 v0.6.4
 - Changed the UI layout to use a menu bar instead of a tab selector
-- Added the server restart timer to the top bar next to the profile selector
-
-v0.6.3
-- Fixed servers not restarting if they took longer than 2 seconds to shut down
-- Added Discord notification options for Backup Restore and Server Restarting</value>
+- Added the server restart timer to the top bar next to the profile selector</value>
   </data>
 </root>

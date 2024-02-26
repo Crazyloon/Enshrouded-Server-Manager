@@ -28,6 +28,7 @@ partial class AutoBackupView
     /// </summary>
     private void InitializeComponent()
     {
+        components = new System.ComponentModel.Container();
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AutoBackupView));
         lblAutoBackupChangesInfo = new Label();
         btnSaveAutoBackup = new Button();
@@ -38,8 +39,9 @@ partial class AutoBackupView
         lblBackupFrequency = new Label();
         nudBackupInterval = new NumericUpDown();
         btnOpenAutobackupFolder = new Button();
-        label3 = new Label();
-        label1 = new Label();
+        lblBackupSummaryTitle = new Label();
+        lblBackupSummary = new Label();
+        ttpToolTip = new ToolTip(components);
         ((System.ComponentModel.ISupportInitialize)nudBackupMaxCount).BeginInit();
         ((System.ComponentModel.ISupportInitialize)nudBackupInterval).BeginInit();
         SuspendLayout();
@@ -145,28 +147,29 @@ partial class AutoBackupView
         btnOpenAutobackupFolder.Size = new Size(128, 30);
         btnOpenAutobackupFolder.TabIndex = 38;
         btnOpenAutobackupFolder.Text = "Autobackup Folder";
+        ttpToolTip.SetToolTip(btnOpenAutobackupFolder, "Opens the Autobackup folder for this profile");
         btnOpenAutobackupFolder.UseCompatibleTextRendering = true;
         btnOpenAutobackupFolder.UseVisualStyleBackColor = true;
         // 
-        // label3
+        // lblBackupSummaryTitle
         // 
-        label3.AutoSize = true;
-        label3.Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
-        label3.Location = new Point(179, 31);
-        label3.Name = "label3";
-        label3.Size = new Size(166, 21);
-        label3.TabIndex = 39;
-        label3.Text = "How Backups Work...";
+        lblBackupSummaryTitle.AutoSize = true;
+        lblBackupSummaryTitle.Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point);
+        lblBackupSummaryTitle.Location = new Point(179, 31);
+        lblBackupSummaryTitle.Name = "lblBackupSummaryTitle";
+        lblBackupSummaryTitle.Size = new Size(166, 21);
+        lblBackupSummaryTitle.TabIndex = 39;
+        lblBackupSummaryTitle.Text = "How Backups Work...";
         // 
-        // label1
+        // lblBackupSummary
         // 
-        label1.AutoSize = true;
-        label1.ForeColor = SystemColors.Info;
-        label1.Location = new Point(179, 62);
-        label1.Name = "label1";
-        label1.Size = new Size(199, 225);
-        label1.TabIndex = 37;
-        label1.Text = resources.GetString("label1.Text");
+        lblBackupSummary.AutoSize = true;
+        lblBackupSummary.ForeColor = SystemColors.Info;
+        lblBackupSummary.Location = new Point(179, 62);
+        lblBackupSummary.Name = "lblBackupSummary";
+        lblBackupSummary.Size = new Size(199, 225);
+        lblBackupSummary.TabIndex = 37;
+        lblBackupSummary.Text = resources.GetString("lblBackupSummary.Text");
         // 
         // AutoBackupView
         // 
@@ -174,8 +177,8 @@ partial class AutoBackupView
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
         Controls.Add(btnOpenAutobackupFolder);
-        Controls.Add(label3);
-        Controls.Add(label1);
+        Controls.Add(lblBackupSummaryTitle);
+        Controls.Add(lblBackupSummary);
         Controls.Add(lblAutoBackupChangesInfo);
         Controls.Add(btnSaveAutoBackup);
         Controls.Add(chkEnableBackups);
@@ -204,6 +207,7 @@ partial class AutoBackupView
     private Label lblBackupFrequency;
     private NumericUpDown nudBackupInterval;
     private Button btnOpenAutobackupFolder;
-    private Label label3;
-    private Label label1;
+    private Label lblBackupSummaryTitle;
+    private Label lblBackupSummary;
+    private ToolTip ttpToolTip;
 }

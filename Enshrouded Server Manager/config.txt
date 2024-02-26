@@ -1,4 +1,0 @@
-# Use this config to determine which UI you want to use
-# UI=NEW  will use the new UI
-# UI=OLD  will use the old UI
-UI=NEW

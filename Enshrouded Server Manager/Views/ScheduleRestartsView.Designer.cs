@@ -28,6 +28,7 @@ partial class ScheduleRestartsView
     /// </summary>
     private void InitializeComponent()
     {
+        components = new System.ComponentModel.Container();
         radOneTime = new RadioButton();
         radHourly = new RadioButton();
         radDaily = new RadioButton();
@@ -53,6 +54,7 @@ partial class ScheduleRestartsView
         lblTimeLeft = new Label();
         chkStartWithServer = new CheckBox();
         lblOr = new Label();
+        ttpToolTip = new ToolTip(components);
         ((System.ComponentModel.ISupportInitialize)nudRecur).BeginInit();
         SuspendLayout();
         // 
@@ -327,6 +329,7 @@ partial class ScheduleRestartsView
         chkStartWithServer.Size = new Size(183, 19);
         chkStartWithServer.TabIndex = 62;
         chkStartWithServer.Text = " Start Schedule on Server Start";
+        ttpToolTip.SetToolTip(chkStartWithServer, "If checked, the server restart schedule will start when the server starts");
         chkStartWithServer.UseVisualStyleBackColor = true;
         // 
         // lblOr
@@ -405,4 +408,5 @@ partial class ScheduleRestartsView
     private Label lblTimeLeft;
     private CheckBox chkStartWithServer;
     private Label lblOr;
+    private ToolTip ttpToolTip;
 }

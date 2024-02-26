@@ -37,6 +37,7 @@ partial class EnshroudedServerManager
         adminPanelHorizontalView = new Views.AdminPanelHorizontalView();
         pnlMain = new Panel();
         infoPanelWideView = new InfoPanelWideView();
+        creditsPanelWideView = new Views.CreditsPanelWideView();
         restoreBackupView = new RestoreBackupView();
         scheduleRestartsView = new Views.ScheduleRestartsView();
         serverSettingsView = new ServerSettingsView();
@@ -46,7 +47,6 @@ partial class EnshroudedServerManager
         pnlMenuBar = new Panel();
         lblMinimizeTrayButton = new Label();
         lblCloseButton = new Label();
-        creditsPanelWideView = new Views.CreditsPanelWideView();
         pnlNavBar.SuspendLayout();
         pnlProfileSelector.SuspendLayout();
         pnlAdminControls.SuspendLayout();
@@ -169,6 +169,17 @@ partial class EnshroudedServerManager
         infoPanelWideView.Name = "infoPanelWideView";
         infoPanelWideView.Size = new Size(743, 411);
         infoPanelWideView.TabIndex = 9;
+        // 
+        // creditsPanelWideView
+        // 
+        creditsPanelWideView.BackColor = Color.FromArgb(0, 0, 18);
+        creditsPanelWideView.Dock = DockStyle.Fill;
+        creditsPanelWideView.ForeColor = SystemColors.Control;
+        creditsPanelWideView.Location = new Point(0, 0);
+        creditsPanelWideView.Name = "creditsPanelWideView";
+        creditsPanelWideView.Padding = new Padding(5, 100, 5, 5);
+        creditsPanelWideView.Size = new Size(743, 411);
+        creditsPanelWideView.TabIndex = 10;
         // 
         // restoreBackupView
         // 
@@ -320,18 +331,7 @@ partial class EnshroudedServerManager
         lblCloseButton.TextAlign = ContentAlignment.MiddleCenter;
         lblCloseButton.Click += lblCloseButton_Click;
         // 
-        // creditsPanelWideView
-        // 
-        creditsPanelWideView.BackColor = Color.FromArgb(0, 0, 18);
-        creditsPanelWideView.Dock = DockStyle.Fill;
-        creditsPanelWideView.ForeColor = SystemColors.Control;
-        creditsPanelWideView.Location = new Point(0, 0);
-        creditsPanelWideView.Name = "creditsPanelWideView";
-        creditsPanelWideView.Padding = new Padding(5, 100, 5, 5);
-        creditsPanelWideView.Size = new Size(743, 411);
-        creditsPanelWideView.TabIndex = 10;
-        // 
-        // NewUIForm
+        // EnshroudedServerManager
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
@@ -346,8 +346,8 @@ partial class EnshroudedServerManager
         ForeColor = SystemColors.ButtonHighlight;
         FormBorderStyle = FormBorderStyle.None;
         Icon = (Icon)resources.GetObject("$this.Icon");
-        Name = "NewUIForm";
-        Text = "NewUIForm";
+        Name = "EnshroudedServerManager";
+        Text = "Enshrouded Server Manager";
         pnlNavBar.ResumeLayout(false);
         pnlProfileSelector.ResumeLayout(false);
         pnlAdminControls.ResumeLayout(false);

@@ -28,6 +28,7 @@ partial class ProfileSelectorView
     /// </summary>
     private void InitializeComponent()
     {
+        components = new System.ComponentModel.Container();
         cbxProfileSelectionComboBox = new ComboBox();
         lblProfileSelectionLabel = new Label();
         btnAddNewProfile = new Button();
@@ -36,6 +37,7 @@ partial class ProfileSelectorView
         lblTimeLeft = new Label();
         pnlRestartTimer = new Panel();
         panel1 = new Panel();
+        ttpToolTip = new ToolTip(components);
         pnlRestartTimer.SuspendLayout();
         panel1.SuspendLayout();
         SuspendLayout();
@@ -81,6 +83,7 @@ partial class ProfileSelectorView
         btnAddNewProfile.Size = new Size(30, 30);
         btnAddNewProfile.TabIndex = 4;
         btnAddNewProfile.Text = "+";
+        ttpToolTip.SetToolTip(btnAddNewProfile, "Add a new profile");
         btnAddNewProfile.UseCompatibleTextRendering = true;
         btnAddNewProfile.UseVisualStyleBackColor = true;
         // 
@@ -103,6 +106,7 @@ partial class ProfileSelectorView
         btnDeleteProfile.Size = new Size(30, 30);
         btnDeleteProfile.TabIndex = 5;
         btnDeleteProfile.Text = "-";
+        ttpToolTip.SetToolTip(btnDeleteProfile, "Remove the selected profile");
         btnDeleteProfile.UseCompatibleTextRendering = true;
         btnDeleteProfile.UseVisualStyleBackColor = false;
         // 
@@ -124,6 +128,7 @@ partial class ProfileSelectorView
         btnRenameProfile.Size = new Size(88, 30);
         btnRenameProfile.TabIndex = 6;
         btnRenameProfile.Text = "Rename";
+        ttpToolTip.SetToolTip(btnRenameProfile, "Click to toggle");
         btnRenameProfile.UseCompatibleTextRendering = true;
         btnRenameProfile.UseVisualStyleBackColor = true;
         // 
@@ -138,6 +143,7 @@ partial class ProfileSelectorView
         lblTimeLeft.TabIndex = 62;
         lblTimeLeft.Text = "Next Restart: 00:00";
         lblTimeLeft.TextAlign = ContentAlignment.MiddleCenter;
+        ttpToolTip.SetToolTip(lblTimeLeft, "The time remaining before the server restarts");
         lblTimeLeft.Visible = false;
         // 
         // pnlRestartTimer
@@ -188,4 +194,5 @@ partial class ProfileSelectorView
     private Label lblTimeLeft;
     private Panel pnlRestartTimer;
     private Panel panel1;
+    private ToolTip ttpToolTip;
 }

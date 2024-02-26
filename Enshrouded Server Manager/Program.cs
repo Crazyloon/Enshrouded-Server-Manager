@@ -1,3 +1,6 @@
+using Enshrouded_Server_Manager.Models;
+using Newtonsoft.Json;
+
 namespace Enshrouded_Server_Manager;
 
 internal static class Program
@@ -7,29 +10,18 @@ internal static class Program
     {
         ApplicationConfiguration.Initialize();
 
-        var uiVersion = File.ReadAllLines("./config.txt").Where(x => x.StartsWith("UI")).ToList().FirstOrDefault();
+        // parse the UI version from the config.json file
+        var configText = File.ReadAllText("./config.json");
+        var config = JsonConvert.DeserializeObject<AppConfig>(configText);
+        string? uiVersion = config?.UI;
 
-        if (uiVersion is null)
+        if (uiVersion is null || (uiVersion is not null && uiVersion != "OLD"))
         {
             Application.Run(new EnshroudedServerManager());
         }
         else
         {
-            var split = uiVersion.Split('=');
-            if (split.Length == 2)
-            {
-                if (split[0] == "UI")
-                {
-                    if (split[1] == "NEW")
-                    {
-                        Application.Run(new EnshroudedServerManager());
-                    }
-                    else
-                    {
-                        Application.Run(new MainForm());
-                    }
-                }
-            }
+            Application.Run(new MainForm());
         }
     }
 }

@@ -95,7 +95,7 @@ public class AdminPanelPresenter
     {
         if (_selectedProfile is not null)
         {
-            _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(_selectedProfile.Name);
+            _adminPanelView.UpdateServerButtonBorderColor = await _enshroudedServerService.ServerUpdateCheck(_selectedProfile.Name);
         }
 
         var timer = new PeriodicTimer(TimeSpan.FromMinutes(Constants.TIMER_INTERVAL_SERVER_UPDATE_CHECK));
@@ -103,7 +103,7 @@ public class AdminPanelPresenter
         {
             if (_selectedProfile is not null)
             {
-                _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(_selectedProfile.Name);
+                _adminPanelView.UpdateServerButtonBorderColor = await _enshroudedServerService.ServerUpdateCheck(_selectedProfile.Name);
             }
         }
     }
@@ -191,9 +191,9 @@ public class AdminPanelPresenter
             _adminPanelView.UpdateServerButtonVisible = false;
             _adminPanelView.StartServerButtonVisible = false;
 
-            _enshroudedServerService.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}", selectedProfileName);
+            _enshroudedServerService.Install($"../{serverProfilePath}");
 
-            _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfileName);
+            _adminPanelView.UpdateServerButtonBorderColor = await _enshroudedServerService.ServerUpdateCheck(selectedProfileName);
 
             _eventAggregator.Publish(new ServerInstallStoppedMessage());
 
@@ -210,15 +210,18 @@ public class AdminPanelPresenter
 
             _discordOutputService.SendMessage(_selectedProfile, DiscordMessageType.ServerUpdating);
 
+            // show update overlay
             _eventAggregator.Publish(new ServerInstallStartedMessage());
             _adminPanelView.InstallServerButtonVisible = false;
             _adminPanelView.UpdateServerButtonVisible = false;
             _adminPanelView.StartServerButtonVisible = false;
 
             var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName);
-            _enshroudedServerService.InstallUpdate(Constants.STEAM_APP_ID, $"../{serverProfilePath}", selectedProfileName);
+            _enshroudedServerService.Update();
 
-            _adminPanelView.UpdateServerButtonBorderColor = await _versionManagementService.ServerUpdateCheck(selectedProfileName);
+            _adminPanelView.UpdateServerButtonBorderColor = await _enshroudedServerService.ServerUpdateCheck(selectedProfileName);
+
+            // hide update overlay
             _eventAggregator.Publish(new ServerInstallStoppedMessage());
             _adminPanelView.UpdateServerButtonVisible = true;
             _adminPanelView.StartServerButtonVisible = true;
@@ -280,7 +283,7 @@ public class AdminPanelPresenter
         {
             RefreshServerButtonsVisibility(selectedProfile.Name);
             // TODO: Could skip this work if we first check if the server is installed, since the update button doesn't show if it's not
-            var color = await _versionManagementService.ServerUpdateCheck(selectedProfile.Name);
+            var color = await _enshroudedServerService.ServerUpdateCheck(selectedProfile.Name);
             _adminPanelView.UpdateServerButtonBorderColor = color;
         }
     }

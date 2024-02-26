@@ -51,6 +51,7 @@ public class AutoBackupPresenter
     private void OnOpenBackupFolderClicked()
     {
         var serverAutoBackupPath = Path.Join(Constants.Paths.AUTOBACKUPS_DIRECTORY, _autoBackupView.SelectedProfile.Name);
+        _fileSystemService.CreateDirectory(serverAutoBackupPath);
         _systemProcessService.Start(Constants.ProcessNames.EXPLORER_EXE, serverAutoBackupPath);
     }
 

@@ -3,6 +3,5 @@
 public interface IVersionManagementService
 {
     void ManagerUpdate(string currentVersionText);
-    Task<Color> ServerUpdateCheck(string selectedProfileName);
     string SyncVersionText();
 }

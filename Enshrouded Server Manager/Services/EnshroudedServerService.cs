@@ -53,12 +53,31 @@ public class EnshroudedServerService : IEnshroudedServerService
     /// <summary>
     /// Start Gameserver
     /// </summary>
-    public void Start(string pathServerExe, ServerProfile profile)
+    public async void Start(string pathServerExe, ServerProfile profile)
     {
 
         try
         {
-            Process p = Process.Start(pathServerExe);
+            // load appconfig.json
+            var configText = _fileSystemService.ReadFile("./config.json");
+            var config = JsonConvert.DeserializeObject<AppConfig>(configText);
+
+            // Auto Update the server on startup if configured
+            if (config.AutoUpdateServer.HasValue && config.AutoUpdateServer.Value == true)
+            {
+                if (await ServerUpdateCheck(profile.Name) == Color.Yellow)
+                {
+                    Update();
+                }
+            }
+
+            ProcessStartInfo pi = new ProcessStartInfo()
+            {
+                FileName = pathServerExe,
+                UseShellExecute = true,
+                WindowStyle = ProcessWindowStyle.Minimized
+            };
+            Process p = Process.Start(pi);
 
             _eventAggregator.Publish(new ServerStartedMessage(profile));
             //Thread.Sleep(10000);
@@ -88,13 +107,32 @@ public class EnshroudedServerService : IEnshroudedServerService
     }
 
     /// <summary>
-    /// Install/Validate/Update GameServer Files
+    /// Validate/Update GameServer Files
     /// </summary>
-    public void InstallUpdate(string steamAppId, string serverProfilePath, string selectedProfileName)
+    public void Install(string serverProfilePath)
     {
         try
         {
-            Process p = Process.Start(Constants.ProcessNames.STEAM_CMD_EXE, $"+force_install_dir \"{serverProfilePath}\" +login anonymous +app_update {steamAppId} validate +quit");
+            Process p = Process.Start(Constants.ProcessNames.STEAM_CMD_EXE, $"+force_install_dir \"{serverProfilePath}\" +login anonymous +app_update {Constants.STEAM_APP_ID} validate +quit");
+            p.WaitForExit();
+        }
+
+        catch (Exception ex)
+        {
+            MessageBox.Show(string.Format(Constants.Errors.SERVER_UPDATE_ERROR_MESSAGE, ex.Message),
+                Constants.Errors.SERVER_UPDATE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+        }
+    }
+
+    // <summary>
+    /// Validate/Install GameServer Files
+    /// </summary>
+    public void Update()
+    {
+        try
+        {
+            Process p = Process.Start(Constants.ProcessNames.STEAM_CMD_EXE, $"+login anonymous +app_update {Constants.STEAM_APP_ID} +quit");
             p.WaitForExit();
         }
 
@@ -129,18 +167,17 @@ public class EnshroudedServerService : IEnshroudedServerService
         try
         {
             Process p = Process.GetProcessById(pid);
-            FreeConsole();
+            var timeout = 30000;
+            var sleepTick = 200;
+
             if (AttachConsole((uint)pid))
             {
                 SetConsoleCtrlHandler(null, true);
-                GenerateConsoleCtrlEvent(CtrlTypes.CTRL_C_EVENT, 0);
-                FreeConsole();
-                SetConsoleCtrlHandler(null, false);
+                if (!GenerateConsoleCtrlEvent(CtrlTypes.CTRL_C_EVENT, 0))
+                    return;
             }
 
-            var timeout = 30000;
-            var sleepTick = 200;
-            while (!p.HasExited)
+            while (!p.HasExited) // process is still running so wait 30 more seconds then kill if it's still stuck
             {
                 Thread.Sleep(sleepTick);
                 timeout = timeout - sleepTick;
@@ -155,13 +192,18 @@ public class EnshroudedServerService : IEnshroudedServerService
         }
         catch (Exception e)
         {
-            _eventAggregator.Publish(new ServerStoppedMessage(profile));
             _logger.LogError($"Server Stop Failed for server {profile.Name}. Error: {e.Message}");
             return;
         }
+        finally
+        {
+            SetConsoleCtrlHandler(null, false);
+            FreeConsole();
 
-        _eventAggregator.Publish(new ServerStoppedMessage(profile));
-        _fileSystemService.DeleteFile(pidJsonFile);
+            _eventAggregator.Publish(new ServerStoppedMessage(profile));
+            _fileSystemService.DeleteFile(pidJsonFile);
+        }
+
     }
 
     public bool IsRunning(string selectedProfileName)
@@ -197,5 +239,58 @@ public class EnshroudedServerService : IEnshroudedServerService
         }
 
         return SERVER_PROCESS_NAME == p.ProcessName;
+    }
+
+    public async Task<Color> ServerUpdateCheck(string selectedProfileName)
+    {
+        using (HttpClient Client = new HttpClient())
+        {
+            try
+            {
+                // TODO Refactor this into the HTTPClientService so the tests don't 
+                // have to send a real request to the server
+
+                // check file for actual version
+                HttpResponseMessage response = await Client.GetAsync(Constants.Urls.STEAM_CMD_ENSHROUDED_SERVER_INFO);
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                dynamic data = JsonConvert.DeserializeObject(jsonResponse);
+
+                // readout branches>public>buildid of actual version
+                dynamic dataData = data["data"];
+                dynamic steamidData = dataData[$"{Constants.STEAM_APP_ID}"];
+                dynamic depotData = steamidData["depots"];
+                dynamic branchesData = depotData["branches"];
+                dynamic publicData = branchesData["public"];
+                string buildId = publicData["buildid"];
+
+                // readout servers/selectedprofilename/steamapps/appmanifest_$AppID.acf
+                var steamappsPath = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName, Constants.Paths.GAME_SERVER_STEAMAPPS_DIRECTORY);
+                var file = Path.Join(steamappsPath, Constants.Files.APP_MANIFEST);
+
+                // check if file contains buildId
+                if (!AppManifestContainsBuildId(file, buildId))
+                {
+                    return Color.Yellow;
+                }
+                else
+                {
+                    return Color.Green;
+                }
+            }
+            catch (Exception)
+            {
+                return Color.Red;
+            }
+        }
+    }
+
+    private bool AppManifestContainsBuildId(string manifestFile, string buildId)
+    {
+        string manifestBuildId = string.Empty;
+        var lines = _fileSystemService.ReadLines(manifestFile);
+        var buildIdLine = lines.FirstOrDefault(line => line.Contains("buildid"));
+        manifestBuildId = buildIdLine.Split("\t").Last().Replace("\"", string.Empty);
+
+        return buildId == manifestBuildId;
     }
 }
