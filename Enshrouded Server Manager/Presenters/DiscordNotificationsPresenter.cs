@@ -54,6 +54,11 @@ public class DiscordNotificationsPresenter
     private void OnServerTimerUpdated(ServerProfile profile, string timeRemaining)
     {
         // timeRemaining has the format d.hh:mm:ss
+        if (int.TryParse(timeRemaining.Split('.')[0], out int days) && days > 0)
+        {
+            return;
+        }
+
         var realTime = TimeSpan.Parse(timeRemaining.Split('.')[1]);
 
         // Hack an extra second in to make it easier to check for the time
@@ -69,24 +74,24 @@ public class DiscordNotificationsPresenter
             switch (realTime)
             {
                 case TimeSpan t when realTime == TimeSpan.FromHours(2):
-                    sendMessage = true;
-                    message = "2 Hours";
+                    sendMessage = _discordProfile.LongResetEnabled;
+                    message = "120";
                     break;
                 case TimeSpan t when realTime == TimeSpan.FromHours(1):
-                    sendMessage = true;
-                    message = "1 Hour";
+                    sendMessage = _discordProfile.MediumResetEnabled;
+                    message = "60";
                     break;
                 case TimeSpan t when realTime == TimeSpan.FromMinutes(30):
-                    sendMessage = true;
-                    message = "30 Minutes";
+                    sendMessage = _discordProfile.ShortResetEnabled;
+                    message = "30";
                     break;
                 case TimeSpan t when realTime == TimeSpan.FromMinutes(10):
-                    sendMessage = true;
-                    message = "10 Minutes";
+                    sendMessage = _discordProfile.SoonResetEnabled;
+                    message = "10";
                     break;
                 case TimeSpan t when realTime == TimeSpan.FromMinutes(5):
-                    sendMessage = true;
-                    message = "5 Minutes";
+                    sendMessage = _discordProfile.ImminentResetEnabled;
+                    message = "5";
                     break;
                 default:
                     break;

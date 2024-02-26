@@ -87,7 +87,7 @@ partial class DiscordNotificationsView
         // chkImminent
         // 
         chkImminent.AutoSize = true;
-        chkImminent.Location = new Point(453, 245);
+        chkImminent.Location = new Point(483, 245);
         chkImminent.Name = "chkImminent";
         chkImminent.RightToLeft = RightToLeft.No;
         chkImminent.Size = new Size(53, 19);
@@ -98,7 +98,7 @@ partial class DiscordNotificationsView
         // chkSoon
         // 
         chkSoon.AutoSize = true;
-        chkSoon.Location = new Point(388, 245);
+        chkSoon.Location = new Point(416, 245);
         chkSoon.Name = "chkSoon";
         chkSoon.RightToLeft = RightToLeft.No;
         chkSoon.Size = new Size(59, 19);
@@ -109,7 +109,7 @@ partial class DiscordNotificationsView
         // chkShort
         // 
         chkShort.AutoSize = true;
-        chkShort.Location = new Point(323, 245);
+        chkShort.Location = new Point(349, 245);
         chkShort.Name = "chkShort";
         chkShort.RightToLeft = RightToLeft.No;
         chkShort.Size = new Size(59, 19);
@@ -120,23 +120,23 @@ partial class DiscordNotificationsView
         // chkMed
         // 
         chkMed.AutoSize = true;
-        chkMed.Location = new Point(274, 245);
+        chkMed.Location = new Point(282, 245);
         chkMed.Name = "chkMed";
         chkMed.RightToLeft = RightToLeft.No;
-        chkMed.Size = new Size(43, 19);
+        chkMed.Size = new Size(59, 19);
         chkMed.TabIndex = 79;
-        chkMed.Text = "1hr";
+        chkMed.Text = "60min";
         chkMed.UseVisualStyleBackColor = true;
         // 
         // chkLong
         // 
         chkLong.AutoSize = true;
-        chkLong.Location = new Point(225, 245);
+        chkLong.Location = new Point(209, 245);
         chkLong.Name = "chkLong";
         chkLong.RightToLeft = RightToLeft.No;
-        chkLong.Size = new Size(43, 19);
+        chkLong.Size = new Size(65, 19);
         chkLong.TabIndex = 78;
-        chkLong.Text = "2hr";
+        chkLong.Text = "120min";
         chkLong.UseVisualStyleBackColor = true;
         // 
         // txtRestartMsg
@@ -148,7 +148,7 @@ partial class DiscordNotificationsView
         txtRestartMsg.Name = "txtRestartMsg";
         txtRestartMsg.Size = new Size(245, 23);
         txtRestartMsg.TabIndex = 73;
-        txtRestartMsg.Text = "Server Reset In {TIME_LEFT}";
+        txtRestartMsg.Text = "Server Reset In {TIME_LEFT} minutes";
         // 
         // chkNotifyRestart
         // 
