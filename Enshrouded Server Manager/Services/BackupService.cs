@@ -14,7 +14,7 @@ public class BackupService : IBackupService
     private readonly IDiscordService _discordService;
     private readonly IFileLoggerService _logger;
 
-    Dictionary<string, CountDownTimer> _restartTimers;
+    Dictionary<string, CountDownTimer> _backupTimers;
     private string _dateTimeString;
 
     public BackupService(IFileSystemService fsm,
@@ -22,14 +22,14 @@ public class BackupService : IBackupService
         IEventAggregator eventAggregator,
         IDiscordService discordService,
         IFileLoggerService fileLogger,
-        Dictionary<string, CountDownTimer> restartTimers)
+        Dictionary<string, CountDownTimer> backupTimers)
     {
         _fileSystemService = fsm;
         _server = server;
         _eventAggregator = eventAggregator;
         _discordService = discordService;
         _logger = fileLogger;
-        _restartTimers = restartTimers;
+        _backupTimers = backupTimers;
     }
 
     /// <summary>
@@ -81,6 +81,127 @@ public class BackupService : IBackupService
         _discordService.SendMessage(profile, DiscordMessageType.Backup);
     }
 
+    public CountDownTimer? StartAutoBackup(ServerProfile serverProfile)
+    {
+        int interval = serverProfile.AutoBackup.Interval;
+
+        var timer = new CountDownTimer(new TimeSpan(0, interval, 0));
+        timer.CountDownFinished += OnCountDownFinished(serverProfile, timer);
+
+        if (!_server.IsRunning(serverProfile.Name))
+        {
+            if (_backupTimers.ContainsKey(serverProfile.Name))
+            {
+                _backupTimers.Remove(serverProfile.Name);
+            }
+            return null;
+        }
+
+        return timer;
+    }
+
+    private Action OnCountDownFinished(ServerProfile profile, CountDownTimer timer)
+    {
+        var serverConfigDirectory = Path.Join(Constants.Paths.SERVER_DIRECTORY, profile.Name);
+        var saveFileDirectory = Path.Join(serverConfigDirectory, Constants.Paths.GAME_SERVER_SAVE_DIRECTORY);
+        var profileAutoBackupDirectory = Path.Join(Constants.Paths.AUTOBACKUPS_DIRECTORY, profile.Name);
+
+        _fileSystemService.CreateDirectory(saveFileDirectory);
+        _fileSystemService.CreateDirectory(profileAutoBackupDirectory);
+
+        var originalServerConfigFile = Path.Join(serverConfigDirectory, Constants.Files.GAME_SERVER_CONFIG_JSON);
+        var copyOfServerConfigFile = Path.Join(saveFileDirectory, Constants.Files.GAME_SERVER_CONFIG_JSON);
+
+        var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, profile.Name, Constants.Files.PID_JSON);
+        var processIdText = _fileSystemService.ReadFile(pidJsonFile);
+        EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(processIdText);
+
+        return () =>
+        {
+            // check if the server is running
+            try
+            {
+                Process.GetProcessById(serverProcessInfo.Id);
+            }
+            catch
+            {
+                _logger.LogInfo("Server is not running. AutoBackup timer canceled.");
+                timer.EndTimer();
+                return;
+            }
+
+            try
+            {
+                // Copy the configuration file to the savefile directory so it can get zipped with the world files
+                if (_fileSystemService.FileExists(copyOfServerConfigFile))
+                {
+                    _fileSystemService.DeleteFile(copyOfServerConfigFile);
+                }
+
+                if (_fileSystemService.FileExists(originalServerConfigFile))
+                {
+                    _fileSystemService.CopyFile(originalServerConfigFile, copyOfServerConfigFile);
+                }
+
+                _dateTimeString = DateTime.Now.ToString(Constants.DATE_PATTERN);
+                // zip all the files together
+                // changed backup folder to autobackup folder
+                _fileSystemService.CreateZipFromDirectory(saveFileDirectory, Path.Join(profileAutoBackupDirectory, $"backup-{_dateTimeString}.zip"));
+
+                if (_fileSystemService.FileExists(copyOfServerConfigFile))
+                {
+                    _fileSystemService.DeleteFile(copyOfServerConfigFile);
+                }
+
+                DeleteOldestBackup(profileAutoBackupDirectory, profile.AutoBackup.MaxiumBackups);
+                _eventAggregator.Publish(new AutoBackupSavedSuccessMessage(profile));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Constants.Errors.AUTOBACKUP_ERROR_MESSAGE, Constants.Errors.AUTOBACKUP_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _logger.LogError($"AutoBackup failed for {profile.Name}. Error: {ex.Message}");
+                return;
+            }
+
+
+            try
+            {
+                _discordService.SendMessage(profile, DiscordMessageType.Backup);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Discord message failed to send during autobackup. Error: {ex.Message}");
+            }
+
+            // check the restart settings to see if it should begin the timer again
+            var nextRestart = DateTime.Now.AddMinutes(profile.AutoBackup.Interval);
+            var nextTimeSpan = nextRestart - DateTime.Now;
+
+            // if the nextTimeSpan is in the past, stop the timer and dispose
+            if (nextTimeSpan.TotalMilliseconds <= 0)
+            {
+                timer.EndTimer();
+                return;
+            }
+
+            // End existing timer and start a new one
+            _backupTimers.Remove(profile.Name);
+            timer.EndTimer();
+            timer = null;
+
+            timer = new CountDownTimer(nextTimeSpan);
+            timer.CountDownFinished += OnCountDownFinished(profile, timer);
+            timer.TimeChanged += () => _eventAggregator.Publish(new ServerResetTimerUpdatedMessage(profile, timer.TimeLeftStr));
+            timer.Tag = $"{DateTime.Now.ToString("dd/MM/yyyyThh:mm:ss")}-CountDownFinished";
+
+            _logger.LogInfo($"TimerTag: {timer.Tag}");
+
+            _backupTimers.Add(profile.Name, timer);
+            timer.Start();
+        };
+    }
+
+
     public async void StartAutoBackup(string saveFileDirectory, ServerProfile profile, int interval, int maximumBackups, string serverConfigFileName, string serverConfigDirectory)
     {
         if (interval < 1 || maximumBackups < 1)
@@ -97,6 +218,7 @@ public class BackupService : IBackupService
 
         var timer = new PeriodicTimer(TimeSpan.FromMinutes(interval));
         //var timer = new PeriodicTimer(TimeSpan.FromSeconds(interval));
+
         if (!_server.IsRunning(profile.Name))
         {
             timer.Dispose();

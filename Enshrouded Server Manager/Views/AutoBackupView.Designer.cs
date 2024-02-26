@@ -40,6 +40,7 @@ partial class AutoBackupView
         btnOpenAutobackupFolder = new Button();
         label3 = new Label();
         label1 = new Label();
+        lblNextBackup = new Label();
         ((System.ComponentModel.ISupportInitialize)nudBackupMaxCount).BeginInit();
         ((System.ComponentModel.ISupportInitialize)nudBackupInterval).BeginInit();
         SuspendLayout();
@@ -168,11 +169,22 @@ partial class AutoBackupView
         label1.TabIndex = 37;
         label1.Text = resources.GetString("label1.Text");
         // 
+        // lblNextBackup
+        // 
+        lblNextBackup.AutoSize = true;
+        lblNextBackup.ForeColor = Color.FromArgb(0, 204, 204);
+        lblNextBackup.Location = new Point(20, 20);
+        lblNextBackup.Name = "lblNextBackup";
+        lblNextBackup.Size = new Size(116, 15);
+        lblNextBackup.TabIndex = 40;
+        lblNextBackup.Text = "Next Backup: 0.00:00";
+        // 
         // AutoBackupView
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
+        Controls.Add(lblNextBackup);
         Controls.Add(btnOpenAutobackupFolder);
         Controls.Add(label3);
         Controls.Add(label1);
@@ -206,4 +218,5 @@ partial class AutoBackupView
     private Button btnOpenAutobackupFolder;
     private Label label3;
     private Label label1;
+    private Label lblNextBackup;
 }
