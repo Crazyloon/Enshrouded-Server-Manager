@@ -71,12 +71,12 @@ public class EnshroudedServerService : IEnshroudedServerService
                 }
             }
 
-            ProcessStartInfo pi = new ProcessStartInfo()
+            ProcessStartInfo pi = new ProcessStartInfo(pathServerExe);
+            if (config.StartServerMinimized.HasValue && config.StartServerMinimized.Value == true)
             {
-                FileName = pathServerExe,
-                UseShellExecute = true,
-                WindowStyle = ProcessWindowStyle.Minimized
-            };
+                pi.UseShellExecute = true;
+                pi.WindowStyle = ProcessWindowStyle.Minimized;
+            }
             Process p = Process.Start(pi);
 
             _eventAggregator.Publish(new ServerStartedMessage(profile));

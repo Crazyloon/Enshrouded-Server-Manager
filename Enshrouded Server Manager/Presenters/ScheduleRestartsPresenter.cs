@@ -141,7 +141,7 @@ public class ScheduleRestartsPresenter
                 StartDate = DateOnly.FromDateTime(DateTime.Now),
                 StartTime = TimeOnly.FromDateTime(DateTime.Now),
                 DaysOfWeek = new DayOfWeek[] { },
-                RecurrenceInterval = 0,
+                RecurrenceInterval = 1,
                 Enabled = false,
                 StartScheduleWithServer = false
             };
@@ -195,7 +195,7 @@ public class ScheduleRestartsPresenter
         _view.StartDate = _selectedProfile.ScheduleRestarts.StartDate;
         _view.StartTime = _selectedProfile.ScheduleRestarts.StartTime;
         _view.DaysOfWeek = _selectedProfile.ScheduleRestarts.DaysOfWeek;
-        _view.RecurrenceInterval = _selectedProfile.ScheduleRestarts.RecurrenceInterval;
+        _view.RecurrenceInterval = _selectedProfile.ScheduleRestarts.RecurrenceInterval == 0 ? 1 : _selectedProfile.ScheduleRestarts.RecurrenceInterval;
         _view.IsScheduledRestartEnabled = _selectedProfile.ScheduleRestarts.Enabled;
         _view.IsScheduledWithServerStart = _selectedProfile.ScheduleRestarts.StartScheduleWithServer;
 
