@@ -1,5 +1,5 @@
 {
     "AutoUpdateServer": true,
-    "StartServerMinimized": false,
+    "StartServerMinimized": true,
     "UI": "NEW"
 }
