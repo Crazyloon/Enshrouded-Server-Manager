@@ -118,18 +118,20 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="lblNewsText.Text" xml:space="preserve">
-    <value>v0.6.6
-- Add tooltips to several controls
-- Fixed an issue where the Discord restart msg was not loaded on startup
+    <value>v0.6.7
+- Fixed an bug with Auto-backup not starting when the server starts
+
+v0.6.6
+- Add tooltips to some controls
 - Changed the application's config file to use JSON format for easier reading/writing
    (You may need to update this again if you want to use the old UI)
-- Server windows will now start minimized
+- Added config settings to start servers minimized
+- Added config to update the Enshrouded server automatically, when a new version is available
+- Fixed an issue where the Discord restart msg was not loaded on startup
+- Fixed a bug where stopping the server could close the entire application
+- Fixed a bug where a profile could load with 0 as the restart interval causing an exception
 
 v0.6.5
-- Fixed a bug where Discord messages were sent even when they were unchecked
-
-v0.6.4
-- Changed the UI layout to use a menu bar instead of a tab selector
-- Added the server restart timer to the top bar next to the profile selector</value>
+- Fixed a bug where Discord messages were sent even when they were unchecked</value>
   </data>
 </root>

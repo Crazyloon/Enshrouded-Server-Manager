@@ -53,7 +53,7 @@ public class EnshroudedServerService : IEnshroudedServerService
     /// <summary>
     /// Start Gameserver
     /// </summary>
-    public async void Start(string pathServerExe, ServerProfile profile)
+    public async Task Start(string pathServerExe, ServerProfile profile)
     {
 
         try

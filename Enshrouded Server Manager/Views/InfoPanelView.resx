@@ -120,7 +120,10 @@
   <data name="lblNewsText.Text" xml:space="preserve">
     <value>Changes:
 
-v.0.6.6
+v0.6.7
+- Fixed an bug with Auto-backup
+
+v0.6.6
 - Add tooltips to several controls
 - Fixed an bug where the Discord
    restart msg was not loaded on startup
@@ -130,10 +133,6 @@ v.0.6.6
 
 v0.6.5
 - Fixed a bug where Discord messages
-   were sent even when not configured
-
-v0.6.4
-- Changed the UI layout
-- Added a server restart timer at the top</value>
+   were sent even when not configured</value>
   </data>
 </root>

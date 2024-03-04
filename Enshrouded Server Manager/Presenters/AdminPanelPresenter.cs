@@ -123,7 +123,7 @@ public class AdminPanelPresenter
         _systemProcessService.Start(Constants.ProcessNames.EXPLORER_EXE, Constants.Files.WINDOWS_FIREWALL);
     }
 
-    private void OnStartServerButtonClicked()
+    private async void OnStartServerButtonClicked()
     {
         if (_selectedProfile is not null)
         {
@@ -138,7 +138,7 @@ public class AdminPanelPresenter
                 return;
             }
 
-            _enshroudedServerService.Start(gameServerExe, _selectedProfile);
+            await _enshroudedServerService.Start(gameServerExe, _selectedProfile);
             _scheduledRestartService.StartScheduledRestarts(_selectedProfile);
 
 
