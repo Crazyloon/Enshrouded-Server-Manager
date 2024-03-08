@@ -31,7 +31,7 @@ public class ScheduledRestartService : IScheduledRestartService
         _restartTimers = restartTimers;
     }
 
-    public CountDownTimer? StartScheduledRestarts(ServerProfile serverProfile)
+    public async Task<CountDownTimer?> StartScheduledRestarts(ServerProfile serverProfile)
     {
         // get the server profile auto restart settings
         var autoRestart = serverProfile.ScheduleRestarts;
@@ -72,7 +72,7 @@ public class ScheduledRestartService : IScheduledRestartService
 
         // start a countdown timer for the next restart
         var timer = new CountDownTimer(nextRestart);
-        timer.CountDownFinished += OnCountDownFinished(serverProfile, timer);
+        timer.CountDownFinished += await OnCountDownFinished(serverProfile, timer);
         timer.TimeChanged += () => _eventAggregator.Publish(new ServerResetTimerUpdatedMessage(serverProfile, timer.TimeLeftStr));
 
         timer.Tag = "TimerTag: Initial";
@@ -82,9 +82,9 @@ public class ScheduledRestartService : IScheduledRestartService
         return timer;
     }
 
-    private Action OnCountDownFinished(ServerProfile profile, CountDownTimer timer)
+    private async Task<Action> OnCountDownFinished(ServerProfile profile, CountDownTimer timer)
     {
-        return () =>
+        return async () =>
         {
             var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, profile.Name);
             _fileSystemService.CreateDirectory(serverProfilePath);
@@ -106,7 +106,7 @@ public class ScheduledRestartService : IScheduledRestartService
                 _backupService.RestoreBackup(profile, profile.RestoreBackup.BackupFilePath);
             }
 
-            _serverService.Start(gameServerExe, profile);
+            await _serverService.Start(gameServerExe, profile);
             _discordService.SendMessage(profile, DiscordMessageType.ServerStarted);
 
             // start auto backup
@@ -119,8 +119,6 @@ public class ScheduledRestartService : IScheduledRestartService
                     var saveGameFolder = Path.Join(serverProfilePath, Constants.Paths.GAME_SERVER_SAVE_DIRECTORY);
                     _backupService.StartAutoBackup(saveGameFolder, profile, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
                 }
-
-                _eventAggregator.Publish(new ServerStartedMessage(profile));
             }
 
             // check the restart settings to see if it should begin the timer again
@@ -141,7 +139,7 @@ public class ScheduledRestartService : IScheduledRestartService
             timer = null;
 
             timer = new CountDownTimer(nextTimeSpan);
-            timer.CountDownFinished += OnCountDownFinished(profile, timer);
+            timer.CountDownFinished += await OnCountDownFinished(profile, timer);
             timer.TimeChanged += () => _eventAggregator.Publish(new ServerResetTimerUpdatedMessage(profile, timer.TimeLeftStr));
             timer.Tag = $"{DateTime.Now.ToString("dd/MM/yyyyThh:mm:ss")}-CountDownFinished";
 
@@ -160,8 +158,8 @@ public class ScheduledRestartService : IScheduledRestartService
         switch (autoRestart.RestartFrequency)
         {
             case RestartFrequency.Hourly:
-                nextRestart = now.AddMinutes(20);
-                //nextRestart = now.AddHours(autoRestart.RecurrenceInterval);
+                //nextRestart = now.AddMinutes(20);
+                nextRestart = now.AddHours(autoRestart.RecurrenceInterval);
                 break;
             case RestartFrequency.Daily:
                 nextRestart = now.AddDays(autoRestart.RecurrenceInterval);

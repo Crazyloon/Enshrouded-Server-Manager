@@ -151,8 +151,6 @@ public class AdminPanelPresenter
                     var saveGameFolder = Path.Join(serverProfilePath, Constants.Paths.GAME_SERVER_SAVE_DIRECTORY);
                     _backupService.StartAutoBackup(saveGameFolder, _selectedProfile, _selectedProfile.AutoBackup.Interval, _selectedProfile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
                 }
-
-                _eventAggregator.Publish(new ServerStartedMessage(_selectedProfile));
             }
 
             // discord Output

@@ -3,5 +3,5 @@
 namespace Enshrouded_Server_Manager.Services;
 public interface IScheduledRestartService
 {
-    CountDownTimer? StartScheduledRestarts(ServerProfile serverProfile);
+    Task<CountDownTimer?> StartScheduledRestarts(ServerProfile serverProfile);
 }
