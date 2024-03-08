@@ -109,6 +109,20 @@ public class ScheduledRestartService : IScheduledRestartService
             _serverService.Start(gameServerExe, profile);
             _discordService.SendMessage(profile, DiscordMessageType.ServerStarted);
 
+            // start auto backup
+            if (_serverService.IsRunning(profile.Name))
+            {
+                // Begin AutoBackup
+                if (profile.AutoBackup is not null
+                    && profile.AutoBackup.Enabled)
+                {
+                    var saveGameFolder = Path.Join(serverProfilePath, Constants.Paths.GAME_SERVER_SAVE_DIRECTORY);
+                    _backupService.StartAutoBackup(saveGameFolder, profile, profile.AutoBackup.Interval, profile.AutoBackup.MaxiumBackups, Constants.Files.GAME_SERVER_CONFIG_JSON, serverProfilePath);
+                }
+
+                _eventAggregator.Publish(new ServerStartedMessage(profile));
+            }
+
             // check the restart settings to see if it should begin the timer again
             var nextRestart = CalculateNextRestart(profile.ScheduleRestarts);
             var nextTimeSpan = nextRestart - DateTime.Now;
@@ -146,7 +160,8 @@ public class ScheduledRestartService : IScheduledRestartService
         switch (autoRestart.RestartFrequency)
         {
             case RestartFrequency.Hourly:
-                nextRestart = now.AddHours(autoRestart.RecurrenceInterval);
+                nextRestart = now.AddMinutes(20);
+                //nextRestart = now.AddHours(autoRestart.RecurrenceInterval);
                 break;
             case RestartFrequency.Daily:
                 nextRestart = now.AddDays(autoRestart.RecurrenceInterval);

@@ -120,8 +120,12 @@
   <data name="lblNewsText.Text" xml:space="preserve">
     <value>Changes:
 
+v0.6.8
+- Fixed a bug with Auto-backup
+   not working with auto-restarts
+
 v0.6.7
-- Fixed an bug with Auto-backup
+- Fixed a bug with Auto-backup
 
 v0.6.6
 - Add tooltips to several controls
@@ -129,10 +133,6 @@ v0.6.6
    restart msg was not loaded on startup
 - Updated the config file to use JSON
    format for easier reading/writing
-- Servers will now start minimized
-
-v0.6.5
-- Fixed a bug where Discord messages
-   were sent even when not configured</value>
+- Servers will now start minimized</value>
   </data>
 </root>
