@@ -118,20 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="lblNewsText.Text" xml:space="preserve">
-    <value>v0.6.8
+    <value>v0.6.9
+- Fixed Backup/Restore to work with the latest changes
+- Fixed a bug with the Update feature not actually updating the server
+
+v0.6.8
 - Fixed an bug with Auto-backup not starting when an auto-restart starts the server
 
 v0.6.7
-- Fixed an bug with Auto-backup not starting when the server starts
-
-v0.6.6
-- Add tooltips to some controls
-- Changed the application's config file to use JSON format for easier reading/writing
-   (You may need to update this again if you want to use the old UI)
-- Added config settings to start servers minimized
-- Added config to update the Enshrouded server automatically, when a new version is available
-- Fixed an issue where the Discord restart msg was not loaded on startup
-- Fixed a bug where stopping the server could close the entire application
-- Fixed a bug where a profile could load with 0 as the restart interval causing an exception</value>
+- Fixed an bug with Auto-backup not starting when the server starts</value>
   </data>
 </root>

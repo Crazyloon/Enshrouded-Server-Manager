@@ -215,7 +215,7 @@ public class AdminPanelPresenter
             _adminPanelView.StartServerButtonVisible = false;
 
             var serverProfilePath = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName);
-            _enshroudedServerService.Update();
+            _enshroudedServerService.Install($"../{serverProfilePath}");
 
             _adminPanelView.UpdateServerButtonBorderColor = await _enshroudedServerService.ServerUpdateCheck(selectedProfileName);
 

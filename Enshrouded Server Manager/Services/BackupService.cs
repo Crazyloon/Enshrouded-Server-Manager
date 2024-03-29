@@ -56,6 +56,9 @@ public class BackupService : IBackupService
             _fileSystemService.CopyFile(originalServerConfigFile, copyOfServerConfigFile);
         }
 
+        // Delete all -index/-# files from the save directory
+        RemoveAllDashFiles(saveFileDirectory);
+
         // zip all the files
         var zipFileName = Path.Join(profileBackupDirectory, $"backup-{_dateTimeString}.zip");
         try
@@ -135,6 +138,10 @@ public class BackupService : IBackupService
                 }
 
                 _dateTimeString = DateTime.Now.ToString(Constants.DATE_PATTERN);
+
+                // Delete all -index/-# files from the save directory
+                RemoveAllDashFiles(saveFileDirectory);
+
                 // zip all the files together
                 // changed backup folder to autobackup folder
                 _fileSystemService.CreateZipFromDirectory(saveFileDirectory, Path.Join(profileAutoBackupDirectory, $"backup-{_dateTimeString}.zip"));
@@ -166,12 +173,26 @@ public class BackupService : IBackupService
         }
     }
 
+    private void RemoveAllDashFiles(string saveFileDirectory)
+    {
+        // Delete all -index/-# files from the save directory
+        var files = _fileSystemService.GetFiles(saveFileDirectory);
+        foreach (var file in files)
+        {
+            if (file.Name.Contains("-"))
+            {
+                _fileSystemService.DeleteFile(file.FullName);
+            }
+        }
+    }
+
     public bool RestoreBackup(ServerProfile profile, string backupFilePath)
     {
         var restoreSuccess = false;
 
         var saveDirectory = Path.Combine(Constants.Paths.SERVER_DIRECTORY, profile.Name, Constants.Paths.ENSHROUDED_SAVE_GAME_DIRECTORY);
 
+        RemoveAllDashFiles(saveDirectory);
         if (backupFilePath.EndsWith(".zip"))
         {
             restoreSuccess = RestoreBackupFromZip(backupFilePath, saveDirectory);

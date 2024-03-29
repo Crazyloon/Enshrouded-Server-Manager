@@ -120,19 +120,17 @@
   <data name="lblNewsText.Text" xml:space="preserve">
     <value>Changes:
 
+v0.6.9
+- Fixed Backup/Restore to work with the
+   latest changes
+- Fixed a bug with the Update feature not
+   actually updating the server
+
 v0.6.8
 - Fixed a bug with Auto-backup
    not working with auto-restarts
 
 v0.6.7
-- Fixed a bug with Auto-backup
-
-v0.6.6
-- Add tooltips to several controls
-- Fixed an bug where the Discord
-   restart msg was not loaded on startup
-- Updated the config file to use JSON
-   format for easier reading/writing
-- Servers will now start minimized</value>
+- Fixed a bug with Auto-backup</value>
   </data>
 </root>
