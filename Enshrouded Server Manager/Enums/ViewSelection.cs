@@ -3,6 +3,8 @@ public enum ViewSelection
 {
     Home,
     ServerSettings,
+    GameSettings,
+    UserGroupSettings,
     AutoBackup,
     RestoreBackup,
     ScheduleRestarts,

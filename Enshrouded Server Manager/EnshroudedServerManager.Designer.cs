@@ -47,6 +47,7 @@ partial class EnshroudedServerManager
         pnlMenuBar = new Panel();
         lblMinimizeTrayButton = new Label();
         lblCloseButton = new Label();
+        gameSettingsView = new GameSettingsView();
         pnlNavBar.SuspendLayout();
         pnlProfileSelector.SuspendLayout();
         pnlAdminControls.SuspendLayout();
@@ -150,6 +151,7 @@ partial class EnshroudedServerManager
         pnlMain.Controls.Add(restoreBackupView);
         pnlMain.Controls.Add(scheduleRestartsView);
         pnlMain.Controls.Add(serverSettingsView);
+        pnlMain.Controls.Add(gameSettingsView);
         pnlMain.Controls.Add(discordNotificationsView);
         pnlMain.Controls.Add(autoBackupView);
         pnlMain.Dock = DockStyle.Fill;
@@ -218,15 +220,11 @@ partial class EnshroudedServerManager
         serverSettingsView.ForeColor = SystemColors.ButtonHighlight;
         serverSettingsView.GamePort = 0;
         serverSettingsView.IpAddress = "";
-        serverSettingsView.IsPasswordShown = false;
         serverSettingsView.Location = new Point(0, 0);
         serverSettingsView.MaxPlayers = 0;
         serverSettingsView.Name = "serverSettingsView";
-        serverSettingsView.Password = "";
-        serverSettingsView.PasswordChar = '*';
         serverSettingsView.QueryPort = 0;
         serverSettingsView.ServerName = "";
-        serverSettingsView.ShowPasswordButtonText = "Show";
         serverSettingsView.Size = new Size(743, 411);
         serverSettingsView.TabIndex = 4;
         // 
@@ -331,6 +329,44 @@ partial class EnshroudedServerManager
         lblCloseButton.TextAlign = ContentAlignment.MiddleCenter;
         lblCloseButton.Click += lblCloseButton_Click;
         // 
+        // gameSettingsView
+        // 
+        gameSettingsView.BackColor = Color.FromArgb(0, 0, 18);
+        //gameSettingsView.BossDamageFactor = 0;
+        //gameSettingsView.BossHealthFactor = 0;
+        //gameSettingsView.DayTimeDuration = 0;
+        gameSettingsView.EnableDurability = false;
+        gameSettingsView.EnableGliderTurbulences = false;
+        gameSettingsView.EnableStarvingDebuff = false;
+        //gameSettingsView.EnemyDamageFactor = 0;
+        //gameSettingsView.EnemyHealthFactor = 0;
+        //gameSettingsView.EnemyPerceptionRangeFactor = 0;
+        //gameSettingsView.EnemyStaminaFactor = 0;
+        //gameSettingsView.ExperienceCombatFactor = 0;
+        //gameSettingsView.ExperienceExplorationQuestsFactor = 0;
+        //gameSettingsView.ExperienceMiningFactor = 0;
+        //gameSettingsView.FactoryProductionSpeedFactor = 0;
+        //gameSettingsView.FoodBuffDurationFactor = 0;
+        gameSettingsView.ForeColor = SystemColors.ButtonHighlight;
+        //gameSettingsView.FromHungerToStarving = 0;
+        gameSettingsView.Location = new Point(0, 0);
+        //gameSettingsView.MiningDamageFactor = 0;
+        gameSettingsView.Name = "gameSettingsView";
+        //gameSettingsView.NightTimeDuration = 0;
+        gameSettingsView.PacifyAllEnemies = false;
+        //gameSettingsView.PerkCostFactor = 0;
+        //gameSettingsView.PerkUpgradeRecyclingFactor = 0;
+        //gameSettingsView.PlantGrowthSpeedFactor = 0;
+        //gameSettingsView.PlayerBodyHeatFactor = 0;
+        //gameSettingsView.PlayerHealthFactor = 0;
+        //gameSettingsView.PlayerManaFactor = 0;
+        //gameSettingsView.PlayerStaminaFactor = 0;
+        //gameSettingsView.ResourceDropStackAmountFactor = 0;
+        //gameSettingsView.ShroudTimeFactor = 0;
+        gameSettingsView.Size = new Size(744, 411);
+        gameSettingsView.TabIndex = 11;
+        //gameSettingsView.ThreatBonus = 0;
+        // 
         // EnshroudedServerManager
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -377,4 +413,5 @@ partial class EnshroudedServerManager
     private RestoreBackupView restoreBackupView;
     private InfoPanelWideView infoPanelWideView;
     private Views.CreditsPanelWideView creditsPanelWideView;
+    private GameSettingsView gameSettingsView;
 }

@@ -336,15 +336,11 @@ partial class MainForm
         serverSettingsView.ForeColor = SystemColors.ButtonHighlight;
         serverSettingsView.GamePort = 0;
         serverSettingsView.IpAddress = "";
-        serverSettingsView.IsPasswordShown = false;
         serverSettingsView.Location = new Point(3, 3);
         serverSettingsView.MaxPlayers = 0;
         serverSettingsView.Name = "serverSettingsView";
-        serverSettingsView.Password = "";
-        serverSettingsView.PasswordChar = '*';
         serverSettingsView.QueryPort = 0;
         serverSettingsView.ServerName = "";
-        serverSettingsView.ShowPasswordButtonText = "Show";
         serverSettingsView.Size = new Size(744, 411);
         serverSettingsView.TabIndex = 0;
         // 

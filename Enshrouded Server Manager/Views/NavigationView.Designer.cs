@@ -39,6 +39,8 @@ partial class NavigationView
         lblNewVersion = new Label();
         panel1 = new Panel();
         btnCredits = new Button();
+        btnGameSettings = new Button();
+        btnUserGroupSettings = new Button();
         panel1.SuspendLayout();
         SuspendLayout();
         // 
@@ -53,7 +55,7 @@ partial class NavigationView
         btnDiscordNotifications.FlatStyle = FlatStyle.Flat;
         btnDiscordNotifications.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
         btnDiscordNotifications.ForeColor = Color.White;
-        btnDiscordNotifications.Location = new Point(0, 284);
+        btnDiscordNotifications.Location = new Point(0, 346);
         btnDiscordNotifications.Name = "btnDiscordNotifications";
         btnDiscordNotifications.Padding = new Padding(20, 0, 0, 0);
         btnDiscordNotifications.Size = new Size(200, 39);
@@ -73,7 +75,7 @@ partial class NavigationView
         btnAutoBackup.FlatStyle = FlatStyle.Flat;
         btnAutoBackup.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
         btnAutoBackup.ForeColor = Color.White;
-        btnAutoBackup.Location = new Point(0, 167);
+        btnAutoBackup.Location = new Point(0, 229);
         btnAutoBackup.Name = "btnAutoBackup";
         btnAutoBackup.Padding = new Padding(20, 0, 0, 0);
         btnAutoBackup.Size = new Size(200, 39);
@@ -161,7 +163,7 @@ partial class NavigationView
         btnScheduleRestarts.FlatStyle = FlatStyle.Flat;
         btnScheduleRestarts.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
         btnScheduleRestarts.ForeColor = Color.White;
-        btnScheduleRestarts.Location = new Point(0, 245);
+        btnScheduleRestarts.Location = new Point(0, 307);
         btnScheduleRestarts.Name = "btnScheduleRestarts";
         btnScheduleRestarts.Padding = new Padding(20, 0, 0, 0);
         btnScheduleRestarts.Size = new Size(200, 39);
@@ -181,7 +183,7 @@ partial class NavigationView
         btnRestoreBackup.FlatStyle = FlatStyle.Flat;
         btnRestoreBackup.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
         btnRestoreBackup.ForeColor = Color.White;
-        btnRestoreBackup.Location = new Point(0, 206);
+        btnRestoreBackup.Location = new Point(0, 268);
         btnRestoreBackup.Name = "btnRestoreBackup";
         btnRestoreBackup.Padding = new Padding(20, 0, 0, 0);
         btnRestoreBackup.Size = new Size(200, 39);
@@ -224,7 +226,7 @@ partial class NavigationView
         btnCredits.FlatStyle = FlatStyle.Flat;
         btnCredits.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
         btnCredits.ForeColor = Color.White;
-        btnCredits.Location = new Point(0, 323);
+        btnCredits.Location = new Point(0, 385);
         btnCredits.Name = "btnCredits";
         btnCredits.Padding = new Padding(20, 0, 0, 0);
         btnCredits.Size = new Size(200, 39);
@@ -232,6 +234,46 @@ partial class NavigationView
         btnCredits.Text = "Credits";
         btnCredits.TextAlign = ContentAlignment.MiddleLeft;
         btnCredits.UseVisualStyleBackColor = true;
+        // 
+        // btnGameSettings
+        // 
+        btnGameSettings.Cursor = Cursors.Hand;
+        btnGameSettings.Dock = DockStyle.Top;
+        btnGameSettings.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 18);
+        btnGameSettings.FlatAppearance.BorderSize = 0;
+        btnGameSettings.FlatAppearance.MouseDownBackColor = Color.FromArgb(0, 0, 58);
+        btnGameSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 0, 40);
+        btnGameSettings.FlatStyle = FlatStyle.Flat;
+        btnGameSettings.Font = new Font("Segoe UI Light", 12F, FontStyle.Regular, GraphicsUnit.Point);
+        btnGameSettings.ForeColor = Color.White;
+        btnGameSettings.Location = new Point(0, 167);
+        btnGameSettings.Name = "btnGameSettings";
+        btnGameSettings.Padding = new Padding(40, 0, 0, 0);
+        btnGameSettings.Size = new Size(200, 31);
+        btnGameSettings.TabIndex = 76;
+        btnGameSettings.Text = "Game Settings";
+        btnGameSettings.TextAlign = ContentAlignment.TopLeft;
+        btnGameSettings.UseVisualStyleBackColor = true;
+        // 
+        // btnUserGroupSettings
+        // 
+        btnUserGroupSettings.Cursor = Cursors.Hand;
+        btnUserGroupSettings.Dock = DockStyle.Top;
+        btnUserGroupSettings.FlatAppearance.BorderColor = Color.FromArgb(0, 0, 18);
+        btnUserGroupSettings.FlatAppearance.BorderSize = 0;
+        btnUserGroupSettings.FlatAppearance.MouseDownBackColor = Color.FromArgb(0, 0, 58);
+        btnUserGroupSettings.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 0, 40);
+        btnUserGroupSettings.FlatStyle = FlatStyle.Flat;
+        btnUserGroupSettings.Font = new Font("Segoe UI Light", 12F, FontStyle.Regular, GraphicsUnit.Point);
+        btnUserGroupSettings.ForeColor = Color.White;
+        btnUserGroupSettings.Location = new Point(0, 198);
+        btnUserGroupSettings.Name = "btnUserGroupSettings";
+        btnUserGroupSettings.Padding = new Padding(40, 0, 0, 0);
+        btnUserGroupSettings.Size = new Size(200, 31);
+        btnUserGroupSettings.TabIndex = 77;
+        btnUserGroupSettings.Text = "User Group Settings";
+        btnUserGroupSettings.TextAlign = ContentAlignment.TopLeft;
+        btnUserGroupSettings.UseVisualStyleBackColor = true;
         // 
         // NavigationView
         // 
@@ -244,6 +286,8 @@ partial class NavigationView
         Controls.Add(btnScheduleRestarts);
         Controls.Add(btnRestoreBackup);
         Controls.Add(btnAutoBackup);
+        Controls.Add(btnUserGroupSettings);
+        Controls.Add(btnGameSettings);
         Controls.Add(btnServerSettings);
         Controls.Add(btnHome);
         Controls.Add(lblLogo);
@@ -268,4 +312,6 @@ partial class NavigationView
     private Label lblNewVersion;
     private Panel panel1;
     private Button btnCredits;
+    private Button btnGameSettings;
+    private Button btnUserGroupSettings;
 }

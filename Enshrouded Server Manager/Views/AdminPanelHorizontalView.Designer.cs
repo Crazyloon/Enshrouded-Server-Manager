@@ -45,7 +45,7 @@ partial class AdminPanelHorizontalView
         // 
         // btnStopServer
         // 
-        btnStopServer.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        btnStopServer.Anchor = AnchorStyles.Right;
         btnStopServer.Cursor = Cursors.Hand;
         btnStopServer.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnStopServer.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
@@ -63,7 +63,7 @@ partial class AdminPanelHorizontalView
         // 
         // btnOpenLogFolder
         // 
-        btnOpenLogFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        btnOpenLogFolder.Anchor = AnchorStyles.Right;
         btnOpenLogFolder.Cursor = Cursors.Hand;
         btnOpenLogFolder.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnOpenLogFolder.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
@@ -81,7 +81,7 @@ partial class AdminPanelHorizontalView
         // 
         // btnOpenSavegameFolder
         // 
-        btnOpenSavegameFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        btnOpenSavegameFolder.Anchor = AnchorStyles.Right;
         btnOpenSavegameFolder.Cursor = Cursors.Hand;
         btnOpenSavegameFolder.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnOpenSavegameFolder.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
@@ -99,7 +99,7 @@ partial class AdminPanelHorizontalView
         // 
         // btnOpenBackupFolder
         // 
-        btnOpenBackupFolder.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        btnOpenBackupFolder.Anchor = AnchorStyles.Right;
         btnOpenBackupFolder.Cursor = Cursors.Hand;
         btnOpenBackupFolder.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnOpenBackupFolder.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
@@ -117,7 +117,7 @@ partial class AdminPanelHorizontalView
         // 
         // btnUpdateServer
         // 
-        btnUpdateServer.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        btnUpdateServer.Anchor = AnchorStyles.Right;
         btnUpdateServer.Cursor = Cursors.Hand;
         btnUpdateServer.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnUpdateServer.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
@@ -137,7 +137,7 @@ partial class AdminPanelHorizontalView
         // 
         // btnSaveBackup
         // 
-        btnSaveBackup.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        btnSaveBackup.Anchor = AnchorStyles.Right;
         btnSaveBackup.Cursor = Cursors.Hand;
         btnSaveBackup.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnSaveBackup.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
@@ -154,7 +154,7 @@ partial class AdminPanelHorizontalView
         // 
         // btnWindowsFirewall
         // 
-        btnWindowsFirewall.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        btnWindowsFirewall.Anchor = AnchorStyles.Right;
         btnWindowsFirewall.Cursor = Cursors.Hand;
         btnWindowsFirewall.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnWindowsFirewall.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
@@ -171,7 +171,7 @@ partial class AdminPanelHorizontalView
         // 
         // btnInstallSteamCMD
         // 
-        btnInstallSteamCMD.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        btnInstallSteamCMD.Anchor = AnchorStyles.Right;
         btnInstallSteamCMD.Cursor = Cursors.Hand;
         btnInstallSteamCMD.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnInstallSteamCMD.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
@@ -188,7 +188,7 @@ partial class AdminPanelHorizontalView
         // 
         // btnStartServer
         // 
-        btnStartServer.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        btnStartServer.Anchor = AnchorStyles.Right;
         btnStartServer.Cursor = Cursors.Hand;
         btnStartServer.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnStartServer.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);
@@ -206,7 +206,7 @@ partial class AdminPanelHorizontalView
         // 
         // btnInstallServer
         // 
-        btnInstallServer.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+        btnInstallServer.Anchor = AnchorStyles.Right;
         btnInstallServer.Cursor = Cursors.Hand;
         btnInstallServer.FlatAppearance.BorderColor = Color.FromArgb(115, 115, 137);
         btnInstallServer.FlatAppearance.MouseDownBackColor = Color.FromArgb(10, 42, 73);

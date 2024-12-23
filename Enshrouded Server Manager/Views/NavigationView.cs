@@ -19,6 +19,17 @@ public partial class NavigationView : UserControl, INavigationView
         remove => btnServerSettings.Click -= value;
     }
 
+    public event EventHandler GameSettingsClicked
+    {
+        add => btnGameSettings.Click += value;
+        remove => btnGameSettings.Click -= value;
+    }
+    public event EventHandler UserGroupSettingsClicked
+    {
+        add => btnUserGroupSettings.Click += value;
+        remove => btnUserGroupSettings.Click -= value;
+    }
+
     public event EventHandler AutoBackupClicked
     {
         add => btnAutoBackup.Click += value;

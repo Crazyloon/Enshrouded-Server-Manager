@@ -70,7 +70,7 @@ public class ServerSettingsService : IServerSettingsService
         ServerSettings json = new ServerSettings()
         {
             Name = Constants.ServerSettings.DEFAULT_SERVER_NAME,
-            Password = Constants.ServerSettings.DEFAULT_SERVER_PASSWORD,
+            //Password = Constants.ServerSettings.DEFAULT_SERVER_PASSWORD,
             SaveDirectory = Constants.Paths.ENSHROUDED_SAVE_GAME_DIRECTORY,
             LogDirectory = Constants.Paths.ENSHROUDED_LOGS_DIRECTORY,
             Ip = Constants.ServerSettings.DEFAULT_SERVER_IP,

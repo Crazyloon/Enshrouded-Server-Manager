@@ -30,7 +30,7 @@ public class ServerSettingsPresenter
         _server = server;
         _logger = fileLogger;
 
-        _serverSettingsView.ShowPasswordButtonClicked += (sender, e) => TogglePasswordVisiblity();
+        //_serverSettingsView.ShowPasswordButtonClicked += (sender, e) => TogglePasswordVisiblity();
         _serverSettingsView.SaveChangesButtonClicked += (sender, e) => SaveServerSettings();
 
         _eventAggregator.Subscribe<ProfileSelectedMessage>(p => OnServerProfileSelected(p.SelectedProfile));
@@ -39,7 +39,6 @@ public class ServerSettingsPresenter
     public void SetServerSettings(ServerSettings serverSettings)
     {
         _serverSettingsView.ServerName = serverSettings.Name;
-        _serverSettingsView.Password = serverSettings.Password;
         _serverSettingsView.IpAddress = serverSettings.Ip;
         _serverSettingsView.GamePort = serverSettings.GamePort;
         _serverSettingsView.QueryPort = serverSettings.QueryPort;
@@ -56,22 +55,22 @@ public class ServerSettingsPresenter
         }
     }
 
-    private void TogglePasswordVisiblity()
-    {
-        var text = _serverSettingsView.ShowPasswordButtonText;
-        // \0 is a null character, which is used to show the password
-        // * is the character displayed instead of each character in the password
-        _serverSettingsView.PasswordChar = text == Constants.ButtonText.SHOW_PASSWORD ? '\0' : '*';
+    //private void TogglePasswordVisiblity()
+    //{
+    //    var text = _serverSettingsView.ShowPasswordButtonText;
+    //    // \0 is a null character, which is used to show the password
+    //    // * is the character displayed instead of each character in the password
+    //    _serverSettingsView.PasswordChar = text == Constants.ButtonText.SHOW_PASSWORD ? '\0' : '*';
 
-        _serverSettingsView.ShowPasswordButtonText = text == Constants.ButtonText.SHOW_PASSWORD ? Constants.ButtonText.HIDE_PASSWORD : Constants.ButtonText.SHOW_PASSWORD;
-    }
+    //    _serverSettingsView.ShowPasswordButtonText = text == Constants.ButtonText.SHOW_PASSWORD ? Constants.ButtonText.HIDE_PASSWORD : Constants.ButtonText.SHOW_PASSWORD;
+    //}
 
     private void SaveServerSettings()
     {
         ServerSettings json = new ServerSettings()
         {
             Name = _serverSettingsView.ServerName,
-            Password = _serverSettingsView.Password,
+            //Password = _serverSettingsView.Password,
             SaveDirectory = Constants.Paths.ENSHROUDED_SAVE_GAME_DIRECTORY,
             LogDirectory = Constants.Paths.ENSHROUDED_LOGS_DIRECTORY,
             Ip = _serverSettingsView.IpAddress,

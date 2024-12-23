@@ -52,6 +52,8 @@ public partial class EnshroudedServerManager : Form, INewUIFormView
         adminPanelHorizontalView.Tag = new AdminPanelPresenter(adminPanelHorizontalView, eventAggregator, steamCMDInstaller, fileSystemService, versionManager, processManager, serverSettingsService, enshroudedServerService, profileService, discordOutputService, backupService, logService, restartScheduler, restartTimers);
         restoreBackupView.Tag = new RestoreBackupPresenter(restoreBackupView, eventAggregator, fileSystemService, backupService, enshroudedServerService, messageBoxService, logService, profiles);
         serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, eventAggregator, serverSettingsService, fileSystemService, enshroudedServerService, logService);
+        gameSettingsView.Tag = new GameSettingsPresenter(gameSettingsView, eventAggregator, serverSettingsService, fileSystemService, enshroudedServerService, logService);
+
         manageProfilesView.Tag = new ManageProfilesPresenter(manageProfilesView, eventAggregator, profileService, serverSettingsService, fileSystemService, messageBoxService, enshroudedServerService, logService, profiles);
         autoBackupView.Tag = new AutoBackupPresenter(autoBackupView, eventAggregator, processManager, profileService, fileSystemService, messageBoxService, backupService, logService, profiles);
         discordNotificationsView.Tag = new DiscordNotificationsPresenter(discordNotificationsView, eventAggregator, discordOutputService, messageBoxService, profileService, fileSystemService, logService);
@@ -86,6 +88,12 @@ public partial class EnshroudedServerManager : Form, INewUIFormView
             case ViewSelection.ServerSettings:
                 serverSettingsView.BringToFront();
                 break;
+            case ViewSelection.GameSettings:
+                gameSettingsView.BringToFront();
+                break;
+            //case ViewSelection.UserGroupSettings:
+            //    userGroupSettingsView.BringToFront();
+            //    break;
             case ViewSelection.AutoBackup:
                 autoBackupView.BringToFront();
                 break;
