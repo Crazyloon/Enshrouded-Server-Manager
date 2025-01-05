@@ -1100,4 +1100,5 @@ partial class GameSettingsView : UserControl
     private Label lblInMinutes;
     private Label label2;
     private Label label3;
+    private Button button1;
 }

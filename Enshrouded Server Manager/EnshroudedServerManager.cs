@@ -91,9 +91,9 @@ public partial class EnshroudedServerManager : Form, INewUIFormView
             case ViewSelection.GameSettings:
                 gameSettingsView.BringToFront();
                 break;
-            //case ViewSelection.UserGroupSettings:
-            //    userGroupSettingsView.BringToFront();
-            //    break;
+            case ViewSelection.UserGroupSettings:
+                userGroupSettingsView.BringToFront();
+                break;
             case ViewSelection.AutoBackup:
                 autoBackupView.BringToFront();
                 break;
