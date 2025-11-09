@@ -99,6 +99,9 @@ partial class GameSettingsView : UserControl
         lblInMinutes = new Label();
         label2 = new Label();
         label3 = new Label();
+        label4 = new Label();
+        cbxCurseModifier = new ComboBox();
+        lblTitle = new Label();
         ((System.ComponentModel.ISupportInitialize)nudPlayerHealthFactor).BeginInit();
         ((System.ComponentModel.ISupportInitialize)nudPlayerManaFactor).BeginInit();
         ((System.ComponentModel.ISupportInitialize)nudPlayerStaminaFactor).BeginInit();
@@ -141,6 +144,7 @@ partial class GameSettingsView : UserControl
         btnSaveSettings.Text = "Save Settings";
         btnSaveSettings.UseCompatibleTextRendering = true;
         btnSaveSettings.UseVisualStyleBackColor = true;
+        btnSaveSettings.EnabledChanged += btnSaveSettings_EnabledChanged;
         // 
         // lblServerMustBeStoppedMessage
         // 
@@ -156,7 +160,7 @@ partial class GameSettingsView : UserControl
         // lblPhf
         // 
         lblPhf.AutoSize = true;
-        lblPhf.Location = new Point(74, 16);
+        lblPhf.Location = new Point(74, 39);
         lblPhf.Name = "lblPhf";
         lblPhf.Size = new Size(77, 15);
         lblPhf.TabIndex = 61;
@@ -169,7 +173,7 @@ partial class GameSettingsView : UserControl
         nudPlayerHealthFactor.DecimalPlaces = 2;
         nudPlayerHealthFactor.ForeColor = SystemColors.Window;
         nudPlayerHealthFactor.Increment = new decimal(new int[] { 25, 0, 0, 131072 });
-        nudPlayerHealthFactor.Location = new Point(157, 14);
+        nudPlayerHealthFactor.Location = new Point(157, 37);
         nudPlayerHealthFactor.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
         nudPlayerHealthFactor.Minimum = new decimal(new int[] { 25, 0, 0, 131072 });
         nudPlayerHealthFactor.Name = "nudPlayerHealthFactor";
@@ -184,7 +188,7 @@ partial class GameSettingsView : UserControl
         nudPlayerManaFactor.DecimalPlaces = 2;
         nudPlayerManaFactor.ForeColor = SystemColors.Window;
         nudPlayerManaFactor.Increment = new decimal(new int[] { 25, 0, 0, 131072 });
-        nudPlayerManaFactor.Location = new Point(157, 43);
+        nudPlayerManaFactor.Location = new Point(157, 66);
         nudPlayerManaFactor.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
         nudPlayerManaFactor.Minimum = new decimal(new int[] { 25, 0, 0, 131072 });
         nudPlayerManaFactor.Name = "nudPlayerManaFactor";
@@ -195,7 +199,7 @@ partial class GameSettingsView : UserControl
         // lblPmf
         // 
         lblPmf.AutoSize = true;
-        lblPmf.Location = new Point(79, 45);
+        lblPmf.Location = new Point(79, 68);
         lblPmf.Name = "lblPmf";
         lblPmf.Size = new Size(72, 15);
         lblPmf.TabIndex = 65;
@@ -208,7 +212,7 @@ partial class GameSettingsView : UserControl
         nudPlayerStaminaFactor.DecimalPlaces = 2;
         nudPlayerStaminaFactor.ForeColor = SystemColors.Window;
         nudPlayerStaminaFactor.Increment = new decimal(new int[] { 25, 0, 0, 131072 });
-        nudPlayerStaminaFactor.Location = new Point(157, 72);
+        nudPlayerStaminaFactor.Location = new Point(157, 95);
         nudPlayerStaminaFactor.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
         nudPlayerStaminaFactor.Minimum = new decimal(new int[] { 25, 0, 0, 131072 });
         nudPlayerStaminaFactor.Name = "nudPlayerStaminaFactor";
@@ -219,7 +223,7 @@ partial class GameSettingsView : UserControl
         // lblPsf
         // 
         lblPsf.AutoSize = true;
-        lblPsf.Location = new Point(66, 74);
+        lblPsf.Location = new Point(66, 97);
         lblPsf.Name = "lblPsf";
         lblPsf.Size = new Size(85, 15);
         lblPsf.TabIndex = 67;
@@ -232,7 +236,7 @@ partial class GameSettingsView : UserControl
         nudPlayerBodyHeatFactor.DecimalPlaces = 2;
         nudPlayerBodyHeatFactor.ForeColor = SystemColors.Window;
         nudPlayerBodyHeatFactor.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
-        nudPlayerBodyHeatFactor.Location = new Point(157, 101);
+        nudPlayerBodyHeatFactor.Location = new Point(157, 124);
         nudPlayerBodyHeatFactor.Maximum = new decimal(new int[] { 2, 0, 0, 0 });
         nudPlayerBodyHeatFactor.Minimum = new decimal(new int[] { 5, 0, 0, 65536 });
         nudPlayerBodyHeatFactor.Name = "nudPlayerBodyHeatFactor";
@@ -243,7 +247,7 @@ partial class GameSettingsView : UserControl
         // lblPbhf
         // 
         lblPbhf.AutoSize = true;
-        lblPbhf.Location = new Point(54, 103);
+        lblPbhf.Location = new Point(54, 126);
         lblPbhf.Name = "lblPbhf";
         lblPbhf.Size = new Size(97, 15);
         lblPbhf.TabIndex = 69;
@@ -256,7 +260,7 @@ partial class GameSettingsView : UserControl
         nudFoodBuffDurationFactor.DecimalPlaces = 2;
         nudFoodBuffDurationFactor.ForeColor = SystemColors.Window;
         nudFoodBuffDurationFactor.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
-        nudFoodBuffDurationFactor.Location = new Point(157, 130);
+        nudFoodBuffDurationFactor.Location = new Point(157, 153);
         nudFoodBuffDurationFactor.Maximum = new decimal(new int[] { 2, 0, 0, 0 });
         nudFoodBuffDurationFactor.Minimum = new decimal(new int[] { 5, 0, 0, 65536 });
         nudFoodBuffDurationFactor.Name = "nudFoodBuffDurationFactor";
@@ -267,7 +271,7 @@ partial class GameSettingsView : UserControl
         // lblFoodBuff
         // 
         lblFoodBuff.AutoSize = true;
-        lblFoodBuff.Location = new Point(43, 132);
+        lblFoodBuff.Location = new Point(43, 155);
         lblFoodBuff.Name = "lblFoodBuff";
         lblFoodBuff.Size = new Size(108, 15);
         lblFoodBuff.TabIndex = 71;
@@ -280,7 +284,7 @@ partial class GameSettingsView : UserControl
         nudFromHungerToStarving.DecimalPlaces = 1;
         nudFromHungerToStarving.ForeColor = SystemColors.Window;
         nudFromHungerToStarving.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
-        nudFromHungerToStarving.Location = new Point(553, 221);
+        nudFromHungerToStarving.Location = new Point(553, 273);
         nudFromHungerToStarving.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
         nudFromHungerToStarving.Minimum = new decimal(new int[] { 5, 0, 0, 0 });
         nudFromHungerToStarving.Name = "nudFromHungerToStarving";
@@ -291,7 +295,7 @@ partial class GameSettingsView : UserControl
         // label1
         // 
         label1.AutoSize = true;
-        label1.Location = new Point(430, 223);
+        label1.Location = new Point(430, 275);
         label1.Name = "label1";
         label1.Size = new Size(117, 15);
         label1.TabIndex = 73;
@@ -304,7 +308,7 @@ partial class GameSettingsView : UserControl
         nudShroudTimeFactor.DecimalPlaces = 2;
         nudShroudTimeFactor.ForeColor = SystemColors.Window;
         nudShroudTimeFactor.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
-        nudShroudTimeFactor.Location = new Point(157, 159);
+        nudShroudTimeFactor.Location = new Point(157, 182);
         nudShroudTimeFactor.Maximum = new decimal(new int[] { 2, 0, 0, 0 });
         nudShroudTimeFactor.Minimum = new decimal(new int[] { 5, 0, 0, 65536 });
         nudShroudTimeFactor.Name = "nudShroudTimeFactor";
@@ -315,9 +319,9 @@ partial class GameSettingsView : UserControl
         // lblShroudTimeFactor
         // 
         lblShroudTimeFactor.AutoSize = true;
-        lblShroudTimeFactor.Location = new Point(77, 161);
+        lblShroudTimeFactor.Location = new Point(77, 184);
         lblShroudTimeFactor.Name = "lblShroudTimeFactor";
-        lblShroudTimeFactor.Size = new Size(74, 15);
+        lblShroudTimeFactor.Size = new Size(75, 15);
         lblShroudTimeFactor.TabIndex = 75;
         lblShroudTimeFactor.Text = "Shroud Time";
         // 
@@ -328,7 +332,7 @@ partial class GameSettingsView : UserControl
         nudMiningDamageFactor.DecimalPlaces = 2;
         nudMiningDamageFactor.ForeColor = SystemColors.Window;
         nudMiningDamageFactor.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
-        nudMiningDamageFactor.Location = new Point(157, 188);
+        nudMiningDamageFactor.Location = new Point(157, 211);
         nudMiningDamageFactor.Maximum = new decimal(new int[] { 2, 0, 0, 0 });
         nudMiningDamageFactor.Minimum = new decimal(new int[] { 5, 0, 0, 65536 });
         nudMiningDamageFactor.Name = "nudMiningDamageFactor";
@@ -339,7 +343,7 @@ partial class GameSettingsView : UserControl
         // lblMiningFactor
         // 
         lblMiningFactor.AutoSize = true;
-        lblMiningFactor.Location = new Point(59, 190);
+        lblMiningFactor.Location = new Point(59, 213);
         lblMiningFactor.Name = "lblMiningFactor";
         lblMiningFactor.Size = new Size(92, 15);
         lblMiningFactor.TabIndex = 77;
@@ -352,7 +356,7 @@ partial class GameSettingsView : UserControl
         nudPlantGrowthSpeedFactor.DecimalPlaces = 2;
         nudPlantGrowthSpeedFactor.ForeColor = SystemColors.Window;
         nudPlantGrowthSpeedFactor.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
-        nudPlantGrowthSpeedFactor.Location = new Point(157, 217);
+        nudPlantGrowthSpeedFactor.Location = new Point(157, 240);
         nudPlantGrowthSpeedFactor.Maximum = new decimal(new int[] { 2, 0, 0, 0 });
         nudPlantGrowthSpeedFactor.Minimum = new decimal(new int[] { 5, 0, 0, 65536 });
         nudPlantGrowthSpeedFactor.Name = "nudPlantGrowthSpeedFactor";
@@ -363,7 +367,7 @@ partial class GameSettingsView : UserControl
         // lblPlantGrowthFactor
         // 
         lblPlantGrowthFactor.AutoSize = true;
-        lblPlantGrowthFactor.Location = new Point(75, 219);
+        lblPlantGrowthFactor.Location = new Point(75, 242);
         lblPlantGrowthFactor.Name = "lblPlantGrowthFactor";
         lblPlantGrowthFactor.Size = new Size(76, 15);
         lblPlantGrowthFactor.TabIndex = 79;
@@ -376,7 +380,7 @@ partial class GameSettingsView : UserControl
         nudResourceDropStackAmountFactor.DecimalPlaces = 2;
         nudResourceDropStackAmountFactor.ForeColor = SystemColors.Window;
         nudResourceDropStackAmountFactor.Increment = new decimal(new int[] { 25, 0, 0, 131072 });
-        nudResourceDropStackAmountFactor.Location = new Point(157, 246);
+        nudResourceDropStackAmountFactor.Location = new Point(157, 269);
         nudResourceDropStackAmountFactor.Maximum = new decimal(new int[] { 2, 0, 0, 0 });
         nudResourceDropStackAmountFactor.Minimum = new decimal(new int[] { 25, 0, 0, 131072 });
         nudResourceDropStackAmountFactor.Name = "nudResourceDropStackAmountFactor";
@@ -387,7 +391,7 @@ partial class GameSettingsView : UserControl
         // lblResourceDropFactor
         // 
         lblResourceDropFactor.AutoSize = true;
-        lblResourceDropFactor.Location = new Point(69, 248);
+        lblResourceDropFactor.Location = new Point(69, 271);
         lblResourceDropFactor.Name = "lblResourceDropFactor";
         lblResourceDropFactor.Size = new Size(82, 15);
         lblResourceDropFactor.TabIndex = 81;
@@ -400,7 +404,7 @@ partial class GameSettingsView : UserControl
         nudFactoryProductionSpeedFactor.DecimalPlaces = 2;
         nudFactoryProductionSpeedFactor.ForeColor = SystemColors.Window;
         nudFactoryProductionSpeedFactor.Increment = new decimal(new int[] { 25, 0, 0, 131072 });
-        nudFactoryProductionSpeedFactor.Location = new Point(157, 275);
+        nudFactoryProductionSpeedFactor.Location = new Point(157, 298);
         nudFactoryProductionSpeedFactor.Maximum = new decimal(new int[] { 2, 0, 0, 0 });
         nudFactoryProductionSpeedFactor.Minimum = new decimal(new int[] { 25, 0, 0, 131072 });
         nudFactoryProductionSpeedFactor.Name = "nudFactoryProductionSpeedFactor";
@@ -411,7 +415,7 @@ partial class GameSettingsView : UserControl
         // lblFactoryFactor
         // 
         lblFactoryFactor.AutoSize = true;
-        lblFactoryFactor.Location = new Point(9, 277);
+        lblFactoryFactor.Location = new Point(9, 300);
         lblFactoryFactor.Name = "lblFactoryFactor";
         lblFactoryFactor.Size = new Size(142, 15);
         lblFactoryFactor.TabIndex = 83;
@@ -424,7 +428,7 @@ partial class GameSettingsView : UserControl
         nudPerkUpgradeRecyclingFactor.DecimalPlaces = 2;
         nudPerkUpgradeRecyclingFactor.ForeColor = SystemColors.Window;
         nudPerkUpgradeRecyclingFactor.Increment = new decimal(new int[] { 5, 0, 0, 131072 });
-        nudPerkUpgradeRecyclingFactor.Location = new Point(157, 304);
+        nudPerkUpgradeRecyclingFactor.Location = new Point(157, 327);
         nudPerkUpgradeRecyclingFactor.Maximum = new decimal(new int[] { 1, 0, 0, 0 });
         nudPerkUpgradeRecyclingFactor.Name = "nudPerkUpgradeRecyclingFactor";
         nudPerkUpgradeRecyclingFactor.Size = new Size(62, 23);
@@ -433,7 +437,7 @@ partial class GameSettingsView : UserControl
         // lblPerkRecycleFactor
         // 
         lblPerkRecycleFactor.AutoSize = true;
-        lblPerkRecycleFactor.Location = new Point(39, 306);
+        lblPerkRecycleFactor.Location = new Point(39, 329);
         lblPerkRecycleFactor.Name = "lblPerkRecycleFactor";
         lblPerkRecycleFactor.Size = new Size(112, 15);
         lblPerkRecycleFactor.TabIndex = 85;
@@ -446,7 +450,7 @@ partial class GameSettingsView : UserControl
         nudPerkCostFactor.DecimalPlaces = 2;
         nudPerkCostFactor.ForeColor = SystemColors.Window;
         nudPerkCostFactor.Increment = new decimal(new int[] { 25, 0, 0, 131072 });
-        nudPerkCostFactor.Location = new Point(157, 333);
+        nudPerkCostFactor.Location = new Point(157, 356);
         nudPerkCostFactor.Maximum = new decimal(new int[] { 2, 0, 0, 0 });
         nudPerkCostFactor.Minimum = new decimal(new int[] { 25, 0, 0, 131072 });
         nudPerkCostFactor.Name = "nudPerkCostFactor";
@@ -457,7 +461,7 @@ partial class GameSettingsView : UserControl
         // lblWeaponUpgrade
         // 
         lblWeaponUpgrade.AutoSize = true;
-        lblWeaponUpgrade.Location = new Point(20, 335);
+        lblWeaponUpgrade.Location = new Point(20, 358);
         lblWeaponUpgrade.Name = "lblWeaponUpgrade";
         lblWeaponUpgrade.Size = new Size(131, 15);
         lblWeaponUpgrade.TabIndex = 87;
@@ -470,7 +474,7 @@ partial class GameSettingsView : UserControl
         nudExperienceCombatFactor.DecimalPlaces = 2;
         nudExperienceCombatFactor.ForeColor = SystemColors.Window;
         nudExperienceCombatFactor.Increment = new decimal(new int[] { 25, 0, 0, 131072 });
-        nudExperienceCombatFactor.Location = new Point(350, 14);
+        nudExperienceCombatFactor.Location = new Point(350, 37);
         nudExperienceCombatFactor.Maximum = new decimal(new int[] { 2, 0, 0, 0 });
         nudExperienceCombatFactor.Minimum = new decimal(new int[] { 25, 0, 0, 131072 });
         nudExperienceCombatFactor.Name = "nudExperienceCombatFactor";
@@ -481,9 +485,9 @@ partial class GameSettingsView : UserControl
         // lblCombatExp
         // 
         lblCombatExp.AutoSize = true;
-        lblCombatExp.Location = new Point(272, 16);
+        lblCombatExp.Location = new Point(272, 39);
         lblCombatExp.Name = "lblCombatExp";
-        lblCombatExp.Size = new Size(72, 15);
+        lblCombatExp.Size = new Size(71, 15);
         lblCombatExp.TabIndex = 89;
         lblCombatExp.Text = "Combat Exp";
         // 
@@ -494,7 +498,7 @@ partial class GameSettingsView : UserControl
         nudExperienceMiningFactor.DecimalPlaces = 2;
         nudExperienceMiningFactor.ForeColor = SystemColors.Window;
         nudExperienceMiningFactor.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
-        nudExperienceMiningFactor.Location = new Point(350, 43);
+        nudExperienceMiningFactor.Location = new Point(350, 66);
         nudExperienceMiningFactor.Maximum = new decimal(new int[] { 2, 0, 0, 0 });
         nudExperienceMiningFactor.Name = "nudExperienceMiningFactor";
         nudExperienceMiningFactor.Size = new Size(62, 23);
@@ -503,9 +507,9 @@ partial class GameSettingsView : UserControl
         // lblMiningExp
         // 
         lblMiningExp.AutoSize = true;
-        lblMiningExp.Location = new Point(277, 45);
+        lblMiningExp.Location = new Point(277, 68);
         lblMiningExp.Name = "lblMiningExp";
-        lblMiningExp.Size = new Size(67, 15);
+        lblMiningExp.Size = new Size(66, 15);
         lblMiningExp.TabIndex = 91;
         lblMiningExp.Text = "Mining Exp";
         // 
@@ -516,7 +520,7 @@ partial class GameSettingsView : UserControl
         nudExperienceExplorationQuestsFactor.DecimalPlaces = 2;
         nudExperienceExplorationQuestsFactor.ForeColor = SystemColors.Window;
         nudExperienceExplorationQuestsFactor.Increment = new decimal(new int[] { 25, 0, 0, 131072 });
-        nudExperienceExplorationQuestsFactor.Location = new Point(350, 72);
+        nudExperienceExplorationQuestsFactor.Location = new Point(350, 95);
         nudExperienceExplorationQuestsFactor.Maximum = new decimal(new int[] { 2, 0, 0, 0 });
         nudExperienceExplorationQuestsFactor.Minimum = new decimal(new int[] { 25, 0, 0, 131072 });
         nudExperienceExplorationQuestsFactor.Name = "nudExperienceExplorationQuestsFactor";
@@ -527,9 +531,9 @@ partial class GameSettingsView : UserControl
         // lblQuestExp
         // 
         lblQuestExp.AutoSize = true;
-        lblQuestExp.Location = new Point(284, 74);
+        lblQuestExp.Location = new Point(284, 97);
         lblQuestExp.Name = "lblQuestExp";
-        lblQuestExp.Size = new Size(60, 15);
+        lblQuestExp.Size = new Size(59, 15);
         lblQuestExp.TabIndex = 93;
         lblQuestExp.Text = "Quest Exp";
         // 
@@ -540,7 +544,7 @@ partial class GameSettingsView : UserControl
         nudEnemyDamageFactor.DecimalPlaces = 2;
         nudEnemyDamageFactor.ForeColor = SystemColors.Window;
         nudEnemyDamageFactor.Increment = new decimal(new int[] { 25, 0, 0, 131072 });
-        nudEnemyDamageFactor.Location = new Point(350, 159);
+        nudEnemyDamageFactor.Location = new Point(350, 182);
         nudEnemyDamageFactor.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
         nudEnemyDamageFactor.Minimum = new decimal(new int[] { 25, 0, 0, 131072 });
         nudEnemyDamageFactor.Name = "nudEnemyDamageFactor";
@@ -551,7 +555,7 @@ partial class GameSettingsView : UserControl
         // lblEnemyDmg
         // 
         lblEnemyDmg.AutoSize = true;
-        lblEnemyDmg.Location = new Point(254, 161);
+        lblEnemyDmg.Location = new Point(254, 184);
         lblEnemyDmg.Name = "lblEnemyDmg";
         lblEnemyDmg.Size = new Size(90, 15);
         lblEnemyDmg.TabIndex = 95;
@@ -564,7 +568,7 @@ partial class GameSettingsView : UserControl
         nudEnemyHealthFactor.DecimalPlaces = 2;
         nudEnemyHealthFactor.ForeColor = SystemColors.Window;
         nudEnemyHealthFactor.Increment = new decimal(new int[] { 25, 0, 0, 131072 });
-        nudEnemyHealthFactor.Location = new Point(350, 188);
+        nudEnemyHealthFactor.Location = new Point(350, 211);
         nudEnemyHealthFactor.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
         nudEnemyHealthFactor.Minimum = new decimal(new int[] { 25, 0, 0, 131072 });
         nudEnemyHealthFactor.Name = "nudEnemyHealthFactor";
@@ -575,7 +579,7 @@ partial class GameSettingsView : UserControl
         // lblEnemyHealth
         // 
         lblEnemyHealth.AutoSize = true;
-        lblEnemyHealth.Location = new Point(263, 190);
+        lblEnemyHealth.Location = new Point(263, 213);
         lblEnemyHealth.Name = "lblEnemyHealth";
         lblEnemyHealth.Size = new Size(81, 15);
         lblEnemyHealth.TabIndex = 97;
@@ -588,7 +592,7 @@ partial class GameSettingsView : UserControl
         nudEnemyStaminaFactor.DecimalPlaces = 2;
         nudEnemyStaminaFactor.ForeColor = SystemColors.Window;
         nudEnemyStaminaFactor.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
-        nudEnemyStaminaFactor.Location = new Point(350, 217);
+        nudEnemyStaminaFactor.Location = new Point(350, 240);
         nudEnemyStaminaFactor.Maximum = new decimal(new int[] { 2, 0, 0, 0 });
         nudEnemyStaminaFactor.Minimum = new decimal(new int[] { 5, 0, 0, 65536 });
         nudEnemyStaminaFactor.Name = "nudEnemyStaminaFactor";
@@ -599,7 +603,7 @@ partial class GameSettingsView : UserControl
         // lblEnemyStamina
         // 
         lblEnemyStamina.AutoSize = true;
-        lblEnemyStamina.Location = new Point(255, 219);
+        lblEnemyStamina.Location = new Point(255, 242);
         lblEnemyStamina.Name = "lblEnemyStamina";
         lblEnemyStamina.Size = new Size(89, 15);
         lblEnemyStamina.TabIndex = 99;
@@ -612,7 +616,7 @@ partial class GameSettingsView : UserControl
         nudEnemyPerceptionRangeFactor.DecimalPlaces = 2;
         nudEnemyPerceptionRangeFactor.ForeColor = SystemColors.Window;
         nudEnemyPerceptionRangeFactor.Increment = new decimal(new int[] { 5, 0, 0, 65536 });
-        nudEnemyPerceptionRangeFactor.Location = new Point(350, 246);
+        nudEnemyPerceptionRangeFactor.Location = new Point(350, 269);
         nudEnemyPerceptionRangeFactor.Maximum = new decimal(new int[] { 2, 0, 0, 0 });
         nudEnemyPerceptionRangeFactor.Minimum = new decimal(new int[] { 5, 0, 0, 65536 });
         nudEnemyPerceptionRangeFactor.Name = "nudEnemyPerceptionRangeFactor";
@@ -623,7 +627,7 @@ partial class GameSettingsView : UserControl
         // lblEnemyPerception
         // 
         lblEnemyPerception.AutoSize = true;
-        lblEnemyPerception.Location = new Point(241, 248);
+        lblEnemyPerception.Location = new Point(241, 271);
         lblEnemyPerception.Name = "lblEnemyPerception";
         lblEnemyPerception.Size = new Size(103, 15);
         lblEnemyPerception.TabIndex = 101;
@@ -636,7 +640,7 @@ partial class GameSettingsView : UserControl
         nudThreatBonus.DecimalPlaces = 2;
         nudThreatBonus.ForeColor = SystemColors.Window;
         nudThreatBonus.Increment = new decimal(new int[] { 25, 0, 0, 131072 });
-        nudThreatBonus.Location = new Point(350, 275);
+        nudThreatBonus.Location = new Point(350, 298);
         nudThreatBonus.Maximum = new decimal(new int[] { 4, 0, 0, 0 });
         nudThreatBonus.Minimum = new decimal(new int[] { 25, 0, 0, 131072 });
         nudThreatBonus.Name = "nudThreatBonus";
@@ -647,7 +651,7 @@ partial class GameSettingsView : UserControl
         // lblEnemyAttackRate
         // 
         lblEnemyAttackRate.AutoSize = true;
-        lblEnemyAttackRate.Location = new Point(238, 277);
+        lblEnemyAttackRate.Location = new Point(238, 300);
         lblEnemyAttackRate.Name = "lblEnemyAttackRate";
         lblEnemyAttackRate.Size = new Size(106, 15);
         lblEnemyAttackRate.TabIndex = 103;
@@ -660,7 +664,7 @@ partial class GameSettingsView : UserControl
         nudBossDamageFactor.DecimalPlaces = 2;
         nudBossDamageFactor.ForeColor = SystemColors.Window;
         nudBossDamageFactor.Increment = new decimal(new int[] { 2, 0, 0, 65536 });
-        nudBossDamageFactor.Location = new Point(350, 101);
+        nudBossDamageFactor.Location = new Point(350, 124);
         nudBossDamageFactor.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
         nudBossDamageFactor.Minimum = new decimal(new int[] { 2, 0, 0, 65536 });
         nudBossDamageFactor.Name = "nudBossDamageFactor";
@@ -671,7 +675,7 @@ partial class GameSettingsView : UserControl
         // lblBossDmg
         // 
         lblBossDmg.AutoSize = true;
-        lblBossDmg.Location = new Point(266, 103);
+        lblBossDmg.Location = new Point(266, 126);
         lblBossDmg.Name = "lblBossDmg";
         lblBossDmg.Size = new Size(78, 15);
         lblBossDmg.TabIndex = 105;
@@ -684,7 +688,7 @@ partial class GameSettingsView : UserControl
         nudBossHealthFactor.DecimalPlaces = 2;
         nudBossHealthFactor.ForeColor = SystemColors.Window;
         nudBossHealthFactor.Increment = new decimal(new int[] { 2, 0, 0, 65536 });
-        nudBossHealthFactor.Location = new Point(350, 130);
+        nudBossHealthFactor.Location = new Point(350, 153);
         nudBossHealthFactor.Maximum = new decimal(new int[] { 5, 0, 0, 0 });
         nudBossHealthFactor.Minimum = new decimal(new int[] { 2, 0, 0, 65536 });
         nudBossHealthFactor.Name = "nudBossHealthFactor";
@@ -695,7 +699,7 @@ partial class GameSettingsView : UserControl
         // lblBossHealth
         // 
         lblBossHealth.AutoSize = true;
-        lblBossHealth.Location = new Point(275, 132);
+        lblBossHealth.Location = new Point(275, 155);
         lblBossHealth.Name = "lblBossHealth";
         lblBossHealth.Size = new Size(69, 15);
         lblBossHealth.TabIndex = 107;
@@ -707,7 +711,7 @@ partial class GameSettingsView : UserControl
         nudDayTimeDuration.BorderStyle = BorderStyle.FixedSingle;
         nudDayTimeDuration.DecimalPlaces = 2;
         nudDayTimeDuration.ForeColor = SystemColors.Window;
-        nudDayTimeDuration.Location = new Point(553, 163);
+        nudDayTimeDuration.Location = new Point(553, 215);
         nudDayTimeDuration.Maximum = new decimal(new int[] { 60, 0, 0, 0 });
         nudDayTimeDuration.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
         nudDayTimeDuration.Name = "nudDayTimeDuration";
@@ -718,7 +722,7 @@ partial class GameSettingsView : UserControl
         // lblDayDuration
         // 
         lblDayDuration.AutoSize = true;
-        lblDayDuration.Location = new Point(471, 165);
+        lblDayDuration.Location = new Point(471, 217);
         lblDayDuration.Name = "lblDayDuration";
         lblDayDuration.Size = new Size(76, 15);
         lblDayDuration.TabIndex = 109;
@@ -730,7 +734,7 @@ partial class GameSettingsView : UserControl
         nudNightTimeDuration.BorderStyle = BorderStyle.FixedSingle;
         nudNightTimeDuration.DecimalPlaces = 2;
         nudNightTimeDuration.ForeColor = SystemColors.Window;
-        nudNightTimeDuration.Location = new Point(553, 192);
+        nudNightTimeDuration.Location = new Point(553, 244);
         nudNightTimeDuration.Maximum = new decimal(new int[] { 60, 0, 0, 0 });
         nudNightTimeDuration.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
         nudNightTimeDuration.Name = "nudNightTimeDuration";
@@ -741,7 +745,7 @@ partial class GameSettingsView : UserControl
         // lblNightDuration
         // 
         lblNightDuration.AutoSize = true;
-        lblNightDuration.Location = new Point(461, 194);
+        lblNightDuration.Location = new Point(461, 246);
         lblNightDuration.Name = "lblNightDuration";
         lblNightDuration.Size = new Size(86, 15);
         lblNightDuration.TabIndex = 111;
@@ -755,7 +759,7 @@ partial class GameSettingsView : UserControl
         cbxTombstoneMode.FlatStyle = FlatStyle.Flat;
         cbxTombstoneMode.ForeColor = SystemColors.Window;
         cbxTombstoneMode.FormattingEnabled = true;
-        cbxTombstoneMode.Location = new Point(553, 14);
+        cbxTombstoneMode.Location = new Point(553, 37);
         cbxTombstoneMode.Name = "cbxTombstoneMode";
         cbxTombstoneMode.Size = new Size(175, 23);
         cbxTombstoneMode.TabIndex = 86;
@@ -763,16 +767,16 @@ partial class GameSettingsView : UserControl
         // lblTombstone
         // 
         lblTombstone.AutoSize = true;
-        lblTombstone.Location = new Point(447, 18);
+        lblTombstone.Location = new Point(447, 41);
         lblTombstone.Name = "lblTombstone";
-        lblTombstone.Size = new Size(100, 15);
+        lblTombstone.Size = new Size(101, 15);
         lblTombstone.TabIndex = 114;
         lblTombstone.Text = "Tombstone Mode";
         // 
         // chkEnableDurability
         // 
         chkEnableDurability.AutoSize = true;
-        chkEnableDurability.Location = new Point(553, 256);
+        chkEnableDurability.Location = new Point(553, 308);
         chkEnableDurability.Name = "chkEnableDurability";
         chkEnableDurability.Size = new Size(115, 19);
         chkEnableDurability.TabIndex = 94;
@@ -782,7 +786,7 @@ partial class GameSettingsView : UserControl
         // chkEnableStarvingDebuff
         // 
         chkEnableStarvingDebuff.AutoSize = true;
-        chkEnableStarvingDebuff.Location = new Point(553, 281);
+        chkEnableStarvingDebuff.Location = new Point(553, 333);
         chkEnableStarvingDebuff.Name = "chkEnableStarvingDebuff";
         chkEnableStarvingDebuff.Size = new Size(117, 19);
         chkEnableStarvingDebuff.TabIndex = 95;
@@ -792,7 +796,7 @@ partial class GameSettingsView : UserControl
         // lblWeatherFreq
         // 
         lblWeatherFreq.AutoSize = true;
-        lblWeatherFreq.Location = new Point(438, 48);
+        lblWeatherFreq.Location = new Point(438, 71);
         lblWeatherFreq.Name = "lblWeatherFreq";
         lblWeatherFreq.Size = new Size(109, 15);
         lblWeatherFreq.TabIndex = 118;
@@ -806,7 +810,7 @@ partial class GameSettingsView : UserControl
         cbxWeatherFrequency.FlatStyle = FlatStyle.Flat;
         cbxWeatherFrequency.ForeColor = SystemColors.Window;
         cbxWeatherFrequency.FormattingEnabled = true;
-        cbxWeatherFrequency.Location = new Point(553, 44);
+        cbxWeatherFrequency.Location = new Point(553, 67);
         cbxWeatherFrequency.Name = "cbxWeatherFrequency";
         cbxWeatherFrequency.Size = new Size(175, 23);
         cbxWeatherFrequency.TabIndex = 87;
@@ -814,7 +818,7 @@ partial class GameSettingsView : UserControl
         // lblEnemyAmount
         // 
         lblEnemyAmount.AutoSize = true;
-        lblEnemyAmount.Location = new Point(457, 78);
+        lblEnemyAmount.Location = new Point(457, 101);
         lblEnemyAmount.Name = "lblEnemyAmount";
         lblEnemyAmount.Size = new Size(90, 15);
         lblEnemyAmount.TabIndex = 120;
@@ -828,7 +832,7 @@ partial class GameSettingsView : UserControl
         cbxRandomSpawnerAmount.FlatStyle = FlatStyle.Flat;
         cbxRandomSpawnerAmount.ForeColor = SystemColors.Window;
         cbxRandomSpawnerAmount.FormattingEnabled = true;
-        cbxRandomSpawnerAmount.Location = new Point(553, 74);
+        cbxRandomSpawnerAmount.Location = new Point(553, 97);
         cbxRandomSpawnerAmount.Name = "cbxRandomSpawnerAmount";
         cbxRandomSpawnerAmount.Size = new Size(175, 23);
         cbxRandomSpawnerAmount.TabIndex = 88;
@@ -836,7 +840,7 @@ partial class GameSettingsView : UserControl
         // lblEnemyAggro
         // 
         lblEnemyAggro.AutoSize = true;
-        lblEnemyAggro.Location = new Point(468, 108);
+        lblEnemyAggro.Location = new Point(468, 131);
         lblEnemyAggro.Name = "lblEnemyAggro";
         lblEnemyAggro.Size = new Size(79, 15);
         lblEnemyAggro.TabIndex = 122;
@@ -850,7 +854,7 @@ partial class GameSettingsView : UserControl
         cbxAggroPoolAmount.FlatStyle = FlatStyle.Flat;
         cbxAggroPoolAmount.ForeColor = SystemColors.Window;
         cbxAggroPoolAmount.FormattingEnabled = true;
-        cbxAggroPoolAmount.Location = new Point(553, 104);
+        cbxAggroPoolAmount.Location = new Point(553, 127);
         cbxAggroPoolAmount.Name = "cbxAggroPoolAmount";
         cbxAggroPoolAmount.Size = new Size(175, 23);
         cbxAggroPoolAmount.TabIndex = 89;
@@ -858,9 +862,9 @@ partial class GameSettingsView : UserControl
         // lblTamingFailure
         // 
         lblTamingFailure.AutoSize = true;
-        lblTamingFailure.Location = new Point(463, 138);
+        lblTamingFailure.Location = new Point(463, 161);
         lblTamingFailure.Name = "lblTamingFailure";
-        lblTamingFailure.Size = new Size(84, 15);
+        lblTamingFailure.Size = new Size(85, 15);
         lblTamingFailure.TabIndex = 124;
         lblTamingFailure.Text = "Taming Failure";
         // 
@@ -872,7 +876,7 @@ partial class GameSettingsView : UserControl
         cbxTamingStartleRepercussion.FlatStyle = FlatStyle.Flat;
         cbxTamingStartleRepercussion.ForeColor = SystemColors.Window;
         cbxTamingStartleRepercussion.FormattingEnabled = true;
-        cbxTamingStartleRepercussion.Location = new Point(553, 134);
+        cbxTamingStartleRepercussion.Location = new Point(553, 157);
         cbxTamingStartleRepercussion.Name = "cbxTamingStartleRepercussion";
         cbxTamingStartleRepercussion.Size = new Size(175, 23);
         cbxTamingStartleRepercussion.TabIndex = 90;
@@ -880,9 +884,9 @@ partial class GameSettingsView : UserControl
         // chkEnableGliderTurbulences
         // 
         chkEnableGliderTurbulences.AutoSize = true;
-        chkEnableGliderTurbulences.Location = new Point(553, 306);
+        chkEnableGliderTurbulences.Location = new Point(553, 358);
         chkEnableGliderTurbulences.Name = "chkEnableGliderTurbulences";
-        chkEnableGliderTurbulences.Size = new Size(157, 19);
+        chkEnableGliderTurbulences.Size = new Size(158, 19);
         chkEnableGliderTurbulences.TabIndex = 96;
         chkEnableGliderTurbulences.Text = "Enable Glider Turbulence";
         chkEnableGliderTurbulences.UseVisualStyleBackColor = true;
@@ -890,7 +894,7 @@ partial class GameSettingsView : UserControl
         // chkPacifyAllEnemies
         // 
         chkPacifyAllEnemies.AutoSize = true;
-        chkPacifyAllEnemies.Location = new Point(553, 331);
+        chkPacifyAllEnemies.Location = new Point(553, 383);
         chkPacifyAllEnemies.Name = "chkPacifyAllEnemies";
         chkPacifyAllEnemies.Size = new Size(102, 19);
         chkPacifyAllEnemies.TabIndex = 97;
@@ -900,7 +904,7 @@ partial class GameSettingsView : UserControl
         // lblInMinutes
         // 
         lblInMinutes.AutoSize = true;
-        lblInMinutes.Location = new Point(621, 194);
+        lblInMinutes.Location = new Point(621, 246);
         lblInMinutes.Name = "lblInMinutes";
         lblInMinutes.Size = new Size(50, 15);
         lblInMinutes.TabIndex = 127;
@@ -909,7 +913,7 @@ partial class GameSettingsView : UserControl
         // label2
         // 
         label2.AutoSize = true;
-        label2.Location = new Point(621, 165);
+        label2.Location = new Point(621, 217);
         label2.Name = "label2";
         label2.Size = new Size(50, 15);
         label2.TabIndex = 128;
@@ -918,17 +922,56 @@ partial class GameSettingsView : UserControl
         // label3
         // 
         label3.AutoSize = true;
-        label3.Location = new Point(621, 223);
+        label3.Location = new Point(621, 275);
         label3.Name = "label3";
         label3.Size = new Size(50, 15);
         label3.TabIndex = 129;
         label3.Text = "Minutes";
+        // 
+        // label4
+        // 
+        label4.AutoSize = true;
+        label4.Location = new Point(462, 190);
+        label4.Name = "label4";
+        label4.Size = new Size(85, 15);
+        label4.TabIndex = 131;
+        label4.Text = "Curse Modifier";
+        // 
+        // cbxCurseModifier
+        // 
+        cbxCurseModifier.Anchor = AnchorStyles.Top;
+        cbxCurseModifier.BackColor = Color.FromArgb(6, 6, 48);
+        cbxCurseModifier.DropDownStyle = ComboBoxStyle.DropDownList;
+        cbxCurseModifier.FlatStyle = FlatStyle.Flat;
+        cbxCurseModifier.ForeColor = SystemColors.Window;
+        cbxCurseModifier.FormattingEnabled = true;
+        cbxCurseModifier.Location = new Point(553, 186);
+        cbxCurseModifier.Name = "cbxCurseModifier";
+        cbxCurseModifier.Size = new Size(175, 23);
+        cbxCurseModifier.TabIndex = 130;
+        // 
+        // lblTitle
+        // 
+        lblTitle.Anchor = AnchorStyles.Top;
+        lblTitle.AutoSize = true;
+        lblTitle.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
+        lblTitle.ForeColor = SystemColors.Info;
+        lblTitle.Location = new Point(124, 10);
+        lblTitle.Name = "lblTitle";
+        lblTitle.Size = new Size(497, 20);
+        lblTitle.TabIndex = 132;
+        lblTitle.Text = "Game settings preset must be set to custom for these values to take effect";
+        lblTitle.TextAlign = ContentAlignment.MiddleCenter;
         // 
         // GameSettingsView
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
+        Controls.Add(btnSaveSettings);
+        Controls.Add(lblTitle);
+        Controls.Add(label4);
+        Controls.Add(cbxCurseModifier);
         Controls.Add(label3);
         Controls.Add(label2);
         Controls.Add(lblInMinutes);
@@ -997,7 +1040,6 @@ partial class GameSettingsView : UserControl
         Controls.Add(nudPlayerHealthFactor);
         Controls.Add(lblPhf);
         Controls.Add(lblServerMustBeStoppedMessage);
-        Controls.Add(btnSaveSettings);
         ForeColor = SystemColors.ButtonHighlight;
         Name = "GameSettingsView";
         Size = new Size(744, 411);
@@ -1101,4 +1143,7 @@ partial class GameSettingsView : UserControl
     private Label label2;
     private Label label3;
     private Button button1;
+    private Label label4;
+    private ComboBox cbxCurseModifier;
+    private Label lblTitle;
 }

@@ -40,6 +40,10 @@ partial class ServerSettingsView
         lblMaxPlayers = new Label();
         btnSaveSettings = new Button();
         lblServerMustBeStoppedMessage = new Label();
+        chkEnableVoiceChat = new CheckBox();
+        chkEnableTextChat = new CheckBox();
+        label1 = new Label();
+        cbxGameSettingsPreset = new ComboBox();
         ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
         ((System.ComponentModel.ISupportInitialize)nudQueryPort).BeginInit();
         ((System.ComponentModel.ISupportInitialize)nudSlotCount).BeginInit();
@@ -142,9 +146,9 @@ partial class ServerSettingsView
         // 
         lblMaxPlayers.AutoSize = true;
         lblMaxPlayers.ForeColor = SystemColors.ButtonHighlight;
-        lblMaxPlayers.Location = new Point(223, 202);
+        lblMaxPlayers.Location = new Point(224, 202);
         lblMaxPlayers.Name = "lblMaxPlayers";
-        lblMaxPlayers.Size = new Size(67, 15);
+        lblMaxPlayers.Size = new Size(66, 15);
         lblMaxPlayers.TabIndex = 52;
         lblMaxPlayers.Text = "MaxPlayers";
         // 
@@ -176,11 +180,58 @@ partial class ServerSettingsView
         lblServerMustBeStoppedMessage.Text = "Server must be stopped to update settings\r\n";
         lblServerMustBeStoppedMessage.TextAlign = ContentAlignment.MiddleCenter;
         // 
+        // chkEnableVoiceChat
+        // 
+        chkEnableVoiceChat.AutoSize = true;
+        chkEnableVoiceChat.Location = new Point(296, 258);
+        chkEnableVoiceChat.Name = "chkEnableVoiceChat";
+        chkEnableVoiceChat.Size = new Size(120, 19);
+        chkEnableVoiceChat.TabIndex = 61;
+        chkEnableVoiceChat.Text = "Enable Voice Chat";
+        chkEnableVoiceChat.UseVisualStyleBackColor = true;
+        // 
+        // chkEnableTextChat
+        // 
+        chkEnableTextChat.AutoSize = true;
+        chkEnableTextChat.Location = new Point(296, 283);
+        chkEnableTextChat.Name = "chkEnableTextChat";
+        chkEnableTextChat.Size = new Size(113, 19);
+        chkEnableTextChat.TabIndex = 62;
+        chkEnableTextChat.Text = "Enable Text Chat";
+        chkEnableTextChat.UseVisualStyleBackColor = true;
+        // 
+        // label1
+        // 
+        label1.AutoSize = true;
+        label1.ForeColor = SystemColors.ButtonHighlight;
+        label1.Location = new Point(172, 232);
+        label1.Name = "label1";
+        label1.Size = new Size(118, 15);
+        label1.TabIndex = 64;
+        label1.Text = "Game Settings Preset";
+        // 
+        // cbxGameSettingsPreset
+        // 
+        cbxGameSettingsPreset.Anchor = AnchorStyles.Top;
+        cbxGameSettingsPreset.BackColor = Color.FromArgb(6, 6, 48);
+        cbxGameSettingsPreset.DropDownStyle = ComboBoxStyle.DropDownList;
+        cbxGameSettingsPreset.FlatStyle = FlatStyle.Flat;
+        cbxGameSettingsPreset.ForeColor = SystemColors.Window;
+        cbxGameSettingsPreset.FormattingEnabled = true;
+        cbxGameSettingsPreset.Location = new Point(296, 229);
+        cbxGameSettingsPreset.Name = "cbxGameSettingsPreset";
+        cbxGameSettingsPreset.Size = new Size(175, 23);
+        cbxGameSettingsPreset.TabIndex = 131;
+        // 
         // ServerSettingsView
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 18);
+        Controls.Add(cbxGameSettingsPreset);
+        Controls.Add(label1);
+        Controls.Add(chkEnableTextChat);
+        Controls.Add(chkEnableVoiceChat);
         Controls.Add(lblServerMustBeStoppedMessage);
         Controls.Add(txtIpAddress);
         Controls.Add(txtServerName);
@@ -216,4 +267,8 @@ partial class ServerSettingsView
     private Label lblMaxPlayers;
     private Button btnSaveSettings;
     private Label lblServerMustBeStoppedMessage;
+    private CheckBox chkEnableVoiceChat;
+    private CheckBox chkEnableTextChat;
+    private Label label1;
+    private ComboBox cbxGameSettingsPreset;
 }

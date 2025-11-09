@@ -76,7 +76,10 @@ public class ServerSettingsService : IServerSettingsService
             Ip = Constants.ServerSettings.DEFAULT_SERVER_IP,
             GamePort = Constants.ServerSettings.DEFAULT_SERVER_GAME_PORT,
             QueryPort = Constants.ServerSettings.DEFAULT_SERVER_QUERY_PORT,
-            SlotCount = Constants.ServerSettings.DEFAULT_SERVER_SLOT_COUNT
+            SlotCount = Constants.ServerSettings.DEFAULT_SERVER_SLOT_COUNT,
+            EnableVoiceChat = Constants.ServerSettings.DEFAULT_SERVER_VOICE_CHAT_ENABLED,
+            EnableTextChat = Constants.ServerSettings.DEFAULT_SERVER_TEXT_CHAT_ENABLED,
+            GameSettingsPreset = Constants.ServerSettings.DEFAULT_SERVER_GAME_SETTINGS_PRESET
         };
 
         var output = JsonConvert.SerializeObject(json, JsonSettings.Default);

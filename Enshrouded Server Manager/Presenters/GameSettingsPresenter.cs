@@ -40,6 +40,7 @@ public class GameSettingsPresenter
         _gameSettingsView.SetRandomSpawnerAmount(new BindingList<RandomSpawnerAmount>(Enum.GetValues<RandomSpawnerAmount>().ToList()));
         _gameSettingsView.SetAggroPoolAmount(new BindingList<AggroPoolAmount>(Enum.GetValues<AggroPoolAmount>().ToList()));
         _gameSettingsView.SetTamingStartleRepercussion(new BindingList<TamingStartleRepercussion>(Enum.GetValues<TamingStartleRepercussion>().ToList()));
+        _gameSettingsView.SetCurseModifier(new BindingList<CurseModifier>(Enum.GetValues<CurseModifier>().ToList()));
 
 
 
@@ -47,6 +48,10 @@ public class GameSettingsPresenter
         _gameSettingsView.SaveChangesButtonClicked += (sender, e) => SaveServerSettings();
 
         _eventAggregator.Subscribe<ProfileSelectedMessage>(p => OnServerProfileSelected(p.SelectedProfile));
+        _eventAggregator.Subscribe<ServerSettingsSavedSuccessMessage>(m =>
+        {
+            _serverSettings = m.ServerSettings;
+        });
     }
 
     public void SetGameSettings(ServerSettings serverSettings)
@@ -97,6 +102,7 @@ public class GameSettingsPresenter
         _gameSettingsView.ThreatBonus = gameSettings.ThreatBonus;
         _gameSettingsView.PacifyAllEnemies = gameSettings.PacifyAllEnemies;
         _gameSettingsView.TamingStartleRepercussion = gameSettings.TamingStartleRepercussion;
+        _gameSettingsView.CurseModifier = gameSettings.CurseModifier;
         //_gameSettingsView.DayTimeDuration = gameSettings.DayTimeDuration;
         //_gameSettingsView.NightTimeDuration = gameSettings.NightTimeDuration;
     }
@@ -152,6 +158,7 @@ public class GameSettingsPresenter
             ThreatBonus = _gameSettingsView.ThreatBonus,
             PacifyAllEnemies = _gameSettingsView.PacifyAllEnemies,
             TamingStartleRepercussion = _gameSettingsView.TamingStartleRepercussion,
+            CurseModifier = _gameSettingsView.CurseModifier,
             DayTimeDuration = dayTimeDuration,
             NightTimeDuration = nightTimeDuration,
         };
@@ -159,6 +166,7 @@ public class GameSettingsPresenter
         if (_serverSettingsService.SaveServerSettings(_serverSettings, _serverProfile))
         {
             _gameSettingsView.AnimateSaveButton();
+            _eventAggregator.Publish(new ServerSettingsSavedSuccessMessage(_serverSettings));
         }
     }
 }

@@ -40,6 +40,10 @@ public class UserGroupSettingsPresenter
         _userGroupSettingsView.SaveChangesButtonClicked += (sender, e) => SaveServerSettings();
 
         _eventAggregator.Subscribe<ProfileSelectedMessage>(p => OnServerProfileSelected(p.SelectedProfile));
+        _eventAggregator.Subscribe<ServerSettingsSavedSuccessMessage>(m =>
+        {
+            _serverSettings = m.ServerSettings;
+        });
     }
 
     public void SetUserSettings(ServerSettings serverSettings)
@@ -152,6 +156,7 @@ public class UserGroupSettingsPresenter
         if (_serverSettingsService.SaveServerSettings(_serverSettings, _serverProfile))
         {
             _userGroupSettingsView.AnimateSaveButton();
+            _eventAggregator.Publish(new ServerSettingsSavedSuccessMessage(_serverSettings));
         }
     }
 

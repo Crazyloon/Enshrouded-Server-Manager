@@ -1,5 +1,7 @@
-﻿using Enshrouded_Server_Manager.UI;
+﻿using Enshrouded_Server_Manager.Enums;
+using Enshrouded_Server_Manager.UI;
 using Enshrouded_Server_Manager.Views;
+using System.ComponentModel;
 
 namespace Enshrouded_Server_Manager;
 public partial class ServerSettingsView : UserControl, IServerSettingsView
@@ -39,11 +41,31 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
         set => nudSlotCount.Value = value;
     }
 
+    public bool EnableVoiceChat
+    {
+        get => chkEnableVoiceChat.Checked;
+        set => chkEnableVoiceChat.Checked = value;
+    }
+
+    public bool EnableTextChat
+    {
+        get => chkEnableTextChat.Checked;
+        set => chkEnableTextChat.Checked = value;
+    }
+
+    public string GameSettingsPreset
+    {
+        get => ((GameSettingsPreset)cbxGameSettingsPreset.SelectedItem).ToString();
+        set => cbxGameSettingsPreset.SelectedItem = Enum.Parse(typeof(GameSettingsPreset), value);
+    }
+
     public event EventHandler SaveChangesButtonClicked
     {
         add => btnSaveSettings.Click += value;
         remove => btnSaveSettings.Click -= value;
     }
+
+    public event EventHandler cbxGameSettingsPresetChanged;
 
     public void AnimateSaveButton()
     {
@@ -54,5 +76,10 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
     {
         var button = ((Button)sender);
         Interactions.HandleEnabledChanged_PrimaryButton(button);
+    }
+
+    public void SetGameSettingsPreset(BindingList<GameSettingsPreset> gameSettingsPreset)
+    {
+        cbxGameSettingsPreset.DataSource = gameSettingsPreset;
     }
 }

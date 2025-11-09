@@ -1,7 +1,9 @@
-﻿using Enshrouded_Server_Manager.Events;
+﻿using Enshrouded_Server_Manager.Enums;
+using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.Views;
+using System.ComponentModel;
 
 namespace Enshrouded_Server_Manager.Presenters;
 public class ServerSettingsPresenter
@@ -15,6 +17,7 @@ public class ServerSettingsPresenter
     private readonly IFileLoggerService _logger;
 
     private ServerProfile _serverProfile;
+    private ServerSettings _serverSettings;
 
     public ServerSettingsPresenter(IServerSettingsView serverSettingsView,
         IEventAggregator eventAggregator,
@@ -30,10 +33,16 @@ public class ServerSettingsPresenter
         _server = server;
         _logger = fileLogger;
 
+        _serverSettingsView.SetGameSettingsPreset(new BindingList<GameSettingsPreset>(Enum.GetValues<GameSettingsPreset>().ToList()));
+
         //_serverSettingsView.ShowPasswordButtonClicked += (sender, e) => TogglePasswordVisiblity();
         _serverSettingsView.SaveChangesButtonClicked += (sender, e) => SaveServerSettings();
 
         _eventAggregator.Subscribe<ProfileSelectedMessage>(p => OnServerProfileSelected(p.SelectedProfile));
+        _eventAggregator.Subscribe<ServerSettingsSavedSuccessMessage>(m =>
+        {
+            _serverSettings = m.ServerSettings;
+        });
     }
 
     public void SetServerSettings(ServerSettings serverSettings)
@@ -43,6 +52,9 @@ public class ServerSettingsPresenter
         _serverSettingsView.GamePort = serverSettings.GamePort;
         _serverSettingsView.QueryPort = serverSettings.QueryPort;
         _serverSettingsView.MaxPlayers = serverSettings.SlotCount;
+        _serverSettingsView.GameSettingsPreset = serverSettings.GameSettingsPreset ?? "Default";
+        _serverSettingsView.EnableTextChat = serverSettings.EnableTextChat;
+        _serverSettingsView.EnableVoiceChat = serverSettings.EnableVoiceChat;
     }
 
     public void OnServerProfileSelected(ServerProfile serverProfile)
@@ -50,8 +62,8 @@ public class ServerSettingsPresenter
         _serverProfile = serverProfile;
         if (serverProfile is not null)
         {
-            var settings = _serverSettingsService.LoadServerSettings(serverProfile.Name);
-            SetServerSettings(settings);
+            _serverSettings = _serverSettingsService.LoadServerSettings(serverProfile.Name);
+            SetServerSettings(_serverSettings);
         }
     }
 
@@ -67,7 +79,7 @@ public class ServerSettingsPresenter
 
     private void SaveServerSettings()
     {
-        ServerSettings json = new ServerSettings()
+        ServerSettings serverSettings = new ServerSettings()
         {
             Name = _serverSettingsView.ServerName,
             //Password = _serverSettingsView.Password,
@@ -76,12 +88,18 @@ public class ServerSettingsPresenter
             Ip = _serverSettingsView.IpAddress,
             GamePort = Convert.ToInt32(_serverSettingsView.GamePort),
             QueryPort = Convert.ToInt32(_serverSettingsView.QueryPort),
-            SlotCount = Convert.ToInt32(_serverSettingsView.MaxPlayers)
+            SlotCount = Convert.ToInt32(_serverSettingsView.MaxPlayers),
+            EnableVoiceChat = _serverSettingsView.EnableVoiceChat,
+            EnableTextChat = _serverSettingsView.EnableTextChat,
+            GameSettingsPreset = _serverSettingsView.GameSettingsPreset,
+            GameSettings = _serverSettings.GameSettings,
+            UserGroups = _serverSettings.UserGroups,
         };
 
-        if (_serverSettingsService.SaveServerSettings(json, _serverProfile))
+        if (_serverSettingsService.SaveServerSettings(serverSettings, _serverProfile))
         {
             _serverSettingsView.AnimateSaveButton();
+            _eventAggregator.Publish(new ServerSettingsSavedSuccessMessage(serverSettings));
         }
     }
 }

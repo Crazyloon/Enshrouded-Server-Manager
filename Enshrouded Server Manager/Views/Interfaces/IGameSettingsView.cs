@@ -37,6 +37,7 @@ public interface IGameSettingsView
     decimal ThreatBonus { get; set; }
     bool PacifyAllEnemies { get; set; }
     string TamingStartleRepercussion { get; set; }
+    string CurseModifier { get; set; }
     decimal DayTimeDuration { get; set; }
     decimal NightTimeDuration { get; set; }
 
@@ -46,12 +47,14 @@ public interface IGameSettingsView
     event EventHandler cbxRandomSpawnerAmountChanged;
     event EventHandler cbxAggroPoolAmountChanged;
     event EventHandler cbxTamingStartleRepercussionChanged;
+    event EventHandler cbxCurseModifierChanged;
 
     void SetWeatherFrequency(BindingList<WeatherFrequency> weatherFrequencies);
     void SetTombstoneMode(BindingList<TombstoneMode> tombstoneModes);
     void SetRandomSpawnerAmount(BindingList<RandomSpawnerAmount> randomSpawnerAmounts);
     void SetAggroPoolAmount(BindingList<AggroPoolAmount> aggroPool);
     void SetTamingStartleRepercussion(BindingList<TamingStartleRepercussion> tamingStartleRepercussion);
+    void SetCurseModifier(BindingList<CurseModifier> curseModifier);
 
     void AnimateSaveButton();
 }

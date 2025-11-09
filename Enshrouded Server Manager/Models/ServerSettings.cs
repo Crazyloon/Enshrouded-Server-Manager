@@ -25,6 +25,12 @@ public record ServerSettings
     [JsonPropertyName("slotCount")]
     public int SlotCount { get; set; }
 
+    [JsonPropertyName("enableVoiceChat")]
+    public bool EnableVoiceChat { get; set; }
+
+    [JsonPropertyName("enableTextChat")]
+    public bool EnableTextChat { get; set; }
+
     [JsonPropertyName("gameSettingsPreset")]
     public string GameSettingsPreset { get; set; } = "Default";
 
@@ -133,6 +139,9 @@ public record GameSettings
 
     [JsonPropertyName("tamingStartleRepercussion")]
     public string TamingStartleRepercussion { get; set; } = "LoseSomeProgress";
+
+    [JsonPropertyName("curseModifier")]
+    public string CurseModifier { get; set; } = "Normal";
 
     [JsonPropertyName("dayTimeDuration")]
     public decimal DayTimeDuration { get; set; } = 30;

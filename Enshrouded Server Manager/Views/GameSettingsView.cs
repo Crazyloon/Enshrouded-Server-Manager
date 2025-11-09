@@ -175,6 +175,11 @@ public partial class GameSettingsView : UserControl, IGameSettingsView
         get => ((TamingStartleRepercussion)cbxTamingStartleRepercussion.SelectedItem).ToString();
         set => cbxTamingStartleRepercussion.SelectedItem = Enum.Parse(typeof(TamingStartleRepercussion), value);
     }
+    public string CurseModifier
+    {
+        get => ((CurseModifier)cbxCurseModifier.SelectedItem).ToString();
+        set => cbxCurseModifier.SelectedItem = Enum.Parse(typeof(CurseModifier), value);
+    }
     public decimal DayTimeDuration
     {
         get => (decimal)nudDayTimeDuration.Value;
@@ -197,6 +202,7 @@ public partial class GameSettingsView : UserControl, IGameSettingsView
     public event EventHandler cbxRandomSpawnerAmountChanged;
     public event EventHandler cbxAggroPoolAmountChanged;
     public event EventHandler cbxTamingStartleRepercussionChanged;
+    public event EventHandler cbxCurseModifierChanged;
 
     public void AnimateSaveButton()
     {
@@ -230,8 +236,8 @@ public partial class GameSettingsView : UserControl, IGameSettingsView
         cbxTamingStartleRepercussion.DataSource = tamingStartleRepercussion;
     }
 
-    public void SetWeatherFrequencies(BindingList<WeatherFrequency> weatherFrequencies)
+    public void SetCurseModifier(BindingList<CurseModifier> curseModifier)
     {
-        throw new NotImplementedException();
+        cbxCurseModifier.DataSource = curseModifier;
     }
 }

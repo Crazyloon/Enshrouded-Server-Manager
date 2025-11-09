@@ -43,6 +43,9 @@ public static class Constants
         public const int DEFAULT_SERVER_GAME_PORT = 15636;
         public const int DEFAULT_SERVER_QUERY_PORT = 15637;
         public const int DEFAULT_SERVER_SLOT_COUNT = 16;
+        public const bool DEFAULT_SERVER_VOICE_CHAT_ENABLED = true;
+        public const bool DEFAULT_SERVER_TEXT_CHAT_ENABLED = true;
+        public const string DEFAULT_SERVER_GAME_SETTINGS_PRESET = "Default";
     }
 
     public static class Errors

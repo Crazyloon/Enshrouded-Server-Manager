@@ -42,6 +42,7 @@ public partial class MainForm : Form, IMainFormView
         // TODO: Configure all of these services for dependency injection
         // There should only EVER be one instance of the EventAggregator (singleton)
         EventAggregator eventAggregator = new EventAggregator();
+        ServerSettings _serverSettings = new ServerSettings();
 
         // Initialize shared timers
         Dictionary<string, CountDownTimer> restartTimers = new();
