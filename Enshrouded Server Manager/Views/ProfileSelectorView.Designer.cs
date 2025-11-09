@@ -45,9 +45,10 @@ partial class ProfileSelectorView
         // cbxProfileSelectionComboBox
         // 
         cbxProfileSelectionComboBox.Anchor = AnchorStyles.Top;
-        cbxProfileSelectionComboBox.BackColor = SystemColors.Window;
+        cbxProfileSelectionComboBox.BackColor = Color.FromArgb(6, 6, 48);
         cbxProfileSelectionComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-        cbxProfileSelectionComboBox.FlatStyle = FlatStyle.System;
+        cbxProfileSelectionComboBox.FlatStyle = FlatStyle.Flat;
+        cbxProfileSelectionComboBox.ForeColor = SystemColors.Window;
         cbxProfileSelectionComboBox.FormattingEnabled = true;
         cbxProfileSelectionComboBox.Location = new Point(230, 8);
         cbxProfileSelectionComboBox.Name = "cbxProfileSelectionComboBox";

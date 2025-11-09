@@ -41,12 +41,14 @@ partial class EnshroudedServerManager
         restoreBackupView = new RestoreBackupView();
         scheduleRestartsView = new Views.ScheduleRestartsView();
         serverSettingsView = new ServerSettingsView();
+        gameSettingsView = new GameSettingsView();
         discordNotificationsView = new DiscordNotificationsView();
         autoBackupView = new AutoBackupView();
         manageProfilesView = new ManageProfilesView();
         pnlMenuBar = new Panel();
         lblMinimizeTrayButton = new Label();
         lblCloseButton = new Label();
+        userGroupSettingsView = new UserGroupSettingsView();
         pnlNavBar.SuspendLayout();
         pnlProfileSelector.SuspendLayout();
         pnlAdminControls.SuspendLayout();
@@ -150,6 +152,8 @@ partial class EnshroudedServerManager
         pnlMain.Controls.Add(restoreBackupView);
         pnlMain.Controls.Add(scheduleRestartsView);
         pnlMain.Controls.Add(serverSettingsView);
+        pnlMain.Controls.Add(gameSettingsView);
+        pnlMain.Controls.Add(userGroupSettingsView);
         pnlMain.Controls.Add(discordNotificationsView);
         pnlMain.Controls.Add(autoBackupView);
         pnlMain.Dock = DockStyle.Fill;
@@ -218,17 +222,51 @@ partial class EnshroudedServerManager
         serverSettingsView.ForeColor = SystemColors.ButtonHighlight;
         serverSettingsView.GamePort = 0;
         serverSettingsView.IpAddress = "";
-        serverSettingsView.IsPasswordShown = false;
         serverSettingsView.Location = new Point(0, 0);
         serverSettingsView.MaxPlayers = 0;
         serverSettingsView.Name = "serverSettingsView";
-        serverSettingsView.Password = "";
-        serverSettingsView.PasswordChar = '*';
         serverSettingsView.QueryPort = 0;
         serverSettingsView.ServerName = "";
-        serverSettingsView.ShowPasswordButtonText = "Show";
         serverSettingsView.Size = new Size(743, 411);
         serverSettingsView.TabIndex = 4;
+        // 
+        // gameSettingsView
+        // 
+        gameSettingsView.BackColor = Color.FromArgb(0, 0, 18);
+        gameSettingsView.BossDamageFactor = new decimal(new int[] { 2, 0, 0, 65536 });
+        gameSettingsView.BossHealthFactor = new decimal(new int[] { 2, 0, 0, 65536 });
+        gameSettingsView.DayTimeDuration = new decimal(new int[] { 2, 0, 0, 0 });
+        gameSettingsView.EnableDurability = false;
+        gameSettingsView.EnableGliderTurbulences = false;
+        gameSettingsView.EnableStarvingDebuff = false;
+        gameSettingsView.EnemyDamageFactor = new decimal(new int[] { 25, 0, 0, 131072 });
+        gameSettingsView.EnemyHealthFactor = new decimal(new int[] { 25, 0, 0, 131072 });
+        gameSettingsView.EnemyPerceptionRangeFactor = new decimal(new int[] { 5, 0, 0, 65536 });
+        gameSettingsView.EnemyStaminaFactor = new decimal(new int[] { 5, 0, 0, 65536 });
+        gameSettingsView.ExperienceCombatFactor = new decimal(new int[] { 25, 0, 0, 131072 });
+        gameSettingsView.ExperienceExplorationQuestsFactor = new decimal(new int[] { 25, 0, 0, 131072 });
+        gameSettingsView.ExperienceMiningFactor = new decimal(new int[] { 0, 0, 0, 0 });
+        gameSettingsView.FactoryProductionSpeedFactor = new decimal(new int[] { 25, 0, 0, 131072 });
+        gameSettingsView.FoodBuffDurationFactor = new decimal(new int[] { 5, 0, 0, 65536 });
+        gameSettingsView.ForeColor = SystemColors.ButtonHighlight;
+        gameSettingsView.FromHungerToStarving = new decimal(new int[] { 5, 0, 0, 0 });
+        gameSettingsView.Location = new Point(0, 0);
+        gameSettingsView.MiningDamageFactor = new decimal(new int[] { 5, 0, 0, 65536 });
+        gameSettingsView.Name = "gameSettingsView";
+        gameSettingsView.NightTimeDuration = new decimal(new int[] { 2, 0, 0, 0 });
+        gameSettingsView.PacifyAllEnemies = false;
+        gameSettingsView.PerkCostFactor = new decimal(new int[] { 25, 0, 0, 131072 });
+        gameSettingsView.PerkUpgradeRecyclingFactor = new decimal(new int[] { 0, 0, 0, 0 });
+        gameSettingsView.PlantGrowthSpeedFactor = new decimal(new int[] { 5, 0, 0, 65536 });
+        gameSettingsView.PlayerBodyHeatFactor = new decimal(new int[] { 5, 0, 0, 65536 });
+        gameSettingsView.PlayerHealthFactor = new decimal(new int[] { 25, 0, 0, 131072 });
+        gameSettingsView.PlayerManaFactor = new decimal(new int[] { 25, 0, 0, 131072 });
+        gameSettingsView.PlayerStaminaFactor = new decimal(new int[] { 25, 0, 0, 131072 });
+        gameSettingsView.ResourceDropStackAmountFactor = new decimal(new int[] { 25, 0, 0, 131072 });
+        gameSettingsView.ShroudTimeFactor = new decimal(new int[] { 5, 0, 0, 65536 });
+        gameSettingsView.Size = new Size(744, 411);
+        gameSettingsView.TabIndex = 11;
+        gameSettingsView.ThreatBonus = new decimal(new int[] { 25, 0, 0, 131072 });
         // 
         // discordNotificationsView
         // 
@@ -331,6 +369,15 @@ partial class EnshroudedServerManager
         lblCloseButton.TextAlign = ContentAlignment.MiddleCenter;
         lblCloseButton.Click += lblCloseButton_Click;
         // 
+        // userGroupSettingsView
+        // 
+        userGroupSettingsView.BackColor = Color.FromArgb(0, 0, 18);
+        userGroupSettingsView.ForeColor = SystemColors.ButtonHighlight;
+        userGroupSettingsView.Location = new Point(0, 0);
+        userGroupSettingsView.Name = "userGroupSettingsView";
+        userGroupSettingsView.Size = new Size(744, 411);
+        userGroupSettingsView.TabIndex = 4;
+        // 
         // EnshroudedServerManager
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
@@ -377,4 +424,6 @@ partial class EnshroudedServerManager
     private RestoreBackupView restoreBackupView;
     private InfoPanelWideView infoPanelWideView;
     private Views.CreditsPanelWideView creditsPanelWideView;
+    private GameSettingsView gameSettingsView;
+    private UserGroupSettingsView userGroupSettingsView;
 }

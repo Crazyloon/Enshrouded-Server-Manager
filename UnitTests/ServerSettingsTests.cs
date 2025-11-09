@@ -28,7 +28,6 @@ public class ServerSettingsTests
     private ServerSettings _serverSettings = new ServerSettings
     {
         Name = "TestServerName",
-        Password = "123",
         Ip = "0.0.0.0",
         GamePort = 15636,
         QueryPort = 15637,
@@ -72,7 +71,6 @@ public class ServerSettingsTests
         var serverSettings = new ServerSettings
         {
             Name = "TestServer",
-            Password = "123",
             Ip = "0.0.0.0",
             GamePort = 15636,
             QueryPort = 15637,
@@ -86,7 +84,6 @@ public class ServerSettingsTests
 
         // Assert
         Assert.AreEqual(_serverSettingsView.ServerName, serverSettings.Name);
-        Assert.AreEqual(_serverSettingsView.Password, serverSettings.Password);
         Assert.AreEqual(_serverSettingsView.IpAddress, serverSettings.Ip);
         Assert.AreEqual(_serverSettingsView.GamePort, serverSettings.GamePort);
         Assert.AreEqual(_serverSettingsView.QueryPort, serverSettings.QueryPort);
@@ -119,48 +116,47 @@ public class ServerSettingsTests
         // Assert
         _serverSettingsService.Received().LoadServerSettings(Arg.Is(_serverProfile.Name));
         Assert.AreEqual(_serverSettingsView.ServerName, _serverSettings.Name);
-        Assert.AreEqual(_serverSettingsView.Password, _serverSettings.Password);
         Assert.AreEqual(_serverSettingsView.IpAddress, _serverSettings.Ip);
         Assert.AreEqual(_serverSettingsView.GamePort, _serverSettings.GamePort);
         Assert.AreEqual(_serverSettingsView.QueryPort, _serverSettings.QueryPort);
         Assert.AreEqual(_serverSettingsView.MaxPlayers, _serverSettings.SlotCount);
     }
 
-    [TestMethod]
-    public void ClickingOnShowPasswordButton_ShouldTogglePasswordVisible_Success()
-    {
-        // Arrange
-        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
-        presenter.OnServerProfileSelected(_serverProfile);
+    //[TestMethod]
+    //public void ClickingOnShowPasswordButton_ShouldTogglePasswordVisible_Success()
+    //{
+    //    // Arrange
+    //    var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
+    //    presenter.OnServerProfileSelected(_serverProfile);
 
-        _serverSettingsView.ShowPasswordButtonText = Constants.ButtonText.SHOW_PASSWORD;
-        _serverSettingsView.PasswordChar = '*';
+    //    _serverSettingsView.ShowPasswordButtonText = Constants.ButtonText.SHOW_PASSWORD;
+    //    _serverSettingsView.PasswordChar = '*';
 
-        // Act
-        _serverSettingsView.ShowPasswordButtonClicked += Raise.Event();
+    //    // Act
+    //    _serverSettingsView.ShowPasswordButtonClicked += Raise.Event();
 
-        // Assert
-        Assert.AreEqual(_serverSettingsView.ShowPasswordButtonText, Constants.ButtonText.HIDE_PASSWORD);
-        Assert.AreEqual(_serverSettingsView.PasswordChar, '\0');
-    }
+    //    // Assert
+    //    Assert.AreEqual(_serverSettingsView.ShowPasswordButtonText, Constants.ButtonText.HIDE_PASSWORD);
+    //    Assert.AreEqual(_serverSettingsView.PasswordChar, '\0');
+    //}
 
-    [TestMethod]
-    public void ClickingOnShowPasswordButton_ShouldTogglePasswordHidden_Success()
-    {
-        // Arrange
-        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
-        presenter.OnServerProfileSelected(_serverProfile);
+    //[TestMethod]
+    //public void ClickingOnShowPasswordButton_ShouldTogglePasswordHidden_Success()
+    //{
+    //    // Arrange
+    //    var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
+    //    presenter.OnServerProfileSelected(_serverProfile);
 
-        _serverSettingsView.ShowPasswordButtonText = Constants.ButtonText.HIDE_PASSWORD;
-        _serverSettingsView.PasswordChar = '\0';
+    //    _serverSettingsView.ShowPasswordButtonText = Constants.ButtonText.HIDE_PASSWORD;
+    //    _serverSettingsView.PasswordChar = '\0';
 
-        // Act
-        _serverSettingsView.ShowPasswordButtonClicked += Raise.Event();
+    //    // Act
+    //    _serverSettingsView.ShowPasswordButtonClicked += Raise.Event();
 
-        // Assert
-        Assert.AreEqual(_serverSettingsView.ShowPasswordButtonText, Constants.ButtonText.SHOW_PASSWORD);
-        Assert.AreEqual(_serverSettingsView.PasswordChar, '*');
-    }
+    //    // Assert
+    //    Assert.AreEqual(_serverSettingsView.ShowPasswordButtonText, Constants.ButtonText.SHOW_PASSWORD);
+    //    Assert.AreEqual(_serverSettingsView.PasswordChar, '*');
+    //}
 
     [TestMethod]
     public void ClickingOnSaveChangesButton_ShouldSaveServerSettings_Success()
@@ -194,7 +190,6 @@ public class ServerSettingsTests
         //EventAggregator.Instance.Publish(_profileSelectedMessage); // Done in constructor
 
         _serverSettingsView.ServerName = "RealServer";
-        _serverSettingsView.Password = "123";
         _serverSettingsView.IpAddress = "0.0.0.0";
         _serverSettingsView.GamePort = 15636;
         _serverSettingsView.QueryPort = 15637;
@@ -203,7 +198,6 @@ public class ServerSettingsTests
         var savedSettings = new ServerSettings()
         {
             Name = _serverSettingsView.ServerName,
-            Password = _serverSettingsView.Password,
             SaveDirectory = Constants.Paths.ENSHROUDED_SAVE_GAME_DIRECTORY,
             LogDirectory = Constants.Paths.ENSHROUDED_LOGS_DIRECTORY,
             Ip = _serverSettingsView.IpAddress,

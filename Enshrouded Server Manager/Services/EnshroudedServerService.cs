@@ -132,7 +132,7 @@ public class EnshroudedServerService : IEnshroudedServerService
     {
         try
         {
-            Process p = Process.Start(Constants.ProcessNames.STEAM_CMD_EXE, $"+login anonymous +app_update {Constants.STEAM_APP_ID} +quit");
+            Process p = Process.Start(Constants.ProcessNames.STEAM_CMD_EXE, $"+login anonymous +app_update {Constants.STEAM_APP_ID} validate +quit");
             p.WaitForExit();
         }
 

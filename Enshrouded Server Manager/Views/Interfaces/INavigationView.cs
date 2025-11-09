@@ -6,6 +6,8 @@ public interface INavigationView
 {
     event EventHandler HomeClicked;
     event EventHandler ServerSettingsClicked;
+    event EventHandler GameSettingsClicked;
+    event EventHandler UserGroupSettingsClicked;
     event EventHandler AutoBackupClicked;
     event EventHandler RestoreBackupClicked;
     event EventHandler ScheduleRestartsClicked;

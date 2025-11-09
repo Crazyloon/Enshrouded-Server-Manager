@@ -1,5 +1,7 @@
-﻿using Enshrouded_Server_Manager.UI;
+﻿using Enshrouded_Server_Manager.Enums;
+using Enshrouded_Server_Manager.UI;
 using Enshrouded_Server_Manager.Views;
+using System.ComponentModel;
 
 namespace Enshrouded_Server_Manager;
 public partial class ServerSettingsView : UserControl, IServerSettingsView
@@ -13,12 +15,6 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
     {
         get => txtServerName.Text;
         set => txtServerName.Text = value;
-    }
-
-    public string Password
-    {
-        get => txtServerPassword.Text;
-        set => txtServerPassword.Text = value;
     }
 
     public string IpAddress
@@ -45,24 +41,22 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
         set => nudSlotCount.Value = value;
     }
 
-    public string ShowPasswordButtonText
+    public bool EnableVoiceChat
     {
-        get => btnShowPassword.Text;
-        set => btnShowPassword.Text = value;
+        get => chkEnableVoiceChat.Checked;
+        set => chkEnableVoiceChat.Checked = value;
     }
 
-    public bool IsPasswordShown { get; set; }
-
-    public char PasswordChar
+    public bool EnableTextChat
     {
-        get => txtServerPassword.PasswordChar;
-        set => txtServerPassword.PasswordChar = value;
+        get => chkEnableTextChat.Checked;
+        set => chkEnableTextChat.Checked = value;
     }
 
-    public event EventHandler ShowPasswordButtonClicked
+    public string GameSettingsPreset
     {
-        add => btnShowPassword.Click += value;
-        remove => btnShowPassword.Click -= value;
+        get => ((GameSettingsPreset)cbxGameSettingsPreset.SelectedItem).ToString();
+        set => cbxGameSettingsPreset.SelectedItem = Enum.Parse(typeof(GameSettingsPreset), value);
     }
 
     public event EventHandler SaveChangesButtonClicked
@@ -70,6 +64,8 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
         add => btnSaveSettings.Click += value;
         remove => btnSaveSettings.Click -= value;
     }
+
+    public event EventHandler cbxGameSettingsPresetChanged;
 
     public void AnimateSaveButton()
     {
@@ -80,5 +76,10 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
     {
         var button = ((Button)sender);
         Interactions.HandleEnabledChanged_PrimaryButton(button);
+    }
+
+    public void SetGameSettingsPreset(BindingList<GameSettingsPreset> gameSettingsPreset)
+    {
+        cbxGameSettingsPreset.DataSource = gameSettingsPreset;
     }
 }

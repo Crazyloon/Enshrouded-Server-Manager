@@ -20,6 +20,8 @@ public class NavigationPresenter
 
         _view.HomeClicked += (sender, e) => OnViewSelectionChanged(ViewSelection.Home);
         _view.ServerSettingsClicked += (sender, e) => OnViewSelectionChanged(ViewSelection.ServerSettings);
+        _view.GameSettingsClicked += (sender, e) => OnViewSelectionChanged(ViewSelection.GameSettings);
+        _view.UserGroupSettingsClicked += (sender, e) => OnViewSelectionChanged(ViewSelection.UserGroupSettings);
         _view.AutoBackupClicked += (sender, e) => OnViewSelectionChanged(ViewSelection.AutoBackup);
         _view.RestoreBackupClicked += (sender, e) => OnViewSelectionChanged(ViewSelection.RestoreBackup);
         _view.ScheduleRestartsClicked += (sender, e) => OnViewSelectionChanged(ViewSelection.ScheduleRestarts);
