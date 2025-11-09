@@ -120,6 +120,10 @@
   <data name="lblNewsText.Text" xml:space="preserve">
     <value>Changes:
 
+v0.7.0
+- Add latest server configs for social,
+  game options, and user settings
+
 v0.6.9
 - Fixed Backup/Restore to work with the
    latest changes
@@ -128,9 +132,6 @@ v0.6.9
 
 v0.6.8
 - Fixed a bug with Auto-backup
-   not working with auto-restarts
-
-v0.6.7
-- Fixed a bug with Auto-backup</value>
+   not working with auto-restarts</value>
   </data>
 </root>
