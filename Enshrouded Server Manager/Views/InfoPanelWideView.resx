@@ -118,14 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="lblNewsText.Text" xml:space="preserve">
-    <value>v0.6.9
+    <value>Changes:
+
+v0.7.0
+- Add latest config options for server, game and user group settings
+
+v0.6.9
 - Fixed Backup/Restore to work with the latest changes
 - Fixed a bug with the Update feature not actually updating the server
 
 v0.6.8
-- Fixed an bug with Auto-backup not starting when an auto-restart starts the server
-
-v0.6.7
-- Fixed an bug with Auto-backup not starting when the server starts</value>
+- Fixed an bug with Auto-backup not starting when an auto-restart starts the server</value>
   </data>
 </root>

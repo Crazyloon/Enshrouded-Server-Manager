@@ -42,7 +42,7 @@ partial class InfoPanelWideView
         lblNewsText.Location = new Point(81, 123);
         lblNewsText.Name = "lblNewsText";
         lblNewsText.Padding = new Padding(5);
-        lblNewsText.Size = new Size(454, 145);
+        lblNewsText.Size = new Size(453, 175);
         lblNewsText.TabIndex = 54;
         lblNewsText.Text = resources.GetString("lblNewsText.Text");
         // 
