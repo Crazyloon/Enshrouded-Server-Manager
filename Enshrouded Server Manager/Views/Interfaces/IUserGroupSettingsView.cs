@@ -5,6 +5,7 @@ public interface IUserGroupSettingsView
     string AdminName { get; }
     string AdminPassword { get; set; }
     bool AdminCanKickBan { get; set; }
+    bool AdminCanAccessInventories { get; set; }
     bool AdminCanEditBase { get; set; }
     bool AdminCanExtendBase { get; set; }
     int AdminReservedSlots { get; set; }
@@ -12,6 +13,7 @@ public interface IUserGroupSettingsView
     string FriendName { get; }
     string FriendPassword { get; set; }
     bool FriendCanKickBan { get; set; }
+    bool FriendCanAccessInventories { get; set; }
     bool FriendCanEditBase { get; set; }
     bool FriendCanExtendBase { get; set; }
     int FriendReservedSlots { get; set; }
@@ -19,6 +21,7 @@ public interface IUserGroupSettingsView
     string GuestName { get; }
     string GuestPassword { get; set; }
     bool GuestCanKickBan { get; set; }
+    bool GuestCanAccessInventories { get; set; }
     bool GuestCanEditBase { get; set; }
     bool GuestCanExtendBase { get; set; }
     int GuestReservedSlots { get; set; }

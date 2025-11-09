@@ -34,7 +34,7 @@ partial class UserGroupSettingsView
         txtAdminPassword = new TextBox();
         lblAdminSettings = new Label();
         chkCanAdminKickBan = new CheckBox();
-        chkAdminCanAccessInventories = new CheckBox();
+        chkCanAdminAccessInventories = new CheckBox();
         chkCanAdminEditBase = new CheckBox();
         chkCanAdminExtendBase = new CheckBox();
         nudAdminReservedSlots = new NumericUpDown();
@@ -119,25 +119,25 @@ partial class UserGroupSettingsView
         lblAdminSettings.TabIndex = 63;
         lblAdminSettings.Text = "Admin Group Settings";
         // 
-        // chkAdminCanKickBan
+        // chkCanAdminKickBan
         // 
         chkCanAdminKickBan.AutoSize = true;
         chkCanAdminKickBan.Location = new Point(57, 192);
-        chkCanAdminKickBan.Name = "chkAdminCanKickBan";
+        chkCanAdminKickBan.Name = "chkCanAdminKickBan";
         chkCanAdminKickBan.Size = new Size(97, 19);
         chkCanAdminKickBan.TabIndex = 64;
         chkCanAdminKickBan.Text = "Can Kick/Ban";
         chkCanAdminKickBan.UseVisualStyleBackColor = true;
         // 
-        // chkAdminCanAccessInventories
+        // chkCanAdminAccessInventories
         // 
-        chkAdminCanAccessInventories.AutoSize = true;
-        chkAdminCanAccessInventories.Location = new Point(57, 217);
-        chkAdminCanAccessInventories.Name = "chkAdminCanAccessInventories";
-        chkAdminCanAccessInventories.Size = new Size(147, 19);
-        chkAdminCanAccessInventories.TabIndex = 65;
-        chkAdminCanAccessInventories.Text = "Can Access Inventories";
-        chkAdminCanAccessInventories.UseVisualStyleBackColor = true;
+        chkCanAdminAccessInventories.AutoSize = true;
+        chkCanAdminAccessInventories.Location = new Point(57, 217);
+        chkCanAdminAccessInventories.Name = "chkCanAdminAccessInventories";
+        chkCanAdminAccessInventories.Size = new Size(147, 19);
+        chkCanAdminAccessInventories.TabIndex = 65;
+        chkCanAdminAccessInventories.Text = "Can Access Inventories";
+        chkCanAdminAccessInventories.UseVisualStyleBackColor = true;
         // 
         // chkCanAdminEditBase
         // 
@@ -229,11 +229,11 @@ partial class UserGroupSettingsView
         chkCanGuestAccessInventories.Text = "Can Access Inventories";
         chkCanGuestAccessInventories.UseVisualStyleBackColor = true;
         // 
-        // chkGuestCanKickBan
+        // chkCanGuestKickBan
         // 
         chkCanGuestKickBan.AutoSize = true;
         chkCanGuestKickBan.Location = new Point(459, 192);
-        chkCanGuestKickBan.Name = "chkGuestCanKickBan";
+        chkCanGuestKickBan.Name = "chkCanGuestKickBan";
         chkCanGuestKickBan.Size = new Size(97, 19);
         chkCanGuestKickBan.TabIndex = 91;
         chkCanGuestKickBan.Text = "Can Kick/Ban";
@@ -318,11 +318,11 @@ partial class UserGroupSettingsView
         chkCanFriendAccessInventories.Text = "Can Access Inventories";
         chkCanFriendAccessInventories.UseVisualStyleBackColor = true;
         // 
-        // chkFriendCanKickBan
+        // chkCanFriendKickBan
         // 
         chkCanFriendKickBan.AutoSize = true;
         chkCanFriendKickBan.Location = new Point(258, 192);
-        chkCanFriendKickBan.Name = "chkFriendCanKickBan";
+        chkCanFriendKickBan.Name = "chkCanFriendKickBan";
         chkCanFriendKickBan.Size = new Size(97, 19);
         chkCanFriendKickBan.TabIndex = 101;
         chkCanFriendKickBan.Text = "Can Kick/Ban";
@@ -384,7 +384,7 @@ partial class UserGroupSettingsView
         Controls.Add(nudAdminReservedSlots);
         Controls.Add(chkCanAdminExtendBase);
         Controls.Add(chkCanAdminEditBase);
-        Controls.Add(chkAdminCanAccessInventories);
+        Controls.Add(chkCanAdminAccessInventories);
         Controls.Add(chkCanAdminKickBan);
         Controls.Add(lblAdminSettings);
         Controls.Add(txtAdminPassword);
@@ -408,7 +408,7 @@ partial class UserGroupSettingsView
     private TextBox txtAdminPassword;
     private Label lblAdminSettings;
     private CheckBox chkCanAdminKickBan;
-    private CheckBox chkAdminCanAccessInventories;
+    private CheckBox chkCanAdminAccessInventories;
     private CheckBox chkCanAdminEditBase;
     private CheckBox chkCanAdminExtendBase;
     private NumericUpDown nudAdminReservedSlots;

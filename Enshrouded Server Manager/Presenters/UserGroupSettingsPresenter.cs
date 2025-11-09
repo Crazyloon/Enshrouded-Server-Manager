@@ -87,6 +87,7 @@ public class UserGroupSettingsPresenter
         var adminSettings = userGroupSettings.FirstOrDefault(ugs => ugs.Name == UserGroup.Admin.ToString());
         _userGroupSettingsView.AdminPassword = adminSettings.Password;
         _userGroupSettingsView.AdminCanKickBan = adminSettings.CanKickBan;
+        _userGroupSettingsView.AdminCanAccessInventories = adminSettings.CanAccessInventories;
         _userGroupSettingsView.AdminCanEditBase = adminSettings.CanEditBase;
         _userGroupSettingsView.AdminCanExtendBase = adminSettings.CanExtendBase;
         _userGroupSettingsView.AdminReservedSlots = adminSettings.ReservedSlots;
@@ -94,6 +95,7 @@ public class UserGroupSettingsPresenter
         var friendSettings = userGroupSettings.FirstOrDefault(ugs => ugs.Name == UserGroup.Friend.ToString());
         _userGroupSettingsView.FriendPassword = friendSettings.Password;
         _userGroupSettingsView.FriendCanKickBan = friendSettings.CanKickBan;
+        _userGroupSettingsView.FriendCanAccessInventories = friendSettings.CanAccessInventories;
         _userGroupSettingsView.FriendCanEditBase = friendSettings.CanEditBase;
         _userGroupSettingsView.FriendCanExtendBase = friendSettings.CanExtendBase;
         _userGroupSettingsView.FriendReservedSlots = friendSettings.ReservedSlots;
@@ -101,6 +103,7 @@ public class UserGroupSettingsPresenter
         var guestSettings = userGroupSettings.FirstOrDefault(ugs => ugs.Name == UserGroup.Guest.ToString());
         _userGroupSettingsView.GuestPassword = guestSettings.Password;
         _userGroupSettingsView.GuestCanKickBan = guestSettings.CanKickBan;
+        _userGroupSettingsView.GuestCanAccessInventories = guestSettings.CanAccessInventories;
         _userGroupSettingsView.GuestCanEditBase = guestSettings.CanEditBase;
         _userGroupSettingsView.GuestCanExtendBase = guestSettings.CanExtendBase;
         _userGroupSettingsView.GuestReservedSlots = guestSettings.ReservedSlots;
@@ -126,7 +129,7 @@ public class UserGroupSettingsPresenter
                 Name = UserGroup.Admin.ToString(),
                 Password = _userGroupSettingsView.AdminPassword,
                 CanKickBan = _userGroupSettingsView.AdminCanKickBan,
-                CanAccessInventories = true,
+                CanAccessInventories = _userGroupSettingsView.AdminCanAccessInventories,
                 CanEditBase = _userGroupSettingsView.AdminCanEditBase,
                 CanExtendBase = _userGroupSettingsView.AdminCanExtendBase,
                 ReservedSlots = _userGroupSettingsView.AdminReservedSlots,
@@ -136,7 +139,7 @@ public class UserGroupSettingsPresenter
                 Name = UserGroup.Friend.ToString(),
                 Password = _userGroupSettingsView.FriendPassword,
                 CanKickBan = _userGroupSettingsView.FriendCanKickBan,
-                CanAccessInventories = true,
+                CanAccessInventories = _userGroupSettingsView.FriendCanAccessInventories,
                 CanEditBase = _userGroupSettingsView.FriendCanEditBase,
                 CanExtendBase = _userGroupSettingsView.FriendCanExtendBase,
                 ReservedSlots = _userGroupSettingsView.FriendReservedSlots,
@@ -146,7 +149,7 @@ public class UserGroupSettingsPresenter
                 Name = UserGroup.Guest.ToString(),
                 Password = _userGroupSettingsView.GuestPassword,
                 CanKickBan = _userGroupSettingsView.GuestCanKickBan,
-                CanAccessInventories = false,
+                CanAccessInventories = _userGroupSettingsView.GuestCanAccessInventories,
                 CanEditBase = _userGroupSettingsView.GuestCanEditBase,
                 CanExtendBase = _userGroupSettingsView.GuestCanExtendBase,
                 ReservedSlots = _userGroupSettingsView.GuestReservedSlots,

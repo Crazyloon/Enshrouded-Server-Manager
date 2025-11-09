@@ -26,6 +26,12 @@ public partial class UserGroupSettingsView : UserControl, IUserGroupSettingsView
         set => chkCanAdminKickBan.Checked = value;
     }
 
+    public bool AdminCanAccessInventories
+    {
+        get => chkCanAdminAccessInventories.Checked;
+        set => chkCanAdminAccessInventories.Checked = value;
+    }
+
     public bool AdminCanEditBase
     {
         get => chkCanAdminEditBase.Checked;
@@ -34,8 +40,8 @@ public partial class UserGroupSettingsView : UserControl, IUserGroupSettingsView
 
     public bool AdminCanExtendBase
     {
-        get => chkCanAdminEditBase.Checked;
-        set => chkCanAdminEditBase.Checked = value;
+        get => chkCanAdminExtendBase.Checked;
+        set => chkCanAdminExtendBase.Checked = value;
     }
 
     public int AdminReservedSlots
@@ -61,6 +67,12 @@ public partial class UserGroupSettingsView : UserControl, IUserGroupSettingsView
         set => chkCanFriendKickBan.Checked = value;
     }
 
+    public bool FriendCanAccessInventories
+    {
+        get => chkCanFriendAccessInventories.Checked;
+        set => chkCanFriendAccessInventories.Checked = value;
+    }
+
     public bool FriendCanEditBase
     {
         get => chkCanFriendEditBase.Checked;
@@ -69,8 +81,8 @@ public partial class UserGroupSettingsView : UserControl, IUserGroupSettingsView
 
     public bool FriendCanExtendBase
     {
-        get => chkCanFriendEditBase.Checked;
-        set => chkCanFriendEditBase.Checked = value;
+        get => chkCanFriendExtendBase.Checked;
+        set => chkCanFriendExtendBase.Checked = value;
     }
 
     public int FriendReservedSlots
@@ -96,6 +108,12 @@ public partial class UserGroupSettingsView : UserControl, IUserGroupSettingsView
         set => chkCanGuestKickBan.Checked = value;
     }
 
+    public bool GuestCanAccessInventories
+    {
+        get => chkCanGuestAccessInventories.Checked;
+        set => chkCanGuestAccessInventories.Checked = value;
+    }
+
     public bool GuestCanEditBase
     {
         get => chkCanGuestEditBase.Checked;
@@ -104,8 +122,8 @@ public partial class UserGroupSettingsView : UserControl, IUserGroupSettingsView
 
     public bool GuestCanExtendBase
     {
-        get => chkCanGuestEditBase.Checked;
-        set => chkCanGuestEditBase.Checked = value;
+        get => chkCanGuestExtendBase.Checked;
+        set => chkCanGuestExtendBase.Checked = value;
     }
 
     public int GuestReservedSlots
