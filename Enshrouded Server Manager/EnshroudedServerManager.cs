@@ -53,7 +53,7 @@ public partial class EnshroudedServerManager : Form, INewUIFormView
         restoreBackupView.Tag = new RestoreBackupPresenter(restoreBackupView, eventAggregator, fileSystemService, backupService, enshroudedServerService, messageBoxService, logService, profiles);
         serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, eventAggregator, serverSettingsService, fileSystemService, enshroudedServerService, logService);
         gameSettingsView.Tag = new GameSettingsPresenter(gameSettingsView, eventAggregator, serverSettingsService, fileSystemService, enshroudedServerService, logService);
-
+        userGroupSettingsView.Tag = new UserGroupSettingsPresenter(userGroupSettingsView, serverSettingsService, fileSystemService, messageBoxService, enshroudedServerService, eventAggregator, logService);
         manageProfilesView.Tag = new ManageProfilesPresenter(manageProfilesView, eventAggregator, profileService, serverSettingsService, fileSystemService, messageBoxService, enshroudedServerService, logService, profiles);
         autoBackupView.Tag = new AutoBackupPresenter(autoBackupView, eventAggregator, processManager, profileService, fileSystemService, messageBoxService, backupService, logService, profiles);
         discordNotificationsView.Tag = new DiscordNotificationsPresenter(discordNotificationsView, eventAggregator, discordOutputService, messageBoxService, profileService, fileSystemService, logService);

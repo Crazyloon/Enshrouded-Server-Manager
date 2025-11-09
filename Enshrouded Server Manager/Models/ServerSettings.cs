@@ -32,7 +32,7 @@ public record ServerSettings
     public GameSettings GameSettings { get; set; }
 
     [JsonPropertyName("userGroups")]
-    public List<UserGroup> UserGroups { get; set; }
+    public List<UserGroupSettings> UserGroups { get; set; }
 }
 
 public record GameSettings
@@ -143,7 +143,7 @@ public record GameSettings
 
 
 
-public record UserGroup
+public record UserGroupSettings
 {
 
     [JsonPropertyName("name")]
