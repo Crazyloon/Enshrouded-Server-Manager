@@ -67,7 +67,7 @@ public partial class MainForm : Form, IMainFormView
 
         // Initialize Presenters
         adminPanelView.Tag = new AdminPanelPresenter(adminPanelView, eventAggregator, steamCMDInstaller, fileSystemService, versionManager, processManager, serverSettingsService, enshroudedServerService, profileService, discordOutputService, backupService, logService, restartScheduler, restartTimers);
-        serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, eventAggregator, serverSettingsService, fileSystemService, enshroudedServerService, logService);
+        serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, eventAggregator, serverSettingsService, fileSystemService, enshroudedServerService, logService, profiles);
         manageProfilesView.Tag = new ManageProfilesPresenter(manageProfilesView, eventAggregator, profileService, serverSettingsService, fileSystemService, messageBoxService, enshroudedServerService, logService, profiles);
         autoBackupView.Tag = new AutoBackupPresenter(autoBackupView, eventAggregator, processManager, profileService, fileSystemService, messageBoxService, backupService, logService, profiles);
         discordNotificationsView.Tag = new DiscordNotificationsPresenter(discordNotificationsView, eventAggregator, discordOutputService, messageBoxService, profileService, fileSystemService, logService);
@@ -87,6 +87,8 @@ public partial class MainForm : Form, IMainFormView
 
         eventAggregator.Subscribe<ServerInstallStartedMessage>(m => OnServerInstallStarted());
         eventAggregator.Subscribe<ServerInstallStoppedMessage>(m => OnServerInstallStopped());
+
+        this.Load += (s, e) => OnFormLoad(profiles, eventAggregator);
 
         InitializeServerUpdateOverlay();
 
@@ -109,6 +111,15 @@ public partial class MainForm : Form, IMainFormView
     {
         creditsPanelView.Visible = !creditsPanelView.Visible;
         infoPanelView.Visible = !infoPanelView.Visible;
+    }
+
+    private void OnFormLoad(BindingList<ServerProfile> profiles, IEventAggregator eventAggregator)
+    {
+        var autoStartProfile = profiles.FirstOrDefault(p => p.AutoStartServer);
+        if (autoStartProfile is not null)
+        {
+            eventAggregator.Publish(new AutoStartServerMessage(autoStartProfile));
+        }
     }
 
     private void OnServerInstallStopped()

@@ -71,6 +71,7 @@ public class AdminPanelPresenter
         _eventAggregator.Subscribe<ProfileSelectedMessage>(p => OnProfileSelected(p.SelectedProfile));
         _eventAggregator.Subscribe<ServerStartedMessage>(p => OnServerStarted(p.ServerProfile));
         _eventAggregator.Subscribe<ServerStoppedMessage>(p => OnServerStopped(p.ServerProfile));
+        _eventAggregator.Subscribe<AutoStartServerMessage>(p => OnStartServerButtonClicked());
     }
 
     private void OnServerStarted(ServerProfile serverProfile)

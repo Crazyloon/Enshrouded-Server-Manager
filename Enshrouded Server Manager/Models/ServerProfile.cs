@@ -20,6 +20,8 @@ public class ServerProfile : INotifyPropertyChanged
 
     public RestoreBackup RestoreBackup { get; set; }
 
+    public bool AutoStartServer { get; set; }
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)

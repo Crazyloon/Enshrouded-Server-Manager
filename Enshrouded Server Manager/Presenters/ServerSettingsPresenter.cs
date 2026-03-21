@@ -1,8 +1,10 @@
-﻿using Enshrouded_Server_Manager.Enums;
+using Enshrouded_Server_Manager.Enums;
 using Enshrouded_Server_Manager.Events;
+using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.Views;
+using Newtonsoft.Json;
 using System.ComponentModel;
 
 namespace Enshrouded_Server_Manager.Presenters;
@@ -18,13 +20,15 @@ public class ServerSettingsPresenter
 
     private ServerProfile _serverProfile;
     private ServerSettings _serverSettings;
+    private BindingList<ServerProfile> _profiles;
 
     public ServerSettingsPresenter(IServerSettingsView serverSettingsView,
         IEventAggregator eventAggregator,
         IServerSettingsService serverSettingsService,
         IFileSystemService fileSystemManager,
         IEnshroudedServerService server,
-        IFileLoggerService fileLogger)
+        IFileLoggerService fileLogger,
+        BindingList<ServerProfile> profiles)
     {
         _serverSettingsView = serverSettingsView;
         _eventAggregator = eventAggregator;
@@ -32,6 +36,7 @@ public class ServerSettingsPresenter
         _fileSystemService = fileSystemManager;
         _server = server;
         _logger = fileLogger;
+        _profiles = profiles;
 
         _serverSettingsView.SetGameSettingsPreset(new BindingList<GameSettingsPreset>(Enum.GetValues<GameSettingsPreset>().ToList()));
 
@@ -64,6 +69,7 @@ public class ServerSettingsPresenter
         {
             _serverSettings = _serverSettingsService.LoadServerSettings(serverProfile.Name);
             SetServerSettings(_serverSettings);
+            _serverSettingsView.AutoStartServer = serverProfile.AutoStartServer;
         }
     }
 
@@ -98,8 +104,27 @@ public class ServerSettingsPresenter
 
         if (_serverSettingsService.SaveServerSettings(serverSettings, _serverProfile))
         {
+            UpdateAutoStartSetting(_serverSettingsView.AutoStartServer);
             _serverSettingsView.AnimateSaveButton();
             _eventAggregator.Publish(new ServerSettingsSavedSuccessMessage(serverSettings));
         }
+    }
+
+    private void UpdateAutoStartSetting(bool autoStart)
+    {
+        if (autoStart)
+        {
+            // Ensure only one profile can have AutoStartServer enabled
+            foreach (var profile in _profiles)
+            {
+                profile.AutoStartServer = false;
+            }
+        }
+
+        _serverProfile.AutoStartServer = autoStart;
+
+        _fileSystemService.WriteFile(
+            Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON),
+            JsonConvert.SerializeObject(_profiles, JsonSettings.Default));
     }
 }

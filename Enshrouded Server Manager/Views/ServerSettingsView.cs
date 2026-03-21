@@ -53,6 +53,12 @@ public partial class ServerSettingsView : UserControl, IServerSettingsView
         set => chkEnableTextChat.Checked = value;
     }
 
+    public bool AutoStartServer
+    {
+        get => chkAutoStartServer.Checked;
+        set => chkAutoStartServer.Checked = value;
+    }
+
     public string GameSettingsPreset
     {
         get => ((GameSettingsPreset)cbxGameSettingsPreset.SelectedItem).ToString();
