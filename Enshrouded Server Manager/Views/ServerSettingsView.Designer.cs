@@ -42,6 +42,7 @@ partial class ServerSettingsView
         lblServerMustBeStoppedMessage = new Label();
         chkEnableVoiceChat = new CheckBox();
         chkEnableTextChat = new CheckBox();
+        chkAutoStartServer = new CheckBox();
         label1 = new Label();
         cbxGameSettingsPreset = new ComboBox();
         ((System.ComponentModel.ISupportInitialize)nudGamePort).BeginInit();
@@ -200,6 +201,17 @@ partial class ServerSettingsView
         chkEnableTextChat.Text = "Enable Text Chat";
         chkEnableTextChat.UseVisualStyleBackColor = true;
         // 
+        // chkAutoStartServer
+        // 
+        chkAutoStartServer.AutoSize = true;
+        chkAutoStartServer.ForeColor = SystemColors.ButtonHighlight;
+        chkAutoStartServer.Location = new Point(296, 308);
+        chkAutoStartServer.Name = "chkAutoStartServer";
+        chkAutoStartServer.Size = new Size(175, 19);
+        chkAutoStartServer.TabIndex = 63;
+        chkAutoStartServer.Text = "Auto-start server on app launch";
+        chkAutoStartServer.UseVisualStyleBackColor = true;
+        // 
         // label1
         // 
         label1.AutoSize = true;
@@ -230,6 +242,7 @@ partial class ServerSettingsView
         BackColor = Color.FromArgb(0, 0, 18);
         Controls.Add(cbxGameSettingsPreset);
         Controls.Add(label1);
+        Controls.Add(chkAutoStartServer);
         Controls.Add(chkEnableTextChat);
         Controls.Add(chkEnableVoiceChat);
         Controls.Add(lblServerMustBeStoppedMessage);
@@ -269,6 +282,7 @@ partial class ServerSettingsView
     private Label lblServerMustBeStoppedMessage;
     private CheckBox chkEnableVoiceChat;
     private CheckBox chkEnableTextChat;
+    private CheckBox chkAutoStartServer;
     private Label label1;
     private ComboBox cbxGameSettingsPreset;
 }

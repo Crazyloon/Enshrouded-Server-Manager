@@ -13,6 +13,7 @@ public interface IServerSettingsView
     bool EnableVoiceChat { get; set; }
     bool EnableTextChat { get; set; }
     string GameSettingsPreset { get; set; }
+    bool AutoStartServer { get; set; }
 
     event EventHandler SaveChangesButtonClicked;
     event EventHandler cbxGameSettingsPresetChanged;

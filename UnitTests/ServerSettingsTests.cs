@@ -1,9 +1,10 @@
-﻿using Enshrouded_Server_Manager.Events;
+using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Presenters;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.Views;
 using NSubstitute;
+using System.ComponentModel;
 
 namespace Enshrouded_Server_Manager.UnitTests;
 
@@ -25,6 +26,7 @@ public class ServerSettingsTests
 
     private ServerProfile _serverProfile;
     private ProfileSelectedMessage _profileSelectedMessage;
+    private BindingList<ServerProfile> _profiles;
     private ServerSettings _serverSettings = new ServerSettings
     {
         Name = "TestServerName",
@@ -57,6 +59,7 @@ public class ServerSettingsTests
         // Setup for most tests requires a selected profile
         _serverProfile = new ServerProfile() { Name = "TestServer" };
         _profileSelectedMessage = new ProfileSelectedMessage(_serverProfile);
+        _profiles = new BindingList<ServerProfile> { _serverProfile };
         _serverSettingsService.LoadServerSettings(Arg.Any<string>()).Returns(_serverSettings);
         _eventAggregator.Publish(_profileSelectedMessage);
     }
@@ -65,7 +68,7 @@ public class ServerSettingsTests
     public void SetServerSettings_ShouldSetServerSettingsInView_Success()
     {
         // Arrange
-        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger, _profiles);
         presenter.OnServerProfileSelected(_serverProfile);
 
         var serverSettings = new ServerSettings
@@ -94,21 +97,7 @@ public class ServerSettingsTests
     public void OnServerProfileSelected_ShouldLoadServerSettings_Success()
     {
         // Arrange
-        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
-
-        //var serverSettings = new ServerSettings
-        //{
-        //    Name = "TestServerName",
-        //    Password = "123",
-        //    Ip = "0.0.0.0",
-        //    GamePort = 15636,
-        //    QueryPort = 15637,
-        //    SlotCount = 8,
-        //    LogDirectory = "./logs",
-        //    SaveDirectory = "./savegame"
-        //};
-
-        //_serverSettingsService.LoadServerSettings(Arg.Any<string>()).Returns(_serverSettings);
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger, _profiles);
 
         // Act // Done in constructor
         presenter.OnServerProfileSelected(_serverProfile);
@@ -122,41 +111,20 @@ public class ServerSettingsTests
         Assert.AreEqual(_serverSettingsView.MaxPlayers, _serverSettings.SlotCount);
     }
 
-    //[TestMethod]
-    //public void ClickingOnShowPasswordButton_ShouldTogglePasswordVisible_Success()
-    //{
-    //    // Arrange
-    //    var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
-    //    presenter.OnServerProfileSelected(_serverProfile);
+    [TestMethod]
+    public void OnServerProfileSelected_ShouldSetAutoStartServerInView_Success()
+    {
+        // Scenario: When a profile is selected, the auto-start checkbox should reflect the profile's AutoStartServer setting
+        // Arrange
+        _serverProfile.AutoStartServer = true;
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger, _profiles);
 
-    //    _serverSettingsView.ShowPasswordButtonText = Constants.ButtonText.SHOW_PASSWORD;
-    //    _serverSettingsView.PasswordChar = '*';
+        // Act
+        presenter.OnServerProfileSelected(_serverProfile);
 
-    //    // Act
-    //    _serverSettingsView.ShowPasswordButtonClicked += Raise.Event();
-
-    //    // Assert
-    //    Assert.AreEqual(_serverSettingsView.ShowPasswordButtonText, Constants.ButtonText.HIDE_PASSWORD);
-    //    Assert.AreEqual(_serverSettingsView.PasswordChar, '\0');
-    //}
-
-    //[TestMethod]
-    //public void ClickingOnShowPasswordButton_ShouldTogglePasswordHidden_Success()
-    //{
-    //    // Arrange
-    //    var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
-    //    presenter.OnServerProfileSelected(_serverProfile);
-
-    //    _serverSettingsView.ShowPasswordButtonText = Constants.ButtonText.HIDE_PASSWORD;
-    //    _serverSettingsView.PasswordChar = '\0';
-
-    //    // Act
-    //    _serverSettingsView.ShowPasswordButtonClicked += Raise.Event();
-
-    //    // Assert
-    //    Assert.AreEqual(_serverSettingsView.ShowPasswordButtonText, Constants.ButtonText.SHOW_PASSWORD);
-    //    Assert.AreEqual(_serverSettingsView.PasswordChar, '*');
-    //}
+        // Assert
+        Assert.AreEqual(_serverSettingsView.AutoStartServer, _serverProfile.AutoStartServer);
+    }
 
     [TestMethod]
     public void ClickingOnSaveChangesButton_ShouldSaveServerSettings_Success()
@@ -168,27 +136,12 @@ public class ServerSettingsTests
         // Then the server settings should be saved
 
         // Arrange
-        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger, _profiles);
         presenter.OnServerProfileSelected(_serverProfile);
 
-        //var existingSettings = new ServerSettings
-        //{
-        //    Name = "TestName",
-        //    Password = "111",
-        //    Ip = "1.2.3.4",
-        //    GamePort = 11,
-        //    QueryPort = 22,
-        //    SlotCount = 12,
-        //    SaveDirectory = Constants.Paths.ENSHROUDED_SAVE_GAME_DIRECTORY,
-        //    LogDirectory = Constants.Paths.ENSHROUDED_LOGS_DIRECTORY,
-        //};
-
-        //_serverSettingsService.LoadServerSettings(Arg.Any<string>()).Returns(_serverSettings); // Done in constructor
         _serverSettingsService.SaveServerSettings(Arg.Any<ServerSettings>(), Arg.Any<ServerProfile>()).Returns(true);
 
         // Act
-        //EventAggregator.Instance.Publish(_profileSelectedMessage); // Done in constructor
-
         _serverSettingsView.ServerName = "RealServer";
         _serverSettingsView.IpAddress = "0.0.0.0";
         _serverSettingsView.GamePort = 15636;
@@ -209,10 +162,7 @@ public class ServerSettingsTests
         _serverSettingsView.SaveChangesButtonClicked += Raise.Event();
 
         // Assert
-        //_serverSettingsService.Received().LoadServerSettings(Arg.Is("TestServer"));
         _serverSettingsService.Received().SaveServerSettings(Arg.Is(savedSettings), Arg.Is(_serverProfile));
-
-        // TODO: How to test  EventAggregator.Instance.Publish(new ServerSettingsSavedSuccess()); was called
     }
 
     [TestMethod]
@@ -225,7 +175,7 @@ public class ServerSettingsTests
         // Then an error message should be shown
 
         // Arrange
-        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger);
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger, _profiles);
         presenter.OnServerProfileSelected(_serverProfile);
 
         _serverSettingsService.SaveServerSettings(Arg.Any<ServerSettings>(), Arg.Any<ServerProfile>()).Returns(true);
@@ -235,5 +185,49 @@ public class ServerSettingsTests
 
         // Assert
         _serverSettingsView.Received().AnimateSaveButton();
+    }
+
+    [TestMethod]
+    public void SaveServerSettings_WithAutoStartEnabled_ShouldSetAutoStartOnlyForSelectedProfile_Success()
+    {
+        // Scenario: When a user enables auto-start for a profile, no other profile should have auto-start enabled
+        // Arrange
+        var otherProfile = new ServerProfile() { Name = "OtherServer", AutoStartServer = true };
+        _profiles.Add(otherProfile);
+
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger, _profiles);
+        presenter.OnServerProfileSelected(_serverProfile);
+
+        _serverSettingsService.SaveServerSettings(Arg.Any<ServerSettings>(), Arg.Any<ServerProfile>()).Returns(true);
+        _serverSettingsView.AutoStartServer.Returns(true);
+
+        // Act
+        _serverSettingsView.SaveChangesButtonClicked += Raise.Event();
+
+        // Assert
+        Assert.IsTrue(_serverProfile.AutoStartServer);
+        Assert.IsFalse(otherProfile.AutoStartServer);
+    }
+
+    [TestMethod]
+    public void SaveServerSettings_WithAutoStartDisabled_ShouldNotDisableOtherProfiles_Success()
+    {
+        // Scenario: When a user disables auto-start for a profile, other profiles should remain unchanged
+        // Arrange
+        var otherProfile = new ServerProfile() { Name = "OtherServer", AutoStartServer = true };
+        _profiles.Add(otherProfile);
+
+        var presenter = new ServerSettingsPresenter(_serverSettingsView, _eventAggregator, _serverSettingsService, _fileSystemService, _enshroudedServerService, _logger, _profiles);
+        presenter.OnServerProfileSelected(_serverProfile);
+
+        _serverSettingsService.SaveServerSettings(Arg.Any<ServerSettings>(), Arg.Any<ServerProfile>()).Returns(true);
+        _serverSettingsView.AutoStartServer.Returns(false);
+
+        // Act
+        _serverSettingsView.SaveChangesButtonClicked += Raise.Event();
+
+        // Assert
+        Assert.IsFalse(_serverProfile.AutoStartServer);
+        Assert.IsTrue(otherProfile.AutoStartServer);
     }
 }

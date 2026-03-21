@@ -51,7 +51,7 @@ public partial class EnshroudedServerManager : Form, INewUIFormView
         // Initialize Presenters
         adminPanelHorizontalView.Tag = new AdminPanelPresenter(adminPanelHorizontalView, eventAggregator, steamCMDInstaller, fileSystemService, versionManager, processManager, serverSettingsService, enshroudedServerService, profileService, discordOutputService, backupService, logService, restartScheduler, restartTimers);
         restoreBackupView.Tag = new RestoreBackupPresenter(restoreBackupView, eventAggregator, fileSystemService, backupService, enshroudedServerService, messageBoxService, logService, profiles);
-        serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, eventAggregator, serverSettingsService, fileSystemService, enshroudedServerService, logService);
+        serverSettingsView.Tag = new ServerSettingsPresenter(serverSettingsView, eventAggregator, serverSettingsService, fileSystemService, enshroudedServerService, logService, profiles);
         gameSettingsView.Tag = new GameSettingsPresenter(gameSettingsView, eventAggregator, serverSettingsService, fileSystemService, enshroudedServerService, logService);
         userGroupSettingsView.Tag = new UserGroupSettingsPresenter(userGroupSettingsView, serverSettingsService, fileSystemService, messageBoxService, enshroudedServerService, eventAggregator, logService);
         manageProfilesView.Tag = new ManageProfilesPresenter(manageProfilesView, eventAggregator, profileService, serverSettingsService, fileSystemService, messageBoxService, enshroudedServerService, logService, profiles);
@@ -74,8 +74,19 @@ public partial class EnshroudedServerManager : Form, INewUIFormView
         eventAggregator.Subscribe<ServerInstallStoppedMessage>(m => OnServerInstallStopped());
         eventAggregator.Subscribe<NavigationChangedMessage>(v => OnNavigationChanged(v.ViewSelection));
 
+        this.Load += (s, e) => OnFormLoad(profiles, eventAggregator);
+
         InitializeServerUpdateOverlay();
         manageProfilesView.Location = new Point(630, 65);
+    }
+
+    private void OnFormLoad(BindingList<ServerProfile> profiles, IEventAggregator eventAggregator)
+    {
+        var autoStartProfile = profiles.FirstOrDefault(p => p.AutoStartServer);
+        if (autoStartProfile is not null)
+        {
+            eventAggregator.Publish(new AutoStartServerMessage(autoStartProfile));
+        }
     }
 
     private void OnNavigationChanged(ViewSelection viewSelection)
