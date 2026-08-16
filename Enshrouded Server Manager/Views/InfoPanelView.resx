@@ -120,6 +120,15 @@
   <data name="lblNewsText.Text" xml:space="preserve">
     <value>Changes:
 
+v0.8.0
+- Upgraded the app to .NET 10
+- Replaced the JSON library with the
+  one built into .NET
+- Replaced the obsolete web download
+  code with HttpClient
+- Updated Discord and test
+  dependencies
+
 v0.7.0
 - Add latest server configs for social,
   game options, and user settings

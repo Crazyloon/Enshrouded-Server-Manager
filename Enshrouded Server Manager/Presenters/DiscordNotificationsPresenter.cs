@@ -5,7 +5,7 @@ using Enshrouded_Server_Manager.Model;
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.Views;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Enshrouded_Server_Manager.Presenters;
 public class DiscordNotificationsPresenter
@@ -49,7 +49,7 @@ public class DiscordNotificationsPresenter
         }
 
         var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
-        _discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
+        _discordProfile = JsonSerializer.Deserialize<DiscordProfile>(discordSettingsText, JsonSettings.Default);
     }
     private void OnServerTimerUpdated(ServerProfile profile, string timeRemaining)
     {
@@ -190,7 +190,7 @@ public class DiscordNotificationsPresenter
         };
 
         // write the new discord profile to the json file
-        var discordProfileJson = JsonConvert.SerializeObject(_discordProfile, JsonSettings.Default);
+        var discordProfileJson = JsonSerializer.Serialize(_discordProfile, JsonSettings.Default);
         var discordSettingsFile = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.DISCORD_JSON);
         _fileSystemService.WriteFile(discordSettingsFile, discordProfileJson);
 

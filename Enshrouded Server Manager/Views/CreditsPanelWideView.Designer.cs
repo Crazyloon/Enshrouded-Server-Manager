@@ -92,9 +92,9 @@ partial class CreditsPanelWideView
         lblCreditsContributors.ForeColor = Color.FromArgb(0, 204, 204);
         lblCreditsContributors.Location = new Point(5, 206);
         lblCreditsContributors.Name = "lblCreditsContributors";
-        lblCreditsContributors.Size = new Size(734, 26);
+        lblCreditsContributors.Size = new Size(734, 46);
         lblCreditsContributors.TabIndex = 32;
-        lblCreditsContributors.Text = "Strew/Evorin";
+        lblCreditsContributors.Text = "Strew/Evorin\r\nMousetwentytwo";
         lblCreditsContributors.TextAlign = ContentAlignment.MiddleCenter;
         // 
         // lblCreditsMadeBy
