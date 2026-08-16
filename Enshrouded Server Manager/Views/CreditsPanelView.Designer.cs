@@ -105,9 +105,9 @@ partial class CreditsPanelView
         lblCreditsContributors.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
         lblCreditsContributors.Location = new Point(5, 217);
         lblCreditsContributors.Name = "lblCreditsContributors";
-        lblCreditsContributors.Size = new Size(230, 26);
+        lblCreditsContributors.Size = new Size(230, 46);
         lblCreditsContributors.TabIndex = 32;
-        lblCreditsContributors.Text = "Strew/Evorin";
+        lblCreditsContributors.Text = "Strew/Evorin\r\nMousetwentytwo";
         // 
         // lblCreditsMadeBy
         // 

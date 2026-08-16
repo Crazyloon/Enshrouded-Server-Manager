@@ -36,17 +36,18 @@ public partial class EnshroudedServerManager : Form, INewUIFormView
         var logService = new FileLogger(fileSystemService);
         var discordOutputService = new DiscordService(fileSystemService, logService, eventAggregator);
         var enshroudedServerService = new EnshroudedServerService(fileSystemService, eventAggregator, logService);
-        var versionManager = new VersionManagementService(fileSystemService, eventAggregator);
         var backupService = new BackupService(fileSystemService, enshroudedServerService, eventAggregator, discordOutputService, logService, restartTimers);
         var profileService = new ProfileService(fileSystemService, messageBoxService, logService);
         var processManager = new SystemProcessService();
-        var httpClient = new HttpClientService(new WebClient());
+        // One HttpClient for the lifetime of the app - a new one per request exhausts sockets.
+        var httpClient = new HttpClientService(new HttpClient());
+        var versionManager = new VersionManagementService(fileSystemService, eventAggregator, httpClient);
         var serverSettingsService = new ServerSettingsService(fileSystemService, eventAggregator, messageBoxService, enshroudedServerService);
         var steamCMDInstaller = new SteamCMDInstallerService(fileSystemService, processManager, messageBoxService, httpClient);
         var restartScheduler = new ScheduledRestartService(fileSystemService, logService, backupService, enshroudedServerService, eventAggregator, discordOutputService, restartTimers);
 
         // Load the profiles for each view the first time they are created
-        BindingList<ServerProfile> profiles = new BindingList<ServerProfile>(profileService.LoadServerProfiles(JsonSettings.Default, true));
+        BindingList<ServerProfile> profiles = new BindingList<ServerProfile>(profileService.LoadServerProfiles(true));
 
         // Initialize Presenters
         adminPanelHorizontalView.Tag = new AdminPanelPresenter(adminPanelHorizontalView, eventAggregator, steamCMDInstaller, fileSystemService, versionManager, processManager, serverSettingsService, enshroudedServerService, profileService, discordOutputService, backupService, logService, restartScheduler, restartTimers);

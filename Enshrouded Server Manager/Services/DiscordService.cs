@@ -5,7 +5,7 @@ using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Model;
 using Enshrouded_Server_Manager.Models;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Enshrouded_Server_Manager.Services;
 
@@ -31,12 +31,12 @@ public class DiscordService : IDiscordService
         if (_fileSystemService.FileExists(discordSettingsFile))
         {
             var discordSettingsText = _fileSystemService.ReadFile(discordSettingsFile);
-            DiscordProfile discordProfile = JsonConvert.DeserializeObject<DiscordProfile>(discordSettingsText, JsonSettings.Default);
+            DiscordProfile discordProfile = JsonSerializer.Deserialize<DiscordProfile>(discordSettingsText, JsonSettings.Default);
             string DiscordUrl = discordProfile.DiscordUrl;
 
             var gameServerConfig = Path.Join(serverProfilePath, Constants.Files.GAME_SERVER_CONFIG_JSON);
             var gameServerConfigText = _fileSystemService.ReadFile(gameServerConfig);
-            ServerSettings serverSettings = JsonConvert.DeserializeObject<ServerSettings>(gameServerConfigText, JsonSettings.Default);
+            ServerSettings serverSettings = JsonSerializer.Deserialize<ServerSettings>(gameServerConfigText, JsonSettings.Default);
             string name = serverSettings.Name;
 
             try

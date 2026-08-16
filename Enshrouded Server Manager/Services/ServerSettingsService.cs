@@ -1,7 +1,7 @@
 ﻿using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Models;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Enshrouded_Server_Manager.Services;
 public class ServerSettingsService : IServerSettingsService
@@ -34,7 +34,7 @@ public class ServerSettingsService : IServerSettingsService
         }
         var input = _fileSystemService.ReadFile(gameServerConfig);
 
-        return JsonConvert.DeserializeObject<ServerSettings>(input, JsonSettings.Default);
+        return JsonSerializer.Deserialize<ServerSettings>(input, JsonSettings.Default);
     }
 
     public bool SaveServerSettings(ServerSettings serverSettings, ServerProfile selectedProfile)
@@ -58,7 +58,7 @@ public class ServerSettingsService : IServerSettingsService
         _fileSystemService.CreateDirectory(serverProfilePath);
 
         // serialize the data and write it to a file
-        var output = JsonConvert.SerializeObject(serverSettings, JsonSettings.Default);
+        var output = JsonSerializer.Serialize(serverSettings, JsonSettings.Default);
         var gameServerConfig = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfile.Name, Constants.Files.GAME_SERVER_CONFIG_JSON);
         _fileSystemService.WriteFile(gameServerConfig, output);
 
@@ -82,7 +82,7 @@ public class ServerSettingsService : IServerSettingsService
             GameSettingsPreset = Constants.ServerSettings.DEFAULT_SERVER_GAME_SETTINGS_PRESET
         };
 
-        var output = JsonConvert.SerializeObject(json, JsonSettings.Default);
+        var output = JsonSerializer.Serialize(json, JsonSettings.Default);
         var gameServerConfig = Path.Join(Constants.Paths.SERVER_DIRECTORY, profileName, Constants.Files.GAME_SERVER_CONFIG_JSON);
 
         _fileSystemService.WriteFile(gameServerConfig, output);

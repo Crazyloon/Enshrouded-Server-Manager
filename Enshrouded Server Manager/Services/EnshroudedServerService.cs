@@ -1,6 +1,8 @@
 using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Models;
-using Newtonsoft.Json;
+using Enshrouded_Server_Manager.Helpers;
+using System.Text.Json.Nodes;
+using System.Text.Json;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -60,7 +62,7 @@ public class EnshroudedServerService : IEnshroudedServerService
         {
             // load appconfig.json
             var configText = _fileSystemService.ReadFile("./config.json");
-            var config = JsonConvert.DeserializeObject<AppConfig>(configText);
+            var config = JsonSerializer.Deserialize<AppConfig>(configText, JsonSettings.Plain);
 
             // Auto Update the server on startup if configured
             if (config.AutoUpdateServer.HasValue && config.AutoUpdateServer.Value == true)
@@ -93,7 +95,7 @@ public class EnshroudedServerService : IEnshroudedServerService
                 Profile = profile.Name
             };
 
-            var output = JsonConvert.SerializeObject(json);
+            var output = JsonSerializer.Serialize(json, JsonSettings.Plain);
             var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, profile.Name, Constants.Files.PID_JSON);
             _fileSystemService.WriteFile(pidJsonFile, output);
         }
@@ -159,7 +161,7 @@ public class EnshroudedServerService : IEnshroudedServerService
         // Load pid
         var input = _fileSystemService.ReadFile(pidJsonFile);
 
-        EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
+        EnshroudedServerProcess? serverProcessInfo = JsonSerializer.Deserialize<EnshroudedServerProcess>(input, JsonSettings.Plain);
 
         int pid = serverProcessInfo.Id;
         string name = serverProcessInfo.Profile;
@@ -215,7 +217,7 @@ public class EnshroudedServerService : IEnshroudedServerService
         }
 
         var input = _fileSystemService.ReadFile(pidJsonFile);
-        EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(input);
+        EnshroudedServerProcess? serverProcessInfo = JsonSerializer.Deserialize<EnshroudedServerProcess>(input, JsonSettings.Plain);
 
         if (serverProcessInfo == null)
         {
@@ -253,15 +255,20 @@ public class EnshroudedServerService : IEnshroudedServerService
                 // check file for actual version
                 HttpResponseMessage response = await Client.GetAsync(Constants.Urls.STEAM_CMD_ENSHROUDED_SERVER_INFO);
                 string jsonResponse = await response.Content.ReadAsStringAsync();
-                dynamic data = JsonConvert.DeserializeObject(jsonResponse);
-
                 // readout branches>public>buildid of actual version
-                dynamic dataData = data["data"];
-                dynamic steamidData = dataData[$"{Constants.STEAM_APP_ID}"];
-                dynamic depotData = steamidData["depots"];
-                dynamic branchesData = depotData["branches"];
-                dynamic publicData = branchesData["public"];
-                string buildId = publicData["buildid"];
+                var buildId = JsonNode.Parse(jsonResponse)
+                    ?["data"]
+                    ?[$"{Constants.STEAM_APP_ID}"]
+                    ?["depots"]
+                    ?["branches"]
+                    ?["public"]
+                    ?["buildid"]
+                    ?.GetValue<string>();
+
+                if (buildId is null)
+                {
+                    return Color.Red;
+                }
 
                 // readout servers/selectedprofilename/steamapps/appmanifest_$AppID.acf
                 var steamappsPath = Path.Join(Constants.Paths.SERVER_DIRECTORY, selectedProfileName, Constants.Paths.GAME_SERVER_STEAMAPPS_DIRECTORY);

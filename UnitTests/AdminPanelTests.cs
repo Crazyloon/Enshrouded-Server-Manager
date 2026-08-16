@@ -5,7 +5,7 @@ using Enshrouded_Server_Manager.Presenters;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.Views;
 using FluentAssertions;
-using Newtonsoft.Json;
+using System.Text.Json;
 using NSubstitute;
 using NSubstitute.ReceivedExtensions;
 using System.Drawing;
@@ -177,7 +177,7 @@ public class AdminPanelTests
 
         _fileSystemService.FileExists(Arg.Any<string>()).Returns(true, false);
         _enshroudedServerService.IsRunning(Arg.Any<string>()).Returns(true);
-        _profileService.LoadServerProfiles(Arg.Any<JsonSerializerSettings>()).Returns(profiles);
+        _profileService.LoadServerProfiles().Returns(profiles);
 
         // Act
         _adminPanelView.StartServerButtonClicked += Raise.Event();
@@ -276,7 +276,7 @@ public class AdminPanelTests
         _fileSystemService.FileExists(Arg.Any<string>()).Returns(true, true);
         _fileSystemService.ReadFile(Arg.Any<string>()).Returns(discordSettings, serverSettings);
         _enshroudedServerService.IsRunning(Arg.Any<string>()).Returns(true);
-        _profileService.LoadServerProfiles(Arg.Any<JsonSerializerSettings>()).Returns(profiles);
+        _profileService.LoadServerProfiles().Returns(profiles);
 
         // Act
         _adminPanelView.StartServerButtonClicked += Raise.Event();

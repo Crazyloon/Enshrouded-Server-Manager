@@ -1,7 +1,8 @@
 using Enshrouded_Server_Manager.Enums;
 using Enshrouded_Server_Manager.Events;
 using Enshrouded_Server_Manager.Models;
-using Newtonsoft.Json;
+using Enshrouded_Server_Manager.Helpers;
+using System.Text.Json;
 using System.Diagnostics;
 
 namespace Enshrouded_Server_Manager.Services;
@@ -108,7 +109,7 @@ public class BackupService : IBackupService
 
         var pidJsonFile = Path.Join(Constants.Paths.CACHE_DIRECTORY, profile.Name, Constants.Files.PID_JSON);
         var processIdText = _fileSystemService.ReadFile(pidJsonFile);
-        EnshroudedServerProcess? serverProcessInfo = JsonConvert.DeserializeObject<EnshroudedServerProcess>(processIdText);
+        EnshroudedServerProcess? serverProcessInfo = JsonSerializer.Deserialize<EnshroudedServerProcess>(processIdText, JsonSettings.Plain);
 
         while (await timer.WaitForNextTickAsync())
         {

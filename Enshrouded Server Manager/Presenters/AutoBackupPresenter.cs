@@ -3,7 +3,7 @@ using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Models;
 using Enshrouded_Server_Manager.Services;
 using Enshrouded_Server_Manager.Views;
-using Newtonsoft.Json;
+using System.Text.Json;
 using System.ComponentModel;
 
 namespace Enshrouded_Server_Manager.Presenters;
@@ -76,7 +76,7 @@ public class AutoBackupPresenter
             // write the new profile to the json file
             _fileSystemService.WriteFile(
                 Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON),
-                JsonConvert.SerializeObject(_profiles, JsonSettings.Default));
+                JsonSerializer.Serialize(_profiles, JsonSettings.Default));
 
             _autoBackupView.AnimateSaveButton();
         }

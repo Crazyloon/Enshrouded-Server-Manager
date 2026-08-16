@@ -1,6 +1,6 @@
 ﻿using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Models;
-using Newtonsoft.Json;
+using System.Text.Json;
 using System.ComponentModel;
 
 namespace Enshrouded_Server_Manager.Services;
@@ -19,7 +19,7 @@ public class ProfileService : IProfileService
     }
 
 
-    public List<ServerProfile>? LoadServerProfiles(JsonSerializerSettings jsonSerializerSettings, bool firstCheck = false)
+    public List<ServerProfile>? LoadServerProfiles(bool firstCheck = false)
     {
         var serverProfilesJson = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON);
 
@@ -28,17 +28,17 @@ public class ProfileService : IProfileService
             _fileSystemService.CreateDirectory(Constants.Paths.DEFAULT_PROFILES_DIRECTORY);
 
             // First time loading server profiles should, create default profile
-            WriteDefaultProfileJson(serverProfilesJson, jsonSerializerSettings);
+            WriteDefaultProfileJson(serverProfilesJson);
         }
 
         var profilesJson = _fileSystemService.ReadFile(serverProfilesJson);
-        List<ServerProfile>? serverProfiles = JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson, jsonSerializerSettings);
+        List<ServerProfile>? serverProfiles = JsonSerializer.Deserialize<List<ServerProfile>>(profilesJson, JsonSettings.Default);
 
         if (serverProfiles is not null && serverProfiles.Count() <= 0)
         {
-            WriteDefaultProfileJson(serverProfilesJson, jsonSerializerSettings);
+            WriteDefaultProfileJson(serverProfilesJson);
             profilesJson = _fileSystemService.ReadFile(serverProfilesJson);
-            return JsonConvert.DeserializeObject<List<ServerProfile>>(profilesJson, jsonSerializerSettings);
+            return JsonSerializer.Deserialize<List<ServerProfile>>(profilesJson, JsonSettings.Default);
         }
 
         return serverProfiles;
@@ -84,7 +84,7 @@ public class ProfileService : IProfileService
                 profile.Name = newProfileName;
 
                 // write the new profile to the json file
-                var output = JsonConvert.SerializeObject(profiles, JsonSettings.Default);
+                var output = JsonSerializer.Serialize(profiles, JsonSettings.Default);
                 var serverProfilesJson = Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON);
                 _logger.LogInfo($"Writing new profile data to {serverProfilesJson}");
                 _fileSystemService.WriteFile(serverProfilesJson, output);
@@ -117,7 +117,7 @@ public class ProfileService : IProfileService
                     _logger.LogInfo($"Renaming restore directory from {profile.RestoreBackup.BackupFilePath} to {profile.RestoreBackup.BackupFilePath.Replace(oldProfileName, newProfileName)}");
                     profile.RestoreBackup.BackupFilePath = profile.RestoreBackup.BackupFilePath.Replace(oldProfileName, newProfileName);
                     _fileSystemService.WriteFile(Path.Join(Constants.Paths.DEFAULT_PROFILES_DIRECTORY, Constants.Files.SERVER_PROFILES_JSON),
-                        JsonConvert.SerializeObject(profiles, JsonSettings.Default));
+                        JsonSerializer.Serialize(profiles, JsonSettings.Default));
                     _logger.LogInfo("Restore directory renamed");
                 }
             }
@@ -133,7 +133,7 @@ public class ProfileService : IProfileService
         }
     }
 
-    private void WriteDefaultProfileJson(string profilePath, JsonSerializerSettings settings)
+    private void WriteDefaultProfileJson(string profilePath)
     {
         var json = new List<ServerProfile>
         {
@@ -143,7 +143,7 @@ public class ProfileService : IProfileService
             }
         };
 
-        var output = JsonConvert.SerializeObject(json, settings);
+        var output = JsonSerializer.Serialize(json, JsonSettings.Default);
         _fileSystemService.WriteFile(profilePath, output);
     }
 }

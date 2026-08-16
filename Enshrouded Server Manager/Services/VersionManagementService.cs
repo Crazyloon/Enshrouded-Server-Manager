@@ -1,21 +1,22 @@
 ﻿using Enshrouded_Server_Manager.Events;
+using Enshrouded_Server_Manager.Helpers;
 using Enshrouded_Server_Manager.Models;
-using Newtonsoft.Json;
-using System.Net;
+using System.Text.Json;
 
 namespace Enshrouded_Server_Manager.Services;
 public class VersionManagementService : IVersionManagementService
 {
     private readonly IFileSystemService _fileSystemService;
     private readonly IEventAggregator _eventAggregator;
+    private readonly IHttpClientService _httpClientService;
 
-    // TODO: Use HTTPClient instead of WebClient
     private const int TIMER_INTERVAL = 10;
 
-    public VersionManagementService(IFileSystemService fsm, IEventAggregator eventAggregator)
+    public VersionManagementService(IFileSystemService fsm, IEventAggregator eventAggregator, IHttpClientService httpClientService)
     {
         _fileSystemService = fsm;
         _eventAggregator = eventAggregator;
+        _httpClientService = httpClientService;
     }
 
     public string SyncVersionText()
@@ -24,7 +25,7 @@ public class VersionManagementService : IVersionManagementService
         {
             var localVersionFilePath = Path.Join(Constants.Paths.MANAGER_VERSION_DIRECTORY, Constants.Files.LOCAL_GITHUB_VERSION_JSON);
             var localVersionFile = _fileSystemService.ReadFile(localVersionFilePath);
-            LauncherVersion deserializedSettings = JsonConvert.DeserializeObject<LauncherVersion>(localVersionFile);
+            LauncherVersion deserializedSettings = JsonSerializer.Deserialize<LauncherVersion>(localVersionFile, JsonSettings.Plain);
             return deserializedSettings.Version;
         }
         catch (Exception)
@@ -47,26 +48,23 @@ public class VersionManagementService : IVersionManagementService
 
     private void CheckManagerVersion(string currentVersionText)
     {
-        using (WebClient Client = new WebClient())
+        try
         {
-            try
+            _httpClientService.Send(Constants.Urls.REMOTE_VERSION_FILE_URL, Constants.Files.LOCAL_GITHUB_VERSION_JSON);
+        }
+        catch (Exception)
+        {
+            LauncherVersion json = new LauncherVersion()
             {
-                Client.DownloadFile(Constants.Urls.REMOTE_VERSION_FILE_URL, Constants.Files.LOCAL_GITHUB_VERSION_JSON);
-            }
-            catch (Exception)
-            {
-                LauncherVersion json = new LauncherVersion()
-                {
-                    Version = currentVersionText,
-                };
+                Version = currentVersionText,
+            };
 
-                var output = JsonConvert.SerializeObject(json);
-                _fileSystemService.WriteFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON, output);
-            }
+            var output = JsonSerializer.Serialize(json, JsonSettings.Plain);
+            _fileSystemService.WriteFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON, output);
         }
         var input = _fileSystemService.ReadFile(Constants.Files.LOCAL_GITHUB_VERSION_JSON);
 
-        LauncherVersion deserializedSettings = JsonConvert.DeserializeObject<LauncherVersion>(input);
+        LauncherVersion deserializedSettings = JsonSerializer.Deserialize<LauncherVersion>(input, JsonSettings.Plain);
 
         string githubversion = deserializedSettings.Version;
         int.TryParse(githubversion.Substring(1).Replace(".", ""), out int ghVersionInt);
